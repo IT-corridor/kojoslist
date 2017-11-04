@@ -16,12 +16,16 @@ class UserProfile(models.Model):
 
 
 class Category(models.Model):
-    parent = models.ForeignKey("Category")
+    parent = models.ForeignKey("Category", blank=True, null=True)
     name = models.CharField(max_length=50)
-    columns = models.IntegerField()
-    
+    columns = models.IntegerField(default=1)
+
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
 
 class Contact(models.Model):

@@ -18,6 +18,7 @@ from django.contrib import admin
 
 from general.views import *
 
+admin.site.site_header = "Kojo's List Admin"
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
