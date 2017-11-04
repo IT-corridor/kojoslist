@@ -18,7 +18,8 @@ class UserProfile(models.Model):
 class Category(models.Model):
     parent = models.ForeignKey("Category")
     name = models.CharField(max_length=50)
-
+    columns = models.IntegerField()
+    
     def __unicode__(self):
         return self.name
 
