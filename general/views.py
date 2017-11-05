@@ -16,3 +16,7 @@ def home(request):
 
 def login(request):
 	return render(request, 'login.html')
+
+def account(request):
+	return render(request, 'account.html')
+
