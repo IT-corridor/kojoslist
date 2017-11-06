@@ -29,4 +29,5 @@ urlpatterns += [
     url(r"^$", home, name="home"),
     url(r"^login$", login, name="login"),
     url(r"^account$", account, name="account"),
+    url(r"^post$", post, name="post"),
 ]
