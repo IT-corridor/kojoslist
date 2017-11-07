@@ -8,4 +8,10 @@ class PostForm(ModelForm):
     class Meta:
         model = Post
         fields = '__all__'
-      
+
+
+class JobPostForm(ModelForm):
+	class Meta:
+		model = JobPost
+		fields = '__all__'
+

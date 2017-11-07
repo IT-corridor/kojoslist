@@ -9,7 +9,7 @@ class CategoryAdmin(admin.ModelAdmin):
 	list_display = ['name', 'parent', 'columns']
 
 admin.site.register(UserProfile)
-admin.site.register(Contact)
+# admin.site.register(Contact)
 admin.site.register(Post)
 admin.site.register(Favourite)
 admin.site.register(Hidden)

@@ -28,7 +28,18 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
 
-class Contact(models.Model):
+class Post(models.Model):
+    title = models.CharField(max_length=100)
+    location = models.CharField(max_length=100, blank=True, null=True)
+    postal_code = models.CharField(max_length=100, blank=True, null=True)
+    content = models.TextField()
+    status = models.CharField(max_length=50, blank=True, null=True)
+    category = models.ForeignKey(Category)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField()
+    owner = models.ForeignKey(User)
+    # contact
     mail_realy = models.BooleanField()
     real_email = models.BooleanField()
     no_reply = models.BooleanField()
@@ -37,27 +48,34 @@ class Contact(models.Model):
     phone = models.CharField(max_length=20, blank=True, null=True)
     extension = models.CharField(max_length=10, blank=True, null=True)
     name = models.CharField(max_length=50, blank=True, null=True)
-
-    def __unicode__(self):
-        return self.name
-
-
-class Post(models.Model):
-    title = models.CharField(max_length=100)
-    location = models.CharField(max_length=100, blank=True, null=True)
-    postal_code = models.CharField(max_length=100, blank=True, null=True)
-    content = models.TextField()
-    status = models.CharField(max_length=50, blank=True, null=True)
-    category = models.ForeignKey(Category)
-    # detail = models.ForeignKey(Detail)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField()
-    owner = models.ForeignKey(User)
-    contact = models.ForeignKey(Contact, blank=True, null=True)
     allow_other_contact = models.BooleanField()
 
     def __unicode__(self):
         return self.title
+
+
+EMPLOYMENT_TYPE = [
+    ('full-time', 'full-time'), 
+    ('part-time', 'part-time'), 
+    ('contract', 'contract'), 
+    ("employee's choice", "employee's choice")
+]
+
+class JobPost(Post):
+    employment_type = models.CharField(choices=EMPLOYMENT_TYPE, max_length=50)
+    direct_contact_by_recruiters_is_okay = models.BooleanField()
+    internship = models.BooleanField()
+    non_profit_organization = models.BooleanField()
+    telecommuting_okay = models.BooleanField()
+    compensation = models.CharField(max_length=200)
+
+
+class SaleGarage(Post):
+    sale_date1 = models.DateField()
+    sale_date2 = models.DateField()
+    sale_date3 = models.DateField()
+    start_time = models.TimeField()
+    include_ads = models.BooleanField()
 
 
 class Search(models.Model):

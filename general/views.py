@@ -208,7 +208,7 @@ POST_DETAIL_CATEGORY = {
         "I'm selling a small number of tickets to an event": PostForm,
         "My business is having a sale": PostForm,
         "I'm offering an event-related service (rentals, transportation, etc.)": PostForm,
-        "I'm advertising a garage sale, estate sale, moving sale, flea market, or other non-corporate sale": PostForm,
+        "I'm advertising a garage sale, estate sale, moving sale, flea market, or other non-corporate sale": ['garage sale', PostForm],
         "I'm advertising a class or training session": PostForm,
         "I'm advertising an event, other than the above": PostForm
     }
