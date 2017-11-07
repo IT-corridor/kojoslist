@@ -6,7 +6,8 @@ from django.contrib import admin
 from .models import *
 
 class CategoryAdmin(admin.ModelAdmin):
-	list_display = ['name', 'parent', 'columns']
+	list_display = ['name', 'parent', 'columns', 'column']
+	search_fields = ['name']
 
 admin.site.register(UserProfile)
 # admin.site.register(Contact)

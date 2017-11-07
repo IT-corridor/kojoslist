@@ -229,5 +229,13 @@ def account(request):
     return render(request, 'account.html')
 
 def post(request):
-    form = PostForm()
-    return render(request, 'post.html', {'form': form})
+    if request.method == 'GET':
+        template = get_template()
+        category = get_category()
+        return render(request, template, {'category': category})
+    else:
+        # a specific parameter
+        form = get_form()
+        if form.is_valid():
+            form.save()
+        return HttpRedirect(request, 'success.html')
