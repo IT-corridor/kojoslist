@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+from django.http import HttpResponse
 
 from general.models import *
 from general.forms import *
@@ -236,13 +237,24 @@ def add_post(request):
     if request.method == 'GET':
         if not cc:
             categories = POST_DETAIL_CATEGORY.keys()
+            request.session['category'] = []
         else:
-            categories = POST_DETAIL_CATEGORY[cc]
+            categories = POST_DETAIL_CATEGORY
+            for tc in request.session['category']:
+                categories = categories[tc]            
 
-        print categories
+            request.session['category'].append(cc)
+            request.session.modified = True
+            if not cc in categories:
+                return HttpResponse('404 No such category!'+str(request.session['category']), status=404)
+            categories = categories[cc]
 
+            if not isinstance(categories, dict):
+                print '#############'
         # template = get_template()
         template = 'add_post.html'
+        print request.session['category'], '$$$$$$$$$$'
+
         return render(request, template, {
             'categories': categories,
             'head': not cc
