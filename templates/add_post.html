@@ -1,21 +1,45 @@
 {% extends "base.html" %}
 
 {% block page_body %}
-	<div class="card" style="height: 100vh; font-size: 16px;">                       
+    <div class="card" style="height: 100vh; font-size: 16px;">                       
         <div class="card-body">
-        {% if head %}
-        <div>please limit each posting to a single area and category, once per 48 hours</div>
-        {% endif %}
-        <div><b>what type of posting is this:</b> (see <a>prohibited</a> list before posting.) </div>
-        {% for category in categories %}
-        	<div>
-	            <label class="radio radio-inline m-r-20">
-	                <input type="radio" name="inlineRadioOptions" value="option1">
-	                <i class="input-helper"></i>  
-	                {{ category }}
-	            </label>
-        	</div>
-        {% endfor %}
+            <div class="row">
+                <div class="col-md-offset-2 col-md-10">
+                    {% if head %}
+                        <div style="line-height: 40px; margin-top: 40px;">please limit each posting to a single area and category, once per 48 hours</div>
+                        <div style="line-height: 40px;" class="m-b-15"><b>what type of posting is this:</b> (see <a>prohibited</a> list before posting.) </div>
+                    {% else %}
+                        <div style="line-height: 40px; margin-top: 40px;" class="m-b-15"><b>what type of posting is this:</b> (see <a>prohibited</a> list before posting.) </div>
+                    {% endif %}
+                    {% for category in categories %}
+                        <div class="m-l-15" style="line-height: 35px;">
+                            <label>
+                                <input type="radio" class="m-r-5 category" name="inlineRadioOptions" value="{{ category }}">
+                                <!-- <i class="input-helper" style="line-height: 35px;"></i>   -->
+                                {{ category }}
+                            </label>
+                        </div>
+                    {% endfor %}
+
+                    <input class="m-l-15 m-t-10 continue" type="button" value="continue">
+                </div>
+            </div>
         </div>
-   	</div>
+    </div>
 {% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+    jQuery(function($) {
+        $(".category").change(function() {
+            category = $(".category:checked").val();
+            location.href = '?cc=' + category;
+        });
+
+        $(".continue").click(function() {
+            category = $(".category:checked").val();
+            location.href = '?cc=' + category;
+        });
+    });
+</script>
+{% endblock %}        
