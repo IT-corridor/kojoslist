@@ -231,6 +231,29 @@ def login(request):
 def account(request):
     return render(request, 'account.html')
 
+def add_post(request):
+    cc = request.GET.get('cc')
+    if request.method == 'GET':
+        if not cc:
+            categories = POST_DETAIL_CATEGORY.keys()
+        else:
+            categories = POST_DETAIL_CATEGORY[cc]
+
+        print categories
+
+        # template = get_template()
+        template = 'add_post.html'
+        return render(request, template, {
+            'categories': categories,
+            'head': not cc
+        })
+    else:
+        # a specific parameter
+        form = get_form()
+        if form.is_valid():
+            form.save()
+        return HttpRedirect(request, 'success.html')
+
 def post(request):
     if request.method == 'GET':
         template = get_template()

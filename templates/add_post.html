@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block page_body %}
+	<div class="card" style="height: 100vh; font-size: 16px;">                       
+        <div class="card-body">
+        {% if head %}
+        <div>please limit each posting to a single area and category, once per 48 hours</div>
+        {% endif %}
+        <div><b>what type of posting is this:</b> (see <a>prohibited</a> list before posting.) </div>
+        {% for category in categories %}
+        	<div>
+	            <label class="radio radio-inline m-r-20">
+	                <input type="radio" name="inlineRadioOptions" value="option1">
+	                <i class="input-helper"></i>  
+	                {{ category }}
+	            </label>
+        	</div>
+        {% endfor %}
+        </div>
+   	</div>
+{% endblock %}
