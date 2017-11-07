@@ -216,10 +216,13 @@ POST_DETAIL_CATEGORY = {
 
 def home(request):
     result = []
-    for mc in Category.objects.filter(parent__isnull=True):
-        cc = Category.objects.filter(parent=mc)
-        cc = [ii.name for ii in cc]
-        result += [(mc.name, mc.columns, cc)]
+    for column in range(1, 4):
+        _result = []
+        for mc in Category.objects.filter(parent__isnull=True, column=column):
+            cc = Category.objects.filter(parent=mc)
+            cc = [ii.name for ii in cc]
+            _result += [(mc.name, mc.columns, cc)]
+        result += [_result]
     return render(request, 'index.html', {'categories': result})
 
 def login(request):
