@@ -40,6 +40,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField()
     owner = models.ForeignKey(User)
+    region = models.CharField(max_length=50, blank=True, null=True)
     # contact
     mail_realy = models.BooleanField()
     real_email = models.BooleanField()
