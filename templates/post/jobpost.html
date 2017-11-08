@@ -94,16 +94,76 @@
 
                 <div class="col-md-12 m-b-20">
                 <div class="col-md-12" style="background-color: #f4f4f4;">
-                    <label for="id_mail_realy">Mail realy:</label><input name="mail_realy" id="id_mail_realy" type="checkbox">
-                    <label for="id_real_email">Real email:</label><input name="real_email" id="id_real_email" type="checkbox">
-                    <label for="id_no_reply">No reply:</label><input name="no_reply" id="id_no_reply" type="checkbox">
-                    <label for="id_by_phone">By phone:</label><input name="by_phone" id="id_by_phone" type="checkbox">
-                    <label for="id_by_text">By text:</label><input name="by_text" id="id_by_text" type="checkbox">
-                    <label for="id_phone">Phone:</label><input name="phone" id="id_phone" maxlength="20" type="text">
-                    <label for="id_extension">Extension:</label><input name="extension" id="id_extension" maxlength="10" type="text">
-                    <label for="id_name">Name:</label><input name="name" id="id_name" maxlength="50" type="text">
-                    <label for="id_allow_other_contact">Allow other contact:</label><input name="allow_other_contact" id="id_allow_other_contact" type="checkbox">
+                    <div class="col-md-5">
+                        <div class="form-group fg-line">
+                            <label class="c-green">email</label>
+                            <input type="text" class="form-control input-mask" name="location" required="" id="id_location" maxlength="100">
+                        </div>
+                        <div>users can also contact me:</div>
+                        <div class="col-sm-6 m-b-20 f-12">
+                            <div class="form-group checkbox">
+                                <label>by phone
+                                <input name="by_phone" id="id_by_phone" type="checkbox" class="form-control">
+                                <i class="input-helper"></i>
+                                </label>
+                            </div>
+                        </div>        
+
+                        <div class="col-sm-6 m-b-20 f-12">
+                            <div class="form-group checkbox">
+                                <label>by text
+                                <input name="by_text" id="id_by_text" type="checkbox" class="form-control">
+                                <i class="input-helper"></i>
+                                </label>
+                            </div>
+                        </div>        
+                    </div>
+
+                    <div class="col-md-7">
+                        <div class="radio m-b-15">
+                            <label>
+                                <input type="radio" name="mail_realy" value="">
+                                <i class="input-helper"></i>
+                                CL mail relay (recommended) 
+                            </label>
+                        </div>
+                        <div class="radio m-b-15">
+                            <label>
+                                <input type="radio" name="real_email" value="">
+                                <i class="input-helper"></i>
+                                show my real email address 
+                            </label>
+                        </div>
+                        <div class="radio m-b-15">
+                            <label>
+                                <input type="radio" name="no_reply" value="">
+                                <i class="input-helper"></i>
+                                no replies to this email 
+                            </label>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group fg-line">
+                                <label>phone number</label>
+                                <input type="text" class="form-control input-mask" name="phone" required="" id="id_title" maxlength="100">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group fg-line">
+                                <label>extension</label>
+                                <input type="text" class="form-control input-mask" name="extension" required="" id="id_title" maxlength="100">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group fg-line">
+                                <label>contact name</label>
+                                <input type="text" class="form-control input-mask" name="name" required="" id="id_title" maxlength="100">
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
+                <input type="button" value="continue" class="pull-right m-t-15">
                 </div>
             </div></div>
     </div></div>
