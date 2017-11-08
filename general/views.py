@@ -445,4 +445,4 @@ def add_post(request):
 def posts(request):
     # return render(request, 'posts.html', {})
     # return render(request, 'post/jobpost.html', {})
-    return render(request, 'post/pure.html', {})
+    return render(request, 'post/salegarage.html', {})

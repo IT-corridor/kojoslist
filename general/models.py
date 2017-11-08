@@ -41,6 +41,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField()
     owner = models.ForeignKey(User)
     region = models.CharField(max_length=50, blank=True, null=True)
+    language = models.CharField(max_length=50, default='english')
     # contact
     mail_relay = models.BooleanField()
     real_email = models.BooleanField()
