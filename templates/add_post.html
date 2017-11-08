@@ -5,12 +5,13 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-offset-2 col-md-10">
-                    {% if head %}
+                    {% if not head %}
                         <div style="line-height: 40px; margin-top: 40px;">please limit each posting to a single area and category, once per 48 hours</div>
                         <div style="line-height: 40px;" class="m-b-15"><b>what type of posting is this:</b> (see <a>prohibited</a> list before posting.) </div>
                     {% else %}
                         <div style="line-height: 40px; margin-top: 40px;" class="m-b-15"><b>what type of posting is this:</b> (see <a>prohibited</a> list before posting.) </div>
                     {% endif %}
+
                     {% for category in categories %}
                         <div class="m-l-15" style="line-height: 35px;">
                             <label>
@@ -21,7 +22,7 @@
                         </div>
                     {% endfor %}
 
-                    <input class="m-l-15 m-t-10 continue" type="button" value="continue">
+                    <input class="m-l-15 m-t-10 continue m-b-20" type="button" value="continue">
                 </div>
             </div>
         </div>

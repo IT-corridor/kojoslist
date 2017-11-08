@@ -11,7 +11,7 @@ from general.forms import *
 POST_DETAIL_CATEGORY = {
     "job offered": {
         "accounting/finance": PostForm,
-        "admin/office": PostForm,
+        "admin/office": ['admin/office', 'jobpost.html', 'JobPostForm'],
         "architect/engineer/cad (no IT/computer jobs here please )": PostForm,
         "art/media/design": PostForm,
         "business/mgmt": PostForm,
@@ -250,27 +250,32 @@ def add_post(request):
             categories = categories[cc]
 
             if not isinstance(categories, dict):
-                print '#############'
-        # template = get_template()
-        template = 'add_post.html'
-        print request.session['category'], '$$$$$$$$$$'
+                category = categories[0]
+                template = categories[1]
+                request.session['form'] = categories[2]
+                request.session.modified = True
 
-        return render(request, template, {
+                return render(request, template, {
+                    'category': category,
+                })
+
+        return render(request, 'add_post.html', {
             'categories': categories,
-            'head': not cc
+            'head': cc
         })
     else:
         # a specific parameter
-        form = get_form()
+        form = request.session['form']
         if form.is_valid():
             form.save()
         return HttpRedirect(request, 'success.html')
 
 def post(request):
     if request.method == 'GET':
-        template = get_template()
-        category = get_category()
-        return render(request, template, {'category': category})
+        template = 'post.html'
+        category = 'get_category()'
+        form = JobPostForm()
+        return render(request, template, {'category': category, 'form': form})
     else:
         # a specific parameter
         form = get_form()
