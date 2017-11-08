@@ -42,7 +42,7 @@ class Post(models.Model):
     owner = models.ForeignKey(User)
     region = models.CharField(max_length=50, blank=True, null=True)
     # contact
-    mail_realy = models.BooleanField()
+    mail_relay = models.BooleanField()
     real_email = models.BooleanField()
     no_reply = models.BooleanField()
     by_phone = models.BooleanField()

@@ -21,3 +21,9 @@ class GaragePostForm(ModelForm):
         model = GaragePost
         fields = '__all__'
 
+
+class SaleGarageForm(ModelForm):
+    class Meta:
+        model = SaleGarage
+        fields = '__all__'
+

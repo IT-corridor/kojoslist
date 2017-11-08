@@ -381,8 +381,8 @@ POST_DETAIL_CATEGORY = {
             "wanted - by owner": PostForm        
         },
         "I'm offering an event-related service (rentals, transportation, etc.)": PostForm,
-        "I'm advertising a garage sale, estate sale, moving sale, flea market, or other non-corporate sale": ['garage sale', PostForm],
-        "I'm advertising a class or training session": ['classes', 'garagepost.html', PostForm],
+        "I'm advertising a garage sale, estate sale, moving sale, flea market, or other non-corporate sale": ['garage sale', 'salegarage.html', 'SaleGarageForm'],
+        "I'm advertising a class or training session": ['classes', 'garagepost.html', 'GaragePostForm'],
         "I'm advertising an event, other than the above": PostForm
     }
 }
@@ -445,4 +445,4 @@ def add_post(request):
 def posts(request):
     # return render(request, 'posts.html', {})
     # return render(request, 'post/jobpost.html', {})
-    return render(request, 'post/garagepost.html', {})
+    return render(request, 'post/pure.html', {})
