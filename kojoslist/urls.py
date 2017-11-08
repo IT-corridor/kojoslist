@@ -30,5 +30,5 @@ urlpatterns += [
     url(r"^login$", login, name="login"),
     url(r"^account$", account, name="account"),
     url(r"^add_post", add_post, name="add_post"),
-    url(r"^post$", post, name="post"),
+    url(r"^posts$", posts, name="posts"),
 ]

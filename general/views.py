@@ -251,7 +251,7 @@ def add_post(request):
 
             if not isinstance(categories, dict):
                 category = categories[0]
-                template = categories[1]
+                template = 'post/' + categories[1]
                 request.session['form'] = categories[2]
                 request.session.modified = True
 
@@ -270,15 +270,5 @@ def add_post(request):
             form.save()
         return HttpRedirect(request, 'success.html')
 
-def post(request):
-    if request.method == 'GET':
-        template = 'post.html'
-        category = 'get_category()'
-        form = JobPostForm()
-        return render(request, template, {'category': category, 'form': form})
-    else:
-        # a specific parameter
-        form = get_form()
-        if form.is_valid():
-            form.save()
-        return HttpRedirect(request, 'success.html')
+def posts(request):
+    return render(request, 'posts.html', {})
