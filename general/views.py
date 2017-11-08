@@ -389,6 +389,8 @@ POST_DETAIL_CATEGORY = {
 
 def home(request):
     result = []
+    return render(request, 'index1.html', {'categories': result})
+
     for column in range(1, 4):
         _result = []
         for mc in Category.objects.filter(parent__isnull=True, column=column):
@@ -443,6 +445,6 @@ def add_post(request):
         return HttpRedirect(request, 'success.html')
 
 def posts(request):
-    # return render(request, 'posts.html', {})
+    return render(request, 'posts.html', {})
     # return render(request, 'post/jobpost.html', {})
     return render(request, 'post/salegarage.html', {})
