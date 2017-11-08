@@ -1,49 +1,110 @@
 {% extends "base.html" %}
 
 {% block page_body %}
-                    
-<label for="id_title">Title:</label><input name="title" required="" id="id_title" maxlength="100" type="text">
-<label for="id_location">Location:</label><input name="location" id="id_location" maxlength="100" type="text">
-<label for="id_postal_code">Postal code:</label><input name="postal_code" id="id_postal_code" maxlength="100" type="text">
-<label for="id_content">Content:</label><textarea name="content" id="id_content" rows="10" cols="40" required=""></textarea>
-<label for="id_status">Status:</label><input name="status" id="id_status" maxlength="50" type="text">
-<label for="id_category">Category:</label>
-<input name="category" required="" id="id_category" value="{{ category }}">
-<label for="id_updated_at">Updated at:</label><input name="updated_at" required="" id="id_updated_at" type="text">
-<label for="id_owner">Owner:</label><select name="owner" required="" id="id_owner">
-  <option value="" selected="">---------</option>
+    <div class="card" style="min-height: 100vh; font-size: 16px;">                       
+        <div class="card-body">
+            <div class="row"><div class="col-md-12 m-t-20">
+                <div class="col-sm-7">
+                    <div class="form-group fg-line">
+                        <label class="c-green">posting title</label>
+                        <input type="text" class="form-control input-mask" name="title" required="" id="id_title" maxlength="100">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group fg-line">
+                        <label>specific location</label>
+                        <input type="text" class="form-control input-mask" name="location" required="" id="id_location" maxlength="100">
+                    </div>
+                </div>                
+                <div class="col-sm-2">
+                    <div class="form-group fg-line">
+                        <label>postal code</label>
+                        <input type="text" class="form-control input-mask" name="postal_code" required="" id="id_postal_code" maxlength="100">
+                    </div>
+                </div>        
 
-  <option value="1">root</option>
-
-</select>
-<label for="id_region">Region:</label><input name="region" id="id_region" maxlength="50" type="text">
-<label for="id_mail_realy">Mail realy:</label><input name="mail_realy" id="id_mail_realy" type="checkbox">
-<label for="id_real_email">Real email:</label><input name="real_email" id="id_real_email" type="checkbox">
-<label for="id_no_reply">No reply:</label><input name="no_reply" id="id_no_reply" type="checkbox">
-<label for="id_by_phone">By phone:</label><input name="by_phone" id="id_by_phone" type="checkbox">
-<label for="id_by_text">By text:</label><input name="by_text" id="id_by_text" type="checkbox">
-<label for="id_phone">Phone:</label><input name="phone" id="id_phone" maxlength="20" type="text">
-<label for="id_extension">Extension:</label><input name="extension" id="id_extension" maxlength="10" type="text">
-<label for="id_name">Name:</label><input name="name" id="id_name" maxlength="50" type="text">
-<label for="id_allow_other_contact">Allow other contact:</label><input name="allow_other_contact" id="id_allow_other_contact" type="checkbox">
-<label for="id_employment_type">Employment type:</label><select name="employment_type" required="" id="id_employment_type">
-  <option value="" selected="">---------</option>
-
-  <option value="full-time">full-time</option>
-
-  <option value="part-time">part-time</option>
-
-  <option value="contract">contract</option>
-
-  <option value="employee's choice">employee's choice</option>
-
-</select>
-<label for="id_direct_contact_by_recruiters_is_okay">Direct contact by recruiters is okay:</label><input name="direct_contact_by_recruiters_is_okay" id="id_direct_contact_by_recruiters_is_okay" type="checkbox">
-<label for="id_internship">Internship:</label><input name="internship" id="id_internship" type="checkbox">
-<label for="id_non_profit_organization">Non profit organization:</label><input name="non_profit_organization" id="id_non_profit_organization" type="checkbox">
-<label for="id_telecommuting_okay">Telecommuting okay:</label><input name="telecommuting_okay" id="id_telecommuting_okay" type="checkbox">
-<label for="id_compensation">Compensation:</label><input name="compensation" required="" id="id_compensation" maxlength="200" type="text">
-                    
+                <div class="col-md-12">
+                <p class="c-green f-500 m-t-20 m-b-20">posting body</p>
+                <div class="form-group">
+                    <div class="fg-line">
+                        <textarea class="form-control" style="background-color: #f4f4f4;" rows="5" name="content" id="id_content"></textarea>
+                    </div>
+                </div>
                 </div>
 
+                <div class="col-md-12 m-b-20">
+                <div class="col-md-12" style="background-color: #f4f4f4;">
+                    <div class="form-group fg-line">
+                        <label class="c-green">employment type</label>
+                        <select name="employment_type" required="" id="id_employment_type" class="form-control">
+                            <option value="" selected="">---------</option>
+                            <option value="full-time">full-time</option>
+                            <option value="part-time">part-time</option>
+                            <option value="contract">contract</option>
+                            <option value="employee's choice">employee's choice</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-3 m-b-20 f-12">
+                        <div class="form-group checkbox">
+                            <label>Direct contact by recruiters is okay
+                            <input name="direct_contact_by_recruiters_is_okay" id="id_direct_contact_by_recruiters_is_okay" type="checkbox" class="form-control">
+                            <i class="input-helper"></i>
+                            </label>
+                        </div>
+                    </div>        
+
+                    <div class="col-sm-3 m-b-20 f-12">
+                        <div class="form-group checkbox">
+                            <label>Internship
+                            <input name="internship" id="id_internship" type="checkbox" class="form-control">
+                            <i class="input-helper"></i>
+                            </label>
+                        </div>
+                    </div>        
+
+                    <div class="col-sm-3 m-b-20 f-12">
+                        <div class="form-group checkbox">
+                            <label>Non profit organization
+                            <input name="non_profit_organization" id="id_non_profit_organization" type="checkbox" class="form-control">
+                            <i class="input-helper"></i>
+                            </label>
+                        </div>
+                    </div>        
+
+                    <div class="col-sm-3 m-b-20 f-12">
+                        <div class="form-group checkbox">
+                            <label>Telecommuting okay
+                            <input name="telecommuting_okay" id="id_telecommuting_okay" type="checkbox" class="form-control">
+                            <i class="input-helper"></i>
+                            </label>
+                        </div>
+                    </div>        
+                </div>
+                </div>
+                
+                <div class="col-sm-12 m-b-20">
+                    <div class="form-group fg-line">
+                        <label class="c-green">compensation</label>
+                        <input type="text" class="form-control input-mask" name="compensation" required="" id="id_compensation" maxlength="100">
+                    </div>
+                </div>
+                    <input type="hidden" name="category" required="" id="id_category" value="{{ category }}">                        
+                    <input type="hidden" name="owner" required="" id="id_owner">
+
+                <div class="col-md-12 m-b-20">
+                <div class="col-md-12" style="background-color: #f4f4f4;">
+                    <label for="id_mail_realy">Mail realy:</label><input name="mail_realy" id="id_mail_realy" type="checkbox">
+                    <label for="id_real_email">Real email:</label><input name="real_email" id="id_real_email" type="checkbox">
+                    <label for="id_no_reply">No reply:</label><input name="no_reply" id="id_no_reply" type="checkbox">
+                    <label for="id_by_phone">By phone:</label><input name="by_phone" id="id_by_phone" type="checkbox">
+                    <label for="id_by_text">By text:</label><input name="by_text" id="id_by_text" type="checkbox">
+                    <label for="id_phone">Phone:</label><input name="phone" id="id_phone" maxlength="20" type="text">
+                    <label for="id_extension">Extension:</label><input name="extension" id="id_extension" maxlength="10" type="text">
+                    <label for="id_name">Name:</label><input name="name" id="id_name" maxlength="50" type="text">
+                    <label for="id_allow_other_contact">Allow other contact:</label><input name="allow_other_contact" id="id_allow_other_contact" type="checkbox">
+                </div>
+                </div>
+            </div></div>
+    </div></div>
 {% endblock %}
