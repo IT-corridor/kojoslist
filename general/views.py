@@ -271,5 +271,6 @@ def add_post(request):
         return HttpRedirect(request, 'success.html')
 
 def posts(request):
-    return render(request, 'posts.html', {})
+    # return render(request, 'posts.html', {})
     # return render(request, 'post/jobpost.html', {})
+    return render(request, 'post/garagepost.html', {})
