@@ -72,6 +72,11 @@ class JobPost(Post):
     compensation = models.CharField(max_length=200)
 
 
+class GaragePost(Post):
+    start_day = models.DateField()
+    duration = models.IntegerField()
+
+
 class SaleGarage(Post):
     sale_date1 = models.DateField()
     sale_date2 = models.DateField()

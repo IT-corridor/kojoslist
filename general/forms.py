@@ -11,7 +11,13 @@ class PostForm(ModelForm):
 
 
 class JobPostForm(ModelForm):
-	class Meta:
-		model = JobPost
-		fields = '__all__'
+    class Meta:
+        model = JobPost
+        fields = '__all__'
+
+
+class GaragePostForm(ModelForm):
+    class Meta:
+        model = GaragePost
+        fields = '__all__'
 
