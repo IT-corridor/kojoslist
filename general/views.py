@@ -446,7 +446,7 @@ def ajax_region(request):
         result = [{'no': num_states, 'id': state.id, 'name': state.name, 'type': 'regions', 'country_id': state.country_id} 
                   for state in states]
         if not result:
-            result = [{'msg': 'not found', 'type': 'regions'}]
+            result = [{'msg': 'not found', 'type': 'regions', 'no': 0}]
     else:
         if sec_name:
             state_id = sec_name.split(',')[0]
@@ -455,7 +455,7 @@ def ajax_region(request):
         result = [{'no': num_cities, 'id': city.id, 'name': city.name, 'type': 'cities', 'state_id': city.state_id} 
                   for city in cities]
         if not result:
-            result = [{'msg': 'not found', 'type': 'cities'}]
+            result = [{'msg': 'not found', 'type': 'cities', 'no': 0}]
 
     return JsonResponse(result, safe=False)
 
