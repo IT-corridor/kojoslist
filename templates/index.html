@@ -1,86 +1,95 @@
-{% extends "base.html" %}
-{% load staticfiles %}
+{% extends "base.html" %} 
+{% load staticfiles %} 
 
 {% block page_content %}
 <div id="page" class="site">
-	<div class="site-inner">
+    <div class="site-inner">
 
-		<!-- Header -->
-		<header>
-			<!-- Header Menu -->
-			<div class="header-menu">
-				<nav class="navbar">
-					<div class="container">
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-							<div class="navbar-brand">
-								<a href="/" class="custom-logo-link" rel="home" itemprop="url"><img width="240" height="67" src="/static/img/cropped-logo.png" class="custom-logo" alt="" itemprop="logo" /></a>							</div>
-						</div>
-						<div class="collapse navbar-collapse" id="myNavbar">
+        <!-- Header -->
+        <header>
+            <!-- Header Menu -->
+            <div class="header-menu">
+                <nav class="navbar">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <div class="navbar-brand">
+                                <a href="/" class="custom-logo-link" rel="home" itemprop="url"><img width="240" height="67" src="/static/img/cropped-logo.png" class="custom-logo" alt="" itemprop="logo" /></a>
+                            </div>
+                        </div>
+                        <div class="collapse navbar-collapse" id="myNavbar">
 
-							
-								<div id="site-header-menu" class="site-header-menu">
-																			<nav id="site-navigation" class="main-navigation" role="navigation" aria-label="Primary Menu">
-											<div class="menu-main-menu-container"><ul id="menu-main-menu" class="nav navbar-nav navbar-right"><li><a href="javascript:void(0);" data-toggle="modal" data-target="#LoginModal">Login</a></li><li><a href="javascript:void(0);" data-toggle="modal" data-target="#SignUpModal">Sign Up</a></li><li id="menu-item-13" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13"><a href="http://globalboard.world/about/">About</a></li>
-<li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27"><a href="http://globalboard.world/contact-us/">Contact Us</a></li>
-</ul></div>										</nav><!-- .main-navigation -->
-																	</div><!-- .site-header-menu -->
-													</div>
-					</div>
-				</nav>
-			</div>
-			<!-- End Header Menu -->
-		</header>
-		<!-- End Header -->
+                            <div id="site-header-menu" class="site-header-menu">
+                                <nav id="site-navigation" class="main-navigation" role="navigation" aria-label="Primary Menu">
+                                    <div class="menu-main-menu-container">
+                                        <ul id="menu-main-menu" class="nav navbar-nav navbar-right">
+                                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#LoginModal">Login</a></li>
+                                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#SignUpModal">Sign Up</a></li>
+                                            <li id="menu-item-13" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13"><a href="http://globalboard.world/about/">About</a></li>
+                                            <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27"><a href="http://globalboard.world/contact-us/">Contact Us</a></li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                                <!-- .main-navigation -->
+                            </div>
+                            <!-- .site-header-menu -->
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <!-- End Header Menu -->
+        </header>
+        <!-- End Header -->
 
-		<div id="content" class="site-content">
-<!-- Content -->
+        <div id="content" class="site-content">
+            <!-- Content -->
 
-<div id="content">
+            <div id="content">
 
-    <div class="container-fluid">
-
-    <div class="row">
-                <div class="full-map-section">
-
-            				<div id="main_map"></div>
-                <div class="container hedle_zoom">
+                <div class="container-fluid">
 
                     <div class="row">
+                        <div class="full-map-section">
 
-                        <div class="col-md-12">
-                            
-                                <h1>view <span style="color: #4dbee2;">ads</span> from all over the world</h1>
-<div class="btn-view-all-center"><a href="http://globalboard.world/view-all/" id="main_page_button" class="btn btn-default btn-view-all">View Ads from All Countries</a></div>
+                            <div id="main_map"></div>
+                            <div class="container hedle_zoom">
 
-                            
+                                <div class="row">
 
+                                    <div class="col-md-12">
+
+                                        <h1>view <span style="color: #4dbee2;">ads</span> from all over the world</h1>
+                                        <div class="btn-view-all-center"><a href="http://globalboard.world/view-all/" id="main_page_button" class="btn btn-default btn-view-all">View Ads from All Countries</a></div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="home-page-country">
 
-                </div>
+                            <div class="container">
 
-            </div>
+                                <div class="row">
 
+                                    <div class="col-md-12">
 
+                                        <div class="content-select-country clearfix">
 
-            <div class="home-page-country">
+                                            {% autoescape off %}{{ rndr_str }}{% endautoescape %}
 
-                <div class="container">
+                                        </div>
 
-                    <div class="row">
+                                    </div>
 
-                        <div class="col-md-12">
-
-                            <div class="content-select-country clearfix">
-
-                                        {% autoescape off %}{{ rndr_str }}{% endautoescape %} 
+                                </div>
 
                             </div>
 
@@ -92,221 +101,262 @@
 
             </div>
 
+            <!-- End Content -->
         </div>
+        <!-- .site-content -->
+        <footer id="colophon" class="site-footer" role="contentinfo">
 
-    </div>
-
-</div>
-
-<!-- End Content -->
-		</div><!-- .site-content -->
-		<footer id="colophon" class="site-footer" role="contentinfo">
-
-			<div class="container">
-				<div class="row">
-					<!-- Footer Top -->
-					<div class="footer-top clearfix">
-						<div class="col-sm-3 col-xs-6">
-							<section id="text-2" class="widget widget_text"><h4 class="widget-title">About Us</h4>			<div class="textwidget"><ul>
-                        <li><a href="http://globalboard.world/why-global-board/">Why Global Board?</a></li>
-                        <li><a href="http://globalboard.world/about/">GlobalBoard Is</a></li>
-                        <li><a href="http://globalboard.world/contact-us/">Contact Us</a></li>
-                    </ul></div>
-		</section>						</div>
-						<div class="col-sm-3 col-xs-6">
-							<section id="text-3" class="widget widget_text"><h4 class="widget-title">Services</h4>			<div class="textwidget"><ul>
-                        <li><a href="http://globalboard.world/how-it-works/">How it works?</a></li>
-                        <li><a href="http://globalboard.world/why-use/">Why use?</a></li>
-                        <li><a href="http://globalboard.world/terms-of-use/">Terms & Privacy</a></li>
-                    </ul></div>
-		</section>						</div>
-						<div class="col-sm-3 col-xs-6">
-							<section id="text-4" class="widget widget_text"><h4 class="widget-title">Global Board</h4>			<div class="textwidget"> <ul>
-                        <li><a href="http://globalboard.world/customer-support/">Customer Support</a></li>
-                        <li><a href="http://globalboard.world/faq/">FAQ</a></li>
-                       <!--<li><a href="#">Press Center</a></li>-->
-                    </ul></div>
-		</section>						</div>
-						<div class="col-sm-3 col-xs-6">
-							<section id="text-5" class="widget widget_text"><h4 class="widget-title">Follow Us</h4>			<div class="textwidget"> <ul class="social-icons">
-                        <li>
-                            <a href="https://www.facebook.com/globalboard.world"><i class="fa fa-facebook" aria-hidden="true"></i>
+            <div class="container">
+                <div class="row">
+                    <!-- Footer Top -->
+                    <div class="footer-top clearfix">
+                        <div class="col-sm-3 col-xs-6">
+                            <section id="text-2" class="widget widget_text">
+                                <h4 class="widget-title">About Us</h4>
+                                <div class="textwidget">
+                                    <ul>
+                                        <li><a href="http://globalboard.world/why-global-board/">Why Global Board?</a></li>
+                                        <li><a href="http://globalboard.world/about/">GlobalBoard Is</a></li>
+                                        <li><a href="http://globalboard.world/contact-us/">Contact Us</a></li>
+                                    </ul>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                            <section id="text-3" class="widget widget_text">
+                                <h4 class="widget-title">Services</h4>
+                                <div class="textwidget">
+                                    <ul>
+                                        <li><a href="http://globalboard.world/how-it-works/">How it works?</a></li>
+                                        <li><a href="http://globalboard.world/why-use/">Why use?</a></li>
+                                        <li><a href="http://globalboard.world/terms-of-use/">Terms & Privacy</a></li>
+                                    </ul>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                            <section id="text-4" class="widget widget_text">
+                                <h4 class="widget-title">Global Board</h4>
+                                <div class="textwidget">
+                                    <ul>
+                                        <li><a href="http://globalboard.world/customer-support/">Customer Support</a></li>
+                                        <li><a href="http://globalboard.world/faq/">FAQ</a></li>
+                                        <!--<li><a href="#">Press Center</a></li>-->
+                                    </ul>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                            <section id="text-5" class="widget widget_text">
+                                <h4 class="widget-title">Follow Us</h4>
+                                <div class="textwidget">
+                                    <ul class="social-icons">
+                                        <li>
+                                            <a href="https://www.facebook.com/globalboard.world"><i class="fa fa-facebook" aria-hidden="true"></i>
 </a>
-                            <a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile"><i class="fa fa-linkedin" aria-hidden="true"></i>
+                                            <a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile"><i class="fa fa-linkedin" aria-hidden="true"></i>
 </a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i>
 </a>
-                            <a href="https://www.instagram.com/globalboard.world/"><i class="fa fa-instagram" aria-hidden="true"></i>
+                                            <a href="https://www.instagram.com/globalboard.world/"><i class="fa fa-instagram" aria-hidden="true"></i>
 </a>
-                        </li>
-                    </ul></div>
-		</section>						</div>
-					</div>
-				</div>
-			<div class="site-info">
-								&copy Copyright  2017 GlobalBoard			</div><!-- .site-info -->
-		</footer><!-- .site-footer -->
-	</div><!-- .site-inner -->
-</div><!-- .site -->
-
-
-	<div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="LoginModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-			<a href="#" class="userpro-close-popup">Close</a>	
-<div class="userpro userpro-920 userpro-float"  data-modal_profile_saved='Your profile has been saved!' data-template='login' data-max_width='480px' data-uploads_dir='http://globalboard.world/wp-content/uploads/userpro/' data-default_avatar_male='/static/plugins/userpro/img/default_avatar_male.jpg' data-default_avatar_female='/static/plugins/userpro/img/default_avatar_female.jpg' data-layout='float' data-margin_top='0' data-margin_bottom='30px' data-align='center' data-skin='elegant' data-required_text='This field is required' data-password_too_short='Your password is too short' data-passwords_do_not_match='Passwords do not match' data-password_not_strong='Password is not strong enough' data-keep_one_section_open='0' data-allow_sections='1' data-permalink='http://globalboard.world/' data-field_icons='1' data-profile_thumb_size='80' data-register_heading='Register an Account' data-register_side='Already a member?' data-register_side_action='login' data-register_button_action='login' data-register_button_primary='Register' data-register_button_secondary='Login' data-register_group='default' data-register_redirect='0' data-type='0' data-force_redirect_uri='0' data-login_heading='Login' data-login_side='Forgot your password?' data-login_side_action='reset' data-login_resend='Resend verification email?' data-login_resend_action='resend' data-login_button_action='register' data-login_button_primary='Login' data-login_button_secondary='Create an Account' data-login_group='default' data-login_redirect='0' data-rememberme='true' data-delete_heading='Delete Profile' data-delete_side='Undo, back to profile' data-delete_side_action='view' data-delete_button_action='view' data-delete_button_primary='Confirm Deletion' data-delete_button_secondary='Back to Profile' data-delete_group='default' data-reset_heading='Reset Password' data-reset_side='Back to Login' data-reset_side_action='login' data-reset_button_action='change' data-reset_button_primary='Request Secret Key' data-reset_button_secondary='Change your Password' data-reset_group='default' data-resend_heading='Resend email' data-resend_side='Back to Login' data-resend_side_action='login' data-resend_button_action='resend' data-resend_button_primary='Resend verification email' data-change_heading='Change your Password' data-change_side='Request New Key' data-change_side_action='reset' data-change_button_action='reset' data-change_button_primary='Change my Password' data-change_button_secondary='Do not have a secret key?' data-change_group='default' data-list_heading='Latest Members' data-list_per_page='5' data-list_sortby='registered' data-list_order='desc' data-list_users='0' data-list_group='default' data-list_thumb='50' data-list_showthumb='1' data-list_showsocial='1' data-list_showbio='0' data-list_verified='0' data-list_relation='or' data-list_popup_view='0' data-online_heading='Who is online now' data-online_thumb='30' data-online_showthumb='1' data-online_showsocial='0' data-online_showbio='0' data-online_mini='1' data-online_mode='vertical' data-edit_button_primary='Save Changes' data-edit_group='default' data-view_group='default' data-social_target='_blank' data-social_group='default' data-card_width='250px' data-card_img_width='250' data-card_showbio='1' data-card_showsocial='1' data-usercanedit='1' data-link_target='_blank' data-error_heading='An error has occured' data-memberlist_table='0' data-memberlist_table_columns='user_id,picture,name,country,gender,role,email_user,message_user' data-show_on_mobile='picture,name,country,email_user,message_user' data-memberlist_v2='1' data-memberlist_v2_pic_size='86' data-memberlist_v2_fields='age,gender,country' data-memberlist_v2_bio='1' data-memberlist_v2_showbadges='1' data-memberlist_v2_showname='1' data-memberlist_v2_showsocial='1' data-memberlist_pic_size='120' data-memberlist_pic_topspace='15' data-memberlist_pic_sidespace='30' data-memberlist_pic_rounded='1' data-memberlist_width='100%' data-memberlist_paginate='1' data-memberlist_paginate_top='1' data-memberlist_paginate_bottom='1' data-memberlist_show_name='1' data-memberlist_popup_view='0' data-memberlist_withavatar='0' data-memberlist_verified='0' data-memberlist_filters='0' data-memberlist_default_search='1' data-memberlist_show_follow='0' data-per_page='12' data-sortby='registered' data-order='desc' data-relation='and' data-search='1' data-exclude='0' data-show_social='1' data-registration_closed_side='Existing member? login' data-registration_closed_side_action='login' data-facebook_redirect='profile' data-logout_redirect='0' data-post_paginate='1' data-postsbyuser_num='12' data-postsbyuser_types='post' data-postsbyuser_mode='grid' data-postsbyuser_thumb='50' data-postsbyuser_showthumb='1' data-postsbyuser_taxonomy='category' data-postsbyuser_category='0' data-following_per_page='4' data-following_paginate='1' data-followers_per_page='4' data-followers_paginate='1' data-publish_heading='Add a New Post' data-publish_button_primary='Publish' data-following_heading='Following' data-followers_heading='Followers' data-activity_heading='Recent Activity' data-activity_all='0' data-activity_per_page='10' data-activity_side='refresh' data-activity_user='0' data-emd_filters='1' data-emd_thumb='200' data-emd_social='1' data-emd_bio='1' data-emd_fields='first_name,last_name,gender,country' data-emd_layout='masonry' data-emd_per_page='20' data-emd_col_width='22%' data-emd_col_margin='2%' data-emd_accountstatus='Search by account status' data-emd_photopreference='Photo Preference' data-emd_country='Search by Country,dropdown' data-emd_gender='Gender,radio' data-emd_paginate='1' data-emd_paginate_top='1' data-collage_per_page='20'>
-
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<h2 class="modal-h2 text-transform-normal">Login</h2>
-	</div>
-
-
-	<div class="modal-body">
-		<div class="my-modal-body">
-	
-			
-			<form action="" method="post" data-action="login">
-
-				
-				<input type="hidden" name="force_redirect_uri-920" id="force_redirect_uri-920" value="0" />
-				<input type="hidden" name="redirect_uri-920" id="redirect_uri-920" value="" />
-
-				<input type="hidden" id="_myuserpro_nonce" name="_myuserpro_nonce" value="3f13e31447" /><input type="hidden" name="_wp_http_referer" value="/" />		<input type="hidden" name="unique_id" id="unique_id" value="920" />
-		
-				
-					<div class="form-group my-form-group">
-						<div class='userpro-field userpro-field-username_or_email ' data-key='username_or_email'><div class='userpro-input'><input type='text' name='username_or_email-920' id='username_or_email-920' value="" placeholder='Username'  data-ajaxcheck='' data-help='' data-label='' data-placeholder='Username' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='text' data-woo='0' data-icon='' /><div class='userpro-clear'></div></div></div><div class='userpro-clear'></div>					</div>
-
-				
-					<div class="form-group my-form-group">
-						<div class='userpro-field userpro-field-user_pass ' data-key='user_pass'><div class='userpro-input'><input type='password' name='user_pass-920' id='user_pass-920' value='' placeholder='Password' autocomplete='off'  data-ajaxcheck='' data-help='Your password must be 8 characters long at least.' data-label='' data-placeholder='Password' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='password' data-woo='0' /><div class='userpro-clear'></div></div></div><div class='userpro-clear'></div>					</div>
-
-				
-									<div class="userpro-right"><a href="#" class="forgot-password" data-template="reset">Forgot?</a>
-													<a href="#" class="forgot-password" data-template="resend">Resend verification email?</a>					</div>
-				<!--				<div class="userpro-clear"></div>-->
-
-				
-							
-			<div class="userpro-column">
-				<div class="userpro-field userpro-field-compact">
-					<div class="userpro-input">
-					
-						<div class='userpro-checkbox-wrap'>
-							<label class='userpro-checkbox hide-field'>
-								<span></span>
-								<input type='checkbox' name='rememberme-920' id='rememberme-920' value="true" />Remember me							</label>
-						</div>
-						
-					</div>
-				</div>
-			</div><div class="userpro-clear"></div>
-			
-			
-				
-
-					<div class="userpro-social-connect"></div><div class="userpro-clear"></div>
-										<input type="submit" value="Login" class="btn btn-default btn-view-all advanced-search" />
-					
-										<input type="button" value="First time here? Sign Up" class="btn btn-default fileUpload advanced-search" data-template="register" />
-					
-					<img src="/static/plugins/userpro/skins/elegant/img/loading.gif" alt="" class="userpro-loading" />
-					<div class="userpro-clear"></div>
-
-
-				
-			</form>
-
-		</div>
-
-	</div>
-</div>
-
-
-
-
-        </div>
-    </div>
-	</div>
-	<div class="modal fade" id="SignUpModal" tabindex="-1" role="dialog" aria-labelledby="SignUpModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-			<a href="#" class="userpro-close-popup">Close</a>
-<div class="userpro userpro-991 userpro-float"  data-modal_profile_saved='Your profile has been saved!' data-template='register' data-max_width='480px' data-uploads_dir='http://globalboard.world/wp-content/uploads/userpro/' data-default_avatar_male='/static/plugins/userpro/img/default_avatar_male.jpg' data-default_avatar_female='/static/plugins/userpro/img/default_avatar_female.jpg' data-layout='float' data-margin_top='0' data-margin_bottom='30px' data-align='center' data-skin='elegant' data-required_text='This field is required' data-password_too_short='Your password is too short' data-passwords_do_not_match='Passwords do not match' data-password_not_strong='Password is not strong enough' data-keep_one_section_open='0' data-allow_sections='1' data-permalink='http://globalboard.world/' data-field_icons='1' data-profile_thumb_size='80' data-register_heading='Register an Account' data-register_side='Already a member?' data-register_side_action='login' data-register_button_action='login' data-register_button_primary='Sign Up' data-register_button_secondary='Login' data-register_group='default' data-register_redirect='0' data-type='0' data-force_redirect_uri='0' data-login_heading='Login' data-login_side='Forgot your password?' data-login_side_action='reset' data-login_resend='Resend verification email?' data-login_resend_action='resend' data-login_button_action='register' data-login_button_primary='Login' data-login_button_secondary='Create an Account' data-login_group='default' data-login_redirect='0' data-rememberme='true' data-delete_heading='Delete Profile' data-delete_side='Undo, back to profile' data-delete_side_action='view' data-delete_button_action='view' data-delete_button_primary='Confirm Deletion' data-delete_button_secondary='Back to Profile' data-delete_group='default' data-reset_heading='Reset Password' data-reset_side='Back to Login' data-reset_side_action='login' data-reset_button_action='change' data-reset_button_primary='Request Secret Key' data-reset_button_secondary='Change your Password' data-reset_group='default' data-resend_heading='Resend email' data-resend_side='Back to Login' data-resend_side_action='login' data-resend_button_action='resend' data-resend_button_primary='Resend verification email' data-change_heading='Change your Password' data-change_side='Request New Key' data-change_side_action='reset' data-change_button_action='reset' data-change_button_primary='Change my Password' data-change_button_secondary='Do not have a secret key?' data-change_group='default' data-list_heading='Latest Members' data-list_per_page='5' data-list_sortby='registered' data-list_order='desc' data-list_users='0' data-list_group='default' data-list_thumb='50' data-list_showthumb='1' data-list_showsocial='1' data-list_showbio='0' data-list_verified='0' data-list_relation='or' data-list_popup_view='0' data-online_heading='Who is online now' data-online_thumb='30' data-online_showthumb='1' data-online_showsocial='0' data-online_showbio='0' data-online_mini='1' data-online_mode='vertical' data-edit_button_primary='Save Changes' data-edit_group='default' data-view_group='default' data-social_target='_blank' data-social_group='default' data-card_width='250px' data-card_img_width='250' data-card_showbio='1' data-card_showsocial='1' data-usercanedit='1' data-link_target='_blank' data-error_heading='An error has occured' data-memberlist_table='0' data-memberlist_table_columns='user_id,picture,name,country,gender,role,email_user,message_user' data-show_on_mobile='picture,name,country,email_user,message_user' data-memberlist_v2='1' data-memberlist_v2_pic_size='86' data-memberlist_v2_fields='age,gender,country' data-memberlist_v2_bio='1' data-memberlist_v2_showbadges='1' data-memberlist_v2_showname='1' data-memberlist_v2_showsocial='1' data-memberlist_pic_size='120' data-memberlist_pic_topspace='15' data-memberlist_pic_sidespace='30' data-memberlist_pic_rounded='1' data-memberlist_width='100%' data-memberlist_paginate='1' data-memberlist_paginate_top='1' data-memberlist_paginate_bottom='1' data-memberlist_show_name='1' data-memberlist_popup_view='0' data-memberlist_withavatar='0' data-memberlist_verified='0' data-memberlist_filters='0' data-memberlist_default_search='1' data-memberlist_show_follow='0' data-per_page='12' data-sortby='registered' data-order='desc' data-relation='and' data-search='1' data-exclude='0' data-show_social='1' data-registration_closed_side='Existing member? login' data-registration_closed_side_action='login' data-facebook_redirect='profile' data-logout_redirect='0' data-post_paginate='1' data-postsbyuser_num='12' data-postsbyuser_types='post' data-postsbyuser_mode='grid' data-postsbyuser_thumb='50' data-postsbyuser_showthumb='1' data-postsbyuser_taxonomy='category' data-postsbyuser_category='0' data-following_per_page='4' data-following_paginate='1' data-followers_per_page='4' data-followers_paginate='1' data-publish_heading='Add a New Post' data-publish_button_primary='Publish' data-following_heading='Following' data-followers_heading='Followers' data-activity_heading='Recent Activity' data-activity_all='0' data-activity_per_page='10' data-activity_side='refresh' data-activity_user='0' data-emd_filters='1' data-emd_thumb='200' data-emd_social='1' data-emd_bio='1' data-emd_fields='first_name,last_name,gender,country' data-emd_layout='masonry' data-emd_per_page='20' data-emd_col_width='22%' data-emd_col_margin='2%' data-emd_accountstatus='Search by account status' data-emd_photopreference='Photo Preference' data-emd_country='Search by Country,dropdown' data-emd_gender='Gender,radio' data-emd_paginate='1' data-emd_paginate_top='1' data-collage_per_page='20'>
-
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<h2 class="modal-h2 text-transform-normal">Sign Up</h2>
-	</div>
-
-	<div class="modal-body">
-		<div class="my-modal-body">
-
-						
-			<form action="" method="post" data-action="register">
-
-				<input type="hidden" name="redirect_uri-991" id="redirect_uri-991" value="" />
-
-				<input type="hidden" id="_myuserpro_nonce" name="_myuserpro_nonce" value="ca12a4893c" /><input type="hidden" name="_wp_http_referer" value="/" />		<input type="hidden" name="unique_id" id="unique_id" value="991" />
-		
-				
-									<div class="form-group my-form-group">
-						<div class='userpro-field userpro-field-user_login ' data-key='user_login'><div class='userpro-input'><input type='text' name='user_login-991' id='user_login-991' value="" placeholder='Username'  data-ajaxcheck='username_exists' data-help='' data-label='' data-placeholder='Username' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='text' data-woo='0' /><div class='userpro-clear'></div></div></div><div class='userpro-clear'></div>					</div>
-									<div class="form-group my-form-group">
-						<div class='userpro-field userpro-field-user_email ' data-key='user_email'><div class='userpro-input'><input type='text' name='user_email-991' id='user_email-991' value="" placeholder='E-mail'  data-ajaxcheck='email_exists' data-help='' data-label='' data-placeholder='E-mail' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='text' data-woo='0' /><div class='userpro-clear'></div></div></div><div class='userpro-clear'></div>					</div>
-									<div class="form-group my-form-group">
-						<div class='userpro-field userpro-field-user_pass ' data-key='user_pass'><div class='userpro-input'><input type='password' name='user_pass-991' id='user_pass-991' value='' placeholder='Password' autocomplete='off'  data-ajaxcheck='' data-help='' data-label='' data-placeholder='Password' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='password' data-woo='0' /><div class='userpro-clear'></div></div></div><div class='userpro-clear'></div>					</div>
-									<div class="form-group my-form-group">
-						<div class='userpro-field userpro-field-user_pass_confirm ' data-key='user_pass_confirm'><div class='userpro-input'><input type='password' name='user_pass_confirm-991' id='user_pass_confirm-991' value='' placeholder='Confirm Password' autocomplete='off'  data-ajaxcheck='' data-help='' data-label='' data-placeholder='Confirm Password' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='password' data-woo='0' /><div class='userpro-clear'></div></div></div><div class='userpro-clear'></div>					</div>
-								
-
-
-
-				
-				
-				
-					<div class="userpro-social-connect"></div><div class="userpro-clear"></div>
-											<input type="submit" value="Sign Up" class="btn btn-default btn-view-all advanced-search" />
-					
-											<input type="button" value="Already member? Login" class="btn btn-default fileUpload advanced-search" data-template="login" />
-					
-					<img src="/static/plugins/userpro/skins/elegant/img/loading.gif" alt="" class="userpro-loading" />
-					<div class="userpro-clear"></div>
-
-				
-			</form>
-
-		</div>
-	</div>
-</div>
-
-
-        </div>
-    </div>
-	</div>
-	<div class="modal fade" id="ForgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="ForgotPasswordModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h2 class="modal-h2 text-transform-normal">Sign Up</h2>
-            </div>
-            <div class="modal-body">
-                <div class="my-modal-body">
-                    <p class="gmt forgot-p">Enter your email address to reset password</p>
-                    <div class="form-group my-form-group">
-                        <label for="ForgotMail" class="my-label">Email</label>
-                        <input type="text" class="form-control input-control" id="ForgotMail" placeholder="michael@gmail.com">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </section>
+                        </div>
                     </div>
-                    <button type="button" class="btn btn-default btn-view-all advanced-search">Send</button>
-                    <button type="button" class="btn btn-default fileUpload advanced-search">Back to Log in</button>
+                </div>
+                <div class="site-info">
+                    &copy Copyright 2017 GlobalBoard </div>
+                <!-- .site-info -->
+        </footer>
+        <!-- .site-footer -->
+        </div>
+        <!-- .site-inner -->
+    </div>
+    <!-- .site -->
+
+    <div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="LoginModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <a href="#" class="userpro-close-popup">Close</a>
+                <div class="userpro userpro-920 userpro-float" data-modal_profile_saved='Your profile has been saved!' data-template='login' data-max_width='480px' data-uploads_dir='http://globalboard.world/wp-content/uploads/userpro/' data-default_avatar_male='/static/plugins/userpro/img/default_avatar_male.jpg' data-default_avatar_female='/static/plugins/userpro/img/default_avatar_female.jpg' data-layout='float' data-margin_top='0' data-margin_bottom='30px' data-align='center' data-skin='elegant' data-required_text='This field is required' data-password_too_short='Your password is too short' data-passwords_do_not_match='Passwords do not match' data-password_not_strong='Password is not strong enough' data-keep_one_section_open='0' data-allow_sections='1' data-permalink='http://globalboard.world/' data-field_icons='1' data-profile_thumb_size='80' data-register_heading='Register an Account' data-register_side='Already a member?' data-register_side_action='login' data-register_button_action='login' data-register_button_primary='Register' data-register_button_secondary='Login' data-register_group='default' data-register_redirect='0' data-type='0' data-force_redirect_uri='0' data-login_heading='Login' data-login_side='Forgot your password?' data-login_side_action='reset' data-login_resend='Resend verification email?' data-login_resend_action='resend' data-login_button_action='register' data-login_button_primary='Login' data-login_button_secondary='Create an Account' data-login_group='default' data-login_redirect='0' data-rememberme='true' data-delete_heading='Delete Profile' data-delete_side='Undo, back to profile' data-delete_side_action='view' data-delete_button_action='view' data-delete_button_primary='Confirm Deletion' data-delete_button_secondary='Back to Profile' data-delete_group='default' data-reset_heading='Reset Password' data-reset_side='Back to Login' data-reset_side_action='login' data-reset_button_action='change' data-reset_button_primary='Request Secret Key' data-reset_button_secondary='Change your Password' data-reset_group='default' data-resend_heading='Resend email' data-resend_side='Back to Login' data-resend_side_action='login' data-resend_button_action='resend' data-resend_button_primary='Resend verification email' data-change_heading='Change your Password' data-change_side='Request New Key' data-change_side_action='reset' data-change_button_action='reset' data-change_button_primary='Change my Password' data-change_button_secondary='Do not have a secret key?' data-change_group='default' data-list_heading='Latest Members' data-list_per_page='5' data-list_sortby='registered' data-list_order='desc' data-list_users='0' data-list_group='default' data-list_thumb='50' data-list_showthumb='1' data-list_showsocial='1' data-list_showbio='0' data-list_verified='0' data-list_relation='or' data-list_popup_view='0' data-online_heading='Who is online now' data-online_thumb='30' data-online_showthumb='1' data-online_showsocial='0' data-online_showbio='0' data-online_mini='1' data-online_mode='vertical' data-edit_button_primary='Save Changes' data-edit_group='default' data-view_group='default' data-social_target='_blank' data-social_group='default' data-card_width='250px' data-card_img_width='250' data-card_showbio='1' data-card_showsocial='1' data-usercanedit='1' data-link_target='_blank' data-error_heading='An error has occured' data-memberlist_table='0' data-memberlist_table_columns='user_id,picture,name,country,gender,role,email_user,message_user' data-show_on_mobile='picture,name,country,email_user,message_user' data-memberlist_v2='1' data-memberlist_v2_pic_size='86' data-memberlist_v2_fields='age,gender,country' data-memberlist_v2_bio='1' data-memberlist_v2_showbadges='1' data-memberlist_v2_showname='1' data-memberlist_v2_showsocial='1' data-memberlist_pic_size='120' data-memberlist_pic_topspace='15' data-memberlist_pic_sidespace='30' data-memberlist_pic_rounded='1' data-memberlist_width='100%' data-memberlist_paginate='1' data-memberlist_paginate_top='1' data-memberlist_paginate_bottom='1' data-memberlist_show_name='1' data-memberlist_popup_view='0' data-memberlist_withavatar='0' data-memberlist_verified='0' data-memberlist_filters='0' data-memberlist_default_search='1' data-memberlist_show_follow='0' data-per_page='12' data-sortby='registered' data-order='desc' data-relation='and' data-search='1' data-exclude='0' data-show_social='1' data-registration_closed_side='Existing member? login' data-registration_closed_side_action='login' data-facebook_redirect='profile' data-logout_redirect='0' data-post_paginate='1' data-postsbyuser_num='12' data-postsbyuser_types='post' data-postsbyuser_mode='grid' data-postsbyuser_thumb='50' data-postsbyuser_showthumb='1' data-postsbyuser_taxonomy='category' data-postsbyuser_category='0' data-following_per_page='4' data-following_paginate='1' data-followers_per_page='4' data-followers_paginate='1' data-publish_heading='Add a New Post' data-publish_button_primary='Publish' data-following_heading='Following' data-followers_heading='Followers' data-activity_heading='Recent Activity' data-activity_all='0' data-activity_per_page='10' data-activity_side='refresh' data-activity_user='0' data-emd_filters='1' data-emd_thumb='200' data-emd_social='1' data-emd_bio='1' data-emd_fields='first_name,last_name,gender,country' data-emd_layout='masonry' data-emd_per_page='20' data-emd_col_width='22%' data-emd_col_margin='2%' data-emd_accountstatus='Search by account status' data-emd_photopreference='Photo Preference' data-emd_country='Search by Country,dropdown' data-emd_gender='Gender,radio' data-emd_paginate='1' data-emd_paginate_top='1' data-collage_per_page='20'>
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h2 class="modal-h2 text-transform-normal">Login</h2>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="my-modal-body">
+
+                            <form action="" method="post" data-action="login">
+
+                                <input type="hidden" name="force_redirect_uri-920" id="force_redirect_uri-920" value="0" />
+                                <input type="hidden" name="redirect_uri-920" id="redirect_uri-920" value="" />
+
+                                <input type="hidden" id="_myuserpro_nonce" name="_myuserpro_nonce" value="3f13e31447" />
+                                <input type="hidden" name="_wp_http_referer" value="/" />
+                                <input type="hidden" name="unique_id" id="unique_id" value="920" />
+
+                                <div class="form-group my-form-group">
+                                    <div class='userpro-field userpro-field-username_or_email ' data-key='username_or_email'>
+                                        <div class='userpro-input'>
+                                            <input type='text' name='username_or_email-920' id='username_or_email-920' value="" placeholder='Username' data-ajaxcheck='' data-help='' data-label='' data-placeholder='Username' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='text' data-woo='0' data-icon='' />
+                                            <div class='userpro-clear'></div>
+                                        </div>
+                                    </div>
+                                    <div class='userpro-clear'></div>
+                                </div>
+
+                                <div class="form-group my-form-group">
+                                    <div class='userpro-field userpro-field-user_pass ' data-key='user_pass'>
+                                        <div class='userpro-input'>
+                                            <input type='password' name='user_pass-920' id='user_pass-920' value='' placeholder='Password' autocomplete='off' data-ajaxcheck='' data-help='Your password must be 8 characters long at least.' data-label='' data-placeholder='Password' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='password' data-woo='0' />
+                                            <div class='userpro-clear'></div>
+                                        </div>
+                                    </div>
+                                    <div class='userpro-clear'></div>
+                                </div>
+
+                                <div class="userpro-right"><a href="#" class="forgot-password" data-template="reset">Forgot?</a>
+                                    <a href="#" class="forgot-password" data-template="resend">Resend verification email?</a> </div>
+                                <!--				<div class="userpro-clear"></div>-->
+
+                                <div class="userpro-column">
+                                    <div class="userpro-field userpro-field-compact">
+                                        <div class="userpro-input">
+
+                                            <div class='userpro-checkbox-wrap'>
+                                                <label class='userpro-checkbox hide-field'>
+                                                    <span></span>
+                                                    <input type='checkbox' name='rememberme-920' id='rememberme-920' value="true" />Remember me </label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="userpro-clear"></div>
+
+                                <div class="userpro-social-connect"></div>
+                                <div class="userpro-clear"></div>
+                                <input type="submit" value="Login" class="btn btn-default btn-view-all advanced-search" />
+
+                                <input type="button" value="First time here? Sign Up" class="btn btn-default fileUpload advanced-search" data-template="register" />
+
+                                <img src="/static/plugins/userpro/skins/elegant/img/loading.gif" alt="" class="userpro-loading" />
+                                <div class="userpro-clear"></div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="SignUpModal" tabindex="-1" role="dialog" aria-labelledby="SignUpModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <a href="#" class="userpro-close-popup">Close</a>
+                <div class="userpro userpro-991 userpro-float" data-modal_profile_saved='Your profile has been saved!' data-template='register' data-max_width='480px' data-uploads_dir='http://globalboard.world/wp-content/uploads/userpro/' data-default_avatar_male='/static/plugins/userpro/img/default_avatar_male.jpg' data-default_avatar_female='/static/plugins/userpro/img/default_avatar_female.jpg' data-layout='float' data-margin_top='0' data-margin_bottom='30px' data-align='center' data-skin='elegant' data-required_text='This field is required' data-password_too_short='Your password is too short' data-passwords_do_not_match='Passwords do not match' data-password_not_strong='Password is not strong enough' data-keep_one_section_open='0' data-allow_sections='1' data-permalink='http://globalboard.world/' data-field_icons='1' data-profile_thumb_size='80' data-register_heading='Register an Account' data-register_side='Already a member?' data-register_side_action='login' data-register_button_action='login' data-register_button_primary='Sign Up' data-register_button_secondary='Login' data-register_group='default' data-register_redirect='0' data-type='0' data-force_redirect_uri='0' data-login_heading='Login' data-login_side='Forgot your password?' data-login_side_action='reset' data-login_resend='Resend verification email?' data-login_resend_action='resend' data-login_button_action='register' data-login_button_primary='Login' data-login_button_secondary='Create an Account' data-login_group='default' data-login_redirect='0' data-rememberme='true' data-delete_heading='Delete Profile' data-delete_side='Undo, back to profile' data-delete_side_action='view' data-delete_button_action='view' data-delete_button_primary='Confirm Deletion' data-delete_button_secondary='Back to Profile' data-delete_group='default' data-reset_heading='Reset Password' data-reset_side='Back to Login' data-reset_side_action='login' data-reset_button_action='change' data-reset_button_primary='Request Secret Key' data-reset_button_secondary='Change your Password' data-reset_group='default' data-resend_heading='Resend email' data-resend_side='Back to Login' data-resend_side_action='login' data-resend_button_action='resend' data-resend_button_primary='Resend verification email' data-change_heading='Change your Password' data-change_side='Request New Key' data-change_side_action='reset' data-change_button_action='reset' data-change_button_primary='Change my Password' data-change_button_secondary='Do not have a secret key?' data-change_group='default' data-list_heading='Latest Members' data-list_per_page='5' data-list_sortby='registered' data-list_order='desc' data-list_users='0' data-list_group='default' data-list_thumb='50' data-list_showthumb='1' data-list_showsocial='1' data-list_showbio='0' data-list_verified='0' data-list_relation='or' data-list_popup_view='0' data-online_heading='Who is online now' data-online_thumb='30' data-online_showthumb='1' data-online_showsocial='0' data-online_showbio='0' data-online_mini='1' data-online_mode='vertical' data-edit_button_primary='Save Changes' data-edit_group='default' data-view_group='default' data-social_target='_blank' data-social_group='default' data-card_width='250px' data-card_img_width='250' data-card_showbio='1' data-card_showsocial='1' data-usercanedit='1' data-link_target='_blank' data-error_heading='An error has occured' data-memberlist_table='0' data-memberlist_table_columns='user_id,picture,name,country,gender,role,email_user,message_user' data-show_on_mobile='picture,name,country,email_user,message_user' data-memberlist_v2='1' data-memberlist_v2_pic_size='86' data-memberlist_v2_fields='age,gender,country' data-memberlist_v2_bio='1' data-memberlist_v2_showbadges='1' data-memberlist_v2_showname='1' data-memberlist_v2_showsocial='1' data-memberlist_pic_size='120' data-memberlist_pic_topspace='15' data-memberlist_pic_sidespace='30' data-memberlist_pic_rounded='1' data-memberlist_width='100%' data-memberlist_paginate='1' data-memberlist_paginate_top='1' data-memberlist_paginate_bottom='1' data-memberlist_show_name='1' data-memberlist_popup_view='0' data-memberlist_withavatar='0' data-memberlist_verified='0' data-memberlist_filters='0' data-memberlist_default_search='1' data-memberlist_show_follow='0' data-per_page='12' data-sortby='registered' data-order='desc' data-relation='and' data-search='1' data-exclude='0' data-show_social='1' data-registration_closed_side='Existing member? login' data-registration_closed_side_action='login' data-facebook_redirect='profile' data-logout_redirect='0' data-post_paginate='1' data-postsbyuser_num='12' data-postsbyuser_types='post' data-postsbyuser_mode='grid' data-postsbyuser_thumb='50' data-postsbyuser_showthumb='1' data-postsbyuser_taxonomy='category' data-postsbyuser_category='0' data-following_per_page='4' data-following_paginate='1' data-followers_per_page='4' data-followers_paginate='1' data-publish_heading='Add a New Post' data-publish_button_primary='Publish' data-following_heading='Following' data-followers_heading='Followers' data-activity_heading='Recent Activity' data-activity_all='0' data-activity_per_page='10' data-activity_side='refresh' data-activity_user='0' data-emd_filters='1' data-emd_thumb='200' data-emd_social='1' data-emd_bio='1' data-emd_fields='first_name,last_name,gender,country' data-emd_layout='masonry' data-emd_per_page='20' data-emd_col_width='22%' data-emd_col_margin='2%' data-emd_accountstatus='Search by account status' data-emd_photopreference='Photo Preference' data-emd_country='Search by Country,dropdown' data-emd_gender='Gender,radio' data-emd_paginate='1' data-emd_paginate_top='1' data-collage_per_page='20'>
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h2 class="modal-h2 text-transform-normal">Sign Up</h2>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="my-modal-body">
+
+                            <form action="" method="post" data-action="register">
+
+                                <input type="hidden" name="redirect_uri-991" id="redirect_uri-991" value="" />
+
+                                <input type="hidden" id="_myuserpro_nonce" name="_myuserpro_nonce" value="ca12a4893c" />
+                                <input type="hidden" name="_wp_http_referer" value="/" />
+                                <input type="hidden" name="unique_id" id="unique_id" value="991" />
+
+                                <div class="form-group my-form-group">
+                                    <div class='userpro-field userpro-field-user_login ' data-key='user_login'>
+                                        <div class='userpro-input'>
+                                            <input type='text' name='user_login-991' id='user_login-991' value="" placeholder='Username' data-ajaxcheck='username_exists' data-help='' data-label='' data-placeholder='Username' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='text' data-woo='0' />
+                                            <div class='userpro-clear'></div>
+                                        </div>
+                                    </div>
+                                    <div class='userpro-clear'></div>
+                                </div>
+                                <div class="form-group my-form-group">
+                                    <div class='userpro-field userpro-field-user_email ' data-key='user_email'>
+                                        <div class='userpro-input'>
+                                            <input type='text' name='user_email-991' id='user_email-991' value="" placeholder='E-mail' data-ajaxcheck='email_exists' data-help='' data-label='' data-placeholder='E-mail' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='text' data-woo='0' />
+                                            <div class='userpro-clear'></div>
+                                        </div>
+                                    </div>
+                                    <div class='userpro-clear'></div>
+                                </div>
+                                <div class="form-group my-form-group">
+                                    <div class='userpro-field userpro-field-user_pass ' data-key='user_pass'>
+                                        <div class='userpro-input'>
+                                            <input type='password' name='user_pass-991' id='user_pass-991' value='' placeholder='Password' autocomplete='off' data-ajaxcheck='' data-help='' data-label='' data-placeholder='Password' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='password' data-woo='0' />
+                                            <div class='userpro-clear'></div>
+                                        </div>
+                                    </div>
+                                    <div class='userpro-clear'></div>
+                                </div>
+                                <div class="form-group my-form-group">
+                                    <div class='userpro-field userpro-field-user_pass_confirm ' data-key='user_pass_confirm'>
+                                        <div class='userpro-input'>
+                                            <input type='password' name='user_pass_confirm-991' id='user_pass_confirm-991' value='' placeholder='Confirm Password' autocomplete='off' data-ajaxcheck='' data-help='' data-label='' data-placeholder='Confirm Password' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='password' data-woo='0' />
+                                            <div class='userpro-clear'></div>
+                                        </div>
+                                    </div>
+                                    <div class='userpro-clear'></div>
+                                </div>
+
+                                <div class="userpro-social-connect"></div>
+                                <div class="userpro-clear"></div>
+                                <input type="submit" value="Sign Up" class="btn btn-default btn-view-all advanced-search" />
+
+                                <input type="button" value="Already member? Login" class="btn btn-default fileUpload advanced-search" data-template="login" />
+
+                                <img src="/static/plugins/userpro/skins/elegant/img/loading.gif" alt="" class="userpro-loading" />
+                                <div class="userpro-clear"></div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ForgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="ForgotPasswordModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h2 class="modal-h2 text-transform-normal">Sign Up</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="my-modal-body">
+                        <p class="gmt forgot-p">Enter your email address to reset password</p>
+                        <div class="form-group my-form-group">
+                            <label for="ForgotMail" class="my-label">Email</label>
+                            <input type="text" class="form-control input-control" id="ForgotMail" placeholder="michael@gmail.com">
+                        </div>
+                        <button type="button" class="btn btn-default btn-view-all advanced-search">Send</button>
+                        <button type="button" class="btn btn-default fileUpload advanced-search">Back to Log in</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-	</div>
+    
 {% endblock %}
-
