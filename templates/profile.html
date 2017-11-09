@@ -2,13 +2,6 @@
 {% load staticfiles %} 
 
 {% block extra_css %}
-<style type="text/css">
-    ul li .list {
-        width: 14px;
-        float: left;
-    }
-</style>
-
 <link rel='stylesheet' id='dropdown-menu-style-css' href='/static/css/dropdown-menu-style.css?v=1' type='text/css' media='all' /> 
 {% endblock %} 
 
@@ -26,7 +19,7 @@
                             <div class="logo-section clearfix">
 
                                 <div class="navbar-brand-profile">
-                                    <a href="/" class="custom-logo-link" rel="home" itemprop="url"><img width="240" height="67" src="http://globalboard.world/wp-content/uploads/2016/12/cropped-logo.png" class="custom-logo" alt="" itemprop="logo" /></a>
+                                    <a href="/" class="custom-logo-link" rel="home" itemprop="url"><img width="240" height="67" src="/static/img/cropped-logo.png" class="custom-logo" alt="" itemprop="logo" /></a>
                                 </div>
                             </div>
                             <!-- End Logo Section -->
@@ -35,22 +28,16 @@
 
                             <header>
                                 <div class="left-menu-bar">
-
                                     <div class="cd-dropdown-wrapper">
-
                                         <div class="menu-button-center">
-
                                             <a class="cd-dropdown-trigger" href="#0"><i class="fa fa-bars" aria-hidden="true"></i></a>
-
                                         </div>
 
                                         <nav class="cd-dropdown">
-
                                             <a href="#0" class="cd-close">Close</a>
-
                                             <div class="menu-profile-side-menu-container">
                                                 <ul id="menu-profile-side-menu" class="cd-dropdown-content">
-                                                    <li id="menu-item-42" class="home menu-item menu-item-type-custom menu-item-object-custom menu-item-42"><a href="http://globalboard.world/profile/" class="">Home</a></li>
+                                                    <li id="menu-item-42" class="home menu-item menu-item-type-custom menu-item-object-custom menu-item-42"><a href="/profile/" class="">Home</a></li>
                                                 </ul>
                                             </div>
                                         </nav>
@@ -73,16 +60,13 @@
                             <!-- Content Right Content -->
 
                             <div class="col-sm-12">
-
                                 <div class="content-right-content">
-
                                     <h2>Ads from all over the world</h2>
                                     <nav class="breadcrumb">
-                                        <a class="breadcrumb-item" href="http://globalboard.world/profile/">worldwide<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                                        <a class="breadcrumb-item" href="/profile/">worldwide<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
                                         <!--<a class="breadcrumb-item" href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
-
                                     </nav>
-                                    <span id="world_link"><a href="http://globalboard.world/profile/">World</a></span>
+                                    <span id="world_link"><a href="/profile/">World</a></span>
 
                                     <!-- Content Full Width Map Img -->
 
@@ -108,9 +92,6 @@
                                     <!-- End Content Full Width Map Img -->
 
                                     <div class="1" id="nearest">
-
-                                        </ul>
-
                                     </div>
 
                                     <!-- Content Full Select Country -->
@@ -143,61 +124,14 @@
                 </div>-->
 
                                     <div class="content-recent-ads">
-
                                         <h3>Recent Ads</h3>
-                                        <ul>
-                                            <li class="recent-ads-item clearfix">
-                                                <div class="recent-ads-item-img">
-                                                    <a href="http://globalboard.world/ads/test-ad-description/"><img src="http://globalboard.world/wp-content/uploads/2016/11/thirdBG-150x150.jpg" alt=""></a>
-                                                </div>
-                                                <div class="recent-ads-item-name-and-post-time">
-                                                    <div class="recent-ads-item-name">
-                                                        <a href="http://globalboard.world/ads/test-ad-description/">Test ad description</a>
-                                                    </div>
-                                                    <div class="recent-ads-item-post-time">
-                                                        Posted on Jun. 07, 07:08 am </div>
-                                                </div>
-                                                <div class="recent-ads-item-rate">
-                                                    $ 1 </div>
-                                            </li>
-                                            <li class="recent-ads-item clearfix">
-                                                <div class="recent-ads-item-img">
-                                                    <a href="http://globalboard.world/ads/f12/"><img src="http://globalboard.world/wp-content/uploads/2017/01/dummy_new.jpg" alt=""></a>
-                                                </div>
-                                                <div class="recent-ads-item-name-and-post-time">
-                                                    <div class="recent-ads-item-name">
-                                                        <a href="http://globalboard.world/ads/f12/">f12</a>
-                                                    </div>
-                                                    <div class="recent-ads-item-post-time">
-                                                        Posted on Jun. 06, 07:36 am </div>
-                                                </div>
-                                                <div class="recent-ads-item-rate">
-                                                    $ 3 </div>
-                                            </li>
-                                            <li class="recent-ads-item clearfix">
-                                                <div class="recent-ads-item-img">
-                                                    <a href="http://globalboard.world/ads/vladislav/"><img src="http://globalboard.world/wp-content/uploads/2016/11/mujer-paracaidas1-150x150.jpeg" alt=""></a>
-                                                </div>
-                                                <div class="recent-ads-item-name-and-post-time">
-                                                    <div class="recent-ads-item-name">
-                                                        <a href="http://globalboard.world/ads/vladislav/">Skydiving</a>
-                                                    </div>
-                                                    <div class="recent-ads-item-post-time">
-                                                        Posted on Jun. 06, 06:01 am </div>
-                                                </div>
-                                                <div class="recent-ads-item-rate">
-                                                    $ 78 </div>
-                                            </li>
-
-                                        </ul>
-
                                     </div>
 
                                     <!-- End Recent Ads -->
 
                                     <div class="btn-view-all-center">
 
-                                        <a href="http://globalboard.world/view-all/">
+                                        <a href="/view-all/">
                                             <button type="button" class="btn btn-default btn-view-all" id="view_all">View All</button>
                                         </a>
 
@@ -318,7 +252,7 @@
                                                     })
                                                     .click(function() {
                                                         $('#mapDropdown').val(parent.key + '.js').change();
-                                                        $('.breadcrumb').html('<a class="breadcrumb-item" href="http://globalboard.world/profile/">worldwide<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>');
+                                                        $('.breadcrumb').html('<a class="breadcrumb-item" href="/profile/">worldwide<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>');
                                                     })
                                                 );
                                             }
@@ -639,7 +573,7 @@
                                 function home_recent_ads(state_id, shu) {
                                     if (typeof(shu) === 'undefined') shu = '';
                                     /*$('.content-recent-ads').show();*/
-                                    var url = 'http://globalboard.world/wp-admin/admin-ajax.php';
+                                    var url = '/wp-admin/admin-ajax.php';
                                     jQuery.ajax({
                                         type: 'post',
                                         url: url,
@@ -666,7 +600,7 @@
                                     var location_id = $(this).data('id');
                                     breadcrumb(location_id, 'cities');
                                     home_recent_ads(location_id, 'cities');
-                                    var url = 'http://globalboard.world/wp-admin/admin-ajax.php';
+                                    var url = '/wp-admin/admin-ajax.php';
                                     jQuery.ajax({
                                         type: 'post',
                                         url: url,
@@ -683,7 +617,7 @@
                                 });
                                 /*$("body").on('click', '.get_ads_by_location', function(){
                                     var location_id = $(this).data('id');
-                                    var url = 'http://globalboard.world/wp-admin/admin-ajax.php';
+                                    var url = '/wp-admin/admin-ajax.php';
                                     jQuery.ajax({
                                         type: 'post',
                                         url: url,
