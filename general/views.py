@@ -389,7 +389,7 @@ POST_DETAIL_CATEGORY = {
 
 def home(request):
     result = []
-    return render(request, 'index1.html', {'categories': result})
+    return render(request, 'index.html', {'categories': result})
 
     for column in range(1, 4):
         _result = []

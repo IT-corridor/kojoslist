@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html class="no-js">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Global Board &#8211; View ads from all over the World</title>
-<link rel='dns-prefetch' href='//fonts.googleapis.com' />
-<link rel='dns-prefetch' href='//s.w.org' />
-<link rel="alternate" type="application/rss+xml" title="Global Board &raquo; Feed" href="http://globalboard.world/feed/" />
-<link rel="alternate" type="application/rss+xml" title="Global Board &raquo; Comments Feed" href="http://globalboard.world/comments/feed/" />
+{% extends "base.html" %}
+{% load staticfiles %}
 
-</head>
-
-<body <?php body_class(); ?>>
+{% block page_content %}
 <div id="page" class="site">
 	<div class="site-inner">
 
@@ -28,27 +18,18 @@
 								<span class="icon-bar"></span>
 							</button>
 							<div class="navbar-brand">
-								<?php the_custom_logo(); ?>
-							</div>
+								<a href="/" class="custom-logo-link" rel="home" itemprop="url"><img width="240" height="67" src="/static/img/cropped-logo.png" class="custom-logo" alt="" itemprop="logo" /></a>							</div>
 						</div>
 						<div class="collapse navbar-collapse" id="myNavbar">
 
-							<?php if ( has_nav_menu( 'primary' ) ) : ?>
-
+							
 								<div id="site-header-menu" class="site-header-menu">
-									<?php if ( has_nav_menu( 'primary' ) ) : ?>
-										<nav id="site-navigation" class="main-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Primary Menu', 'globoard' ); ?>">
-											<?php
-											wp_nav_menu( array(
-												'theme_location' => 'primary',
-												'menu_class'     => 'nav navbar-nav navbar-right',
-											) );
-											?>
-										</nav><!-- .main-navigation -->
-									<?php endif; ?>
-								</div><!-- .site-header-menu -->
-							<?php endif; ?>
-						</div>
+																			<nav id="site-navigation" class="main-navigation" role="navigation" aria-label="Primary Menu">
+											<div class="menu-main-menu-container"><ul id="menu-main-menu" class="nav navbar-nav navbar-right"><li><a href="javascript:void(0);" data-toggle="modal" data-target="#LoginModal">Login</a></li><li><a href="javascript:void(0);" data-toggle="modal" data-target="#SignUpModal">Sign Up</a></li><li id="menu-item-13" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13"><a href="http://globalboard.world/about/">About</a></li>
+<li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27"><a href="http://globalboard.world/contact-us/">Contact Us</a></li>
+</ul></div>										</nav><!-- .main-navigation -->
+																	</div><!-- .site-header-menu -->
+													</div>
 					</div>
 				</nav>
 			</div>
@@ -57,3 +38,274 @@
 		<!-- End Header -->
 
 		<div id="content" class="site-content">
+<!-- Content -->
+
+<div id="content">
+
+    <div class="container-fluid">
+
+    <div class="row">
+                <div class="full-map-section">
+
+            				<div id="main_map"></div>
+                <div class="container hedle_zoom">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            
+                                <h1>view <span style="color: #4dbee2;">ads</span> from all over the world</h1>
+<div class="btn-view-all-center"><a href="http://globalboard.world/view-all/" id="main_page_button" class="btn btn-default btn-view-all">View Ads from All Countries</a></div>
+
+                            
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="home-page-country">
+
+                <div class="container">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <div class="content-select-country clearfix">
+
+                                <ul class='country-list '><li><a href="/profile/?state_id=af#countries/af/af-all" class="show_country" data-country="AF">Afghanistan</a></li><li><a href="/profile/?state_id=al#countries/al/al-all" class="show_country" data-country="AL">Albania</a></li><li><a href="/profile/?state_id=dz#countries/dz/dz-all" class="show_country" data-country="DZ">Algeria</a></li><li><a href="/profile/?state_id=as#countries/as/as-all" class="show_country" data-country="AS">American Samoa</a></li><li><a href="/profile/?state_id=ad#countries/ad/ad-all" class="show_country" data-country="AD">Andorra</a></li><li><a href="/profile/?state_id=ao#countries/ao/ao-all" class="show_country" data-country="AO">Angola</a></li><li><a href="/profile/?state_id=ai#countries/ai/ai-all" class="show_country" data-country="AI">Anguilla</a></li><li><a href="/profile/?state_id=aq#countries/aq/aq-all" class="show_country" data-country="AQ">Antarctica</a></li><li><a href="/profile/?state_id=ag#countries/ag/ag-all" class="show_country" data-country="AG">Antigua And Barbuda</a></li><li><a href="/profile/?state_id=ar#countries/ar/ar-all" class="show_country" data-country="AR">Argentina</a></li><li><a href="/profile/?state_id=am#countries/am/am-all" class="show_country" data-country="AM">Armenia</a></li><li><a href="/profile/?state_id=aw#countries/aw/aw-all" class="show_country" data-country="AW">Aruba</a></li><li><a href="/profile/?state_id=au#countries/au/au-all" class="show_country" data-country="AU">Australia</a></li><li><a href="/profile/?state_id=at#countries/at/at-all" class="show_country" data-country="AT">Austria</a></li><li><a href="/profile/?state_id=az#countries/az/az-all" class="show_country" data-country="AZ">Azerbaijan</a></li><li><a href="/profile/?state_id=bs#countries/bs/bs-all" class="show_country" data-country="BS">Bahamas The</a></li><li><a href="/profile/?state_id=bh#countries/bh/bh-all" class="show_country" data-country="BH">Bahrain</a></li><li><a href="/profile/?state_id=bd#countries/bd/bd-all" class="show_country" data-country="BD">Bangladesh</a></li><li><a href="/profile/?state_id=bb#countries/bb/bb-all" class="show_country" data-country="BB">Barbados</a></li><li><a href="/profile/?state_id=by#countries/by/by-all" class="show_country" data-country="BY">Belarus</a></li><li><a href="/profile/?state_id=be#countries/be/be-all" class="show_country" data-country="BE">Belgium</a></li><li><a href="/profile/?state_id=bz#countries/bz/bz-all" class="show_country" data-country="BZ">Belize</a></li><li><a href="/profile/?state_id=bj#countries/bj/bj-all" class="show_country" data-country="BJ">Benin</a></li><li><a href="/profile/?state_id=bm#countries/bm/bm-all" class="show_country" data-country="BM">Bermuda</a></li><li><a href="/profile/?state_id=bt#countries/bt/bt-all" class="show_country" data-country="BT">Bhutan</a></li><li><a href="/profile/?state_id=bo#countries/bo/bo-all" class="show_country" data-country="BO">Bolivia</a></li><li><a href="/profile/?state_id=ba#countries/ba/ba-all" class="show_country" data-country="BA">Bosnia and Herzegovina</a></li><li><a href="/profile/?state_id=bw#countries/bw/bw-all" class="show_country" data-country="BW">Botswana</a></li><li><a href="/profile/?state_id=bv#countries/bv/bv-all" class="show_country" data-country="BV">Bouvet Island</a></li><li><a href="/profile/?state_id=br#countries/br/br-all" class="show_country" data-country="BR">Brazil</a></li><li><a href="/profile/?state_id=io#countries/io/io-all" class="show_country" data-country="IO">British Indian Ocean Territory</a></li><li><a href="/profile/?state_id=bn#countries/bn/bn-all" class="show_country" data-country="BN">Brunei</a></li><li><a href="/profile/?state_id=bg#countries/bg/bg-all" class="show_country" data-country="BG">Bulgaria</a></li><li><a href="/profile/?state_id=bf#countries/bf/bf-all" class="show_country" data-country="BF">Burkina Faso</a></li><li><a href="/profile/?state_id=bi#countries/bi/bi-all" class="show_country" data-country="BI">Burundi</a></li><li><a href="/profile/?state_id=kh#countries/kh/kh-all" class="show_country" data-country="KH">Cambodia</a></li><li><a href="/profile/?state_id=cm#countries/cm/cm-all" class="show_country" data-country="CM">Cameroon</a></li><li><a href="/profile/?state_id=ca#countries/ca/ca-all" class="show_country" data-country="CA">Canada</a></li><li><a href="/profile/?state_id=cv#countries/cv/cv-all" class="show_country" data-country="CV">Cape Verde</a></li><li><a href="/profile/?state_id=ky#countries/ky/ky-all" class="show_country" data-country="KY">Cayman Islands</a></li><li><a href="/profile/?state_id=cf#countries/cf/cf-all" class="show_country" data-country="CF">Central African Republic</a></li><li><a href="/profile/?state_id=td#countries/td/td-all" class="show_country" data-country="TD">Chad</a></li><li><a href="/profile/?state_id=cl#countries/cl/cl-all" class="show_country" data-country="CL">Chile</a></li><li><a href="/profile/?state_id=cn#countries/cn/cn-all" class="show_country" data-country="CN">China</a></li><li><a href="/profile/?state_id=cx#countries/cx/cx-all" class="show_country" data-country="CX">Christmas Island</a></li><li><a href="/profile/?state_id=cc#countries/cc/cc-all" class="show_country" data-country="CC">Cocos (Keeling) Islands</a></li><li><a href="/profile/?state_id=co#countries/co/co-all" class="show_country" data-country="CO">Colombia</a></li><li><a href="/profile/?state_id=km#countries/km/km-all" class="show_country" data-country="KM">Comoros</a></li><li><a href="/profile/?state_id=cg#countries/cg/cg-all" class="show_country" data-country="CG">Congo</a></li><li><a href="/profile/?state_id=cd#countries/cd/cd-all" class="show_country" data-country="CD">Congo The Democratic Republic Of The</a></li><li><a href="/profile/?state_id=ck#countries/ck/ck-all" class="show_country" data-country="CK">Cook Islands</a></li><li><a href="/profile/?state_id=cr#countries/cr/cr-all" class="show_country" data-country="CR">Costa Rica</a></li><li><a href="/profile/?state_id=ci#countries/ci/ci-all" class="show_country" data-country="CI">Cote D'Ivoire (Ivory Coast)</a></li><li><a href="/profile/?state_id=hr#countries/hr/hr-all" class="show_country" data-country="HR">Croatia (Hrvatska)</a></li><li><a href="/profile/?state_id=cu#countries/cu/cu-all" class="show_country" data-country="CU">Cuba</a></li><li><a href="/profile/?state_id=cy#countries/cy/cy-all" class="show_country" data-country="CY">Cyprus</a></li><li><a href="/profile/?state_id=cz#countries/cz/cz-all" class="show_country" data-country="CZ">Czech Republic</a></li><li><a href="/profile/?state_id=dk#countries/dk/dk-all" class="show_country" data-country="DK">Denmark</a></li><li><a href="/profile/?state_id=dj#countries/dj/dj-all" class="show_country" data-country="DJ">Djibouti</a></li><li><a href="/profile/?state_id=dm#countries/dm/dm-all" class="show_country" data-country="DM">Dominica</a></li><li><a href="/profile/?state_id=do#countries/do/do-all" class="show_country" data-country="DO">Dominican Republic</a></li><li><a href="/profile/?state_id=tp#countries/tp/tp-all" class="show_country" data-country="TP">East Timor</a></li><li><a href="/profile/?state_id=ec#countries/ec/ec-all" class="show_country" data-country="EC">Ecuador</a></li><li><a href="/profile/?state_id=eg#countries/eg/eg-all" class="show_country" data-country="EG">Egypt</a></li><li><a href="/profile/?state_id=sv#countries/sv/sv-all" class="show_country" data-country="SV">El Salvador</a></li><li><a href="/profile/?state_id=gq#countries/gq/gq-all" class="show_country" data-country="GQ">Equatorial Guinea</a></li><li><a href="/profile/?state_id=er#countries/er/er-all" class="show_country" data-country="ER">Eritrea</a></li><li><a href="/profile/?state_id=ee#countries/ee/ee-all" class="show_country" data-country="EE">Estonia</a></li><li><a href="/profile/?state_id=et#countries/et/et-all" class="show_country" data-country="ET">Ethiopia</a></li><li><a href="/profile/?state_id=xa#countries/xa/xa-all" class="show_country" data-country="XA">External Territories of Australia</a></li><li><a href="/profile/?state_id=fk#countries/fk/fk-all" class="show_country" data-country="FK">Falkland Islands</a></li><li><a href="/profile/?state_id=fo#countries/fo/fo-all" class="show_country" data-country="FO">Faroe Islands</a></li><li><a href="/profile/?state_id=fj#countries/fj/fj-all" class="show_country" data-country="FJ">Fiji Islands</a></li><li><a href="/profile/?state_id=fi#countries/fi/fi-all" class="show_country" data-country="FI">Finland</a></li><li><a href="/profile/?state_id=fr#countries/fr/fr-all" class="show_country" data-country="FR">France</a></li><li><a href="/profile/?state_id=gf#countries/gf/gf-all" class="show_country" data-country="GF">French Guiana</a></li><li><a href="/profile/?state_id=pf#countries/pf/pf-all" class="show_country" data-country="PF">French Polynesia</a></li><li><a href="/profile/?state_id=tf#countries/tf/tf-all" class="show_country" data-country="TF">French Southern Territories</a></li><li><a href="/profile/?state_id=ga#countries/ga/ga-all" class="show_country" data-country="GA">Gabon</a></li><li><a href="/profile/?state_id=gm#countries/gm/gm-all" class="show_country" data-country="GM">Gambia The</a></li><li><a href="/profile/?state_id=ge#countries/ge/ge-all" class="show_country" data-country="GE">Georgia</a></li><li><a href="/profile/?state_id=de#countries/de/de-all" class="show_country" data-country="DE">Germany</a></li><li><a href="/profile/?state_id=gh#countries/gh/gh-all" class="show_country" data-country="GH">Ghana</a></li><li><a href="/profile/?state_id=gi#countries/gi/gi-all" class="show_country" data-country="GI">Gibraltar</a></li><li><a href="/profile/?state_id=gr#countries/gr/gr-all" class="show_country" data-country="GR">Greece</a></li><li><a href="/profile/?state_id=gl#countries/gl/gl-all" class="show_country" data-country="GL">Greenland</a></li><li><a href="/profile/?state_id=gd#countries/gd/gd-all" class="show_country" data-country="GD">Grenada</a></li><li><a href="/profile/?state_id=gp#countries/gp/gp-all" class="show_country" data-country="GP">Guadeloupe</a></li><li><a href="/profile/?state_id=gu#countries/gu/gu-all" class="show_country" data-country="GU">Guam</a></li><li><a href="/profile/?state_id=gt#countries/gt/gt-all" class="show_country" data-country="GT">Guatemala</a></li><li><a href="/profile/?state_id=xu#countries/xu/xu-all" class="show_country" data-country="XU">Guernsey and Alderney</a></li><li><a href="/profile/?state_id=gn#countries/gn/gn-all" class="show_country" data-country="GN">Guinea</a></li><li><a href="/profile/?state_id=gw#countries/gw/gw-all" class="show_country" data-country="GW">Guinea-Bissau</a></li><li><a href="/profile/?state_id=gy#countries/gy/gy-all" class="show_country" data-country="GY">Guyana</a></li><li><a href="/profile/?state_id=ht#countries/ht/ht-all" class="show_country" data-country="HT">Haiti</a></li><li><a href="/profile/?state_id=hm#countries/hm/hm-all" class="show_country" data-country="HM">Heard and McDonald Islands</a></li><li><a href="/profile/?state_id=hn#countries/hn/hn-all" class="show_country" data-country="HN">Honduras</a></li><li><a href="/profile/?state_id=hk#countries/hk/hk-all" class="show_country" data-country="HK">Hong Kong S.A.R.</a></li><li><a href="/profile/?state_id=hu#countries/hu/hu-all" class="show_country" data-country="HU">Hungary</a></li><li><a href="/profile/?state_id=is#countries/is/is-all" class="show_country" data-country="IS">Iceland</a></li><li><a href="/profile/?state_id=in#countries/in/in-all" class="show_country" data-country="IN">India</a></li><li><a href="/profile/?state_id=id#countries/id/id-all" class="show_country" data-country="ID">Indonesia</a></li><li><a href="/profile/?state_id=ir#countries/ir/ir-all" class="show_country" data-country="IR">Iran</a></li><li><a href="/profile/?state_id=iq#countries/iq/iq-all" class="show_country" data-country="IQ">Iraq</a></li><li><a href="/profile/?state_id=ie#countries/ie/ie-all" class="show_country" data-country="IE">Ireland</a></li><li><a href="/profile/?state_id=il#countries/il/il-all" class="show_country" data-country="IL">Israel</a></li><li><a href="/profile/?state_id=it#countries/it/it-all" class="show_country" data-country="IT">Italy</a></li><li><a href="/profile/?state_id=jm#countries/jm/jm-all" class="show_country" data-country="JM">Jamaica</a></li><li><a href="/profile/?state_id=jp#countries/jp/jp-all" class="show_country" data-country="JP">Japan</a></li><li><a href="/profile/?state_id=xj#countries/xj/xj-all" class="show_country" data-country="XJ">Jersey</a></li><li><a href="/profile/?state_id=jo#countries/jo/jo-all" class="show_country" data-country="JO">Jordan</a></li><li><a href="/profile/?state_id=kz#countries/kz/kz-all" class="show_country" data-country="KZ">Kazakhstan</a></li><li><a href="/profile/?state_id=ke#countries/ke/ke-all" class="show_country" data-country="KE">Kenya</a></li><li><a href="/profile/?state_id=ki#countries/ki/ki-all" class="show_country" data-country="KI">Kiribati</a></li><li><a href="/profile/?state_id=kp#countries/kp/kp-all" class="show_country" data-country="KP">Korea North</a></li><li><a href="/profile/?state_id=kr#countries/kr/kr-all" class="show_country" data-country="KR">Korea South</a></li><li><a href="/profile/?state_id=kw#countries/kw/kw-all" class="show_country" data-country="KW">Kuwait</a></li><li><a href="/profile/?state_id=kg#countries/kg/kg-all" class="show_country" data-country="KG">Kyrgyzstan</a></li><li><a href="/profile/?state_id=la#countries/la/la-all" class="show_country" data-country="LA">Laos</a></li><li><a href="/profile/?state_id=lv#countries/lv/lv-all" class="show_country" data-country="LV">Latvia</a></li><li><a href="/profile/?state_id=lb#countries/lb/lb-all" class="show_country" data-country="LB">Lebanon</a></li><li><a href="/profile/?state_id=ls#countries/ls/ls-all" class="show_country" data-country="LS">Lesotho</a></li><li><a href="/profile/?state_id=lr#countries/lr/lr-all" class="show_country" data-country="LR">Liberia</a></li><li><a href="/profile/?state_id=ly#countries/ly/ly-all" class="show_country" data-country="LY">Libya</a></li><li><a href="/profile/?state_id=li#countries/li/li-all" class="show_country" data-country="LI">Liechtenstein</a></li><li><a href="/profile/?state_id=lt#countries/lt/lt-all" class="show_country" data-country="LT">Lithuania</a></li><li><a href="/profile/?state_id=lu#countries/lu/lu-all" class="show_country" data-country="LU">Luxembourg</a></li><li><a href="/profile/?state_id=mo#countries/mo/mo-all" class="show_country" data-country="MO">Macau S.A.R.</a></li><li><a href="/profile/?state_id=mk#countries/mk/mk-all" class="show_country" data-country="MK">Macedonia</a></li><li><a href="/profile/?state_id=mg#countries/mg/mg-all" class="show_country" data-country="MG">Madagascar</a></li><li><a href="/profile/?state_id=mw#countries/mw/mw-all" class="show_country" data-country="MW">Malawi</a></li><li><a href="/profile/?state_id=my#countries/my/my-all" class="show_country" data-country="MY">Malaysia</a></li><li><a href="/profile/?state_id=mv#countries/mv/mv-all" class="show_country" data-country="MV">Maldives</a></li><li><a href="/profile/?state_id=ml#countries/ml/ml-all" class="show_country" data-country="ML">Mali</a></li><li><a href="/profile/?state_id=mt#countries/mt/mt-all" class="show_country" data-country="MT">Malta</a></li><li><a href="/profile/?state_id=xm#countries/xm/xm-all" class="show_country" data-country="XM">Man (Isle of)</a></li><li><a href="/profile/?state_id=mh#countries/mh/mh-all" class="show_country" data-country="MH">Marshall Islands</a></li><li><a href="/profile/?state_id=mq#countries/mq/mq-all" class="show_country" data-country="MQ">Martinique</a></li><li><a href="/profile/?state_id=mr#countries/mr/mr-all" class="show_country" data-country="MR">Mauritania</a></li><li><a href="/profile/?state_id=mu#countries/mu/mu-all" class="show_country" data-country="MU">Mauritius</a></li><li><a href="/profile/?state_id=yt#countries/yt/yt-all" class="show_country" data-country="YT">Mayotte</a></li><li><a href="/profile/?state_id=mx#countries/mx/mx-all" class="show_country" data-country="MX">Mexico</a></li><li><a href="/profile/?state_id=fm#countries/fm/fm-all" class="show_country" data-country="FM">Micronesia</a></li><li><a href="/profile/?state_id=md#countries/md/md-all" class="show_country" data-country="MD">Moldova</a></li><li><a href="/profile/?state_id=mc#countries/mc/mc-all" class="show_country" data-country="MC">Monaco</a></li><li><a href="/profile/?state_id=mn#countries/mn/mn-all" class="show_country" data-country="MN">Mongolia</a></li><li><a href="/profile/?state_id=ms#countries/ms/ms-all" class="show_country" data-country="MS">Montserrat</a></li><li><a href="/profile/?state_id=ma#countries/ma/ma-all" class="show_country" data-country="MA">Morocco</a></li><li><a href="/profile/?state_id=mz#countries/mz/mz-all" class="show_country" data-country="MZ">Mozambique</a></li><li><a href="/profile/?state_id=mm#countries/mm/mm-all" class="show_country" data-country="MM">Myanmar</a></li><li><a href="/profile/?state_id=na#countries/na/na-all" class="show_country" data-country="NA">Namibia</a></li><li><a href="/profile/?state_id=nr#countries/nr/nr-all" class="show_country" data-country="NR">Nauru</a></li><li><a href="/profile/?state_id=np#countries/np/np-all" class="show_country" data-country="NP">Nepal</a></li><li><a href="/profile/?state_id=an#countries/an/an-all" class="show_country" data-country="AN">Netherlands Antilles</a></li><li><a href="/profile/?state_id=nl#countries/nl/nl-all" class="show_country" data-country="NL">Netherlands The</a></li><li><a href="/profile/?state_id=nc#countries/nc/nc-all" class="show_country" data-country="NC">New Caledonia</a></li><li><a href="/profile/?state_id=nz#countries/nz/nz-all" class="show_country" data-country="NZ">New Zealand</a></li><li><a href="/profile/?state_id=ni#countries/ni/ni-all" class="show_country" data-country="NI">Nicaragua</a></li><li><a href="/profile/?state_id=ne#countries/ne/ne-all" class="show_country" data-country="NE">Niger</a></li><li><a href="/profile/?state_id=ng#countries/ng/ng-all" class="show_country" data-country="NG">Nigeria</a></li><li><a href="/profile/?state_id=nu#countries/nu/nu-all" class="show_country" data-country="NU">Niue</a></li><li><a href="/profile/?state_id=nf#countries/nf/nf-all" class="show_country" data-country="NF">Norfolk Island</a></li><li><a href="/profile/?state_id=mp#countries/mp/mp-all" class="show_country" data-country="MP">Northern Mariana Islands</a></li><li><a href="/profile/?state_id=no#countries/no/no-all" class="show_country" data-country="NO">Norway</a></li><li><a href="/profile/?state_id=om#countries/om/om-all" class="show_country" data-country="OM">Oman</a></li><li><a href="/profile/?state_id=pk#countries/pk/pk-all" class="show_country" data-country="PK">Pakistan</a></li><li><a href="/profile/?state_id=pw#countries/pw/pw-all" class="show_country" data-country="PW">Palau</a></li><li><a href="/profile/?state_id=ps#countries/ps/ps-all" class="show_country" data-country="PS">Palestinian Territory Occupied</a></li><li><a href="/profile/?state_id=pa#countries/pa/pa-all" class="show_country" data-country="PA">Panama</a></li><li><a href="/profile/?state_id=pg#countries/pg/pg-all" class="show_country" data-country="PG">Papua new Guinea</a></li><li><a href="/profile/?state_id=py#countries/py/py-all" class="show_country" data-country="PY">Paraguay</a></li><li><a href="/profile/?state_id=pe#countries/pe/pe-all" class="show_country" data-country="PE">Peru</a></li><li><a href="/profile/?state_id=ph#countries/ph/ph-all" class="show_country" data-country="PH">Philippines</a></li><li><a href="/profile/?state_id=pn#countries/pn/pn-all" class="show_country" data-country="PN">Pitcairn Island</a></li><li><a href="/profile/?state_id=pl#countries/pl/pl-all" class="show_country" data-country="PL">Poland</a></li><li><a href="/profile/?state_id=pt#countries/pt/pt-all" class="show_country" data-country="PT">Portugal</a></li><li><a href="/profile/?state_id=pr#countries/pr/pr-all" class="show_country" data-country="PR">Puerto Rico</a></li><li><a href="/profile/?state_id=qa#countries/qa/qa-all" class="show_country" data-country="QA">Qatar</a></li><li><a href="/profile/?state_id=re#countries/re/re-all" class="show_country" data-country="RE">Reunion</a></li><li><a href="/profile/?state_id=ro#countries/ro/ro-all" class="show_country" data-country="RO">Romania</a></li><li><a href="/profile/?state_id=ru#countries/ru/ru-all" class="show_country" data-country="RU">Russia</a></li><li><a href="/profile/?state_id=rw#countries/rw/rw-all" class="show_country" data-country="RW">Rwanda</a></li><li><a href="/profile/?state_id=sh#countries/sh/sh-all" class="show_country" data-country="SH">Saint Helena</a></li><li><a href="/profile/?state_id=kn#countries/kn/kn-all" class="show_country" data-country="KN">Saint Kitts And Nevis</a></li><li><a href="/profile/?state_id=lc#countries/lc/lc-all" class="show_country" data-country="LC">Saint Lucia</a></li><li><a href="/profile/?state_id=pm#countries/pm/pm-all" class="show_country" data-country="PM">Saint Pierre and Miquelon</a></li><li><a href="/profile/?state_id=vc#countries/vc/vc-all" class="show_country" data-country="VC">Saint Vincent And The Grenadines</a></li><li><a href="/profile/?state_id=ws#countries/ws/ws-all" class="show_country" data-country="WS">Samoa</a></li><li><a href="/profile/?state_id=sm#countries/sm/sm-all" class="show_country" data-country="SM">San Marino</a></li><li><a href="/profile/?state_id=st#countries/st/st-all" class="show_country" data-country="ST">Sao Tome and Principe</a></li><li><a href="/profile/?state_id=sa#countries/sa/sa-all" class="show_country" data-country="SA">Saudi Arabia</a></li><li><a href="/profile/?state_id=sn#countries/sn/sn-all" class="show_country" data-country="SN">Senegal</a></li><li><a href="/profile/?state_id=rs#countries/rs/rs-all" class="show_country" data-country="RS">Serbia</a></li><li><a href="/profile/?state_id=sc#countries/sc/sc-all" class="show_country" data-country="SC">Seychelles</a></li><li><a href="/profile/?state_id=sl#countries/sl/sl-all" class="show_country" data-country="SL">Sierra Leone</a></li><li><a href="/profile/?state_id=sg#countries/sg/sg-all" class="show_country" data-country="SG">Singapore</a></li><li><a href="/profile/?state_id=sk#countries/sk/sk-all" class="show_country" data-country="SK">Slovakia</a></li><li><a href="/profile/?state_id=si#countries/si/si-all" class="show_country" data-country="SI">Slovenia</a></li><li><a href="/profile/?state_id=xg#countries/xg/xg-all" class="show_country" data-country="XG">Smaller Territories of the UK</a></li><li><a href="/profile/?state_id=sb#countries/sb/sb-all" class="show_country" data-country="SB">Solomon Islands</a></li><li><a href="/profile/?state_id=so#countries/so/so-all" class="show_country" data-country="SO">Somalia</a></li><li><a href="/profile/?state_id=za#countries/za/za-all" class="show_country" data-country="ZA">South Africa</a></li><li><a href="/profile/?state_id=gs#countries/gs/gs-all" class="show_country" data-country="GS">South Georgia</a></li><li><a href="/profile/?state_id=ss#countries/ss/ss-all" class="show_country" data-country="SS">South Sudan</a></li><li><a href="/profile/?state_id=es#countries/es/es-all" class="show_country" data-country="ES">Spain</a></li><li><a href="/profile/?state_id=lk#countries/lk/lk-all" class="show_country" data-country="LK">Sri Lanka</a></li><li><a href="/profile/?state_id=sd#countries/sd/sd-all" class="show_country" data-country="SD">Sudan</a></li><li><a href="/profile/?state_id=sr#countries/sr/sr-all" class="show_country" data-country="SR">Suriname</a></li><li><a href="/profile/?state_id=sj#countries/sj/sj-all" class="show_country" data-country="SJ">Svalbard And Jan Mayen Islands</a></li><li><a href="/profile/?state_id=sz#countries/sz/sz-all" class="show_country" data-country="SZ">Swaziland</a></li><li><a href="/profile/?state_id=se#countries/se/se-all" class="show_country" data-country="SE">Sweden</a></li><li><a href="/profile/?state_id=ch#countries/ch/ch-all" class="show_country" data-country="CH">Switzerland</a></li><li><a href="/profile/?state_id=sy#countries/sy/sy-all" class="show_country" data-country="SY">Syria</a></li><li><a href="/profile/?state_id=tw#countries/tw/tw-all" class="show_country" data-country="TW">Taiwan</a></li><li><a href="/profile/?state_id=tj#countries/tj/tj-all" class="show_country" data-country="TJ">Tajikistan</a></li><li><a href="/profile/?state_id=tz#countries/tz/tz-all" class="show_country" data-country="TZ">Tanzania</a></li><li><a href="/profile/?state_id=th#countries/th/th-all" class="show_country" data-country="TH">Thailand</a></li><li><a href="/profile/?state_id=tg#countries/tg/tg-all" class="show_country" data-country="TG">Togo</a></li><li><a href="/profile/?state_id=tk#countries/tk/tk-all" class="show_country" data-country="TK">Tokelau</a></li><li><a href="/profile/?state_id=to#countries/to/to-all" class="show_country" data-country="TO">Tonga</a></li><li><a href="/profile/?state_id=tt#countries/tt/tt-all" class="show_country" data-country="TT">Trinidad And Tobago</a></li><li><a href="/profile/?state_id=tn#countries/tn/tn-all" class="show_country" data-country="TN">Tunisia</a></li><li><a href="/profile/?state_id=tr#countries/tr/tr-all" class="show_country" data-country="TR">Turkey</a></li><li><a href="/profile/?state_id=tm#countries/tm/tm-all" class="show_country" data-country="TM">Turkmenistan</a></li><li><a href="/profile/?state_id=tc#countries/tc/tc-all" class="show_country" data-country="TC">Turks And Caicos Islands</a></li><li><a href="/profile/?state_id=tv#countries/tv/tv-all" class="show_country" data-country="TV">Tuvalu</a></li><li><a href="/profile/?state_id=ug#countries/ug/ug-all" class="show_country" data-country="UG">Uganda</a></li><li><a href="/profile/?state_id=ua#countries/ua/ua-all" class="show_country" data-country="UA">Ukraine</a></li><li><a href="/profile/?state_id=ae#countries/ae/ae-all" class="show_country" data-country="AE">United Arab Emirates</a></li><li><a href="/profile/?state_id=gb#countries/gb/gb-all" class="show_country" data-country="GB">United Kingdom</a></li><li><a href="/profile/?state_id=us#countries/us/us-all" class="show_country" data-country="US">United States</a></li><li><a href="/profile/?state_id=um#countries/um/um-all" class="show_country" data-country="UM">United States Minor Outlying Islands</a></li><li><a href="/profile/?state_id=uy#countries/uy/uy-all" class="show_country" data-country="UY">Uruguay</a></li><li><a href="/profile/?state_id=uz#countries/uz/uz-all" class="show_country" data-country="UZ">Uzbekistan</a></li><li><a href="/profile/?state_id=vu#countries/vu/vu-all" class="show_country" data-country="VU">Vanuatu</a></li><li><a href="/profile/?state_id=va#countries/va/va-all" class="show_country" data-country="VA">Vatican City State (Holy See)</a></li><li><a href="/profile/?state_id=ve#countries/ve/ve-all" class="show_country" data-country="VE">Venezuela</a></li><li><a href="/profile/?state_id=vn#countries/vn/vn-all" class="show_country" data-country="VN">Vietnam</a></li><li><a href="/profile/?state_id=vg#countries/vg/vg-all" class="show_country" data-country="VG">Virgin Islands (British)</a></li><li><a href="/profile/?state_id=vi#countries/vi/vi-all" class="show_country" data-country="VI">Virgin Islands (US)</a></li><li><a href="/profile/?state_id=wf#countries/wf/wf-all" class="show_country" data-country="WF">Wallis And Futuna Islands</a></li><li><a href="/profile/?state_id=eh#countries/eh/eh-all" class="show_country" data-country="EH">Western Sahara</a></li><li><a href="/profile/?state_id=ye#countries/ye/ye-all" class="show_country" data-country="YE">Yemen</a></li><li><a href="/profile/?state_id=yu#countries/yu/yu-all" class="show_country" data-country="YU">Yugoslavia</a></li><li><a href="/profile/?state_id=zm#countries/zm/zm-all" class="show_country" data-country="ZM">Zambia</a></li><li><a href="/profile/?state_id=zw#countries/zw/zw-all" class="show_country" data-country="ZW">Zimbabwe</a></li></ul>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- End Content -->
+		</div><!-- .site-content -->
+		<footer id="colophon" class="site-footer" role="contentinfo">
+
+			<div class="container">
+				<div class="row">
+					<!-- Footer Top -->
+					<div class="footer-top clearfix">
+						<div class="col-sm-3 col-xs-6">
+							<section id="text-2" class="widget widget_text"><h4 class="widget-title">About Us</h4>			<div class="textwidget"><ul>
+                        <li><a href="http://globalboard.world/why-global-board/">Why Global Board?</a></li>
+                        <li><a href="http://globalboard.world/about/">GlobalBoard Is</a></li>
+                        <li><a href="http://globalboard.world/contact-us/">Contact Us</a></li>
+                    </ul></div>
+		</section>						</div>
+						<div class="col-sm-3 col-xs-6">
+							<section id="text-3" class="widget widget_text"><h4 class="widget-title">Services</h4>			<div class="textwidget"><ul>
+                        <li><a href="http://globalboard.world/how-it-works/">How it works?</a></li>
+                        <li><a href="http://globalboard.world/why-use/">Why use?</a></li>
+                        <li><a href="http://globalboard.world/terms-of-use/">Terms & Privacy</a></li>
+                    </ul></div>
+		</section>						</div>
+						<div class="col-sm-3 col-xs-6">
+							<section id="text-4" class="widget widget_text"><h4 class="widget-title">Global Board</h4>			<div class="textwidget"> <ul>
+                        <li><a href="http://globalboard.world/customer-support/">Customer Support</a></li>
+                        <li><a href="http://globalboard.world/faq/">FAQ</a></li>
+                       <!--<li><a href="#">Press Center</a></li>-->
+                    </ul></div>
+		</section>						</div>
+						<div class="col-sm-3 col-xs-6">
+							<section id="text-5" class="widget widget_text"><h4 class="widget-title">Follow Us</h4>			<div class="textwidget"> <ul class="social-icons">
+                        <li>
+                            <a href="https://www.facebook.com/globalboard.world"><i class="fa fa-facebook" aria-hidden="true"></i>
+</a>
+                            <a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile"><i class="fa fa-linkedin" aria-hidden="true"></i>
+</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i>
+</a>
+                            <a href="https://www.instagram.com/globalboard.world/"><i class="fa fa-instagram" aria-hidden="true"></i>
+</a>
+                        </li>
+                    </ul></div>
+		</section>						</div>
+					</div>
+				</div>
+			<div class="site-info">
+								&copy Copyright  2017 GlobalBoard			</div><!-- .site-info -->
+		</footer><!-- .site-footer -->
+	</div><!-- .site-inner -->
+</div><!-- .site -->
+
+
+	<div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="LoginModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+			<a href="#" class="userpro-close-popup">Close</a>	
+<div class="userpro userpro-920 userpro-float"  data-modal_profile_saved='Your profile has been saved!' data-template='login' data-max_width='480px' data-uploads_dir='http://globalboard.world/wp-content/uploads/userpro/' data-default_avatar_male='/static/plugins/userpro/img/default_avatar_male.jpg' data-default_avatar_female='/static/plugins/userpro/img/default_avatar_female.jpg' data-layout='float' data-margin_top='0' data-margin_bottom='30px' data-align='center' data-skin='elegant' data-required_text='This field is required' data-password_too_short='Your password is too short' data-passwords_do_not_match='Passwords do not match' data-password_not_strong='Password is not strong enough' data-keep_one_section_open='0' data-allow_sections='1' data-permalink='http://globalboard.world/' data-field_icons='1' data-profile_thumb_size='80' data-register_heading='Register an Account' data-register_side='Already a member?' data-register_side_action='login' data-register_button_action='login' data-register_button_primary='Register' data-register_button_secondary='Login' data-register_group='default' data-register_redirect='0' data-type='0' data-force_redirect_uri='0' data-login_heading='Login' data-login_side='Forgot your password?' data-login_side_action='reset' data-login_resend='Resend verification email?' data-login_resend_action='resend' data-login_button_action='register' data-login_button_primary='Login' data-login_button_secondary='Create an Account' data-login_group='default' data-login_redirect='0' data-rememberme='true' data-delete_heading='Delete Profile' data-delete_side='Undo, back to profile' data-delete_side_action='view' data-delete_button_action='view' data-delete_button_primary='Confirm Deletion' data-delete_button_secondary='Back to Profile' data-delete_group='default' data-reset_heading='Reset Password' data-reset_side='Back to Login' data-reset_side_action='login' data-reset_button_action='change' data-reset_button_primary='Request Secret Key' data-reset_button_secondary='Change your Password' data-reset_group='default' data-resend_heading='Resend email' data-resend_side='Back to Login' data-resend_side_action='login' data-resend_button_action='resend' data-resend_button_primary='Resend verification email' data-change_heading='Change your Password' data-change_side='Request New Key' data-change_side_action='reset' data-change_button_action='reset' data-change_button_primary='Change my Password' data-change_button_secondary='Do not have a secret key?' data-change_group='default' data-list_heading='Latest Members' data-list_per_page='5' data-list_sortby='registered' data-list_order='desc' data-list_users='0' data-list_group='default' data-list_thumb='50' data-list_showthumb='1' data-list_showsocial='1' data-list_showbio='0' data-list_verified='0' data-list_relation='or' data-list_popup_view='0' data-online_heading='Who is online now' data-online_thumb='30' data-online_showthumb='1' data-online_showsocial='0' data-online_showbio='0' data-online_mini='1' data-online_mode='vertical' data-edit_button_primary='Save Changes' data-edit_group='default' data-view_group='default' data-social_target='_blank' data-social_group='default' data-card_width='250px' data-card_img_width='250' data-card_showbio='1' data-card_showsocial='1' data-usercanedit='1' data-link_target='_blank' data-error_heading='An error has occured' data-memberlist_table='0' data-memberlist_table_columns='user_id,picture,name,country,gender,role,email_user,message_user' data-show_on_mobile='picture,name,country,email_user,message_user' data-memberlist_v2='1' data-memberlist_v2_pic_size='86' data-memberlist_v2_fields='age,gender,country' data-memberlist_v2_bio='1' data-memberlist_v2_showbadges='1' data-memberlist_v2_showname='1' data-memberlist_v2_showsocial='1' data-memberlist_pic_size='120' data-memberlist_pic_topspace='15' data-memberlist_pic_sidespace='30' data-memberlist_pic_rounded='1' data-memberlist_width='100%' data-memberlist_paginate='1' data-memberlist_paginate_top='1' data-memberlist_paginate_bottom='1' data-memberlist_show_name='1' data-memberlist_popup_view='0' data-memberlist_withavatar='0' data-memberlist_verified='0' data-memberlist_filters='0' data-memberlist_default_search='1' data-memberlist_show_follow='0' data-per_page='12' data-sortby='registered' data-order='desc' data-relation='and' data-search='1' data-exclude='0' data-show_social='1' data-registration_closed_side='Existing member? login' data-registration_closed_side_action='login' data-facebook_redirect='profile' data-logout_redirect='0' data-post_paginate='1' data-postsbyuser_num='12' data-postsbyuser_types='post' data-postsbyuser_mode='grid' data-postsbyuser_thumb='50' data-postsbyuser_showthumb='1' data-postsbyuser_taxonomy='category' data-postsbyuser_category='0' data-following_per_page='4' data-following_paginate='1' data-followers_per_page='4' data-followers_paginate='1' data-publish_heading='Add a New Post' data-publish_button_primary='Publish' data-following_heading='Following' data-followers_heading='Followers' data-activity_heading='Recent Activity' data-activity_all='0' data-activity_per_page='10' data-activity_side='refresh' data-activity_user='0' data-emd_filters='1' data-emd_thumb='200' data-emd_social='1' data-emd_bio='1' data-emd_fields='first_name,last_name,gender,country' data-emd_layout='masonry' data-emd_per_page='20' data-emd_col_width='22%' data-emd_col_margin='2%' data-emd_accountstatus='Search by account status' data-emd_photopreference='Photo Preference' data-emd_country='Search by Country,dropdown' data-emd_gender='Gender,radio' data-emd_paginate='1' data-emd_paginate_top='1' data-collage_per_page='20'>
+
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h2 class="modal-h2 text-transform-normal">Login</h2>
+	</div>
+
+
+	<div class="modal-body">
+		<div class="my-modal-body">
+	
+			
+			<form action="" method="post" data-action="login">
+
+				
+				<input type="hidden" name="force_redirect_uri-920" id="force_redirect_uri-920" value="0" />
+				<input type="hidden" name="redirect_uri-920" id="redirect_uri-920" value="" />
+
+				<input type="hidden" id="_myuserpro_nonce" name="_myuserpro_nonce" value="3f13e31447" /><input type="hidden" name="_wp_http_referer" value="/" />		<input type="hidden" name="unique_id" id="unique_id" value="920" />
+		
+				
+					<div class="form-group my-form-group">
+						<div class='userpro-field userpro-field-username_or_email ' data-key='username_or_email'><div class='userpro-input'><input type='text' name='username_or_email-920' id='username_or_email-920' value="" placeholder='Username'  data-ajaxcheck='' data-help='' data-label='' data-placeholder='Username' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='text' data-woo='0' data-icon='' /><div class='userpro-clear'></div></div></div><div class='userpro-clear'></div>					</div>
+
+				
+					<div class="form-group my-form-group">
+						<div class='userpro-field userpro-field-user_pass ' data-key='user_pass'><div class='userpro-input'><input type='password' name='user_pass-920' id='user_pass-920' value='' placeholder='Password' autocomplete='off'  data-ajaxcheck='' data-help='Your password must be 8 characters long at least.' data-label='' data-placeholder='Password' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='password' data-woo='0' /><div class='userpro-clear'></div></div></div><div class='userpro-clear'></div>					</div>
+
+				
+									<div class="userpro-right"><a href="#" class="forgot-password" data-template="reset">Forgot?</a>
+													<a href="#" class="forgot-password" data-template="resend">Resend verification email?</a>					</div>
+				<!--				<div class="userpro-clear"></div>-->
+
+				
+							
+			<div class="userpro-column">
+				<div class="userpro-field userpro-field-compact">
+					<div class="userpro-input">
+					
+						<div class='userpro-checkbox-wrap'>
+							<label class='userpro-checkbox hide-field'>
+								<span></span>
+								<input type='checkbox' name='rememberme-920' id='rememberme-920' value="true" />Remember me							</label>
+						</div>
+						
+					</div>
+				</div>
+			</div><div class="userpro-clear"></div>
+			
+			
+				
+
+					<div class="userpro-social-connect"></div><div class="userpro-clear"></div>
+										<input type="submit" value="Login" class="btn btn-default btn-view-all advanced-search" />
+					
+										<input type="button" value="First time here? Sign Up" class="btn btn-default fileUpload advanced-search" data-template="register" />
+					
+					<img src="/static/plugins/userpro/skins/elegant/img/loading.gif" alt="" class="userpro-loading" />
+					<div class="userpro-clear"></div>
+
+
+				
+			</form>
+
+		</div>
+
+	</div>
+</div>
+
+
+
+
+        </div>
+    </div>
+	</div>
+	<div class="modal fade" id="SignUpModal" tabindex="-1" role="dialog" aria-labelledby="SignUpModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+			<a href="#" class="userpro-close-popup">Close</a>
+<div class="userpro userpro-991 userpro-float"  data-modal_profile_saved='Your profile has been saved!' data-template='register' data-max_width='480px' data-uploads_dir='http://globalboard.world/wp-content/uploads/userpro/' data-default_avatar_male='/static/plugins/userpro/img/default_avatar_male.jpg' data-default_avatar_female='/static/plugins/userpro/img/default_avatar_female.jpg' data-layout='float' data-margin_top='0' data-margin_bottom='30px' data-align='center' data-skin='elegant' data-required_text='This field is required' data-password_too_short='Your password is too short' data-passwords_do_not_match='Passwords do not match' data-password_not_strong='Password is not strong enough' data-keep_one_section_open='0' data-allow_sections='1' data-permalink='http://globalboard.world/' data-field_icons='1' data-profile_thumb_size='80' data-register_heading='Register an Account' data-register_side='Already a member?' data-register_side_action='login' data-register_button_action='login' data-register_button_primary='Sign Up' data-register_button_secondary='Login' data-register_group='default' data-register_redirect='0' data-type='0' data-force_redirect_uri='0' data-login_heading='Login' data-login_side='Forgot your password?' data-login_side_action='reset' data-login_resend='Resend verification email?' data-login_resend_action='resend' data-login_button_action='register' data-login_button_primary='Login' data-login_button_secondary='Create an Account' data-login_group='default' data-login_redirect='0' data-rememberme='true' data-delete_heading='Delete Profile' data-delete_side='Undo, back to profile' data-delete_side_action='view' data-delete_button_action='view' data-delete_button_primary='Confirm Deletion' data-delete_button_secondary='Back to Profile' data-delete_group='default' data-reset_heading='Reset Password' data-reset_side='Back to Login' data-reset_side_action='login' data-reset_button_action='change' data-reset_button_primary='Request Secret Key' data-reset_button_secondary='Change your Password' data-reset_group='default' data-resend_heading='Resend email' data-resend_side='Back to Login' data-resend_side_action='login' data-resend_button_action='resend' data-resend_button_primary='Resend verification email' data-change_heading='Change your Password' data-change_side='Request New Key' data-change_side_action='reset' data-change_button_action='reset' data-change_button_primary='Change my Password' data-change_button_secondary='Do not have a secret key?' data-change_group='default' data-list_heading='Latest Members' data-list_per_page='5' data-list_sortby='registered' data-list_order='desc' data-list_users='0' data-list_group='default' data-list_thumb='50' data-list_showthumb='1' data-list_showsocial='1' data-list_showbio='0' data-list_verified='0' data-list_relation='or' data-list_popup_view='0' data-online_heading='Who is online now' data-online_thumb='30' data-online_showthumb='1' data-online_showsocial='0' data-online_showbio='0' data-online_mini='1' data-online_mode='vertical' data-edit_button_primary='Save Changes' data-edit_group='default' data-view_group='default' data-social_target='_blank' data-social_group='default' data-card_width='250px' data-card_img_width='250' data-card_showbio='1' data-card_showsocial='1' data-usercanedit='1' data-link_target='_blank' data-error_heading='An error has occured' data-memberlist_table='0' data-memberlist_table_columns='user_id,picture,name,country,gender,role,email_user,message_user' data-show_on_mobile='picture,name,country,email_user,message_user' data-memberlist_v2='1' data-memberlist_v2_pic_size='86' data-memberlist_v2_fields='age,gender,country' data-memberlist_v2_bio='1' data-memberlist_v2_showbadges='1' data-memberlist_v2_showname='1' data-memberlist_v2_showsocial='1' data-memberlist_pic_size='120' data-memberlist_pic_topspace='15' data-memberlist_pic_sidespace='30' data-memberlist_pic_rounded='1' data-memberlist_width='100%' data-memberlist_paginate='1' data-memberlist_paginate_top='1' data-memberlist_paginate_bottom='1' data-memberlist_show_name='1' data-memberlist_popup_view='0' data-memberlist_withavatar='0' data-memberlist_verified='0' data-memberlist_filters='0' data-memberlist_default_search='1' data-memberlist_show_follow='0' data-per_page='12' data-sortby='registered' data-order='desc' data-relation='and' data-search='1' data-exclude='0' data-show_social='1' data-registration_closed_side='Existing member? login' data-registration_closed_side_action='login' data-facebook_redirect='profile' data-logout_redirect='0' data-post_paginate='1' data-postsbyuser_num='12' data-postsbyuser_types='post' data-postsbyuser_mode='grid' data-postsbyuser_thumb='50' data-postsbyuser_showthumb='1' data-postsbyuser_taxonomy='category' data-postsbyuser_category='0' data-following_per_page='4' data-following_paginate='1' data-followers_per_page='4' data-followers_paginate='1' data-publish_heading='Add a New Post' data-publish_button_primary='Publish' data-following_heading='Following' data-followers_heading='Followers' data-activity_heading='Recent Activity' data-activity_all='0' data-activity_per_page='10' data-activity_side='refresh' data-activity_user='0' data-emd_filters='1' data-emd_thumb='200' data-emd_social='1' data-emd_bio='1' data-emd_fields='first_name,last_name,gender,country' data-emd_layout='masonry' data-emd_per_page='20' data-emd_col_width='22%' data-emd_col_margin='2%' data-emd_accountstatus='Search by account status' data-emd_photopreference='Photo Preference' data-emd_country='Search by Country,dropdown' data-emd_gender='Gender,radio' data-emd_paginate='1' data-emd_paginate_top='1' data-collage_per_page='20'>
+
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h2 class="modal-h2 text-transform-normal">Sign Up</h2>
+	</div>
+
+	<div class="modal-body">
+		<div class="my-modal-body">
+
+						
+			<form action="" method="post" data-action="register">
+
+				<input type="hidden" name="redirect_uri-991" id="redirect_uri-991" value="" />
+
+				<input type="hidden" id="_myuserpro_nonce" name="_myuserpro_nonce" value="ca12a4893c" /><input type="hidden" name="_wp_http_referer" value="/" />		<input type="hidden" name="unique_id" id="unique_id" value="991" />
+		
+				
+									<div class="form-group my-form-group">
+						<div class='userpro-field userpro-field-user_login ' data-key='user_login'><div class='userpro-input'><input type='text' name='user_login-991' id='user_login-991' value="" placeholder='Username'  data-ajaxcheck='username_exists' data-help='' data-label='' data-placeholder='Username' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='text' data-woo='0' /><div class='userpro-clear'></div></div></div><div class='userpro-clear'></div>					</div>
+									<div class="form-group my-form-group">
+						<div class='userpro-field userpro-field-user_email ' data-key='user_email'><div class='userpro-input'><input type='text' name='user_email-991' id='user_email-991' value="" placeholder='E-mail'  data-ajaxcheck='email_exists' data-help='' data-label='' data-placeholder='E-mail' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='text' data-woo='0' /><div class='userpro-clear'></div></div></div><div class='userpro-clear'></div>					</div>
+									<div class="form-group my-form-group">
+						<div class='userpro-field userpro-field-user_pass ' data-key='user_pass'><div class='userpro-input'><input type='password' name='user_pass-991' id='user_pass-991' value='' placeholder='Password' autocomplete='off'  data-ajaxcheck='' data-help='' data-label='' data-placeholder='Password' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='password' data-woo='0' /><div class='userpro-clear'></div></div></div><div class='userpro-clear'></div>					</div>
+									<div class="form-group my-form-group">
+						<div class='userpro-field userpro-field-user_pass_confirm ' data-key='user_pass_confirm'><div class='userpro-input'><input type='password' name='user_pass_confirm-991' id='user_pass_confirm-991' value='' placeholder='Confirm Password' autocomplete='off'  data-ajaxcheck='' data-help='' data-label='' data-placeholder='Confirm Password' data-_builtin='1' data-hidden='0' data-hideable='0' data-html='0' data-locked='0' data-private='0' data-required='1' data-type='password' data-woo='0' /><div class='userpro-clear'></div></div></div><div class='userpro-clear'></div>					</div>
+								
+
+
+
+				
+				
+				
+					<div class="userpro-social-connect"></div><div class="userpro-clear"></div>
+											<input type="submit" value="Sign Up" class="btn btn-default btn-view-all advanced-search" />
+					
+											<input type="button" value="Already member? Login" class="btn btn-default fileUpload advanced-search" data-template="login" />
+					
+					<img src="/static/plugins/userpro/skins/elegant/img/loading.gif" alt="" class="userpro-loading" />
+					<div class="userpro-clear"></div>
+
+				
+			</form>
+
+		</div>
+	</div>
+</div>
+
+
+        </div>
+    </div>
+	</div>
+	<div class="modal fade" id="ForgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="ForgotPasswordModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 class="modal-h2 text-transform-normal">Sign Up</h2>
+            </div>
+            <div class="modal-body">
+                <div class="my-modal-body">
+                    <p class="gmt forgot-p">Enter your email address to reset password</p>
+                    <div class="form-group my-form-group">
+                        <label for="ForgotMail" class="my-label">Email</label>
+                        <input type="text" class="form-control input-control" id="ForgotMail" placeholder="michael@gmail.com">
+                    </div>
+                    <button type="button" class="btn btn-default btn-view-all advanced-search">Send</button>
+                    <button type="button" class="btn btn-default fileUpload advanced-search">Back to Log in</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	</div>
+{% endblock %}
+
