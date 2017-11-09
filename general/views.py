@@ -462,16 +462,14 @@ def ajax_region(request):
 def get_category_by_location_id(request):
     city = request.GET.get('city')  # not used
 
-    rndr_str = '<ul class="list">'
-    for mc in Category.objects.filter(parent__isnull=True):
-        cc = Category.objects.filter(parent=mc)    
-        rndr_str += '<li><a class="" data-id="{}" href=""><strong>{}</strong></a>'.format(mc.id, mc.name)
-        rndr_str += '<ul class="sub_list">'
-        for scc in cc:
-            rndr_str += '<li><a class="get_ads_by_location" data-id="{}" href="">{}</a></li>'.format(scc.id, scc.name)
-        rndr_str += '</ul></li>'
-    rndr_str += '</ul>'
-    return HttpResponse(rndr_str)
+    result = []
+    for column in range(1, 7):
+        _result = []
+        for mc in Category.objects.filter(parent__isnull=True, column=column):
+            cc = Category.objects.filter(parent=mc)
+            _result += [(mc, cc)]
+        result += [_result]
+    return render(request, 'rndr_category.html', {'categories': result})
 
 def add_post(request):
     cc = request.GET.get('cc')

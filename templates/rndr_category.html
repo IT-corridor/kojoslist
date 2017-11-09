@@ -1,0 +1,12 @@
+{% for mmc in categories %}
+    <div class="col-md-2">
+        {% for mc in mmc %}
+            <div class="category"><a href="/{{ mc.0.id }}">{{ mc.0.name }}</a></div>
+            <div class="sub-category">
+            {% for cc in mc.1 %}
+                <a href="/{{ cc.id }}">{{ cc.name }}</a>
+            {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}
