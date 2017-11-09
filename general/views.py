@@ -388,9 +388,10 @@ POST_DETAIL_CATEGORY = {
 }
 
 def home(request):
-    result = []
-    return render(request, 'index.html', {'categories': result})
+    rndr_str = globoard_display_world_countries()
+    return render(request, 'index.html', {'rndr_str': rndr_str})
 
+    result = []
     for column in range(1, 4):
         _result = []
         for mc in Category.objects.filter(parent__isnull=True, column=column):
