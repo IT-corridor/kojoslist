@@ -33,4 +33,5 @@ urlpatterns += [
     url(r"^profile", profile, name="profile"),
     url(r"^posts$", posts, name="posts"),
     url(r"^ajax_region", ajax_region, name="ajax_region"),    
+    url(r"^get_category_by_location_id", get_category_by_location_id, name="get_category_by_location_id"),    
 ]

@@ -589,17 +589,15 @@
                                 }
 
                                 $("body").on('click', '.get_category_by_location', function() {
-                                    var location_id = $(this).data('id');
-                                    breadcrumb(location_id, 'cities');
-                                    home_recent_ads(location_id, 'cities');
-                                    var url = '/wp-admin/admin-ajax.php';
+                                    var city_id = $(this).data('id');
+                                    breadcrumb(city_id, 'cities');
+                                    home_recent_ads(city_id, 'cities');
                                     jQuery.ajax({
-                                        type: 'post',
-                                        url: url,
+                                        type: 'get',
+                                        url: '/get_category_by_location_id',
                                         dataType: 'json',
                                         data: {
-                                            action: 'get_category_by_location_id',
-                                            data_id: location_id,
+                                            city: city_id
                                         },
                                         success: function(data) {
                                             jQuery('#title_of_list').html('Select Category');

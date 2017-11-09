@@ -459,6 +459,10 @@ def ajax_region(request):
 
     return JsonResponse(result, safe=False)
 
+def get_category_by_location_id(request):
+    city = request.GET.get('city')  # not used
+    
+
 def add_post(request):
     cc = request.GET.get('cc')
     if request.method == 'GET':
