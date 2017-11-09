@@ -595,13 +595,13 @@
                                     jQuery.ajax({
                                         type: 'get',
                                         url: '/get_category_by_location_id',
-                                        dataType: 'json',
                                         data: {
                                             city: city_id
                                         },
                                         success: function(data) {
-                                            jQuery('#title_of_list').html('Select Category');
-                                            jQuery('.content-select-country').html(data);
+                                            console.log('###########');
+                                            $('#title_of_list').html('Select Category');
+                                            $('.content-select-country').html(data);
                                         }
                                     });
                                 });
