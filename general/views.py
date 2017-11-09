@@ -406,6 +406,9 @@ def login(request):
 def account(request):
     return render(request, 'account.html')
 
+def profile(request):
+    return render(request, 'profile.html')
+
 def add_post(request):
     cc = request.GET.get('cc')
     if request.method == 'GET':
