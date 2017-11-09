@@ -420,7 +420,7 @@ def profile(request):
     return render(request, 'profile.html', {'rndr_str': rndr_str})
 
 def display_regions_of_state(sortname):
-    states = State.objects.filter(country__sortname=sortname)
+    states = State.objects.filter(country__sortname=sortname.upper())
     rndr_str = ''
     for state in states:
         rndr_str += "<li class='regions_li' data-type='regions' data-pid='{0}' ><a href='#'>{0}</a></li>".format(state.name)
