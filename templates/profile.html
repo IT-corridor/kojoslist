@@ -197,6 +197,7 @@
                                         if (Highcharts.charts[0]) {
                                             Highcharts.charts[0].showLoading('<i class="fa fa-spinner fa-spin fa-2x"></i>');
                                         }
+
                                         // When the map is loaded or ready from cache...
                                         function mapReady() {
                                             var mapGeoJSON = Highcharts.maps[mapKey],
@@ -446,6 +447,7 @@
                                 }
 
                                 function breadcrumb(uid, shu) {
+                                    return;
                                     //console.log('this is id: '+uid);
                                     if (typeof(shu) === 'undefined') shu = '';
                                     if (shu == 'cities') {
@@ -503,15 +505,14 @@
                                 function fetch(state_id, sec_name) {
                                     //alert(state_id);
                                     var data = {
-                                        name: {
-                                            'state_id': state_id,
-                                            'sec_name': sec_name
-                                        },
-                                        'action': 'my_action',
+                                        'state_id': state_id,
+                                        'sec_name': sec_name
                                     };
-                                    $.post('/wp-admin/admin-ajax.php', data, function(response) {
+
+                                    $.post('/ajax_region/', data, function(response) {
                                         var js;
-                                        js = JSON.parse(response);
+                                        // js = JSON.parse(response);
+                                        js = response;
                                         var no = js[0].no;
                                         var type = js[0].type;
                                         if (type == "regions") {
@@ -561,6 +562,7 @@
                                 }
 
                                 function home_recent_ads(state_id, shu) {
+                                    return;
                                     if (typeof(shu) === 'undefined') shu = '';
                                     /*$('.content-recent-ads').show();*/
                                     var url = '/wp-admin/admin-ajax.php';

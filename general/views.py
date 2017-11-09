@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import json
+
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from general.models import *
 from general.forms import *
@@ -425,6 +429,35 @@ def globoard_display_world_countries(css_class=''):
     for country in Country.objects.all():
         rndr_str += '<li><a href="/profile?state_id={0}#countries/{0}/{0}-all" class="show_country" data-country="{1}">{2}</a></li>'.format(country.sortname.lower(), country.sortname, country.name)
     return rndr_str + '</ul>'
+
+@csrf_exempt
+def ajax_region(request):
+    """
+    get sub region like states or cities
+    """
+    state_id = request.POST.get('state_id')
+    sec_name = request.POST.get('sec_name')
+
+    country = Country.objects.filter(sortname=state_id.upper()).first()
+    result = []
+    if country:
+        states = State.objects.filter(country=country)
+        num_states = states.count()        
+        result = [{'no': num_states, 'id': state.id, 'name': state.name, 'type': 'regions', 'country_id': state.country_id} 
+                  for state in states]
+        if not result:
+            result = [{'msg': 'not found', 'type': 'regions'}]
+    else:
+        if sec_name:
+            state_id = sec_name.split(',')[0]
+        cities = City.objects.filter(state__name=state_id)
+        num_cities = cities.count()        
+        result = [{'no': num_cities, 'id': city.id, 'name': city.name, 'type': 'cities', 'state_id': city.state_id} 
+                  for city in cities]
+        if not result:
+            result = [{'msg': 'not found', 'type': 'cities'}]
+
+    return JsonResponse(result, safe=False)
 
 def add_post(request):
     cc = request.GET.get('cc')
