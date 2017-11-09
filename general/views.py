@@ -414,7 +414,7 @@ def profile(request):
         rndr_str = display_regions_of_state(state_id)
     elif mycusid:
         rndr_str = display_regions_of_state(mycusid) + globoard_display_world_countries('hidden')
-    else
+    else:
         rndr_str = globoard_display_world_countries()
 
     return render(request, 'profile.html', {'rndr_str': rndr_str})
