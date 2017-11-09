@@ -391,16 +391,6 @@ def home(request):
     rndr_str = globoard_display_world_countries()
     return render(request, 'index.html', {'rndr_str': rndr_str})
 
-    result = []
-    for column in range(1, 4):
-        _result = []
-        for mc in Category.objects.filter(parent__isnull=True, column=column):
-            cc = Category.objects.filter(parent=mc)
-            cc = [ii.name for ii in cc]
-            _result += [(mc.name, mc.columns, cc)]
-        result += [_result]
-    return render(request, 'index.html', {'categories': result})
-
 def login(request):
     return render(request, 'login.html')
 
