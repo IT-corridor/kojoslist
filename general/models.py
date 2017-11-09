@@ -95,6 +95,9 @@ class Search(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Searches'
+
 
 class Image(models.Model):
     post = models.ForeignKey(Post)
@@ -126,12 +129,14 @@ class Hidden(models.Model):
 
 
 class Country(models.Model):
-    shortname = models.CharField(max_length=3)
+    sortname = models.CharField(max_length=3)
     name = models.CharField(max_length=30)
 
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Countries'
 
 class State(models.Model):
     name = models.CharField(max_length=150)
@@ -148,3 +153,5 @@ class City(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Cities'
