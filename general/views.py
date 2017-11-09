@@ -51,13 +51,12 @@ def globoard_display_world_countries(css_class=''):
         rndr_str += '<li><a href="/profile?state_id={0}#countries/{0}/{0}-all" class="show_country" data-country="{1}">{2}</a></li>'.format(country.sortname.lower(), country.sortname, country.name)
     return rndr_str + '</ul>'
 
-@csrf_exempt
 def ajax_region(request):
     """
     get sub region like states or cities
     """
-    state_id = request.POST.get('state_id')
-    sec_name = request.POST.get('sec_name')
+    state_id = request.GET.get('state_id')
+    sec_name = request.GET.get('sec_name')
 
     country = Country.objects.filter(sortname=state_id.upper()).first()
     result = []

@@ -509,16 +509,11 @@
                                         'sec_name': sec_name
                                     };
 
-                                    $.post('/ajax_region/', data, function(response) {
-                                        var js;
-                                        // js = JSON.parse(response);
-                                        js = response;
+                                    $.get('/ajax_region', data, function(response) {
+                                        var js = response;
                                         var no = js[0].no;
                                         var type = js[0].type;
                                         if (type == "regions") {
-
-                                            //alert(breadcrumb);
-
                                             $("#title_of_list").html("Select Regions");
                                             if (no == 0) {
                                                 $(".content-select-country").html("");
