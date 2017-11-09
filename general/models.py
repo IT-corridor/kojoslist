@@ -123,3 +123,28 @@ class Hidden(models.Model):
 
     def __unicode__(self):
         return '{} - {}'.format(self.owner.first_name, self.post.title)
+
+
+class Country(models.Model):
+    shortname = models.CharField(max_length=3)
+    name = models.CharField(max_length=30)
+
+    def __unicode__(self):
+        return self.name
+
+
+class State(models.Model):
+    name = models.CharField(max_length=150)
+    country = models.ForeignKey(Country)
+
+    def __unicode__(self):
+        return self.name
+
+
+class City(models.Model):
+    name = models.CharField(max_length=30)
+    state = models.ForeignKey(State)
+
+    def __unicode__(self):
+        return self.name
+
