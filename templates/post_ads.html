@@ -188,27 +188,31 @@
 <script>
     jQuery(document).ready(function() {
         jQuery('#ads_category').change(function() {
-            var category_id = jQuery(this).val();
-            jQuery.ajax({
-                type: 'get',
-                url: 'get_sub_category',
-                dataType: 'json',
-                data: {
-                    category_id: category_id,
-                },
-                success: function(data) {
-                    jQuery('#ads_sub_category').html(data);
-                }
-            });
+            var obj_id = jQuery(this).val();
+            
+            if (obj_id) {
+                jQuery.ajax({
+                    type: 'get',
+                    url: '/get_sub_category',
+                    data: {
+                        obj_id: obj_id,
+                        type: 'Category'
+                    },
+                    success: function(data) {
+                        jQuery('#ads_sub_category').html(data);
+                    }
+                });                
+            } else {
+                jQuery('#ads_sub_category').html("<option>All Sub Category</option>");
+            }
         });
 
         jQuery('#ads_country').change(function() {
             var country_id = jQuery(this).val();
-            var url = '<?php echo admin_url('
-            admin - ajax.php '); ?>';
+            
             jQuery.ajax({
                 type: 'post',
-                url: url,
+                url: 'url',
                 dataType: 'json',
                 data: {
                     action: 'get_state_by_country_id',
@@ -221,11 +225,10 @@
         });
         jQuery('#ads_state').change(function() {
             var state_id = jQuery(this).val();
-            var url = '<?php echo admin_url('
-            admin - ajax.php '); ?>';
+            
             jQuery.ajax({
                 type: 'post',
-                url: url,
+                url: 'url',
                 dataType: 'json',
                 data: {
                     action: 'get_city_by_state_id',
@@ -254,8 +257,7 @@
                 jQuery("#loaded-files li").eq((i + window.liindex)).addClass("loader_img");
                 jQuery.ajax({
                     type: 'POST',
-                    url: '<?php echo admin_url( '
-                    admin - ajax.php ' ); ?>',
+                    url: '',
                     data: fd,
                     contentType: false,
                     dataType: "json",
@@ -273,13 +275,12 @@
 
         });
         jQuery("body").on("click", ".close_img", function() {
-            var url = '<?php echo admin_url('
-            admin - ajax.php '); ?>';
+            
             var dataid = jQuery(this).parent().parent().find("input").attr("value");
             jQuery(this).parent().parent().addClass('remove_uploded_img');
             jQuery.ajax({
                 type: 'post',
-                url: url,
+                url: 'url',
                 dataType: 'json',
                 data: {
                     action: 'delete_uploaded_img',
@@ -295,7 +296,7 @@
         });
 
         $('#cancel').click(function() {
-            //alert(<?php echo get_permalink(); ?>);
+           
             window.location.href = 'http://globalboard.world/my-ads/';
         });
     }); 

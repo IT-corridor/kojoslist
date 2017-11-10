@@ -169,5 +169,15 @@ def ulogout(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
 
-def get_sub_category(request):
-    return
+def get_sub_info(request):
+    """
+    ajax call for sub category, state, city
+    """
+    obj_id = request.GET.get('obj_id')
+    sc_type = request.GET.get('type') # Category, State, City
+    rndr_str = '<option value="">-Select-</option>'
+
+    SC = eval(sc_type)
+    for sc in SC.objects.filter(parent__id=category_id):
+        rndr_str += '<option value="{}">{}</option>'.format(sc.id, sc.name)
+    return HttpResponse(rndr_str)
