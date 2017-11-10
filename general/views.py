@@ -136,12 +136,12 @@ def posts(request):
 
 @csrf_exempt
 def auth_process(request):
-    unique_id = request.POST.get('unique_id')[0]
+    unique_id = request.POST.get('unique_id')
     action = request.POST.get('action')
 
     if action == 'userpro_process_form':
-        username = request.POST.get('username_or_email-'+unique_id)[0]
-        passwd = request.POST.get('user_pass-'+unique_id)[0]
+        username = request.POST.get('username_or_email-'+unique_id)
+        passwd = request.POST.get('user_pass-'+unique_id)
 
         res = {"error":{"user_pass":"The password you entered is incorrect"}}
         res = {"error":"","redirect_uri":"/profile/"}
