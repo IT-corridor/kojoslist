@@ -1,0 +1,337 @@
+{% extends "profile.html" %} 
+{% load staticfiles %} 
+
+{% block own_css %}
+<style>
+    .close_img{
+        background: black none repeat scroll 0 0;
+        border-radius: 25px;
+        color: white;
+        cursor: pointer;
+        padding: 3px 5px;
+        position: absolute;
+        right: 0;
+    }
+    .uploadedImg {
+        height: 100%;
+        left: 0;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+    .upload-image-thumbs li.upload-image {
+        cursor: pointer;
+        background-color: #f5f5f4;
+        background-image: url(http://gumtree.classistatic.com/RC-4b815836bb48ed24646d0e3b8614589a18fefff4/legacy/add-picture-on.svg);
+    }
+    .upload-image-thumbs li {
+        background-color: #f5f5f4;
+        background-image: url(http://gumtree.classistatic.com/RC-4b815836bb48ed24646d0e3b8614589a18fefff4/legacy/add-picture-off.svg);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 80% auto;
+        display: block;
+        float: left;
+        height: 99px;
+        list-style: outside none none;
+        margin: 0.5em 1em 0.5em 0;
+        position: relative;
+        width: 99px;
+    }
+    .loader_img {
+      background-image: url("http://globalboard.world/wp-content/uploads/2017/01/loader.gif") !important;
+    }
+
+</style>
+{% endblock %}
+
+{% block right_content %}
+<!-- Content Right Content -->
+
+<div class="col-sm-12 full-h">
+
+    <div class="content-right-content my-ads">
+        <h2><?php echo the_title(); ?></h2>
+        <div class="pages">
+            <form method="post" action="<?php $current_page; ?>" enctype="multipart/form-data">
+                <div class="col-md-6">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group edit-profile">
+                                <label>Email</label>
+                                <input type="email" name="ads_email" class="form-control edit-post-wrap" placeholder="Enter your email address" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group edit-profile">
+                                <label>Ad Category</label>
+
+                                <div class="category-select-wrap-full">
+                                    <select id="ads_category" name="ads_category" class="form-control edit-post-wrap category-select-wrap" required>
+                                        <option value=""> All Ad Category </option>
+                                        <?php
+                                                $terms = get_terms( 'ads_category', array(
+                                                    'hide_empty' => false,
+                                                    'parent' => false,
+                                                ) );
+                                                if(!empty($terms)){
+                                                    foreach($terms as $tt){
+                                                        echo '<option value="'.$tt->term_id.'">'.$tt->name.'</option>';
+                                                    }
+                                                }
+                                            ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group edit-profile">
+                                <label>Ad Subcategory</label>
+                                <select id="ads_sub_category" name="ads_sub_category" class="form-control edit-post-wrap" required>
+                                    <option>All Sub Category</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group edit-profile">
+                                <label>Ad Sustanability Country</label>
+                                <select id="ads_country" name="ads_country" class="form-control edit-post-wrap" required>
+                                    <option value="">All Country</option>
+                                    <?php 
+                                            $sql = "select * from countries";
+                                            $result = mysql_query($sql);
+                                            $countries_list = array();
+                                            while($row = mysql_fetch_assoc($result)){
+                                                ?>
+                                        <option value="<?php echo $row['id']; ?>">
+                                            <?php echo $row['name']; ?>
+                                        </option>
+                                        <?php
+                                            }
+                                        ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group edit-profile">
+                                <label>Country's Region</label>
+                                <select id="ads_state" name="ads_state" class="form-control edit-post-wrap" required>
+                                    <option>All Regions</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group edit-profile">
+                                <label>My Location</label>
+                                <select id="ads_city" name="ads_city" class="form-control edit-post-wrap" required>
+                                    <option>All Location</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h2 class="description-title">Ad Description</h2>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group edit-profile">
+                                <!-- <label>Name</label> -->
+                                <input type="text" name="ads_name" class="form-control edit-post-wrap" placeholder="Name" required/>
+                            </div>
+                            <div class="form-group edit-profile">
+                                <!-- <label>Price</label> -->
+                                <input type="number" name="ads_price" class="form-control edit-post-wrap" placeholder="Price" min="0" required/>
+                            </div>
+                            <div class="form-group edit-profile">
+                                <!-- <label>Description</label> -->
+                                <!--<input type="text" name="ads_desc" class="form-control" />-->
+                                <textarea name="ads_desc" class="form-control edit-post-wrap" placeholder="Description"></textarea>
+                            </div>
+                            <div class="form-group edit-profile">
+                                <ul id="loaded-files" class="upload-image-thumbs upload-image-ul">
+                                    <li class="upload-placeholder upload-image">
+                                        <div class="uploadedImg"></div>
+                                        <input type="hidden" name="uploded_id[]" class="uploded_id" />
+                                    </li>
+                                </ul>
+                                <div style="display:none;" id="upload_btn" class="upload_btn button button-primary">
+                                    Add pictures
+                                    <input id="inputfile" type="file" name="files[]" data-maxfilesize="4000000" class="" data-maxuploadfile="20" data-imagequality="0.7" multiple="multiple">
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <div class="edit-profile">
+                                <div class="userpro-column">
+                                    <div class="userpro-field userpro-field-compact">
+                                        <div class="userpro-input">
+
+                                            <div class="userpro-checkbox-wrap">
+                                                <label class="userpro-checkbox hide-field">
+                                                    <span class="checked"></span>
+                                                    <input name="rememberm" id="" value="true" type="checkbox" checked="checked">i accept <a href="#">terms & service</a></label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group edit-profile">
+                                <input type="hidden" name="action" value="addPostAd" />
+                                <input type="submit" class="btn btn-info update-btn" value="Submit" />
+                                <input class="btn btn-info post-add-btn-cancel" id="cancel" value="cancel" type="button">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<!-- End Content Right Content -->
+{% endblock %}
+
+{% block own_js %}
+<script>
+    jQuery(document).ready(function() {
+        jQuery('#ads_category').change(function() {
+            var category_id = jQuery(this).val();
+            var url = '<?php echo admin_url('
+            admin - ajax.php '); ?>';
+            jQuery.ajax({
+                type: 'post',
+                url: url,
+                dataType: 'json',
+                data: {
+                    action: 'get_sub_category_by_category_id',
+                    data_id: category_id,
+                },
+                success: function(data) {
+                    jQuery('#ads_sub_category').html(data);
+                }
+            });
+        });
+
+        jQuery('#ads_country').change(function() {
+            var country_id = jQuery(this).val();
+            var url = '<?php echo admin_url('
+            admin - ajax.php '); ?>';
+            jQuery.ajax({
+                type: 'post',
+                url: url,
+                dataType: 'json',
+                data: {
+                    action: 'get_state_by_country_id',
+                    data_id: country_id,
+                },
+                success: function(data) {
+                    jQuery('#ads_state').html(data);
+                }
+            });
+        });
+        jQuery('#ads_state').change(function() {
+            var state_id = jQuery(this).val();
+            var url = '<?php echo admin_url('
+            admin - ajax.php '); ?>';
+            jQuery.ajax({
+                type: 'post',
+                url: url,
+                dataType: 'json',
+                data: {
+                    action: 'get_city_by_state_id',
+                    data_id: state_id,
+                },
+                success: function(data) {
+                    jQuery('#ads_city').html(data);
+                }
+            });
+        });
+
+        window.liindex = 0;
+        jQuery("body").on("click", ".upload-image", function() {
+            window.liindex = jQuery(this).index();
+            jQuery("#inputfile").click();
+        });
+        jQuery("#inputfile").change(function() {
+            var fd = new FormData();
+            var file = this.files;
+            var count = file.length;
+            for (var i = 0; i < count; i++) {
+                if (fd) {
+                    fd.append("images", file[i]);
+                }
+                fd.append('action', 'upload_download_image');
+                jQuery("#loaded-files li").eq((i + window.liindex)).addClass("loader_img");
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '<?php echo admin_url( '
+                    admin - ajax.php ' ); ?>',
+                    data: fd,
+                    contentType: false,
+                    dataType: "json",
+                    processData: false,
+                    success: function(response) {
+                        jQuery("#loaded-files li").removeClass("loader_img");
+                        jQuery(".upload-image").find('input[class="uploded_id"]').val(response.uploaded_id);
+                        var image = '<i class="fa fa-times close_img"></i><img src="' + response.image_url + '" >';
+                        jQuery(".upload-image .uploadedImg").html(image);
+                        jQuery(".upload-image").removeClass("upload-image");
+                        jQuery(".upload-image-ul").append('<li class="upload-placeholder upload-image"><div class="uploadedImg"></div><input type="hidden" name="uploded_id[]" class="uploded_id" /></li>');
+                    }
+                });
+            }
+
+        });
+        jQuery("body").on("click", ".close_img", function() {
+            var url = '<?php echo admin_url('
+            admin - ajax.php '); ?>';
+            var dataid = jQuery(this).parent().parent().find("input").attr("value");
+            jQuery(this).parent().parent().addClass('remove_uploded_img');
+            jQuery.ajax({
+                type: 'post',
+                url: url,
+                dataType: 'json',
+                data: {
+                    action: 'delete_uploaded_img',
+                    data_id: dataid,
+                },
+                success: function(data) {
+                    jQuery(".remove_uploded_img").remove();
+                    //jQuery("#loaded-files").append('<li class="upload-placeholder"><div class="uploadedImg"></div><input type="hidden" name="uploded_id[]" class="uploded_id" /></li>');
+
+                }
+            });
+
+        });
+
+        $('#cancel').click(function() {
+            //alert(<?php echo get_permalink(); ?>);
+            window.location.href = 'http://globalboard.world/my-ads/';
+        });
+    }); 
+
+    $('.userpro-checkbox span').click(function() {
+        $(this).toggleClass('checked');
+    }); 
+</script>
+
+{% endblock %}
