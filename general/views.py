@@ -27,6 +27,9 @@ def account(request):
 def my_ads(request):
     return render(request, 'my_ads.html')
 
+def post_ads(request):
+    return render(request, 'post_ads.html')
+
 def profile(request):
     state_id = request.GET.get('state_id')
     mycusid = request.GET.get('mycusid')
