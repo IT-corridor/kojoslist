@@ -27,12 +27,13 @@ urlpatterns = [
 
 urlpatterns += [
     url(r"^$", home, name="home"),
-    url(r"^account$", account, name="account"),
-    url(r"^add_post", add_post, name="add_post"),
+    # url(r"^account$", account, name="account"),
+    # url(r"^add_post", add_post, name="add_post"),
     url(r"^profile", profile, name="profile"),
     url(r"^my-ads", my_ads, name="my-ads"),
     url(r"^post-ads", post_ads, name="post-ads"),
-    url(r"^posts$", posts, name="posts"),
+    # url(r"^posts$", posts, name="posts"),
+    url(r"^upload-image$", upload_image, name="upload_image"),
     url(r"^get_sub_info$", get_sub_info, name="get_sub_info"),
     url(r"^logout$", ulogout, name="logout"),
     url(r"^ajax_region", ajax_region, name="ajax_region"),

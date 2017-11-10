@@ -187,3 +187,8 @@ def get_sub_info(request):
     for sc in objects:
         rndr_str += '<option value="{}">{}</option>'.format(sc.id, sc.name)
     return HttpResponse(rndr_str)
+
+@csrf_exempt
+def upload_image(request):
+    return JsonResponse(safe=False)
+

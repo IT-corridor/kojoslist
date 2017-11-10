@@ -239,7 +239,6 @@
         });
 
         jQuery("body").on("click", ".close_img", function() {
-            
             var dataid = jQuery(this).parent().parent().find("input").attr("value");
             jQuery(this).parent().parent().addClass('remove_uploded_img');
             jQuery.ajax({
@@ -251,16 +250,13 @@
                     data_id: dataid,
                 },
                 success: function(data) {
-                    jQuery(".remove_uploded_img").remove();
-                    //jQuery("#loaded-files").append('<li class="upload-placeholder"><div class="uploadedImg"></div><input type="hidden" name="uploded_id[]" class="uploded_id" /></li>');
-
+                    jQuery(".remove_uploded_img").remove();                    
                 }
             });
 
         });
 
         $('#cancel').click(function() {
-           
             window.location.href = '/my-ads/';
         });
     }); 
