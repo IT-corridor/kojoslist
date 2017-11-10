@@ -78,17 +78,19 @@
                         <div class="col-md-12">
 
                             <div class="form-group edit-profile">
-                                <!-- <label>Name</label> -->
-                                <input type="text" name="ads_name" class="form-control edit-post-wrap" placeholder="Name" required/>
+                                <label>Title</label>
+                                <input type="text" name="title" class="form-control edit-post-wrap"  required/>
                             </div>
                             <div class="form-group edit-profile">
-                                <!-- <label>Price</label> -->
-                                <input type="number" name="ads_price" class="form-control edit-post-wrap" placeholder="Price" min="0" required/>
+                                <label>Price</label>
+                                <input type="number" name="price" class="form-control edit-post-wrap" min="0" required/>
                             </div>
                             <div class="form-group edit-profile">
-                                <!-- <label>Description</label> -->
+                                <label>Description</label>
                                 <!--<input type="text" name="ads_desc" class="form-control" />-->
-                                <textarea name="ads_desc" class="form-control edit-post-wrap" placeholder="Description"></textarea>
+                                <textarea name="content" class="form-control edit-post-wrap"></textarea>
+                            </div>
+                            <div id="details">
                             </div>
                             <div class="form-group edit-profile">
                                 <ul id="loaded-files" class="upload-image-thumbs upload-image-ul">

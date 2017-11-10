@@ -24,9 +24,6 @@ def home(request):
     rndr_str = globoard_display_world_countries()
     return render(request, 'index.html', {'rndr_str': rndr_str})
 
-def account(request):
-    return render(request, 'account.html')
-
 def my_ads(request):
     return render(request, 'my_ads.html')
 
