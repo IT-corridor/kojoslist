@@ -1,146 +1,8 @@
-{% extends "base.html" %} 
+{% extends "profile.html" %} 
 {% load staticfiles %} 
 
-{% block extra_css %}
-<link rel='stylesheet' id='dropdown-menu-style-css' href='/static/css/dropdown-menu-style.css?v=1' type='text/css' media='all' /> 
-<link rel='stylesheet' id='dropdown-menu-style-css' href='/static/css/my-ads.css' type='text/css' media='all' /> 
-{% endblock %} 
 
-{% block page_content %}
-
-<div id="page" class="site">
-
-    <div class="site-inner">
-
-        <div id="content">
-
-            <div class="container-fluid">
-
-                <div class="row">
-
-                    <div class="admin-content-menu-and-content-section clearfix">
-
-
-
-                        <!-- Content Left Section -->
-
-                        <div class="col-md-2 col-sm-12 md-media-full-widht no-padding admin-content-left-section">
-
-
-
-                            <!-- Logo Section -->
-
-                            <div class="logo-section clearfix">
-
-                                <div class="navbar-brand-profile">
-
-                                    <a href="http://globalboard.world/" class="custom-logo-link" rel="home" itemprop="url"><img width="240" height="67" src="http://globalboard.world/wp-content/uploads/2016/12/cropped-logo.png" class="custom-logo" alt="" itemprop="logo" /></a>
-                                </div>
-
-                            </div>
-
-                            <!-- End Logo Section -->
-
-
-
-                            <!-- Header -->
-
-                            <header>
-
-                                
-
-
-                                    <div class="left-menu-bar">
-
-                                        <div class="cd-dropdown-wrapper">
-
-                                            <div class="menu-button-center">
-
-                                                <a class="cd-dropdown-trigger" href="#0"><i class="fa fa-bars" aria-hidden="true"></i></a>
-
-                                            </div>
-
-                                            <nav class="cd-dropdown">
-
-                                                <a href="#0" class="cd-close">Close</a>
-
-                                                                                                <div class="menu-profile-side-menu-container">
-                                                	<ul id="menu-profile-side-menu" class="cd-dropdown-content">
-                                                    	<li id="menu-item-42" class="home menu-item menu-item-type-custom menu-item-object-custom menu-item-42"><a href="http://globalboard.world/profile/" class="">Home</a></li>                                
-                                                    	<li id="menu-item-43" class="ads menu-item menu-item-type-custom menu-item-object-custom menu-item-43"><a href="http://globalboard.world/my-ads/" class="">My Ads</a></li>
-                                                        <li id="menu-item-44" class="account menu-item menu-item-type-custom menu-item-object-custom menu-item-44"><a href="http://globalboard.world/my-account/" class="">My Account</a></li>
-                                                        <li id="menu-item-260" class="account menu-item menu-item-type-post_type menu-item-object-page menu-item-260"><a href="http://globalboard.world/my-subscribe/" class="">My Subscribe</a></li>
-                                                        <li id="menu-item-45" class="favorites menu-item menu-item-type-custom menu-item-object-custom menu-item-45"><a href="http://globalboard.world/my-favorites/" class="">My Favorites</a></li>
-                                                        <li id="menu-item-46" class="logout menu-item menu-item-type-custom menu-item-object-custom menu-item-46"><a href="http://globalboard.world/wp-admin/admin-ajax.php?action=log_out" class="">Log Out</a></li>
-                                                                                                           </ul>
-												</div>
-
-                                            </nav> <!-- .cd-dropdown -->
-
-                                        </div>
-
-                                    </div>
-
-                                
-                            </header>
-
-                            <!-- End Header -->
-
-                        </div>
-
-
-
-                        <div class="col-md-10 col-sm-12 md-media-full-widht no-padding">
-
-                            <!-- Content Right Header -->
-
-                            <div class="col-sm-12 no-padding">
-
-                                <!-- Header User Section -->
-
-                                <div class="header-user-section clearfix">
-                                                                    <div class="header-user-section-ico">
-                                    	                                        	<a href="#"><img src="http://globalboard.world/wp-content/uploads/2017/03/icon-256x256jghjg-150x150.png" width="150" height="150" /></a>
-                                    	                                    </div>
-                                    
-                                    <div class="header-user-section-message-to-ico">
-
-                                        <a href="http://globalboard.world/my-messages/">
-
-                                            <i class="fa fa-envelope" aria-hidden="true"></i>
-
-                                        </a>
-
-                                    </div>
-
-                                    <div class="header-user-section-welcome">
-
-                                        Welcome, developer!
-
-                                    </div>
-                                                                </div>
-
-                                <!-- End Header User Section -->
-
-                            </div>
-
-<style>
-.content-right-content.my-ads .ads_list .my_add {
-    display: inline-block !important;
-}
-.content-right-content.my-ads .ads_list .my_add .actions .status {
-    border: none !important;
-	width:auto !important;
-	margin-right: 0px !important;
-}
-.content-right-content.my-ads .ads_list .my_add .actions {
-    width: 165px !important;
-}
-.content-right-content.my-ads .ads_search input::-moz-placeholder {
-    color: #989898;
-    text-shadow: 0 0 1px;
-}
-</style>
+{% block right_content %}
     <!-- Content Right Content -->
 
     <div class="col-sm-12 full-h">
@@ -166,7 +28,9 @@
         </div>
 
     </div>
+{% endblock %}
 
+{% block own_js %}
 <script>
 	jQuery(document).ready(function(){
 		jQuery('.active_deactive').change(function(){
@@ -225,11 +89,9 @@
 				success: function (data) {
 					jQuery('.ads_list').html(data);
 				}
-});			});
+			});			
 		});
-		
-		
-
+	});		
 </script>
 
 {% endblock %}
