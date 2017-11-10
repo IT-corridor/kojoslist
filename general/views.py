@@ -28,7 +28,12 @@ def my_ads(request):
     return render(request, 'my_ads.html')
 
 def post_ads(request):
-    return render(request, 'post_ads.html')
+    mcategories = Category.objects.filter(parent__isnull=True)
+    countries = Country.objects.all()
+    return render(request, 'post_ads.html', {
+        'mcategories': mcategories,
+        'countries': countries
+    })
 
 def profile(request):
     state_id = request.GET.get('state_id')

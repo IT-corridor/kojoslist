@@ -52,19 +52,10 @@
 <div class="col-sm-12 full-h">
 
     <div class="content-right-content my-ads">
-        <h2><?php echo the_title(); ?></h2>
+        <h2>Post Ads</h2>
         <div class="pages">
-            <form method="post" action="<?php $current_page; ?>" enctype="multipart/form-data">
-                <div class="col-md-6">
-                    <div class="row">
-
-                        <div class="col-md-12">
-                            <div class="form-group edit-profile">
-                                <label>Email</label>
-                                <input type="email" name="ads_email" class="form-control edit-post-wrap" placeholder="Enter your email address" required/>
-                            </div>
-                        </div>
-                    </div>
+            <form method="post" enctype="multipart/form-data">
+                <div class="col-md-6">    
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group edit-profile">
@@ -73,17 +64,9 @@
                                 <div class="category-select-wrap-full">
                                     <select id="ads_category" name="ads_category" class="form-control edit-post-wrap category-select-wrap" required>
                                         <option value=""> All Ad Category </option>
-                                        <?php
-                                                $terms = get_terms( 'ads_category', array(
-                                                    'hide_empty' => false,
-                                                    'parent' => false,
-                                                ) );
-                                                if(!empty($terms)){
-                                                    foreach($terms as $tt){
-                                                        echo '<option value="'.$tt->term_id.'">'.$tt->name.'</option>';
-                                                    }
-                                                }
-                                            ?>
+                                        {% for mc in mcategories %}
+                                        <option value="{{ mc.id }}">{{ mc.name }}</option>
+                                        {% endfor %}                                        
                                     </select>
                                 </div>
                             </div>
@@ -103,18 +86,9 @@
                                 <label>Ad Sustanability Country</label>
                                 <select id="ads_country" name="ads_country" class="form-control edit-post-wrap" required>
                                     <option value="">All Country</option>
-                                    <?php 
-                                            $sql = "select * from countries";
-                                            $result = mysql_query($sql);
-                                            $countries_list = array();
-                                            while($row = mysql_fetch_assoc($result)){
-                                                ?>
-                                        <option value="<?php echo $row['id']; ?>">
-                                            <?php echo $row['name']; ?>
-                                        </option>
-                                        <?php
-                                            }
-                                        ?>
+                                    {% for cc in countries %}
+                                    <option value="{{ cc.id }}">{{ cc.name }}</option>
+                                    {% endfor %}                                    
                                 </select>
                             </div>
                         </div>
