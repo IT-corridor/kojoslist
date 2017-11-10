@@ -132,10 +132,10 @@ class Search(models.Model):
 
 class Image(models.Model):
     post = models.ForeignKey(Post)
-    img = models.ImageField()
+    name = models.CharField(max_length=100)
 
     def __unicode__(self):
-        return self.post.title
+        return '{} - {}'.format(self.post.title, self.name)
 
 
 class Detail(models.Model):

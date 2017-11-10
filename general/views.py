@@ -113,48 +113,11 @@ def post_ads(request):
         form = get_class(form_name)
         form = form(request.POST)
         
+        print request.POST
         if form.is_valid():
             form.save()
         print form.errors
         return HttpResponseRedirect(reverse('my-ads'))
-
-def add_post(request):
-    cc = request.GET.get('cc')
-    if request.method == 'GET':
-        if not cc:
-            categories = POST_DETAIL_CATEGORY.keys()
-            request.session['category'] = []
-        else:
-            categories = POST_DETAIL_CATEGORY
-            for tc in request.session['category']:
-                categories = categories[tc]            
-
-            request.session['category'].append(cc)
-            request.session.modified = True
-            if not cc in categories:
-                return HttpResponse('404 No such category!'+str(request.session['category']), status=404)
-            categories = categories[cc]
-
-            if not isinstance(categories, dict):
-                category = categories[0]
-                template = 'post/' + categories[1]
-                request.session['form'] = categories[2]
-                request.session.modified = True
-
-                return render(request, template, {
-                    'category': category,
-                })
-
-        return render(request, 'add_post.html', {
-            'categories': categories,
-            'head': cc
-        })
-    else:
-        # a specific parameter
-        form = request.session['form']
-        if form.is_valid():
-            form.save()
-        return HttpRedirect(request, 'success.html')
 
 @csrf_exempt
 def auth_process(request):
