@@ -63,7 +63,7 @@
 
                                 <div class="category-select-wrap-full">
                                     <select id="ads_category" name="ads_category" class="form-control edit-post-wrap category-select-wrap" required>
-                                        <option value=""> All Ad Category </option>
+                                        <option value=""> All Ad Categories </option>
                                         {% for mc in mcategories %}
                                         <option value="{{ mc.id }}">{{ mc.name }}</option>
                                         {% endfor %}                                        
@@ -75,7 +75,7 @@
                             <div class="form-group edit-profile">
                                 <label>Ad Subcategory</label>
                                 <select id="ads_sub_category" name="ads_sub_category" class="form-control edit-post-wrap" required>
-                                    <option>All Sub Category</option>
+                                    <option>All Sub Categories</option>
                                 </select>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                             <div class="form-group edit-profile">
                                 <label>Ad Sustanability Country</label>
                                 <select id="ads_country" name="ads_country" class="form-control edit-post-wrap" required>
-                                    <option value="">All Country</option>
+                                    <option value="">All Countries</option>
                                     {% for cc in countries %}
                                     <option value="{{ cc.id }}">{{ cc.name }}</option>
                                     {% endfor %}                                    
@@ -108,7 +108,7 @@
                             <div class="form-group edit-profile">
                                 <label>My Location</label>
                                 <select id="ads_city" name="ads_city" class="form-control edit-post-wrap" required>
-                                    <option>All Location</option>
+                                    <option>All Locations</option>
                                 </select>
                             </div>
                         </div>
@@ -203,41 +203,49 @@
                     }
                 });                
             } else {
-                jQuery('#ads_sub_category').html("<option>All Sub Category</option>");
+                jQuery('#ads_sub_category').html("<option>All Sub Categories</option>");
             }
         });
 
         jQuery('#ads_country').change(function() {
-            var country_id = jQuery(this).val();
+            var obj_id = jQuery(this).val();
             
-            jQuery.ajax({
-                type: 'post',
-                url: 'url',
-                dataType: 'json',
-                data: {
-                    action: 'get_state_by_country_id',
-                    data_id: country_id,
-                },
-                success: function(data) {
-                    jQuery('#ads_state').html(data);
-                }
-            });
+            if (obj_id) {
+                jQuery.ajax({
+                    type: 'get',
+                    url: '/get_sub_info',
+                    data: {
+                        obj_id: obj_id,
+                        type: 'state'
+                    },
+                    success: function(data) {
+                        jQuery('#ads_state').html(data);
+                    }
+                });                
+            } else {
+                jQuery('#ads_state').html("<option>All Regions</option>");
+            }
+            jQuery('#ads_city').html("<option>All Locations</option>");
         });
+
         jQuery('#ads_state').change(function() {
-            var state_id = jQuery(this).val();
+            var obj_id = jQuery(this).val();
             
-            jQuery.ajax({
-                type: 'post',
-                url: 'url',
-                dataType: 'json',
-                data: {
-                    action: 'get_city_by_state_id',
-                    data_id: state_id,
-                },
-                success: function(data) {
-                    jQuery('#ads_city').html(data);
-                }
-            });
+            if (obj_id) {
+                jQuery.ajax({
+                    type: 'get',
+                    url: '/get_sub_info',
+                    data: {
+                        obj_id: obj_id,
+                        type: 'city'
+                    },
+                    success: function(data) {
+                        jQuery('#ads_city').html(data);
+                    }
+                });                
+            } else {
+                jQuery('#ads_city').html("<option>All Locations</option>");
+            }
         });
 
         window.liindex = 0;
