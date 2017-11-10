@@ -1,65 +1,58 @@
-            <div class="row">
-            <div class="col-md-12 m-t-20">
-       
-
-
-                <div class="col-md-12 m-b-20">
-                <div class="col-md-12" style="background-color: #f4f4f4;">
-                    <div class="form-group fg-line">
-                        <label class="c-green">employment type</label>
-                        <select name="employment_type" required="" id="id_employment_type" class="form-control">
-                            <option value="" selected="">---------</option>
-                            <option value="full-time">full-time</option>
-                            <option value="part-time">part-time</option>
-                            <option value="contract">contract</option>
-                            <option value="employee's choice">employee's choice</option>
-                        </select>
-                    </div>
-
-                    <div class="col-sm-3 m-b-20 f-12">
-                        <div class="form-group checkbox">
-                            <label>Direct contact by recruiters is okay
-                            <input name="direct_contact_by_recruiters_is_okay" id="id_direct_contact_by_recruiters_is_okay" type="checkbox" class="form-control">
-                            <i class="input-helper"></i>
-                            </label>
-                        </div>
-                    </div>        
-
-                    <div class="col-sm-3 m-b-20 f-12">
-                        <div class="form-group checkbox">
-                            <label>Internship
-                            <input name="internship" id="id_internship" type="checkbox" class="form-control">
-                            <i class="input-helper"></i>
-                            </label>
-                        </div>
-                    </div>        
-
-                    <div class="col-sm-3 m-b-20 f-12">
-                        <div class="form-group checkbox">
-                            <label>Non profit organization
-                            <input name="non_profit_organization" id="id_non_profit_organization" type="checkbox" class="form-control">
-                            <i class="input-helper"></i>
-                            </label>
-                        </div>
-                    </div>        
-
-                    <div class="col-sm-3 m-b-20 f-12">
-                        <div class="form-group checkbox">
-                            <label>Telecommuting okay
-                            <input name="telecommuting_okay" id="id_telecommuting_okay" type="checkbox" class="form-control">
-                            <i class="input-helper"></i>
-                            </label>
-                        </div>
-                    </div>        
-                </div>
-                </div>
-                
-                <div class="col-sm-12 m-b-20">
-                    <div class="form-group fg-line">
-                        <label class="c-green">compensation</label>
-                        <input type="text" class="form-control input-mask" name="compensation" required="" id="id_compensation" maxlength="100">
-                    </div>
-                </div>
-
-                </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group edit-profile">
+            <label>employment type</label>
+            <select name="employment_type" class="form-control edit-post-wrap" required>
+                <option value="">---------</option>
+                <option value="full-time">full-time</option>
+                <option value="part-time">part-time</option>
+                <option value="contract">contract</option>
+                <option value="employee's choice">employee's choice</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group edit-profile">
+            <label>compensation</label>
+            <input type="text" name="compensation" class="form-control edit-post-wrap" placeholder="describe in detail as much as possible" required/>
+        </div>
+    </div>
+    <div class="col-md-6" style="margin-bottom: 15px;">
+        <div class="userpro-input">
+            <div class="userpro-checkbox-wrap">
+                <label class="userpro-checkbox hide-field">
+                    <span class="checked" onclick="$(this).toggleClass('checked')"></span>
+                    <input name="direct_contact_by_recruiters_is_okay" type="checkbox">Direct contact by recruiters is okay</label>
             </div>
+        </div>
+    </div>    
+    <div class="col-md-6" style="margin-bottom: 15px;">
+        <div class="userpro-input">
+            <div class="userpro-checkbox-wrap">
+                <label class="userpro-checkbox hide-field">
+                    <span class="checked" onclick="$(this).toggleClass('checked')"></span>
+                    <input name="internship" type="checkbox">Internship</label>
+            </div>
+        </div>
+    </div>           
+    <div class="col-md-6" style="margin-bottom: 27px;">
+        <div class="userpro-input">
+            <div class="userpro-checkbox-wrap">
+                <label class="userpro-checkbox hide-field">
+                    <span class="checked" onclick="$(this).toggleClass('checked')"></span>
+                    <input name="non_profit_organization" type="checkbox">Non profit organization</label>
+            </div>
+        </div>
+    </div>         
+    <div class="col-md-6" style="margin-bottom: 27px;">
+        <div class="userpro-input">
+            <div class="userpro-checkbox-wrap">
+                <label class="userpro-checkbox hide-field">
+                    <span class="checked" onclick="$(this).toggleClass('checked')"></span>
+                    <input name="telecommuting_okay" type="checkbox">Telecommuting okay</label>
+            </div>
+        </div>
+    </div> 
+              
+
+</div>
