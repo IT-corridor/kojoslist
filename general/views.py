@@ -15,9 +15,12 @@ from django.contrib.auth import logout
 from django.contrib.auth import authenticate
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
+from django.template.loader import render_to_string
 
 from general.models import *
 from general.forms import *
+
+get_class = lambda x: globals()[x]
 
 
 def home(request):
@@ -97,13 +100,23 @@ def get_category_by_location_id(request):
     return render(request, 'rndr_category.html', {'categories': result})
 
 def post_ads(request):
-    mcategories = Category.objects.filter(parent__isnull=True)
-    countries = Country.objects.all()
-    
-    return render(request, 'post_ads.html', {
-        'mcategories': mcategories,
-        'countries': countries
-    })
+    if request.method == 'GET':
+        mcategories = Category.objects.filter(parent__isnull=True)
+        countries = Country.objects.all()
+        
+        return render(request, 'post_ads.html', {
+            'mcategories': mcategories,
+            'countries': countries
+        })
+    else:
+        form_name = request.POST.get('ads_form') + 'Form'
+        form = get_class(form_name)
+        form = form(request.POST)
+        
+        if form.is_valid():
+            form.save()
+        print form.errors
+        return HttpResponseRedirect(reverse('my-ads'))
 
 def add_post(request):
     cc = request.GET.get('cc')
@@ -203,4 +216,6 @@ def get_post_detail(request):
     obj_id = request.GET.get('obj_id')
     form_name = Category.objects.get(id=obj_id).form
     template = 'post/{}.html'.format(form_name)
-    return render(request, template)
+    html = render_to_string(template)
+
+    return JsonResponse({'html': html, 'form': form_name}, safe=False)

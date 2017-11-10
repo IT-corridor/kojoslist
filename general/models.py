@@ -59,7 +59,7 @@ class City(models.Model):
     class Meta:
         verbose_name_plural = 'Cities'
 
-        
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     location = models.CharField(max_length=100, blank=True, null=True)
@@ -69,10 +69,10 @@ class Post(models.Model):
     category = models.ForeignKey(Category)
     
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(User)
     region = models.ForeignKey(City)
-    language = models.CharField(max_length=50, default='english')
+    language = models.CharField(max_length=50, blank=True, null=True)
     # contact
     mail_relay = models.BooleanField(default=False)
     real_email = models.BooleanField(default=False)

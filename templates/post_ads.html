@@ -10,6 +10,7 @@
         <h2>Post Ads</h2>
         <div class="pages">
             <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
                 <div class="col-md-7">    
                     <div class="row">
                         <div class="col-md-6">
@@ -29,7 +30,7 @@
                         <div class="col-md-6">
                             <div class="form-group edit-profile">
                                 <label>Ad Subcategory</label>
-                                <select id="ads_sub_category" name="ads_sub_category" class="form-control edit-post-wrap" required>
+                                <select id="ads_sub_category" name="category" class="form-control edit-post-wrap" required>
                                     <option>All Sub Categories</option>
                                 </select>
                             </div>
@@ -62,7 +63,7 @@
                         <div class="col-md-12">
                             <div class="form-group edit-profile">
                                 <label>My Location</label>
-                                <select id="ads_city" name="ads_city" class="form-control edit-post-wrap" required>
+                                <select id="ads_city" name="region" class="form-control edit-post-wrap" required>
                                     <option>All Locations</option>
                                 </select>
                             </div>
@@ -87,11 +88,12 @@
                             </div>
                             <div class="form-group edit-profile">
                                 <label>Description</label>
-                                <!--<input type="text" name="ads_desc" class="form-control" />-->
-                                <textarea name="content" class="form-control edit-post-wrap"></textarea>
+                                <textarea name="content" class="form-control edit-post-wrap" required=""></textarea>
                             </div>
                             <div id="ads_details">
                             </div>
+                            <input type="hidden" id="ads_form" name="ads_form">
+                            <input type="hidden" name="owner" value="{{ user.id }}">
                             <div class="form-group edit-profile">
                                 <ul id="loaded-files" class="upload-image-thumbs upload-image-ul">
                                     <li class="upload-placeholder upload-image">
@@ -272,8 +274,9 @@
                     data: {
                         obj_id: obj_id
                     },
-                    success: function(data) {
-                        jQuery('#ads_details').html(data);
+                    success: function(res) {
+                        jQuery('#ads_details').html(res.html);
+                        jQuery('#ads_form').val(res.form);
                     }
                 });                
             } else {
