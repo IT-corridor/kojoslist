@@ -112,11 +112,17 @@ def post_ads(request):
         form_name = request.POST.get('ads_form') + 'Form'
         form = get_class(form_name)
         form = form(request.POST)
+        images = request.POST.getlist('uploded_id[]')
         
-        print request.POST
         if form.is_valid():
-            form.save()
-        print form.errors
+            post = form.save()
+            for img in images:
+                if img:
+                    Image.objects.create(post=post, name=img)
+            # for img in images if img:
+            #     os.remove(settings.BASE_DIR+'/static/media/'+image_name)
+
+        print form.errors, '$$$$$$$$'
         return HttpResponseRedirect(reverse('my-ads'))
 
 @csrf_exempt
