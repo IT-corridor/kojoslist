@@ -28,7 +28,8 @@ def home(request):
     return render(request, 'index.html', {'rndr_str': rndr_str})
 
 def my_ads(request):
-    return render(request, 'my_ads.html')
+    posts = Post.objects.filter(owner=request.user)
+    return render(request, 'my_ads.html', {'posts': posts})
 
 def profile(request):
     state_id = request.GET.get('state_id')
