@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import os
 import json
 
 from django.shortcuts import render
@@ -13,6 +14,7 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate
 from django.core.files.storage import FileSystemStorage
+from django.conf import settings
 
 from general.models import *
 from general.forms import *
@@ -195,10 +197,11 @@ def upload_image(request):
     fs = FileSystemStorage()
     filename = fs.save('static/media/'+myfile.name, myfile)
     uploaded_file_url = fs.url(filename)
-    res = {"image_url": "/"+uploaded_file_url,"image_name": myfile.name}
+    res = {"image_url": "/"+uploaded_file_url,"image_name": uploaded_file_url[13:]}
     return JsonResponse(res, safe=False)
 
 @csrf_exempt
 def delete_image(request):
     image_name = request.POST.get('image_name')
+    os.remove(settings.BASE_DIR+'/static/media/'+image_name)
     return HttpResponse('')

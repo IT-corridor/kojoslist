@@ -229,7 +229,7 @@
                     success: function(response) {
                         jQuery("#loaded-files li").removeClass("loader_img");
                         jQuery(".upload-image").find('input[class="uploded_id"]').val(response.image_name);
-                        var image = '<i class="fa fa-times close_img"></i><img src="' + response.image_url + '" >';
+                        var image = '<i class="fa fa-times close_img"></i><img class="image-responsive" src="' + response.image_url + '" >';
                         jQuery(".upload-image .uploadedImg").html(image);
                         jQuery(".upload-image").removeClass("upload-image");
                         jQuery(".upload-image-ul").append('<li class="upload-placeholder upload-image"><div class="uploadedImg"></div><input type="hidden" name="uploded_id[]" class="uploded_id" /></li>');
