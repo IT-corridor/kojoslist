@@ -24,6 +24,9 @@ def home(request):
 def account(request):
     return render(request, 'account.html')
 
+def my_ads(request):
+    return render(request, 'my_ads.html')
+
 def profile(request):
     state_id = request.GET.get('state_id')
     mycusid = request.GET.get('mycusid')
