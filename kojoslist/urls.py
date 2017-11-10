@@ -33,6 +33,7 @@ urlpatterns += [
     url(r"^my-ads", my_ads, name="my-ads"),
     url(r"^post-ads", post_ads, name="post-ads"),
     url(r"^posts$", posts, name="posts"),
+    url(r"^get_sub_category$", get_sub_category, name="get_sub_category"),
     url(r"^logout$", ulogout, name="logout"),
     url(r"^ajax_region", ajax_region, name="ajax_region"),
     url(r"^auth_process", auth_process, name="auth_process"),    

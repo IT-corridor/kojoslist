@@ -168,3 +168,6 @@ def auth_process(request):
 def ulogout(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
+
+def get_sub_category(request):
+    return

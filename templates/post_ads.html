@@ -189,15 +189,12 @@
     jQuery(document).ready(function() {
         jQuery('#ads_category').change(function() {
             var category_id = jQuery(this).val();
-            var url = '<?php echo admin_url('
-            admin - ajax.php '); ?>';
             jQuery.ajax({
-                type: 'post',
-                url: url,
+                type: 'get',
+                url: 'get_sub_category',
                 dataType: 'json',
                 data: {
-                    action: 'get_sub_category_by_category_id',
-                    data_id: category_id,
+                    category_id: category_id,
                 },
                 success: function(data) {
                     jQuery('#ads_sub_category').html(data);
