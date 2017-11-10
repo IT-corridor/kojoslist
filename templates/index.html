@@ -31,8 +31,13 @@
                                 <nav id="site-navigation" class="main-navigation" role="navigation" aria-label="Primary Menu">
                                     <div class="menu-main-menu-container">
                                         <ul id="menu-main-menu" class="nav navbar-nav navbar-right">
-                                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#LoginModal">Login</a></li>
-                                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#SignUpModal">Sign Up</a></li>
+                                            {% if user.is_authenticated %}
+                                                <li><a href="/logout">Log Out</a></li>
+                                                <li><a href="/my-ads/">My Ads</a></li>
+                                            {% else %}
+                                                <li><a href="javascript:void(0);" data-toggle="modal" data-target="#LoginModal">Login</a></li>
+                                                <li><a href="javascript:void(0);" data-toggle="modal" data-target="#SignUpModal">Sign Up</a></li>
+                                            {% endif %}
                                             <li id="menu-item-13" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13"><a href="http://globalboard.world/about/">About</a></li>
                                             <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27"><a href="http://globalboard.world/contact-us/">Contact Us</a></li>
                                         </ul>
@@ -41,6 +46,7 @@
                                 <!-- .main-navigation -->
                             </div>
                             <!-- .site-header-menu -->
+
                         </div>
                     </div>
                 </nav>

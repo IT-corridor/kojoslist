@@ -4,10 +4,14 @@ from __future__ import unicode_literals
 import json
 
 from django.shortcuts import render
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login
+from django.contrib.auth import logout
+from django.contrib.auth import authenticate
 
 from general.models import *
 from general.forms import *
@@ -149,3 +153,7 @@ def auth_process(request):
             res = {"error":{"user_pass":"The password you entered is incorrect"}}
 
         return JsonResponse(res, safe=False)
+
+def ulogout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
