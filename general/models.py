@@ -30,6 +30,36 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
 
+class Country(models.Model):
+    sortname = models.CharField(max_length=3)
+    name = models.CharField(max_length=30)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Countries'
+
+
+class State(models.Model):
+    name = models.CharField(max_length=150)
+    country = models.ForeignKey(Country)
+
+    def __unicode__(self):
+        return self.name
+
+
+class City(models.Model):
+    name = models.CharField(max_length=30)
+    state = models.ForeignKey(State)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Cities'
+
+        
 class Post(models.Model):
     title = models.CharField(max_length=100)
     location = models.CharField(max_length=100, blank=True, null=True)
@@ -41,18 +71,18 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField()
     owner = models.ForeignKey(User)
-    region = models.CharField(max_length=50, blank=True, null=True)
+    region = models.ForeignKey(City)
     language = models.CharField(max_length=50, default='english')
     # contact
-    mail_relay = models.BooleanField()
-    real_email = models.BooleanField()
-    no_reply = models.BooleanField()
-    by_phone = models.BooleanField()
-    by_text = models.BooleanField()
+    mail_relay = models.BooleanField(default=False)
+    real_email = models.BooleanField(default=False)
+    no_reply = models.BooleanField(default=False)
+    by_phone = models.BooleanField(default=False)
+    by_text = models.BooleanField(default=False)
     phone = models.CharField(max_length=20, blank=True, null=True)
     extension = models.CharField(max_length=10, blank=True, null=True)
     name = models.CharField(max_length=50, blank=True, null=True)
-    allow_other_contact = models.BooleanField()
+    allow_other_contact = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.title
@@ -128,31 +158,3 @@ class Hidden(models.Model):
     def __unicode__(self):
         return '{} - {}'.format(self.owner.first_name, self.post.title)
 
-
-class Country(models.Model):
-    sortname = models.CharField(max_length=3)
-    name = models.CharField(max_length=30)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = 'Countries'
-
-class State(models.Model):
-    name = models.CharField(max_length=150)
-    country = models.ForeignKey(Country)
-
-    def __unicode__(self):
-        return self.name
-
-
-class City(models.Model):
-    name = models.CharField(max_length=30)
-    state = models.ForeignKey(State)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = 'Cities'

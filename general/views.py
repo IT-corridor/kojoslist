@@ -27,14 +27,6 @@ def home(request):
 def my_ads(request):
     return render(request, 'my_ads.html')
 
-def post_ads(request):
-    mcategories = Category.objects.filter(parent__isnull=True)
-    countries = Country.objects.all()
-    return render(request, 'post_ads.html', {
-        'mcategories': mcategories,
-        'countries': countries
-    })
-
 def profile(request):
     state_id = request.GET.get('state_id')
     mycusid = request.GET.get('mycusid')
@@ -104,6 +96,15 @@ def get_category_by_location_id(request):
         result += [_result]
     return render(request, 'rndr_category.html', {'categories': result})
 
+def post_ads(request):
+    mcategories = Category.objects.filter(parent__isnull=True)
+    countries = Country.objects.all()
+    
+    return render(request, 'post_ads.html', {
+        'mcategories': mcategories,
+        'countries': countries
+    })
+
 def add_post(request):
     cc = request.GET.get('cc')
     if request.method == 'GET':
@@ -141,11 +142,6 @@ def add_post(request):
         if form.is_valid():
             form.save()
         return HttpRedirect(request, 'success.html')
-
-def posts(request):
-    return render(request, 'posts.html', {})
-    # return render(request, 'post/jobpost.html', {})
-    return render(request, 'post/salegarage.html', {})
 
 @csrf_exempt
 def auth_process(request):
