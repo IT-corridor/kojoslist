@@ -1,51 +1,6 @@
 {% extends "profile.html" %} 
 {% load staticfiles %} 
 
-{% block own_css %}
-<style>
-    .close_img{
-        background: black none repeat scroll 0 0;
-        border-radius: 25px;
-        color: white;
-        cursor: pointer;
-        padding: 3px 5px;
-        position: absolute;
-        right: 0;
-    }
-    .uploadedImg {
-        height: 100%;
-        left: 0;
-        overflow: hidden;
-        position: absolute;
-        top: 0;
-        width: 100%;
-    }
-    .upload-image-thumbs li.upload-image {
-        cursor: pointer;
-        background-color: #f5f5f4;
-        background-image: url(http://gumtree.classistatic.com/RC-4b815836bb48ed24646d0e3b8614589a18fefff4/legacy/add-picture-on.svg);
-    }
-    .upload-image-thumbs li {
-        background-color: #f5f5f4;
-        background-image: url(http://gumtree.classistatic.com/RC-4b815836bb48ed24646d0e3b8614589a18fefff4/legacy/add-picture-off.svg);
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-size: 80% auto;
-        display: block;
-        float: left;
-        height: 99px;
-        list-style: outside none none;
-        margin: 0.5em 1em 0.5em 0;
-        position: relative;
-        width: 99px;
-    }
-    .loader_img {
-      background-image: url("http://globalboard.world/wp-content/uploads/2017/01/loader.gif") !important;
-    }
-
-</style>
-{% endblock %}
-
 {% block right_content %}
 <!-- Content Right Content -->
 
@@ -253,6 +208,7 @@
             window.liindex = jQuery(this).index();
             jQuery("#inputfile").click();
         });
+
         jQuery("#inputfile").change(function() {
             var fd = new FormData();
             var file = this.files;
@@ -280,8 +236,8 @@
                     }
                 });
             }
-
         });
+
         jQuery("body").on("click", ".close_img", function() {
             
             var dataid = jQuery(this).parent().parent().find("input").attr("value");
@@ -305,7 +261,7 @@
 
         $('#cancel').click(function() {
            
-            window.location.href = 'http://globalboard.world/my-ads/';
+            window.location.href = '/my-ads/';
         });
     }); 
 
