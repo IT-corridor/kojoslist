@@ -177,7 +177,13 @@ def get_sub_info(request):
     sc_type = request.GET.get('type') # Category, State, City
     rndr_str = '<option value="">-Select-</option>'
 
-    SC = eval(sc_type)
-    for sc in SC.objects.filter(parent__id=category_id):
+    if sc_type == 'category':
+        objects = Category.objects.filter(parent__id=obj_id)
+    elif sc_type == 'state':
+        objects = State.objects.filter(country__id=obj_id)
+    else:
+        objects = City.objects.filter(state__id=obj_id)
+        
+    for sc in objects:
         rndr_str += '<option value="{}">{}</option>'.format(sc.id, sc.name)
     return HttpResponse(rndr_str)

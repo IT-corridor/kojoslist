@@ -193,10 +193,10 @@
             if (obj_id) {
                 jQuery.ajax({
                     type: 'get',
-                    url: '/get_sub_category',
+                    url: '/get_sub_info',
                     data: {
                         obj_id: obj_id,
-                        type: 'Category'
+                        type: 'category'
                     },
                     success: function(data) {
                         jQuery('#ads_sub_category').html(data);
