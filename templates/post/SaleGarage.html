@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" style="margin-top: 20px;">
     <div class="col-md-6">
         <div class="form-group edit-profile">
             <label>language of posting</label>
@@ -24,12 +24,13 @@
             </select>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="form-group edit-profile">
-            <label style="margin-top: 20px;">
-                <!-- <span class="checked"></span> -->
-                <input name="include_ads" id="" value="true" type="checkbox" checked="checked" style="margin-right: 8px;">include "more ads by this user" link
-            </label>
+    <div class="col-md-6" style="padding-top: 10px;">
+        <div class="userpro-input">
+            <div class="userpro-checkbox-wrap">
+                <label class="userpro-checkbox hide-field">
+                    <span class="checked" onclick="$(this).toggleClass('checked')"></span>
+                    <input name="include_ads" type="checkbox">include "more ads by this user" link</label>
+            </div>
         </div>
     </div>
     
