@@ -8,18 +8,18 @@
     <div class="col-sm-12 full-h">
 
         <div class="content-right-content my-ads">
-        	<h2>My Ads</h2>
+            <h2>My Ads</h2>
             <div class="ads_search">
             <form action="http://globalboard.world/my-ads/" method="get">
-            	<input type="text" class="search-input" name="ads_search" placeholder="Search for ads name..."><!--ads_search_input-->
+                <input type="text" class="search-input" name="ads_search" placeholder="Search for ads name..."><!--ads_search_input-->
                 <input type="hidden" name="action" value="adsserach"  />
                 <input type="submit" class="btn btn-info" value="Search"  />
             </form>
             </div>
             <div class="ads_list">
-            	<div class="ads_add">
-                	<a href="http://globalboard.world/post-ads/">
-                	<div class="photo"></div>
+                <div class="ads_add">
+                    <a href="http://globalboard.world/post-ads/">
+                    <div class="photo"></div>
                     <div class="text">Click to post new ad</div>
                     </a>
                 </div>
@@ -32,66 +32,66 @@
 
 {% block own_js %}
 <script>
-	jQuery(document).ready(function(){
-		jQuery('.active_deactive').change(function(){
-			var acdc_id = jQuery(this).val();
-			var ads_id = jQuery(this).data('value');
-			var url = 'http://globalboard.world/wp-admin/admin-ajax.php';
-			jQuery.ajax({
-				type: 'post',
-				url: url,
-				dataType:'json',
-				data: {
-					action: 'change_active_deactive_ads',
-					data_id: {acdc_id:acdc_id,ads_id:ads_id},
-				},
-				success: function (data) {
-					if(data){
-						location.reload();
-					}
-					//jQuery('#ads_sub_category').html(data);
-				}
-			});
-		});
-		jQuery("body").on("click", ".ads_post_delete",function(){
-			var r = confirm("Confirm delete...!");
-			if (r == true) {
-				var url = 'http://globalboard.world/wp-admin/admin-ajax.php';
-				var ads_id = jQuery(this).data('value');
-				jQuery.ajax({
-					type: 'post',
-					url: url,
-					dataType:'json',
-					data: {
-						action: 'delete_ads_post',
-						data_id: ads_id,
-					},
-					success: function (data) {
-						if(data){
-							location.reload();
-						}
-					}
-				});
-			}
-			
-		});
-		jQuery('.ads_search_input').keyup(function(){
-			var search_val = jQuery(this).val();
-			var url = 'http://globalboard.world/wp-admin/admin-ajax.php';
-			jQuery.ajax({
-				type: 'post',
-				url: url,
-				dataType:'json',
-				data: {
-					action: 'get_ads_search_data',
-					data_id: search_val,
-				},
-				success: function (data) {
-					jQuery('.ads_list').html(data);
-				}
-			});			
-		});
-	});		
+    jQuery(document).ready(function(){
+        jQuery('.active_deactive').change(function(){
+            var acdc_id = jQuery(this).val();
+            var ads_id = jQuery(this).data('value');
+            var url = 'http://globalboard.world/wp-admin/admin-ajax.php';
+            jQuery.ajax({
+                type: 'post',
+                url: url,
+                dataType:'json',
+                data: {
+                    action: 'change_active_deactive_ads',
+                    data_id: {acdc_id:acdc_id,ads_id:ads_id},
+                },
+                success: function (data) {
+                    if(data){
+                        location.reload();
+                    }
+                    //jQuery('#ads_sub_category').html(data);
+                }
+            });
+        });
+        jQuery("body").on("click", ".ads_post_delete",function(){
+            var r = confirm("Confirm delete...!");
+            if (r == true) {
+                var url = 'http://globalboard.world/wp-admin/admin-ajax.php';
+                var ads_id = jQuery(this).data('value');
+                jQuery.ajax({
+                    type: 'post',
+                    url: url,
+                    dataType:'json',
+                    data: {
+                        action: 'delete_ads_post',
+                        data_id: ads_id,
+                    },
+                    success: function (data) {
+                        if(data){
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            
+        });
+        jQuery('.ads_search_input').keyup(function(){
+            var search_val = jQuery(this).val();
+            var url = 'http://globalboard.world/wp-admin/admin-ajax.php';
+            jQuery.ajax({
+                type: 'post',
+                url: url,
+                dataType:'json',
+                data: {
+                    action: 'get_ads_search_data',
+                    data_id: search_val,
+                },
+                success: function (data) {
+                    jQuery('.ads_list').html(data);
+                }
+            });         
+        });
+    });     
 </script>
 
 {% endblock %}
