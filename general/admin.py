@@ -28,6 +28,7 @@ class CityAdmin(admin.ModelAdmin):
 admin.site.register(UserProfile)
 # admin.site.register(Contact)
 admin.site.register(Post)
+admin.site.register(GaragePost)
 admin.site.register(Favourite)
 admin.site.register(Hidden)
 admin.site.register(Category, CategoryAdmin)
