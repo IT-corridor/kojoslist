@@ -204,5 +204,7 @@ def delete_image(request):
     return HttpResponse('')
 
 def get_post_detail(request):
-    obj_id = request.GEt.get('obj_id')
-    return HttpResponse()
+    obj_id = request.GET.get('obj_id')
+    form_name = Category.objects.get(id=obj_id).form
+    template = 'post/{}.html'.format(form_name)
+    return render(request, template)
