@@ -228,7 +228,7 @@
                     processData: false,
                     success: function(response) {
                         jQuery("#loaded-files li").removeClass("loader_img");
-                        jQuery(".upload-image").find('input[class="uploded_id"]').val(response.uploaded_id);
+                        jQuery(".upload-image").find('input[class="uploded_id"]').val(response.image_name);
                         var image = '<i class="fa fa-times close_img"></i><img src="' + response.image_url + '" >';
                         jQuery(".upload-image .uploadedImg").html(image);
                         jQuery(".upload-image").removeClass("upload-image");
@@ -241,13 +241,13 @@
         jQuery("body").on("click", ".close_img", function() {
             var dataid = jQuery(this).parent().parent().find("input").attr("value");
             jQuery(this).parent().parent().addClass('remove_uploded_img');
+
             jQuery.ajax({
                 type: 'post',
-                url: 'url',
+                url: 'delete-image',
                 dataType: 'json',
                 data: {
-                    action: 'delete_uploaded_img',
-                    data_id: dataid,
+                    image_name: dataid,
                 },
                 success: function(data) {
                     jQuery(".remove_uploded_img").remove();                    

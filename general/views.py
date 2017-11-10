@@ -195,6 +195,6 @@ def upload_image(request):
     fs = FileSystemStorage()
     filename = fs.save('static/media/'+myfile.name, myfile)
     uploaded_file_url = fs.url(filename)
-    res = {"image_url": "/"+uploaded_file_url,"uploaded_id":667}
+    res = {"image_url": "/"+uploaded_file_url,"image_name": myfile.name}
     return JsonResponse(res, safe=False)
 
