@@ -32,6 +32,7 @@ urlpatterns += [
     url(r"^add_post", add_post, name="add_post"),
     url(r"^profile", profile, name="profile"),
     url(r"^posts$", posts, name="posts"),
-    url(r"^ajax_region", ajax_region, name="ajax_region"),    
+    url(r"^ajax_region", ajax_region, name="ajax_region"),
+    url(r"^auth_process", auth_process, name="auth_process"),    
     url(r"^get_category_by_location_id", get_category_by_location_id, name="get_category_by_location_id"),    
 ]

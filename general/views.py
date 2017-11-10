@@ -133,3 +133,16 @@ def posts(request):
     return render(request, 'posts.html', {})
     # return render(request, 'post/jobpost.html', {})
     return render(request, 'post/salegarage.html', {})
+
+@csrf_exempt
+def auth_process(request):
+    unique_id = request.POST.get('unique_id')[0]
+    action = request.POST.get('action')
+
+    if action == 'userpro_process_form':
+        username = request.POST.get('username_or_email-'+unique_id)[0]
+        passwd = request.POST.get('user_pass-'+unique_id)[0]
+
+        res = {"error":{"user_pass":"The password you entered is incorrect"}}
+        res = {"error":"","redirect_uri":"/profile/"}
+        return JsonResponse(res, safe=False)
