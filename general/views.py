@@ -29,7 +29,12 @@ def home(request):
 
 def my_ads(request):
     posts = Post.objects.filter(owner=request.user)
-    return render(request, 'my_ads.html', {'posts': posts})
+    posts_with_image = []
+    for post in posts:
+        image = Image.objects.filter(post=post).first()
+        img_name = image.name if image else 'dummy.jpg'
+        posts_with_image.append((post, img_name))
+    return render(request, 'my_ads.html', {'posts': posts_with_image})
 
 def profile(request):
     state_id = request.GET.get('state_id')

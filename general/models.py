@@ -138,11 +138,6 @@ class Image(models.Model):
         return '{} - {}'.format(self.post.title, self.name)
 
 
-class Detail(models.Model):
-    def __unicode__(self):
-        return self.name
-
-
 class Favourite(models.Model):
     owner =  models.ForeignKey(User)
     post = models.ForeignKey(Post)
