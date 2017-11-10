@@ -198,3 +198,7 @@ def upload_image(request):
     res = {"image_url": "/"+uploaded_file_url,"image_name": myfile.name}
     return JsonResponse(res, safe=False)
 
+@csrf_exempt
+def delete_image(request):
+    image_name = request.POST.get('image_name')
+    return HttpResponse('')
