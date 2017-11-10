@@ -193,8 +193,8 @@ def get_sub_info(request):
 def upload_image(request):
     myfile = request.FILES['images']
     fs = FileSystemStorage()
-    filename = fs.save(myfile.name, myfile)
+    filename = fs.save('static/media/'+myfile.name, myfile)
     uploaded_file_url = fs.url(filename)
-    res = {"image_url": uploaded_file_url,"uploaded_id":667}
+    res = {"image_url": "/"+uploaded_file_url,"uploaded_id":667}
     return JsonResponse(res, safe=False)
 
