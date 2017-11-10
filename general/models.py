@@ -20,6 +20,7 @@ class Category(models.Model):
     name = models.CharField(max_length=50)
     columns = models.IntegerField(default=1)
     column = models.IntegerField(default=1)
+    form = models.CharField(max_length=50, default='Post')
 
     def __unicode__(self):
         return self.name

@@ -202,3 +202,7 @@ def delete_image(request):
     image_name = request.POST.get('image_name')
     os.remove(settings.BASE_DIR+'/static/media/'+image_name)
     return HttpResponse('')
+
+def get_post_detail(request):
+    obj_id = request.GEt.get('obj_id')
+    return HttpResponse()

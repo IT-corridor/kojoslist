@@ -90,7 +90,7 @@
                                 <!--<input type="text" name="ads_desc" class="form-control" />-->
                                 <textarea name="content" class="form-control edit-post-wrap"></textarea>
                             </div>
-                            <div id="details">
+                            <div id="ads_details">
                             </div>
                             <div class="form-group edit-profile">
                                 <ul id="loaded-files" class="upload-image-thumbs upload-image-ul">
@@ -261,6 +261,26 @@
         $('#cancel').click(function() {
             window.location.href = '/my-ads/';
         });
+
+        jQuery('#ads_sub_category').change(function() {
+            var obj_id = jQuery(this).val();
+            
+            if (obj_id) {
+                jQuery.ajax({
+                    type: 'get',
+                    url: '/get_post_detail',
+                    data: {
+                        obj_id: obj_id
+                    },
+                    success: function(data) {
+                        jQuery('#ads_details').html(data);
+                    }
+                });                
+            } else {
+                jQuery('#ads_details').html("");
+            }
+        });
+
     }); 
 
     $('.userpro-checkbox span').click(function() {
