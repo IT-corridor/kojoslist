@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import login, logout, authenticate
 
 from general.models import *
 from general.forms import *
@@ -15,9 +16,6 @@ from general.forms import *
 def home(request):
     rndr_str = globoard_display_world_countries()
     return render(request, 'index.html', {'rndr_str': rndr_str})
-
-def login(request):
-    return render(request, 'login.html')
 
 def account(request):
     return render(request, 'account.html')
@@ -143,6 +141,11 @@ def auth_process(request):
         username = request.POST.get('username_or_email-'+unique_id)
         passwd = request.POST.get('user_pass-'+unique_id)
 
-        res = {"error":{"user_pass":"The password you entered is incorrect"}}
-        res = {"error":"","redirect_uri":"/profile/"}
+        user = authenticate(username=username, password=passwd)
+        if user:
+            res = {"error":"","redirect_uri":"/profile/"}
+            login(request, user)
+        else:
+            res = {"error":{"user_pass":"The password you entered is incorrect"}}
+
         return JsonResponse(res, safe=False)
