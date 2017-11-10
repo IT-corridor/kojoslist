@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate
+from django.core.files.storage import FileSystemStorage
 
 from general.models import *
 from general.forms import *
@@ -190,5 +191,10 @@ def get_sub_info(request):
 
 @csrf_exempt
 def upload_image(request):
-    return JsonResponse(safe=False)
+    myfile = request.FILES['images']
+    fs = FileSystemStorage()
+    filename = fs.save(myfile.name, myfile)
+    uploaded_file_url = fs.url(filename)
+    res = {"image_url": uploaded_file_url,"uploaded_id":667}
+    return JsonResponse(res, safe=False)
 

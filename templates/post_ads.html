@@ -217,11 +217,11 @@
                 if (fd) {
                     fd.append("images", file[i]);
                 }
-                fd.append('action', 'upload_download_image');
+                
                 jQuery("#loaded-files li").eq((i + window.liindex)).addClass("loader_img");
                 jQuery.ajax({
                     type: 'POST',
-                    url: '',
+                    url: '/upload-image',
                     data: fd,
                     contentType: false,
                     dataType: "json",
