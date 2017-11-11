@@ -270,3 +270,7 @@ def get_ads(request):
     posts = get_posts_with_image(posts)
     rndr_str = render_to_string('_post_list.html', {'posts': posts, 'others': True})
     return HttpResponse(rndr_str)
+
+def view_ads(request):
+    return
+    

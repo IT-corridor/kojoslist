@@ -35,6 +35,7 @@ urlpatterns += [
     url(r"^get_ads", get_ads, name="get_ads"),
     url(r"^my-ads", my_ads, name="my-ads"),
     url(r"^post-ads/(?P<ads_id>\d*)", post_ads, name="post-ads"),
+    url(r"^ads/(?P<ads_id>\d*)", view_ads, name="view-ads"),
     url(r"^upload-image$", upload_image, name="upload-image"),
     url(r"^delete-image$", delete_image, name="delete-image"),
     url(r"^get_sub_info$", get_sub_info, name="get_sub_info"),

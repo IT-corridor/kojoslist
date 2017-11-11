@@ -1,4 +1,5 @@
 *.pyc
+*.php
 # *.sqlite3
 settings.py
 migrations
