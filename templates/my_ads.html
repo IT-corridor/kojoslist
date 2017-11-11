@@ -55,22 +55,18 @@
 <script>
     jQuery(document).ready(function(){
         jQuery('.active_deactive').change(function(){
-            var acdc_id = jQuery(this).val();
+            var status = jQuery(this).val();
             var ads_id = jQuery(this).data('value');
-            var url = 'http://globalboard.world/wp-admin/admin-ajax.php';
+            
             jQuery.ajax({
                 type: 'post',
-                url: url,
+                url: '/active_deactive_ads',
                 dataType:'json',
                 data: {
-                    action: 'change_active_deactive_ads',
-                    data_id: {acdc_id:acdc_id,ads_id:ads_id},
+                    ads_id:ads_id,
+                    status: status,
                 },
                 success: function (data) {
-                    if(data){
-                        location.reload();
-                    }
-                    //jQuery('#ads_sub_category').html(data);
                 }
             });
         });

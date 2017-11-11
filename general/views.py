@@ -194,3 +194,11 @@ def get_post_detail(request):
     html = render_to_string(template)
 
     return JsonResponse({'html': html, 'form': form_name}, safe=False)
+
+@csrf_exempt
+def active_deactive_ads(request):
+    ads = request.POST.get('ads_id')
+    status = request.POST.get('status')
+    Post.objects.filter(id=ads).update(status=status)
+    return HttpResponse('')
+
