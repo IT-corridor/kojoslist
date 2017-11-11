@@ -131,7 +131,7 @@ class Search(models.Model):
 
 
 class Image(models.Model):
-    post = models.ForeignKey(Post)
+    post = models.ForeignKey(Post, related_name='images')
     name = models.CharField(max_length=100)
 
     def __unicode__(self):

@@ -157,15 +157,21 @@ def post_ads(request, ads_id):
             form = form(request.POST, instance=instance)
         else:
             form = form(request.POST)
-        images = request.POST.getlist('uploded_id[]')
+
+        # ignore last empty one due to template
+        images = request.POST.getlist('uploded_id[]')[:-1]  
         
         if form.is_valid():
             post = form.save()
-            for img in images:
-                if img:
-                    Image.objects.create(post=post, name=img)
-            # for img in images if img:
-            #     os.remove(settings.BASE_DIR+'/static/media/'+image_name)
+            pimages = [ii.name for ii in post.images.all()]
+
+            # create objects for new images
+            for img in list(set(images)-set(pimages)):
+                Image.objects.create(post=post, name=img)
+
+            # remove deleted ones
+            for img in list(set(pimages)-set(images)):
+                os.remove(settings.BASE_DIR+'/static/media/'+img)
 
         print form.errors, '$$$$$$$$'
         return HttpResponseRedirect(reverse('my-ads'))
@@ -223,7 +229,9 @@ def upload_image(request):
 @csrf_exempt
 def delete_image(request):
     image_name = request.POST.get('image_name')
-    os.remove(settings.BASE_DIR+'/static/media/'+image_name)
+    # if not belong to any post
+    if not Image.objects.filter(name=image_name):
+        os.remove(settings.BASE_DIR+'/static/media/'+image_name)
     return HttpResponse('')
 
 def get_post_detail(request):
