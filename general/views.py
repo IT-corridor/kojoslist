@@ -125,6 +125,8 @@ def post_ads(request, ads_id):
         
         if ads_id:
             post = Post.objects.get(id=ads_id)
+            model = eval(post.category.form)
+            post = model.objects.get(id=ads_id)
             scategories = Category.objects.filter(parent=post.category.parent)
             states = State.objects.filter(country=post.region.state.country)
             cities = City.objects.filter(state=post.region.state)
