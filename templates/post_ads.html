@@ -19,10 +19,14 @@
 
                                 <div class="category-select-wrap-full">
                                     <select id="ads_category" name="ads_category" class="form-control edit-post-wrap category-select-wrap" required>
-                                        <option value=""> All Ad Categories </option>
-                                        {% for mc in mcategories %}
-                                        <option value="{{ mc.id }}" {% if mc.id == post.category.parent_id %}selected{% endif %}>{{ mc.name }}</option>
-                                        {% endfor %}                                        
+                                        {% if post %}
+                                            <option value="{{ post.category.parent.id }}"> {{ post.category.parent.name }} </option>
+                                        {% else %}
+                                            <option value=""> All Ad Categories </option>
+                                            {% for mc in mcategories %}
+                                            <option value="{{ mc.id }}" {% if mc.id == post.category.parent_id %}selected{% endif %}>{{ mc.name }}</option>
+                                            {% endfor %}                                        
+                                        {% endif %}
                                     </select>
                                 </div>
                             </div>
@@ -31,10 +35,11 @@
                             <div class="form-group edit-profile">
                                 <label>Ad Subcategory</label>
                                 <select id="ads_sub_category" name="category" class="form-control edit-post-wrap" required>
-                                    <option>All Sub Categories</option>
-                                    {% for sc in scategories %}
-                                    <option value="{{ sc.id }}" {% if sc.id == post.category_id %}selected{% endif %}>{{ sc.name }}</option>
-                                    {% endfor %}                                        
+                                    {% if post %}
+                                        <option value="{{ post.category_id }}"> {{ post.category.name }} </option>
+                                    {% else %}
+                                        <option>All Sub Categories</option>
+                                    {% endif %}                                   
                                 </select>
                             </div>
                         </div>
