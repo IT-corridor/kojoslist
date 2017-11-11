@@ -32,7 +32,7 @@
 {% block own_js %}
 <script>
     jQuery(document).ready(function(){
-        jQuery('.active_deactive').change(function(){
+        jQuery("body").on("change", ".active_deactive",function(){
             var status = jQuery(this).val();
             var ads_id = jQuery(this).data('value');
             
