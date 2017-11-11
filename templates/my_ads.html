@@ -55,7 +55,7 @@
                 var ads_id = jQuery(this).data('value');
                 jQuery.ajax({
                     type: 'post',
-                    url: 'delete_ads',
+                    url: '/delete_ads',
                     dataType:'json',
                     data: {
                         ads_id: ads_id,

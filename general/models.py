@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import os
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+from django.conf import settings
 
 
 class UserProfile(models.Model):
@@ -136,6 +140,11 @@ class Image(models.Model):
 
     def __unicode__(self):
         return '{} - {}'.format(self.post.title, self.name)
+
+
+@receiver(pre_delete, sender=Image, dispatch_uid='image_delete_signal')
+def delete_image_file(sender, instance, using, **kwargs):
+    os.remove(settings.BASE_DIR+'/static/media/'+instance.name)
 
 
 class Favourite(models.Model):
