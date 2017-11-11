@@ -175,7 +175,7 @@ def post_ads(request, ads_id):
                 os.remove(settings.BASE_DIR+'/static/media/'+img)
                 Image.objects.filter(name=img).delete()
 
-        print form.errors, '$$$$$$$$'
+        print(form.errors, '$$$$$$$$')
         return HttpResponseRedirect(reverse('my-ads'))
 
 @csrf_exempt

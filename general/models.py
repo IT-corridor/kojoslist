@@ -15,7 +15,7 @@ class UserProfile(models.Model):
     default_site = models.CharField(max_length=100, blank=True, null=True)
     duration = models.CharField(max_length=100, blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.user.username
 
 
@@ -26,7 +26,7 @@ class Category(models.Model):
     column = models.IntegerField(default=1)
     form = models.CharField(max_length=50, default='Post')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -38,7 +38,7 @@ class Country(models.Model):
     sortname = models.CharField(max_length=3)
     name = models.CharField(max_length=30)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -49,7 +49,7 @@ class State(models.Model):
     name = models.CharField(max_length=150)
     country = models.ForeignKey(Country)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -57,7 +57,7 @@ class City(models.Model):
     name = models.CharField(max_length=30)
     state = models.ForeignKey(State)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -88,7 +88,7 @@ class Post(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
     allow_other_contact = models.BooleanField(default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
@@ -127,7 +127,7 @@ class Search(models.Model):
     alert = models.BooleanField()
     hits = models.IntegerField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -138,7 +138,7 @@ class Image(models.Model):
     post = models.ForeignKey(Post, related_name='images')
     name = models.CharField(max_length=100)
 
-    def __unicode__(self):
+    def __str__(self):
         return '{} - {}'.format(self.post.title, self.name)
 
 
@@ -146,7 +146,7 @@ class Image(models.Model):
 def delete_image_file(sender, instance, using, **kwargs):
     try:
         os.remove(settings.BASE_DIR+'/static/media/'+instance.name)
-    except Exception, e:
+    except Exception:
         pass
 
 
@@ -154,7 +154,7 @@ class Favourite(models.Model):
     owner =  models.ForeignKey(User)
     post = models.ForeignKey(Post)
 
-    def __unicode__(self):
+    def __str__(self):
         return '{} - {}'.format(self.owner.first_name, self.post.title)
 
 
@@ -162,6 +162,6 @@ class Hidden(models.Model):
     owner =  models.ForeignKey(User)
     post = models.ForeignKey(Post, related_name='post')
 
-    def __unicode__(self):
+    def __str__(self):
         return '{} - {}'.format(self.owner.first_name, self.post.title)
 
