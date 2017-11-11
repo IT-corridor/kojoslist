@@ -266,6 +266,9 @@ def get_ads(request):
     elif kind == 'state':
         posts = Post.objects.filter(region__state__name=region_id).exclude(status='deactive')#.exclude(owner=request.user)
     else:
+        # store interested region
+        request.session['region'] = region_id
+        request.session.modified = True
         posts = Post.objects.filter(region_id=region_id).exclude(status='deactive')#.exclude(owner=request.user)
 
     posts = get_posts_with_image(posts)
@@ -285,3 +288,11 @@ def view_ads(request, ads_id):
         'images': images,
         'first_image': first_image
     })
+
+def category_ads(request, category_id):
+    region = request.session['region']  # city
+    categories = Category.objects.filter(Q(id=category_id) | Q(parent__id=category_id))
+    posts = Post.objects.filter(region_id=region, category__in=categories).exclude(status='deactive')
+    posts = get_posts_with_image(posts)
+    return render(request, 'ads_list.html', {'posts': posts})
+
