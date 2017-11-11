@@ -1,6 +1,7 @@
 *.pyc
 *.php
-# *.sqlite3
+*.sqlite3
+nohup.out
 settings.py
 migrations
-# static/media
+static/media
