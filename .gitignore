@@ -1,6 +1,6 @@
 *.pyc
 *.php
-*.sqlite3
+# *.sqlite3
 settings.py
 migrations
-static/media
+# static/media
