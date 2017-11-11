@@ -5,7 +5,9 @@ import os
 import json
 
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
+from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
@@ -13,7 +15,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate
-from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.db.models import Q
@@ -271,6 +272,17 @@ def get_ads(request):
     rndr_str = render_to_string('_post_list.html', {'posts': posts, 'others': True})
     return HttpResponse(rndr_str)
 
-def view_ads(request):
-    return
-    
+def view_ads(request, ads_id):
+    post = get_object_or_404(Post, pk=ads_id)    
+    images = post.images.all()
+    if images:
+        first_image = images[0].name
+        images = images[1:]
+    else:
+        first_image = 'dummy.jpg'
+
+    return render(request, 'ads_detail.html', {
+        'post': post,
+        'images': images,
+        'first_image': first_image
+    })

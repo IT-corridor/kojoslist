@@ -1,0 +1,84 @@
+{% extends "profile.html" %} 
+{% load staticfiles %} 
+
+
+{% block right_content %}
+    <!-- Content Right Content -->
+
+    <div class="col-sm-12 full-h">
+        <div class="content-right-content ad-view">
+            <nav class="breadcrumb">
+              <a class="breadcrumb-item" href="/profile/">worldwide<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+              <a class="breadcrumb-item" href="#">{{ post.region.state.country.name }}<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+              <a class="breadcrumb-item" href="#">{{ post.region.state.name }}<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+              <a class="breadcrumb-item" href="#">{{ post.region.name }}<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+              <span class="breadcrumb-item active">{{ post.category.name }}</span>
+            </nav>
+
+            <div class="main-product">
+                <div class="col-md-5">
+                    <div class="product-img">
+                        <a href="#"><img src="/static/media/{{ first_image }}"></a>
+                        <ul>
+                            {% for img in images %}
+                                <li>
+                                    <a href="#"><img src="/static/media/{{ img.name }}" alt=""></a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="main-product-info">
+                        <div class="main-product-title">
+                            <h3>{{ post.title }}</h3>
+                            <h4>$ 42</h4>
+                        </div>
+                        <div class="main-product-post-time">
+                            <p>Posted on<span> {{ post.created_at }}</span></p>
+                            <form action="" method="post" lpformnum="1">
+                                <input type="hidden" name="ads_id" value="663">
+                                <input type="hidden" name="author_id" value="1">
+                                <input type="hidden" name="user_id" value="1">
+                                <button type="submit" id="fev_sabmit" style="display:none;"></button>
+                                <input type="hidden" name="action" value="addFavoriteProperty"><p class="fev_p main-product-star"><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i>Add to Favorites</a></p>                          </form>
+                            <!--<p class="main-product-star"><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i>Add to Favorites</a></p>-->
+                        </div>
+                        <div class="star-profile">
+                            <a href="#"><img src="/static/img/big_avatar.png" width="150" height="150"></a>
+                            <div class="star-profile-name">
+                                <h6><a href="#">developer developer</a></h6>
+                                <i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i>                               
+                            </div>
+                        </div>
+                        <div class="product-location-info">
+                            <div class="product-location-info-left">
+                                <span>Location</span>
+                                <h6>{{ post.region.state.country.name }}</h6>
+                            </div>
+                            <div class="product-location-info-left">
+                                <span>Category</span>
+                                <h6>{{ post.category.parent.name }} / {{ post.category.name }}</h6>
+                            </div>
+                        </div>
+                        <div class="product-text">
+                            <span>Description</span>
+                            <p>{{ post.content }}</p>
+                        </div>
+                        <div class="main-product-btn">
+                            <input class="product-btn" type="button" name="" value="Message">                           
+                            <input class="product-btn" type="button" style="margin-left:10px;" value="Make Payment">                            
+                        </div>
+                    </div>
+                </div>
+            </div>            
+            
+        </div>
+    </div>
+{% endblock %}
+
+{% block own_js %}
+<script>    
+</script>
+
+{% endblock %}
