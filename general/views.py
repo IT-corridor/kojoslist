@@ -118,14 +118,29 @@ def get_category_by_location_id(request):
         result += [_result]
     return render(request, '_category.html', {'categories': result})
 
-def post_ads(request):
+def post_ads(request, ads_id):
     if request.method == 'GET':
         mcategories = Category.objects.filter(parent__isnull=True)
         countries = Country.objects.all()
         
+        if ads_id:
+            post = Post.objects.get(id=ads_id)
+            scategories = Category.objects.filter(parent=post.category.parent)
+            states = State.objects.filter(country=post.city.state.country)
+            cities = City.objects.filter(state=post.city.state)
+        else:
+            post = None
+            scategories = None
+            states = None
+            cities = None
+
         return render(request, 'post_ads.html', {
             'mcategories': mcategories,
-            'countries': countries
+            'scategories': scategories,
+            'countries': countries,
+            'states': states,
+            'cities': cities,
+            'post': post,
         })
     else:
         form_name = request.POST.get('ads_form') + 'Form'
@@ -213,12 +228,12 @@ def active_deactive_ads(request):
     ads = request.POST.get('ads_id')
     status = request.POST.get('status')
     Post.objects.filter(id=ads).update(status=status)
-    return HttpResponse('')
+    return HttpResponse('ok')
 
 @csrf_exempt
 def delete_ads(request):
     ads = request.POST.get('ads_id')
     Post.objects.filter(id=ads).delete()
-    return HttpResponse('')
+    return HttpResponse('ok')
 
 

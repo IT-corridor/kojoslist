@@ -14,7 +14,7 @@
                 <option value="active" {% if post.0.status == 'active' %} selected {% endif %}>Active</option>
                 <option value="deactive" {% if post.0.status == 'deactive' %} selected {% endif %}>Deactive</option>
             </select>
-            <a href="/ads-edit/{{ post.0.id }}"><div class="edit"></div></a>
+            <a href="/post-ads/{{ post.0.id }}"><div class="edit"></div></a>
             <a class="ads_post_delete" data-value="{{ post.0.id }}"><div class="delete"></div></a>                        
         </div>
     </div>

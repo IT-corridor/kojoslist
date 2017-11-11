@@ -32,6 +32,9 @@
                                 <label>Ad Subcategory</label>
                                 <select id="ads_sub_category" name="category" class="form-control edit-post-wrap" required>
                                     <option>All Sub Categories</option>
+                                    {% for sc in scategories %}
+                                    <option value="{{ sc.id }}" {% if sc.id == post.category_id %}selected{% endif %}>{{ sc.name }}</option>
+                                    {% endfor %}                                        
                                 </select>
                             </div>
                         </div>
