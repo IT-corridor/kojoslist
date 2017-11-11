@@ -19,31 +19,10 @@
             </div>
             <div class="ads_search" style="padding-left: 10px; padding-right: 25px;">
                 <input type="text" class="search-input ads_search_input" name="ads_search" placeholder="Search for ads name..." style="width: 90%; display: inline;">
-                <input type="submit" class="btn btn-info" value="Search" style="display: inline; float: right; width: 9%; height: 45px; padding: 10px 20px;" />
+                <input type="submit" id="search_ads" class="btn btn-info" value="Search" style="display: inline; float: right; width: 9%; height: 45px; padding: 10px 20px;" />
             </div>
-            <div class="ads_list">
-                {% for post in posts %}
-                <div class="my_add">
-                    <div>
-                        <img class="photo" src="/static/media/{{ post.1 }}">
-                    </div>
-                    <div class="title">
-                        <h3><a href="/ads/{{ post.0.id }}"> {{ post.0.title }} </a></h3>
-                        <span>Posted on {{ post.0.created_at }}</span>
-                    </div>
-                    <div class="pull-right">
-                        <div class="price">$60/month</div>
-                        <div class="actions">
-                            <select data-value="{{ post.0.id }}" class="active_deactive status">
-                                <option value="active" {% if post.0.status == 'active' %} selected {% endif %}>Active</option>
-                                <option value="deactive" {% if post.0.status == 'deactive' %} selected {% endif %}>Deactive</option>
-                            </select>
-                            <a href="/ads-edit/{{ post.0.id }}"><div class="edit"></div></a>
-                            <a class="ads_post_delete" data-value="{{ post.0.id }}"><div class="delete"></div></a>                        
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}              
+            <div class="ads_list" id="ads_list">
+            {% include '_post_list.html' %}            
             </div>
         </div>
 
@@ -88,22 +67,33 @@
             }
             
         });
-        jQuery('.ads_search_input').keyup(function(){
-            var search_val = jQuery(this).val();
-            var url = 'http://globalboard.world/wp-admin/admin-ajax.php';
+
+        
+        jQuery('#search_ads').click(function() {
+            search_ads();
+        });
+
+        jQuery('.ads_search_input').keypress(function(e) {
+            var key = e.which;
+            if (key == 13) {
+                search_ads();
+            }
+        });
+
+        function search_ads() {
+            var search_val = jQuery('.ads_search_input').val();
+
             jQuery.ajax({
                 type: 'post',
-                url: url,
-                dataType:'json',
+                url: '/search_ads',
                 data: {
-                    action: 'get_ads_search_data',
-                    data_id: search_val,
+                    keyword: search_val,
                 },
                 success: function (data) {
-                    jQuery('.ads_list').html(data);
+                    jQuery('#ads_list').html(data);
                 }
-            });         
-        });
+            });                     
+        }
     });     
 </script>
 

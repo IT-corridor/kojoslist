@@ -16,6 +16,7 @@ from django.contrib.auth import authenticate
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.db.models import Q
 
 from general.models import *
 from general.forms import *
@@ -29,12 +30,24 @@ def home(request):
 
 def my_ads(request):
     posts = Post.objects.filter(owner=request.user)
+    posts = get_posts_with_image(posts)
+    return render(request, 'my_ads.html', {'posts': posts})
+
+@csrf_exempt
+def search_ads(request):
+    keyword = request.POST.get('keyword')
+    posts = Post.objects.filter(owner=request.user).filter(Q(title__icontains=keyword) | Q(content__icontains=keyword))
+    posts = get_posts_with_image(posts)
+    rndr_str = render_to_string('_post_list.html', {'posts': posts})
+    return HttpResponse(rndr_str)
+
+def get_posts_with_image(posts):
     posts_with_image = []
     for post in posts:
         image = Image.objects.filter(post=post).first()
         img_name = image.name if image else 'dummy.jpg'
         posts_with_image.append((post, img_name))
-    return render(request, 'my_ads.html', {'posts': posts_with_image})
+    return posts_with_image
 
 def profile(request):
     state_id = request.GET.get('state_id')
@@ -207,4 +220,5 @@ def delete_ads(request):
     ads = request.POST.get('ads_id')
     Post.objects.filter(id=ads).delete()
     return HttpResponse('')
+
 
