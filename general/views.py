@@ -126,13 +126,17 @@ def post_ads(request, ads_id):
         if ads_id:
             post = Post.objects.get(id=ads_id)
             scategories = Category.objects.filter(parent=post.category.parent)
-            states = State.objects.filter(country=post.city.state.country)
-            cities = City.objects.filter(state=post.city.state)
+            states = State.objects.filter(country=post.region.state.country)
+            cities = City.objects.filter(state=post.region.state)
+            images = Image.objects.filter(post=post)
+            detail_template = 'post/{}.html'.format(post.category.form)
         else:
             post = None
             scategories = None
             states = None
             cities = None
+            images = None
+            detail_template = 'post/Post.html'
 
         return render(request, 'post_ads.html', {
             'mcategories': mcategories,
@@ -140,7 +144,9 @@ def post_ads(request, ads_id):
             'countries': countries,
             'states': states,
             'cities': cities,
+            'images': images,
             'post': post,
+            'detail_template': detail_template
         })
     else:
         form_name = request.POST.get('ads_form') + 'Form'
