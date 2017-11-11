@@ -1,3 +1,7 @@
+{% if others %}
+    <h3>Recent Ads</h3>
+{% endif %}
+
 {% for post in posts %}
 <div class="my_add">
     <div>
@@ -9,6 +13,7 @@
     </div>
     <div class="pull-right">
         <div class="price">$60/month</div>
+        {% if not others %}
         <div class="actions">
             <select data-value="{{ post.0.id }}" class="active_deactive status">
                 <option value="active" {% if post.0.status == 'active' %} selected {% endif %}>Active</option>
@@ -17,6 +22,7 @@
             <a href="/post-ads/{{ post.0.id }}"><div class="edit"></div></a>
             <a class="ads_post_delete" data-value="{{ post.0.id }}"><div class="delete"></div></a>                        
         </div>
+        {% endif %}
     </div>
 </div>
 {% endfor %}  

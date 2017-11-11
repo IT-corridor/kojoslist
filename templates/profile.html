@@ -141,7 +141,7 @@
 
                                     <!-- End Content Full Select Country -->
 
-                                    <div class="content-recent-ads">
+                                    <div class="content-recent-ads ads_list">
                                         <h3>Recent Ads</h3>
                                     </div>
 
@@ -393,15 +393,19 @@
                                     if (country_code != "") {
                                         state_id = country_code;
                                         shu = 'country';
-                                        //alert('country_code '+country_code);
                                     } 
 
                                     $("#cn_code").val("");
-                                    console.log(state_id + ' - this');
                                     //fetch(state_id,sec_name);
                                     breadcrumb(state_id);
-                                    home_recent_ads(state_id, shu);
                                     fetch(state_id, sec_name);
+
+                                    if (state_id.substring(2,3) == '-' && shu == 'country') {
+                                        state_id = this.name;
+                                        shu = 'state';
+                                    }
+
+                                    home_recent_ads(state_id, shu);
                                 }
                             }
                         }
@@ -446,6 +450,7 @@
             var state_id, shu = 'state';
             var country_code = $("#cn_code").val(); //country code
             state_id = jQuery(this).text(); // state name
+
             if (country_code != "") {
                 state_id = country_code;
                 shu = 'country';
@@ -476,6 +481,7 @@
                     var state_id, shu = 'state';
                     var country_code = $("#cn_code").val(); //country code
                     state_id = jQuery(this).text(); // state name
+
                     if (country_code != "") {
                         state_id = country_code;
                         shu = 'country';
@@ -511,6 +517,7 @@
             var state_id, shu = 'state';
             var country_code = $("#cn_code").val(); //country code
             state_id = jQuery(this).text(); // state name
+
             if (country_code != "") {
                 state_id = country_code;
                 shu = 'country';
@@ -605,7 +612,7 @@
                     var html = "";
                     var i;
                     $.each(js, function(key, value) {
-                        html += "<li class='regions_li' data-type='" + type + "' data-pid='" + value.name + "' ><a href='#'>" + value.name + "</a></li>";
+                        html += "<li class='regions_li' data-type='" + type + "' data-pid=\"" + value.name + "\" ><a href='#'>" + value.name + "</a></li>";
                     });
                     $(html).appendTo('ul.list');
                 }
@@ -634,27 +641,18 @@
         });
     }
 
-    function home_recent_ads(state_id, shu) {
-        console.log('@@@@@@@@@');
-        console.log(state_id);
-        console.log(shu);
-        return;
+    function home_recent_ads(region_id, shu) {
         /*$('.content-recent-ads').show();*/
-        var url = '/wp-admin/admin-ajax.php';
         jQuery.ajax({
-            type: 'post',
-            url: url,
-            dataType: 'json',
+            type: 'get',
+            url: '/get_ads',
             data: {
-                action: 'home_recent_ads_action',
-                name: {
-                    'state_id': state_id,
-                    'shu': shu
-                },
+                'region_id': region_id,
+                'kind': shu
             },
             success: function(data) {
                 if (data != '') {
-                    $('.content-recent-ads').html(data.html);
+                    $('.content-recent-ads').html(data);
                     jQuery('.loader_content').removeClass('active');
                 }
             }

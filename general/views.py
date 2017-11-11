@@ -66,7 +66,7 @@ def display_regions_of_state(sortname):
     states = State.objects.filter(country__sortname=sortname.upper())
     rndr_str = ''
     for state in states:
-        rndr_str += "<li class='regions_li' data-type='regions' data-pid='{0}' ><a href='#'>{0}</a></li>".format(state.name)
+        rndr_str += "<li class='regions_li' data-type='regions' data-pid=\"{0}\" ><a href='#'>{0}</a></li>".format(state.name)
 
     if states:
         rndr_str = "<ul class='list'>" + rndr_str + "</ul>"
@@ -256,4 +256,17 @@ def delete_ads(request):
     Post.objects.filter(id=ads).delete()
     return HttpResponse('')
 
+def get_ads(request):
+    region_id = request.GET.get('region_id')
+    kind = request.GET.get('kind')
 
+    if kind == 'country':
+        posts = Post.objects.filter(region__state__country__sortname=region_id.upper()).exclude(status='deactive')#.exclude(owner=request.user)
+    elif kind == 'state':
+        posts = Post.objects.filter(region__state__name=region_id).exclude(status='deactive')#.exclude(owner=request.user)
+    else:
+        posts = Post.objects.filter(region_id=region_id).exclude(status='deactive')#.exclude(owner=request.user)
+
+    posts = get_posts_with_image(posts)
+    rndr_str = render_to_string('_post_list.html', {'posts': posts, 'others': True})
+    return HttpResponse(rndr_str)
