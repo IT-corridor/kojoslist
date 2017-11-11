@@ -172,6 +172,7 @@ def post_ads(request, ads_id):
             # remove deleted ones
             for img in list(set(pimages)-set(images)):
                 os.remove(settings.BASE_DIR+'/static/media/'+img)
+                Image.objects.filter(name=img).delete()
 
         print form.errors, '$$$$$$$$'
         return HttpResponseRedirect(reverse('my-ads'))
@@ -247,12 +248,12 @@ def active_deactive_ads(request):
     ads = request.POST.get('ads_id')
     status = request.POST.get('status')
     Post.objects.filter(id=ads).update(status=status)
-    return HttpResponse('ok')
+    return HttpResponse('')
 
 @csrf_exempt
 def delete_ads(request):
     ads = request.POST.get('ads_id')
     Post.objects.filter(id=ads).delete()
-    return HttpResponse('ok')
+    return HttpResponse('')
 
 

@@ -144,7 +144,10 @@ class Image(models.Model):
 
 @receiver(pre_delete, sender=Image, dispatch_uid='image_delete_signal')
 def delete_image_file(sender, instance, using, **kwargs):
-    os.remove(settings.BASE_DIR+'/static/media/'+instance.name)
+    try:
+        os.remove(settings.BASE_DIR+'/static/media/'+instance.name)
+    except Exception, e:
+        pass
 
 
 class Favourite(models.Model):
