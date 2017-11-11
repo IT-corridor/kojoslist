@@ -37,9 +37,20 @@ def my_ads(request):
 @csrf_exempt
 def search_ads(request):
     keyword = request.POST.get('keyword')
-    posts = Post.objects.filter(owner=request.user).filter(Q(title__icontains=keyword) | Q(content__icontains=keyword))
+    others = request.POST.get('others')
+
+    if others:
+        region_id = request.session['region']  # city
+        category_id = request.session['category']
+        categories = Category.objects.filter(Q(id=category_id) | Q(parent__id=category_id))
+        posts = Post.objects.filter(region_id=region_id, category__in=categories) \
+                            .filter(Q(title__icontains=keyword) | Q(content__icontains=keyword)) \
+                            .exclude(status='deactive')
+    else:
+        posts = Post.objects.filter(owner=request.user).filter(Q(title__icontains=keyword) | Q(content__icontains=keyword))
+
     posts = get_posts_with_image(posts)
-    rndr_str = render_to_string('_post_list.html', {'posts': posts})
+    rndr_str = render_to_string('_post_list.html', {'posts': posts, 'others': others})
     return HttpResponse(rndr_str)
 
 def get_posts_with_image(posts):
@@ -290,13 +301,17 @@ def view_ads(request, ads_id):
     })
 
 def category_ads(request, category_id):
+    # store category
+    request.session['category'] = category_id
+    request.session.modified = True
+
     region_id = request.session['region']  # city
     region = City.objects.get(id=region_id)
     category = Category.objects.get(id=category_id)
     categories = Category.objects.filter(Q(id=category_id) | Q(parent__id=category_id))
     posts = Post.objects.filter(region=region, category__in=categories).exclude(status='deactive')
     posts = get_posts_with_image(posts)
-    
+
     return render(request, 'ads_list.html', {
         'posts': posts,
         'region': region,

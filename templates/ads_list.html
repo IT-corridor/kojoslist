@@ -56,6 +56,7 @@
                 url: '/search_ads',
                 data: {
                     keyword: search_val,
+                    others: true
                 },
                 success: function (data) {
                     jQuery('#ads_list').html(data);
