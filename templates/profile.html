@@ -386,21 +386,21 @@
                                             $("#cn_code").val(key);
                                         }
                                     });
-                                    var state_id;
+                                    var state_id, shu = 'state';
                                     var country_code = $("#cn_code").val(); //country code
                                     state_id = this.name; // state name
+
                                     if (country_code != "") {
                                         state_id = country_code;
+                                        shu = 'country';
                                         //alert('country_code '+country_code);
-                                    } else {
-                                        state_id = state_id;
-                                        //alert('state_id '+state_id);
-                                    }
+                                    } 
+
                                     $("#cn_code").val("");
                                     console.log(state_id + ' - this');
                                     //fetch(state_id,sec_name);
                                     breadcrumb(state_id);
-                                    home_recent_ads(state_id);
+                                    home_recent_ads(state_id, shu);
                                     fetch(state_id, sec_name);
                                 }
                             }
@@ -443,24 +443,24 @@
             $('#mapDropdown').val(vall).change();
             var iscountry = vall;
             $("#cn_code").val(country.toLowerCase());
-            var state_id;
+            var state_id, shu = 'state';
             var country_code = $("#cn_code").val(); //country code
             state_id = jQuery(this).text(); // state name
             if (country_code != "") {
                 state_id = country_code;
-            } else {
-                state_id = state_id;
+                shu = 'country';
             }
+
             $("#cn_code").val("");
             fetch(state_id);
             breadcrumb(state_id);
-            home_recent_ads(state_id);
+            home_recent_ads(state_id, shu);
         });
 
         jQuery("body").on('click', '.regions_li', function() {
             fetch(jQuery(this).data('pid'));
             breadcrumb(jQuery(this).data('pid'));
-            home_recent_ads(jQuery(this).data('pid'));
+            home_recent_ads(jQuery(this).data('pid'), 'state');
         });
         setTimeout(function() {
             jQuery('.show_country').each(function() {
@@ -473,19 +473,19 @@
                     $('#mapDropdown').val(vall).change();
                     var iscountry = vall;
                     $("#cn_code").val(country.toLowerCase());
-                    var state_id;
+                    var state_id, shu = 'state';
                     var country_code = $("#cn_code").val(); //country code
                     state_id = jQuery(this).text(); // state name
                     if (country_code != "") {
                         state_id = country_code;
-                    } else {
-                        state_id = state_id;
-                    }
+                        shu = 'country';
+                    } 
+
                     $("#cn_code").val("");
                     //alert(state_id);
                     fetch(state_id);
                     breadcrumb(state_id);
-                    home_recent_ads(state_id);
+                    home_recent_ads(state_id, shu);
 
                     return false;
                 }
@@ -508,19 +508,18 @@
             $('#mapDropdown').val(vall).change();
             var iscountry = vall;
             $("#cn_code").val(country.toLowerCase());
-            var state_id;
+            var state_id, shu = 'state';
             var country_code = $("#cn_code").val(); //country code
             state_id = jQuery(this).text(); // state name
             if (country_code != "") {
                 state_id = country_code;
-            } else {
-                state_id = state_id;
-            }
+                shu = 'country';
+            } 
             $("#cn_code").val("");
             console.log("stateid " + state_id);
             fetch(state_id);
             breadcrumb(state_id);
-            home_recent_ads(state_id);
+            home_recent_ads(state_id, shu);
 
         }, 500);
     }
@@ -636,8 +635,10 @@
     }
 
     function home_recent_ads(state_id, shu) {
+        console.log('@@@@@@@@@');
+        console.log(state_id);
+        console.log(shu);
         return;
-        if (typeof(shu) === 'undefined') shu = '';
         /*$('.content-recent-ads').show();*/
         var url = '/wp-admin/admin-ajax.php';
         jQuery.ajax({
@@ -655,9 +656,7 @@
                 if (data != '') {
                     $('.content-recent-ads').html(data.html);
                     jQuery('.loader_content').removeClass('active');
-
                 }
-
             }
         });
     }
@@ -665,7 +664,8 @@
     $("body").on('click', '.get_category_by_location', function() {
         var city_id = $(this).data('id');
         breadcrumb(city_id, 'cities');
-        home_recent_ads(city_id, 'cities');
+        home_recent_ads(city_id, 'city');
+
         jQuery.ajax({
             type: 'get',
             url: '/get_category_by_location_id',
@@ -673,7 +673,6 @@
                 city: city_id
             },
             success: function(data) {
-                console.log('###########');
                 $('#title_of_list').html('Select Category');
                 $('.content-select-country').html(data);
             }
