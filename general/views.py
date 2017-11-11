@@ -153,7 +153,13 @@ def post_ads(request, ads_id):
     else:
         form_name = request.POST.get('ads_form') + 'Form'
         form = get_class(form_name)
-        form = form(request.POST)
+
+        if ads_id:
+            model = eval(request.POST.get('ads_form'))
+            instance = model.objects.get(id=ads_id)
+            form = form(request.POST, instance=instance)
+        else:
+            form = form(request.POST)
         images = request.POST.getlist('uploded_id[]')
         
         if form.is_valid():
