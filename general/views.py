@@ -116,7 +116,7 @@ def get_category_by_location_id(request):
             cc = Category.objects.filter(parent=mc)
             _result += [(mc, cc)]
         result += [_result]
-    return render(request, 'rndr_category.html', {'categories': result})
+    return render(request, '_category.html', {'categories': result})
 
 def post_ads(request):
     if request.method == 'GET':
