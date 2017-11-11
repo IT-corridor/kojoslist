@@ -290,9 +290,17 @@ def view_ads(request, ads_id):
     })
 
 def category_ads(request, category_id):
-    region = request.session['region']  # city
+    region_id = request.session['region']  # city
+    region = City.objects.get(id=region_id)
+    category = Category.objects.get(id=category_id)
     categories = Category.objects.filter(Q(id=category_id) | Q(parent__id=category_id))
-    posts = Post.objects.filter(region_id=region, category__in=categories).exclude(status='deactive')
+    posts = Post.objects.filter(region=region, category__in=categories).exclude(status='deactive')
     posts = get_posts_with_image(posts)
-    return render(request, 'ads_list.html', {'posts': posts})
+    
+    return render(request, 'ads_list.html', {
+        'posts': posts,
+        'region': region,
+        'category': category,
+        'others': True
+    })
 

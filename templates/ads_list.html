@@ -8,15 +8,17 @@
     <div class="col-sm-12 full-h">
 
         <div class="content-right-content my-ads">
-            <h2>My Ads</h2>
-            <div class="ads_list">
-                <div class="ads_add">
-                    <a href="/post-ads/">
-                        <div class="photo"></div>
-                        <div class="text">Click to post new ad</div>
-                    </a>
-                </div>
-            </div>
+            <nav class="breadcrumb">
+              <a class="breadcrumb-item" href="/profile/">worldwide<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+              <a class="breadcrumb-item" href="#">{{ region.state.country.name }}<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+              <a class="breadcrumb-item" href="#">{{ region.state.name }}<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+              <a class="breadcrumb-item" href="#">{{ region.name }}<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+              {% if category.parent %}
+              <a class="breadcrumb-item" href="#">{{ category.parent.name }}<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+              {% endif %}
+              <span class="breadcrumb-item active">{{ category.name }}</span>
+            </nav>        
+            <h2>Ads List</h2>            
             <div class="ads_search" style="padding-left: 10px; padding-right: 25px;">
                 <input type="text" class="search-input ads_search_input" name="ads_search" placeholder="Search for ads name..." style="width: 90%; display: inline;">
                 <input type="submit" id="search_ads" class="btn btn-info" value="Search" style="display: inline; float: right; width: 9%; height: 45px; padding: 10px 20px;" />
@@ -34,44 +36,7 @@
 
 {% block own_js %}
 <script>
-    jQuery(document).ready(function(){
-        jQuery("body").on("change", ".active_deactive",function(){
-            var status = jQuery(this).val();
-            var ads_id = jQuery(this).data('value');
-            
-            jQuery.ajax({
-                type: 'post',
-                url: '/active_deactive_ads',
-                dataType:'json',
-                data: {
-                    ads_id:ads_id,
-                    status: status,
-                },
-                success: function (data) {
-                }
-            });
-        });
-
-        jQuery("body").on("click", ".ads_post_delete",function(){
-            var r = confirm("Do you confirm to delete?");
-            if (r == true) {
-                var ads_id = jQuery(this).data('value');
-                jQuery.ajax({
-                    type: 'post',
-                    url: '/delete_ads',
-                    dataType:'json',
-                    data: {
-                        ads_id: ads_id,
-                    },
-                    success: function (data) {
-                        location.reload();
-                    }
-                });
-            }
-            
-        });
-
-        
+    jQuery(document).ready(function(){                
         jQuery('#search_ads').click(function() {
             search_ads();
         });

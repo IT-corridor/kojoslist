@@ -655,6 +655,7 @@
             },
             success: function(data) {
                 if (data != '') {
+                    data = '<h3>Recent Ads</h3>' + data;
                     $('.content-recent-ads').html(data);
                     jQuery('.loader_content').removeClass('active');
                 }
