@@ -202,3 +202,9 @@ def active_deactive_ads(request):
     Post.objects.filter(id=ads).update(status=status)
     return HttpResponse('')
 
+@csrf_exempt
+def delete_ads(request):
+    ads = request.POST.get('ads_id')
+    Post.objects.filter(id=ads).delete()
+    return HttpResponse('')
+

@@ -27,7 +27,7 @@ urlpatterns = [
 
 urlpatterns += [
     url(r"^$", home, name="home"),
-    # url(r"^account$", account, name="account"),
+    url(r"^delete_ads$", delete_ads, name="delete_ads"),
     url(r"^active_deactive_ads", active_deactive_ads, name="active_deactive_ads"),
     url(r"^get_post_detail$", get_post_detail, name="get_post_detail"),
     url(r"^profile", profile, name="profile"),

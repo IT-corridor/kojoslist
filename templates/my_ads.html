@@ -9,13 +9,6 @@
 
         <div class="content-right-content my-ads">
             <h2>My Ads</h2>
-            <div class="ads_search">
-            <form action="/my-ads/" method="get">
-                <input type="text" class="search-input" name="ads_search" placeholder="Search for ads name..."><!--ads_search_input-->
-                <input type="hidden" name="action" value="adsserach"  />
-                <input type="submit" class="btn btn-info" value="Search"  />
-            </form>
-            </div>
             <div class="ads_list">
                 <div class="ads_add">
                     <a href="/post-ads/">
@@ -23,6 +16,12 @@
                         <div class="text">Click to post new ad</div>
                     </a>
                 </div>
+            </div>
+            <div class="ads_search" style="padding-left: 10px; padding-right: 25px;">
+                <input type="text" class="search-input ads_search_input" name="ads_search" placeholder="Search for ads name..." style="width: 90%; display: inline;">
+                <input type="submit" class="btn btn-info" value="Search" style="display: inline; float: right; width: 9%; height: 45px; padding: 10px 20px;" />
+            </div>
+            <div class="ads_list">
                 {% for post in posts %}
                 <div class="my_add">
                     <div>
@@ -70,23 +69,20 @@
                 }
             });
         });
+
         jQuery("body").on("click", ".ads_post_delete",function(){
-            var r = confirm("Confirm delete...!");
+            var r = confirm("Do you confirm to delete?");
             if (r == true) {
-                var url = 'http://globalboard.world/wp-admin/admin-ajax.php';
                 var ads_id = jQuery(this).data('value');
                 jQuery.ajax({
                     type: 'post',
-                    url: url,
+                    url: 'delete_ads',
                     dataType:'json',
                     data: {
-                        action: 'delete_ads_post',
-                        data_id: ads_id,
+                        ads_id: ads_id,
                     },
                     success: function (data) {
-                        if(data){
-                            location.reload();
-                        }
+                        location.reload();
                     }
                 });
             }
