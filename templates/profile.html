@@ -218,9 +218,12 @@
 {% endblock %} 
 
 {% block extra_js %}
+
+{% block load_highcharts_js %}
 <script src="https://code.highcharts.com/maps/highmaps.js"></script>
 <script src="https://code.highcharts.com/mapdata/index.js?1"></script>
 <script src="https://www.highcharts.com/samples/maps/demo/all-maps/jquery.combobox.js"></script>
+{% endblock %}
 
 {% block own_js %}
 <script>

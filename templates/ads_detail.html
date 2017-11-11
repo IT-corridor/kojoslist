@@ -16,41 +16,39 @@
             </nav>
 
             <div class="main-product">
-                <div class="col-md-5">
-                    <div class="product-img">
-                        <a href="#"><img src="/static/media/{{ first_image }}"></a>
-                        <ul>
-                            {% for img in images %}
-                                <li>
-                                    <a href="#"><img src="/static/media/{{ img.name }}" alt=""></a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
                 <div class="col-md-7">
-                    <div class="main-product-info">
-                        <div class="main-product-title">
-                            <h3>{{ post.title }}</h3>
-                            <h4>$ 42</h4>
+                    <div class="product-img col-md-12" style="margin-bottom: 20px;">
+                        <a href="#"><img class="first_image" src="/static/media/{{ first_image }}"></a>
+                    </div>
+                    {% for img in images %}
+                        <div class="col-md-3">
+                            <a href="#"><img onclick="set_image(this);" class="img-responsive" src="/static/media/{{ img.name }}" alt=""></a>
                         </div>
-                        <div class="main-product-post-time">
-                            <p>Posted on<span> {{ post.created_at }}</span></p>
-                            <form action="" method="post" lpformnum="1">
-                                <input type="hidden" name="ads_id" value="663">
-                                <input type="hidden" name="author_id" value="1">
-                                <input type="hidden" name="user_id" value="1">
-                                <button type="submit" id="fev_sabmit" style="display:none;"></button>
-                                <input type="hidden" name="action" value="addFavoriteProperty"><p class="fev_p main-product-star"><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i>Add to Favorites</a></p>                          </form>
-                            <!--<p class="main-product-star"><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i>Add to Favorites</a></p>-->
-                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-5">
+                    <div class="col-md-12">
+                        <h4 style="font-size: 22px; color: black;">{{ post.title }}</h4>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 16px;">
+                        <div class="col-md-7 no-padding">Posted on {{ post.created_at }}</div>
+                        <div class="col-md-5 no-padding" style="color: #64B7E7;">
+                            <span style="margin-left: 10px; float: right;">Add to Favorites</span>
+                            <i class="fa fa-star-o pull-right" aria-hidden="true"></i>
+                        </div>                                       
+                    </div>
+                    <div class="col-md-12" style="margin-top: 32px;">
                         <div class="star-profile">
-                            <a href="#"><img src="/static/img/big_avatar.png" width="150" height="150"></a>
+                            <a href="#">
+                                <img src="/static/img/big_avatar.png" width="80" height="80">
+                            </a>
                             <div class="star-profile-name">
-                                <h6><a href="#">developer developer</a></h6>
+                                <a href="#" class="username_on_detail">{{ user.first_name }} {{ user.last_name }}</a>
                                 <i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i>                               
                             </div>
                         </div>
+                    </div>
+                    <div class="main-product-info">
                         <div class="product-location-info">
                             <div class="product-location-info-left">
                                 <span>Location</span>
@@ -77,8 +75,15 @@
     </div>
 {% endblock %}
 
-{% block own_js %}
-<script>    
-</script>
+{% block load_highcharts_js %}
+{% endblock %}
 
+{% block own_js %}
+<script type="text/javascript">
+    function set_image(obj) {
+        var img = $(obj).attr('src');
+        $('.first_image').attr('src', img);
+        console.log(img);
+    }
+</script>
 {% endblock %}

@@ -3937,6 +3937,9 @@ select, select.form-control {
         .star-profile-name{
             display: block;
             overflow: hidden;
+            margin-top: 15px;
+            padding-left: 15px;
+            /*float: right;*/
         }
         .star-profile-name h6{
             font-size: 17px;
@@ -4109,7 +4112,12 @@ body.ads-template-default.single-ads,
     display: block !important;
 }
 
-.star-profile-name i{ margin-right: 4px; }
+.star-profile-name i { 
+    margin-right: 3px;
+    color: #cccccc;
+    font-size: 13px;
+}
+
 .view-profile .user_up .rating i{margin:0 3px; }
 .view-profile .content-right-content.my-ads {
     padding: 0px;

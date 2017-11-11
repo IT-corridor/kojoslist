@@ -277,7 +277,6 @@ def view_ads(request, ads_id):
     images = post.images.all()
     if images:
         first_image = images[0].name
-        images = images[1:]
     else:
         first_image = 'dummy.jpg'
 
