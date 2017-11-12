@@ -43,6 +43,7 @@ urlpatterns += [
     url(r"^logout$", ulogout, name="logout"),
     url(r"^ajax_region", ajax_region, name="ajax_region"),
     url(r"^auth_process", auth_process, name="auth_process"),   
-    url(r"^send_friend_email", send_friend_email, name="send_friend_email"),        
+    url(r"^send_friend_email", send_friend_email, name="send_friend_email"), 
+    url(r"^send_reply_email", send_reply_email, name="send_reply_email"),        
     url(r"^get_category_by_location_id", get_category_by_location_id, name="get_category_by_location_id"),    
 ]

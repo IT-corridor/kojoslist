@@ -156,6 +156,7 @@
 
     $('#send_remail').click(function() {
         var from_email = $('#from_remail').val();
+        var content = $('#reply-body').val().trim();
 
         if (!re.test(from_email)) {
             alert('Please provide a valid email!');
@@ -163,12 +164,19 @@
             return;
         }
         
+        if (content == '') {
+            alert('Please provide some content!');
+            $('#reply-body').focus();
+            return;
+        }
+
         jQuery.ajax({
             type: 'post',
             url: '/send_reply_email',
             data: {
                 ads_id: {{ post.id }},
                 from_email: from_email,
+                content: content
             },
             success: function(data) {
                 alert('Reply email sent successfully!');

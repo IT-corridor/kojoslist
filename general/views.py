@@ -334,3 +334,19 @@ def send_friend_email(request):
 
     send_email(settings.FROM_EMAIL, post.title, to_email, content)
     return HttpResponse('')
+
+@csrf_exempt
+def send_reply_email(request):
+    from_email = request.POST.get('from_email')
+    content = request.POST.get('content')
+    ads_id = request.POST.get('ads_id')
+    post = Post.objects.get(id=ads_id)
+
+    subject = 'Reply to ' + post.title
+    content = """
+        {} <br><br>Original post: 
+        http://18.216.225.192/ads/{}
+        """.format(content, post.id)
+
+    send_email(from_email, subject, post.owner.email, content)
+    return HttpResponse('')
