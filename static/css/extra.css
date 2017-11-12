@@ -79,5 +79,23 @@ div.sub-category {
     margin-top: 30px;
     font-weight: 500;
     cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.femail_body input {
+    height: 30px;
     margin-bottom: 10px;
+    width: 240px;
+    padding: 0 8px;
+}
+
+.femail_body label {
+    margin-left: 40px;
+    width: 110px;
+}
+
+.femail_body button {
+    margin-left: 154px;
+    width: 100px;
+    background-color: #f0eeee;
 }

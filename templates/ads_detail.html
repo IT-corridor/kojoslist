@@ -69,11 +69,15 @@
                             Email to friend
                         </div>
                         <div class="hidden femail_body">
-                            <label>Your email: </label>
-                            <input type="email" id="from_email">
-                            <label>Friend's email:</label>
-                            <input type="email" id="to_email">
-                            <input class="product-btn" type="button" name="" value="Send">
+                            <div>
+                                <label>Your email: </label>
+                                <input type="email" id="from_email">                                
+                            </div>
+                            <div>
+                                <label>Friend's email:</label>
+                                <input type="email" id="to_email">                                
+                            </div>
+                            <button class="btn btn-default" id="send_femail">Send</button>
                         </div>
                         <div class="main-product-btn">
                             <input class="product-btn" type="button" name="" value="Message">                           
@@ -95,11 +99,28 @@
     function set_image(obj) {
         var img = $(obj).attr('src');
         $('.first_image').attr('src', img);
-        console.log(img);
     }
 
     $('.email_to_friend').click(function() {
         $('.femail_body').toggleClass('hidden');
     })
+
+    $('#send_femail').click(function() {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var from_email = $('#from_email').val();
+        var to_email = $('#to_email').val();
+
+        if (!re.test(from_email)) {
+            alert('Please provide valid email!');
+            $('#from_email').focus();
+        }
+
+        if (!re.test(to_email)) {
+            alert('Please provide valid email!');
+            $('#to_email').focus();
+        }
+        
+        $('.femail_body').toggleClass('hidden');
+    });
 </script>
 {% endblock %}
