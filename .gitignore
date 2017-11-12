@@ -1,6 +1,6 @@
 *.pyc
 *.php
-*.sqlite3
+*.sql*
 nohup.out
 settings.py
 migrations
