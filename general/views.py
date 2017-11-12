@@ -348,5 +348,6 @@ def send_reply_email(request):
         http://18.216.225.192/ads/{}
         """.format(content, post.id)
 
+    # print (from_email, subject, post.owner.email, content)
     send_email(from_email, subject, post.owner.email, content)
     return HttpResponse('')
