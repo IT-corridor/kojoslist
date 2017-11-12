@@ -41,9 +41,11 @@ urlpatterns += [
     url(r"^delete-image$", delete_image, name="delete-image"),
     url(r"^get_sub_info$", get_sub_info, name="get_sub_info"),
     url(r"^logout$", ulogout, name="logout"),
+    url(r"^view-all", view_all, name="view-all"),
     url(r"^ajax_region", ajax_region, name="ajax_region"),
     url(r"^auth_process", auth_process, name="auth_process"),   
     url(r"^send_friend_email", send_friend_email, name="send_friend_email"), 
     url(r"^send_reply_email", send_reply_email, name="send_reply_email"),        
+    url(r"^search_ads_all", search_ads_all, name="search_ads_all"),        
     url(r"^get_category_by_location_id", get_category_by_location_id, name="get_category_by_location_id"),    
 ]

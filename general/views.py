@@ -351,3 +351,18 @@ def send_reply_email(request):
     # print (from_email, subject, post.owner.email, content)
     send_email(from_email, subject, post.owner.email, content)
     return HttpResponse('')
+
+def view_all(request):
+    posts = Post.objects.all()
+    posts = get_posts_with_image(posts)
+    return render(request, 'view-all.html', {'posts': posts})
+
+@csrf_exempt
+def search_ads_all(request):
+    keyword = request.POST.get('keyword')
+
+    posts = Post.objects.filter(Q(title__icontains=keyword) | Q(content__icontains=keyword)) \
+                        .exclude(status='deactive')
+    posts = get_posts_with_image(posts)
+    rndr_str = render_to_string('_post_list.html', {'posts': posts, 'others': others})
+    return HttpResponse(rndr_str)
