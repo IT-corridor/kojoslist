@@ -364,5 +364,5 @@ def search_ads_all(request):
     posts = Post.objects.filter(Q(title__icontains=keyword) | Q(content__icontains=keyword)) \
                         .exclude(status='deactive')
     posts = get_posts_with_image(posts)
-    rndr_str = render_to_string('_post_list.html', {'posts': posts, 'others': others})
+    rndr_str = render_to_string('_post_list.html', {'posts': posts, 'others': True})
     return HttpResponse(rndr_str)
