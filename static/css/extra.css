@@ -73,3 +73,11 @@ div.sub-category {
     font-size: 15px;
     color: #222222;
 }
+
+.email_to_friend {
+    color: #64B7E7;
+    margin-top: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
