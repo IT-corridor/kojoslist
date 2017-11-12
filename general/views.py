@@ -322,4 +322,15 @@ def category_ads(request, category_id):
 
 @csrf_exempt
 def send_friend_email(request):
-    return
+    from_email = request.POST.get('from_email')
+    to_email = request.POST.get('to_email')
+    ads_id = request.POST.get('ads_id')
+    post = Post.objects.get(id=ads_id)
+    content = """
+        {} forwarded you this from craigslist:<br><br>
+        <h3>{}</h3><br><br>
+        http://18.216.225.192/ads/{}
+        """.format(from_email, post.title, post.id)
+
+    send_email(settings.FROM_EMAIL, post.title, to_email, content)
+    return HttpResponse('')
