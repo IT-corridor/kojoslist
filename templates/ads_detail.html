@@ -46,8 +46,19 @@
                                 <a href="#" class="username_on_detail">{{ user.first_name }} {{ user.last_name }}</a>
                                 <i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i>                               
                             </div>
-                            <button class="btn btn-default" style="margin-left: 30px; margin-top: -25px; background-color: #f0eeee;">Reply</button>
+                            <button class="btn btn-default btn-reply">Reply</button>
                         </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="reply-post hidden">
+                        <div>
+                            <label>Your email: </label>
+                            <input type="email" id="from_remail">                                
+                        </div>
+
+                        <textarea id="reply-body">                            
+                        </textarea>
+                        <button class="btn btn-default" id="send_remail">Send</button>
                     </div>
                     <div class="main-product-info">
                         <div class="product-location-info">
@@ -96,6 +107,8 @@
 
 {% block own_js %}
 <script type="text/javascript">
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     function set_image(obj) {
         var img = $(obj).attr('src');
         $('.first_image').attr('src', img);
@@ -105,8 +118,11 @@
         $('.femail_body').toggleClass('hidden');
     })
 
+    $('.btn-reply').click(function() {
+        $('.reply-post').toggleClass('hidden');
+    })
+
     $('#send_femail').click(function() {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         var from_email = $('#from_email').val();
         var to_email = $('#to_email').val();
 
@@ -137,5 +153,30 @@
         });
 
     });
+
+    $('#send_remail').click(function() {
+        var from_email = $('#from_remail').val();
+
+        if (!re.test(from_email)) {
+            alert('Please provide a valid email!');
+            $('#from_remail').focus();
+            return;
+        }
+        
+        jQuery.ajax({
+            type: 'post',
+            url: '/send_reply_email',
+            data: {
+                ads_id: {{ post.id }},
+                from_email: from_email,
+            },
+            success: function(data) {
+                alert('Reply email sent successfully!');
+                $('.reply-post').toggleClass('hidden');
+            }
+        });
+
+    });
+
 </script>
 {% endblock %}
