@@ -113,14 +113,29 @@
         if (!re.test(from_email)) {
             alert('Please provide valid email!');
             $('#from_email').focus();
+            return;
         }
 
         if (!re.test(to_email)) {
             alert('Please provide valid email!');
             $('#to_email').focus();
+            return
         }
         
-        $('.femail_body').toggleClass('hidden');
+        jQuery.ajax({
+            type: 'post',
+            url: '/send_friend_email',
+            data: {
+                ads_id: {{ post.id }},
+                from_email: from_email,
+                to_email: to_email
+            },
+            success: function(data) {
+                alert('Email sent successfully!');
+                $('.femail_body').toggleClass('hidden');
+            }
+        });
+
     });
 </script>
 {% endblock %}

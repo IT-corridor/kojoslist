@@ -21,6 +21,7 @@ from django.db.models import Q
 
 from general.models import *
 from general.forms import *
+from general.utils import send_email
 
 get_class = lambda x: globals()[x]
 
@@ -319,3 +320,6 @@ def category_ads(request, category_id):
         'others': True
     })
 
+@csrf_exempt
+def send_friend_email(request):
+    return
