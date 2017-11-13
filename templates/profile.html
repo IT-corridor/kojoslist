@@ -97,7 +97,7 @@
                                         <a class="breadcrumb-item" href="/profile/">worldwide<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
                                         <!--<a class="breadcrumb-item" href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
                                     </nav>
-                                    <span id="world_link"><a href="/profile/">World</a></span>
+                                    <span id="world_link"><a href="#">World</a></span>
 
                                     <!-- Content Full Width Map Img -->
 
@@ -145,7 +145,7 @@
 
                                     <div class="btn-view-all-center">
                                         <a href="/view-all/" class="btn btn-default btn-view-all">
-                                            View All
+                                            View All Ads
                                         </a>
                                     </div>
 
@@ -216,406 +216,135 @@
 {% block load_highcharts_js %}
 <script src="/static/js/highmaps.js"></script>
 <script src="/static/js/index.js"></script>
-<script src="/static/js/jquery.combobox.js"></script>
 {% endblock %}
 
 {% block own_js %}
-<script>
-    jQuery(function() {
-        $("#world_link").hide();
-        /**
-         * This is a complicated demo of Highmaps, not intended to get you up to speed
-         * quickly, but to show off some basic maps and features in one single place.
-         * For the basic demo, check out http://www.highcharts.com/maps/demo/geojson instead.
-         */
+<script type="text/javascript">
+    var baseMapPath = "https://code.highcharts.com/mapdata/";
+    var mapName = 'custom/world';
 
-        // Base path to maps
-        var baseMapPath = "https://code.highcharts.com/mapdata/",
-            showDataLabels = false, // Switch for data labels enabled/disabled
-            mapCount = 0,
-            searchText,
-            mapOptions = '';
-        // Populate dropdown menus and turn into jQuery UI widgets
-        $.each(Highcharts.mapDataIndex, function(mapGroup, maps) {
-            if (mapGroup !== "version") {
-                mapOptions += '<option class="option-header">' + mapGroup + '</option>';
-                $.each(maps, function(desc, path) {
-                    mapOptions += '<option value="' + path + '" sec_name="' + desc + '">' + desc + '</option>';
-                    mapCount += 1;
-                });
-            }
-        });
-        searchText = 'Search ' + mapCount + ' maps';
-        mapOptions = '<option value="custom/world.js">' + searchText + '</option>' + mapOptions;
-        $("#mapDropdown").append(mapOptions).combobox();
-        // Change map when item selected in dropdown
-        $("#mapDropdown").change(function() {
-            var $selectedItem = $("option:selected", this),
-                mapDesc = $selectedItem.text(),
-                mapKey = this.value.slice(0, -3),
-                svgPath = baseMapPath + mapKey + '.svg',
-                geojsonPath = baseMapPath + mapKey + '.geo.json',
-                javascriptPath = baseMapPath + this.value,
-                isHeader = $selectedItem.hasClass('option-header');
-            // Dim or highlight search box
-            if (mapDesc === searchText || isHeader) {
-                $('.custom-combobox-input').removeClass('valid');
-                location.hash = '';
-            } else {
-                $('.custom-combobox-input').addClass('valid');
-                location.hash = mapKey;
-            }
-            if (isHeader) {
-                return false;
-            }
-            // Show loading
-            if (Highcharts.charts[0]) {
-                Highcharts.charts[0].showLoading('<i class="fa fa-spinner fa-spin fa-2x"></i>');
-            }
+    if (location.hash)
+        mapName = location.hash.substring(1);
 
-            // When the map is loaded or ready from cache...
-            function mapReady() {
-                var mapGeoJSON = Highcharts.maps[mapKey],
-                    data = [],
-                    parent,
-                    match;
-               
-                // Generate non-random data for the map
-                $.each(mapGeoJSON.features, function(index, feature) {
-                    data.push({
-                        key: feature.properties['hc-key'],
-                        value: index
-                    });
-                });
-                // Show arrows the first time a real map is shown
+    loadMap();
 
-                if (mapDesc !== searchText) {
-                    $('.selector .prev-next').show();
-                    $('#sideBox').show();
-                }
-
-                // Is there a layer above this?
-                match = mapKey.match(/^(countries\/[a-z]{2}\/[a-z]{2})-[a-z0-9]+-all$/);
-                if (/^countries\/[a-z]{2}\/[a-z]{2}-all$/.test(mapKey)) { // country
-                    parent = {
-                        desc: 'World',
-                        key: 'custom/world'
-                    };
-
-                } else if (match) { // admin1
-                    parent = {
-                        desc: $('option[value="' + match[1] + '-all.js"]').text(),
-                        key: match[1] + '-all'
-                    };
-
-                }
-                $('#up').html('');
-                if (parent) {
-                    $('#up').append(
-                        $('<a><i class="fa fa-angle-up"></i> ' + parent.desc + '</a>')
-                        .attr({
-                            title: parent.key
-                        })
-                        .click(function() {
-                            $('#mapDropdown').val(parent.key + '.js').change();
-                            $('.breadcrumb').html('<a class="breadcrumb-item" href="/profile/">worldwide<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>');
-                        })
-                    );
-                }
-                var cn_code;
-                // Instantiate chart
-                var map = $("#container").highcharts('Map', {
-                    title: {
-                        text: null
-                    },
-                    mapNavigation: {
-                        enabled: true,
-
-                    },
-                    colorAxis: {
-                        min: 0,
-                        stops: [
-                            [0, '#EFEFFF'],
-                            [0.5, Highcharts.getOptions().colors[0]],
-                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).brighten(-0.5).get()]
-                        ]
-                    },
-                    legend: {
-                        layout: 'vertical',
-                        align: 'left',
-                        verticalAlign: 'bottom'
-                    },
-
-                    series: [{
-                        data: data,
-                        mapData: mapGeoJSON,
-                        joinBy: ['hc-key', 'key'],
-                        name: 'Random data',
-                        states: {
-                            hover: {
-                                color: Highcharts.getOptions().colors[2]
-                            }
-                        },
-                        dataLabels: {
-                            //enabled: showDataLabels,
-                            //format: '{point.name}',
-                            formatter: function() {
-                                return mapKey === 'custom/world' ?
-                                    (this.point.properties && this.point.properties['hc-a2']) :
-                                    this.point.name;
-                            }
-                        },
-                        point: {
-                            events: {
-                                // On click, look for a detailed map
-                                click: function() {
-
-                                    var key = this.key;
-                                    var sec_name = '';
-                                    $('#mapDropdown option').each(function() {
-                                        if (this.value === 'countries/' + key.substr(0, 2) + '/' + key + '-all.js') {
-                                            $('#mapDropdown').val(this.value).change();
-                                            var iscountry = this.value;
-                                            sec_name = this.text;
-                                            //console.log("sec_name "+sec_name);
-                                            //console.log(key+' - key');
-                                            $("#cn_code").val(key);
-                                        }
-                                    });
-                                    var state_id, shu = 'state';
-                                    var country_code = $("#cn_code").val(); //country code
-                                    state_id = this.name; // state name
-
-                                    if (country_code != "") {
-                                        state_id = country_code;
-                                        shu = 'country';
-                                    } 
-
-                                    $("#cn_code").val("");
-                                    //fetch(state_id,sec_name);
-                                    breadcrumb(state_id);
-                                    fetch(state_id, sec_name);
-
-                                    if (state_id.substring(2,3) == '-' && shu == 'country') {
-                                        state_id = this.name;
-                                        shu = 'state';
-                                    }
-
-                                    home_recent_ads(state_id, shu);
-                                }
-                            }
-                        }
-                    }, {
-                        type: 'mapline',
-                        name: "Separators",
-                        data: Highcharts.geojson(mapGeoJSON, 'mapline'),
-                        nullColor: 'gray',
-                        showInLegend: false,
-                        enableMouseTracking: false
-                    }]
-                });
-                showDataLabels = $("#chkDataLabels").attr('checked');
-            }
-            // Check whether the map is already loaded, else load it and
-            // then show it async
-            if (Highcharts.maps[mapKey]) {
-                mapReady();
-            } else {
-                $.getScript(javascriptPath, mapReady);
-            }
-        });
-
-        // Trigger change event to load map on startup
-        if (location.hash) {
-            $('#mapDropdown').val(location.hash.substr(1) + '.js');
-
-        } else { // for IE9
-            $($('#mapDropdown option')[0]).attr('selected', 'selected');
-
-        }
-        $('#mapDropdown').change();
-
-        jQuery("body").on('click', '.regions_li', function() {
-            fetch(jQuery(this).data('pid'));
-            breadcrumb(jQuery(this).data('pid'));
-            home_recent_ads(jQuery(this).data('pid'), 'state');
-        });
-    });
-
-    if (location.hash != "") {
-        setTimeout(function() {
-            var link = location.hash;
-            var arr = link.split('/');
-            var country_code = arr[1].toUpperCase();
-            var country = country_code;
-
-            var vall = 'countries/' + country.toLowerCase() + '/' + country.toLowerCase() + '-all.js';
-            $('#mapDropdown').val(vall).change();
-            var iscountry = vall;
-            $("#cn_code").val(country.toLowerCase());
-            var state_id, shu = 'state';
-            var country_code = $("#cn_code").val(); //country code
-            state_id = jQuery(this).text(); // state name
-
-            if (country_code != "") {
-                state_id = country_code;
-                shu = 'country';
-            } 
-            $("#cn_code").val("");
-            console.log("stateid " + state_id);
-            fetch(state_id);
-            breadcrumb(state_id);
-            home_recent_ads(state_id, shu);
-
-        }, 500);
-    }
-
-    function breadcrumb(uid, shu) {
-        return;
-        //console.log('this is id: '+uid);
-        if (typeof(shu) === 'undefined') shu = '';
-        if (shu == 'cities') {
-            var data = {
-                name: uid,
-                shu: shu,
-                'action': 'breadcrumb_action',
-            };
-            $.post('/wp-admin/admin-ajax.php', data, function(response) {
-                var js;
-                bc = JSON.parse(response);
-                console.log(bc);
-                var no = bc[0].no;
-                var type = bc[0].type;
-                var bread_var = $('.breadcrumb').html();
-                if (type == "cities") {
-                    if (no > 0) {
-                        var part = '<a class="breadcrumb-item" href="#">' + bc[0].name + '<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>';
-                        $(".breadcrumb").append('<a class="breadcrumb-item" href="#">' + bc[0].name + '</a>');
-                    } else {
-
-                    }
-
-                }
-            });
+    function loadMap() {
+        if (Highcharts.maps[mapName]) {
+            mapReady();
         } else {
+            $.getScript(baseMapPath+mapName+'.js', mapReady);
+        }        
+    }    
 
-            var data = {
-                name: uid,
-                'action': 'breadcrumb_action',
-            };
-            $.post('/wp-admin/admin-ajax.php', data, function(response) {
-                var js;
-                bc = JSON.parse(response);
-                console.log(bc);
-                var no = bc[0].no;
-                var type = bc[0].type;
-                var bread_var = $('.breadcrumb').html();
-                if (type == "country") {
-                    if (no > 0) {
-                        var part = '<a class="breadcrumb-item" href="#">' + bc[0].name + '<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>';
-                        $(".breadcrumb").append('<a class="breadcrumb-item" href="#">' + bc[0].name + '<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>');
-                    }
-                }
-                if (type == "states") {
-                    if (no > 0) {
-                        var part = '<a class="breadcrumb-item" href="#">' + bc[0].name + '<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>';
-                        $(".breadcrumb").append('<a class="breadcrumb-item" href="#">' + bc[0].name + '<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>');
-                    }
-                }
+    function mapReady() {
+        var mapGeoJSON = Highcharts.maps[mapName],
+            data = [];
+
+        $.each(mapGeoJSON.features, function(index, feature) {
+            data.push({
+                key: feature.properties['hc-key'],
+                value: index
             });
-        }
-    }
-
-    function fetch(state_id, sec_name) {
-        //alert(state_id);
-        var data = {
-            'state_id': state_id,
-            'sec_name': sec_name
-        };
-
-        $.get('/ajax_region', data, function(response) {
-            var js = response;
-            var no = js[0].no;
-            var type = js[0].type;
-            if (type == "regions") {
-                $("#title_of_list").html("Select Regions");
-                if (no == 0) {
-                    $(".content-select-country").html("");
-                    $(".content-select-country").html("<ul class='list'>No regions found</ul>");
-                } else {
-                    $(".content-select-country").html("");
-                    $(".content-select-country").html("<ul class='list'></ul>");
-                    //var html = $(".content-select-country").html("<ul class="+key+">");
-                    console.log(js.length);
-                    var k;
-                    var html = "";
-                    var i;
-                    $.each(js, function(key, value) {
-                        html += "<li class='regions_li' data-type='" + type + "' data-pid=\"" + value.name + "\" ><a href='#'>" + value.name + "</a></li>";
-                    });
-                    $(html).appendTo('ul.list');
-                }
-            }
-            if (type == "cities") {
-                $("#title_of_list").html("Select Cities");
-                $("#demo-wrapper").hide();
-                $("#world_link").show();
-                if (no == 0) {
-                    $(".content-select-country").html("");
-                    $(".content-select-country").html("<ul class='list'>No city found</ul>");
-                } else {
-                    $(".content-select-country").html("");
-                    $(".content-select-country").html("<ul class='list'></ul>");
-                    //var html = $(".content-select-country").html("<ul class="+key+">");
-                    console.log(js.length);
-                    var k;
-                    var html = "";
-                    var i;
-                    $.each(js, function(key, value) {
-                        html += "<li ><a class='get_category_by_location' data-id='" + value.id + "' href='#'>" + value.name + "</a></li>";
-                    });
-                    $(html).appendTo('ul.list');
-                }
-            }
         });
-    }
 
-    function home_recent_ads(region_id, shu) {
-        // jQuery.ajax({
-        //     type: 'get',
-        //     url: '/get_ads',
-        //     data: {
-        //         'region_id': region_id,
-        //         'kind': shu
-        //     },
-        //     success: function(data) {
-        //         if (data != '') {
-        //             data = '<h3>Recent Ads</h3>' + data;
-        //             $('.content-recent-ads').html(data);
-        //             jQuery('.loader_content').removeClass('active');
-        //         }
-        //     }
-        // });
-    }
-
-    $("body").on('click', '.get_category_by_location', function() {
-        var city_id = $(this).data('id');
-        breadcrumb(city_id, 'cities');
-        home_recent_ads(city_id, 'city');
-
-        jQuery.ajax({
-            type: 'get',
-            url: '/get_category_by_location_id',
-            data: {
-                city: city_id
+        $("#container").highcharts('Map', {
+            title: {
+                text: ''
             },
-            success: function(data) {
-                $('#title_of_list').html('Select Category');
-                $('.content-select-country').html(data);
-            }
-        });
-    });
-    
+            mapNavigation: {
+                enabled: true,
+            },
+            colorAxis: {
+                min: 0,
+                stops: [
+                    [0, '#EFEFFF'],
+                    [0.5, Highcharts.getOptions().colors[0]],
+                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).brighten(-0.5).get()]
+                ]
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                verticalAlign: 'bottom'
+            },
+
+            series: [{
+                data: data,
+                mapData: mapGeoJSON,
+                joinBy: ['hc-key', 'key'],
+                name: 'Random data',
+                states: {
+                    hover: {
+                        color: Highcharts.getOptions().colors[2]
+                    }
+                },
+                dataLabels: {
+                    //enabled: showDataLabels,
+                    //format: '{point.name}',
+                    formatter: function() {
+                        return mapName === 'custom/world' ?
+                            (this.point.properties && this.point.properties['hc-a2']) :
+                            this.point.name;
+                    }
+                },
+                point: {
+                    events: {
+                        // On click, look for a detailed map
+                        click: function() {
+                            var key = this.key;
+                            var sec_name = '';
+
+                            mapName = 'countries/' + key.substr(0, 2) + '/' + key + '-all';
+
+                            $.each(Highcharts.mapDataIndex, function(mapGroup, maps) {
+                                if (mapGroup !== "version") {
+                                    $.each(maps, function(desc, path) {
+                                        if (mapName+'.js' == path)
+                                            sec_name = desc.split(',')[0];
+                                    });
+                                }
+                            });                            
+
+                            console.log(mapName);
+                            console.log(sec_name);
+
+                            if (sec_name) {
+                                location.hash = mapName;
+                                loadMap();
+                            }
+
+                            // var state_id, shu = 'state';
+                            // var country_code = $("#cn_code").val(); //country code
+                            // state_id = this.name; // state name
+
+                            // if (country_code != "") {
+                            //     state_id = country_code;
+                            //     shu = 'country';
+                            // } 
+
+                            // $("#cn_code").val("");
+                            // breadcrumb(state_id);
+                            // fetch(state_id, sec_name);
+
+                            // if (state_id.substring(2,3) == '-' && shu == 'country') {
+                            //     state_id = this.name;
+                            //     shu = 'state';
+                            // }
+
+                            // home_recent_ads(state_id, shu);
+                        }
+                    }
+                }
+            }, {
+                type: 'mapline',
+                name: "Separators",
+                data: Highcharts.geojson(mapGeoJSON, 'mapline'),
+                nullColor: 'gray',
+                showInLegend: false,
+                enableMouseTracking: false
+            }]
+        });        
+    }
 </script>
 {% endblock %}
 

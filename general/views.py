@@ -79,7 +79,7 @@ def display_regions_of_state(sortname):
     states = State.objects.filter(country__sortname=sortname.upper())
     rndr_str = ''
     for state in states:
-        rndr_str += "<li class='regions_li' data-type='regions' data-pid=\"{0}\" ><a href='#'>{0}</a></li>".format(state.name)
+        rndr_str += "<li class='regions_li' data-type='regions' data-pid=\"{0}\" data-id=\"{1}\" ><a href='#'>{0}</a></li>".format(state.name, state.id)
 
     if states:
         rndr_str = "<ul class='list'>" + rndr_str + "</ul>"
