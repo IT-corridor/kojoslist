@@ -352,7 +352,7 @@ def send_reply_email(request):
     send_email(from_email, subject, post.owner.email, content)
     return HttpResponse('')
 
-def view_all(request):
+def region_ads(request):
     posts = Post.objects.all()
     posts = get_posts_with_image(posts)
     return render(request, 'view-all.html', {'posts': posts})

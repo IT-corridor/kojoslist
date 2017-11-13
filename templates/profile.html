@@ -144,11 +144,9 @@
  -->
 
                                     <div class="btn-view-all-center">
-
-                                        <a href="/view-all/">
-                                            <button type="button" class="btn btn-default btn-view-all" id="view_all">View All</button>
+                                        <a href="/view-all/" class="btn btn-default btn-view-all">
+                                            View All
                                         </a>
-
                                     </div>
 
                                 </div>
@@ -250,7 +248,6 @@
         searchText = 'Search ' + mapCount + ' maps';
         mapOptions = '<option value="custom/world.js">' + searchText + '</option>' + mapOptions;
         $("#mapDropdown").append(mapOptions).combobox();
-        //console.log(mapOptions);
         // Change map when item selected in dropdown
         $("#mapDropdown").change(function() {
             var $selectedItem = $("option:selected", this),
@@ -428,7 +425,6 @@
             }
         });
 
-        //console.log('( ');console.log(location.hash);console.log(' )');
         // Trigger change event to load map on startup
         if (location.hash) {
             $('#mapDropdown').val(location.hash.substr(1) + '.js');
@@ -439,70 +435,14 @@
         }
         $('#mapDropdown').change();
 
-        jQuery('.show_country').click(function() {
-
-            var country = jQuery(this).data('country');
-            var vall = 'countries/' + country.toLowerCase() + '/' + country.toLowerCase() + '-all.js';
-            $('#mapDropdown').val(vall).change();
-            var iscountry = vall;
-            $("#cn_code").val(country.toLowerCase());
-            var state_id, shu = 'state';
-            var country_code = $("#cn_code").val(); //country code
-            state_id = jQuery(this).text(); // state name
-
-            if (country_code != "") {
-                state_id = country_code;
-                shu = 'country';
-            }
-
-            $("#cn_code").val("");
-            fetch(state_id);
-            breadcrumb(state_id);
-            home_recent_ads(state_id, shu);
-        });
-
         jQuery("body").on('click', '.regions_li', function() {
             fetch(jQuery(this).data('pid'));
             breadcrumb(jQuery(this).data('pid'));
             home_recent_ads(jQuery(this).data('pid'), 'state');
         });
-        setTimeout(function() {
-            jQuery('.show_country').each(function() {
-                if (jQuery(this).data('country') == 'us') {
-                    //alert("");
-                    //jQuery(this).click();
-                    var country = jQuery(this).data('country');
-                    // alert(country);
-                    var vall = 'countries/' + country.toLowerCase() + '/' + country.toLowerCase() + '-all.js';
-                    $('#mapDropdown').val(vall).change();
-                    var iscountry = vall;
-                    $("#cn_code").val(country.toLowerCase());
-                    var state_id, shu = 'state';
-                    var country_code = $("#cn_code").val(); //country code
-                    state_id = jQuery(this).text(); // state name
-
-                    if (country_code != "") {
-                        state_id = country_code;
-                        shu = 'country';
-                    } 
-
-                    $("#cn_code").val("");
-                    //alert(state_id);
-                    fetch(state_id);
-                    breadcrumb(state_id);
-                    home_recent_ads(state_id, shu);
-
-                    return false;
-                }
-            });
-
-        }, 2000);
-
     });
 
     if (location.hash != "") {
-
-        //jQuery('.loader_content').addClass('active');
         setTimeout(function() {
             var link = location.hash;
             var arr = link.split('/');
@@ -675,35 +615,7 @@
             }
         });
     });
-    /*$("body").on('click', '.get_ads_by_location', function(){
-        var location_id = $(this).data('id');
-        var url = '/wp-admin/admin-ajax.php';
-        jQuery.ajax({
-            type: 'post',
-            url: url,
-            dataType:'json',
-            data: {
-                action: 'get_ads_by_location_id',
-                data_id: location_id,
-            },
-            success: function (data) {
-
-                jQuery('.content-recent-ads').html(data);
-            }
-        });
-    });*/
-
-    $(document).ready(function() {
-
-        $('.show_country').click(function() {
-            $('#nearest').hide();
-        });
-
-        $('#demo-wrapper #mapBox #container').click(function() {
-            $('#nearest').hide();
-
-        });
-    });
+    
 </script>
 {% endblock %}
 
