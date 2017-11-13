@@ -93,7 +93,6 @@
                             <!-- Content Right Content -->
                             <div class="col-sm-12">
                                 <div class="content-right-content">
-                                    <h2>Ads from all over the world</h2>
                                     <nav class="breadcrumb">
                                         <a class="breadcrumb-item" href="/profile/">worldwide<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
                                         <!--<a class="breadcrumb-item" href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
@@ -139,13 +138,10 @@
                                         {% autoescape off %}{{ rndr_str }}{% endautoescape %} 
                                     </div>
 
-                                    <!-- End Content Full Select Country -->
-
-                                    <div class="content-recent-ads ads_list">
+<!--                                     <div class="content-recent-ads ads_list">
                                         <h3>Recent Ads</h3>
                                     </div>
-
-                                    <!-- End Recent Ads -->
+ -->
 
                                     <div class="btn-view-all-center">
 
@@ -220,9 +216,9 @@
 {% block extra_js %}
 
 {% block load_highcharts_js %}
-<script src="https://code.highcharts.com/maps/highmaps.js"></script>
-<script src="https://code.highcharts.com/mapdata/index.js?1"></script>
-<script src="https://www.highcharts.com/samples/maps/demo/all-maps/jquery.combobox.js"></script>
+<script src="/static/js/highmaps.js"></script>
+<script src="/static/js/index.js"></script>
+<script src="/static/js/jquery.combobox.js"></script>
 {% endblock %}
 
 {% block own_js %}
@@ -645,22 +641,21 @@
     }
 
     function home_recent_ads(region_id, shu) {
-        /*$('.content-recent-ads').show();*/
-        jQuery.ajax({
-            type: 'get',
-            url: '/get_ads',
-            data: {
-                'region_id': region_id,
-                'kind': shu
-            },
-            success: function(data) {
-                if (data != '') {
-                    data = '<h3>Recent Ads</h3>' + data;
-                    $('.content-recent-ads').html(data);
-                    jQuery('.loader_content').removeClass('active');
-                }
-            }
-        });
+        // jQuery.ajax({
+        //     type: 'get',
+        //     url: '/get_ads',
+        //     data: {
+        //         'region_id': region_id,
+        //         'kind': shu
+        //     },
+        //     success: function(data) {
+        //         if (data != '') {
+        //             data = '<h3>Recent Ads</h3>' + data;
+        //             $('.content-recent-ads').html(data);
+        //             jQuery('.loader_content').removeClass('active');
+        //         }
+        //     }
+        // });
     }
 
     $("body").on('click', '.get_category_by_location', function() {
