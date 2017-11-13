@@ -63,33 +63,7 @@ def get_posts_with_image(posts):
     return posts_with_image
 
 def profile(request):
-    state_id = request.GET.get('state_id')
-    mycusid = request.GET.get('mycusid')
-
-    if state_id:
-        rndr_str = display_regions_of_state(state_id)
-    elif mycusid:
-        rndr_str = display_regions_of_state(mycusid) + globoard_display_world_countries('hidden')
-    else:
-        rndr_str = globoard_display_world_countries()
-
-    return render(request, 'profile.html', {'rndr_str': rndr_str})
-
-def display_regions_of_state(sortname):
-    states = State.objects.filter(country__sortname=sortname.upper())
-    rndr_str = ''
-    for state in states:
-        rndr_str += "<li class='regions_li' data-type='regions' data-pid=\"{0}\" data-id=\"{1}\" ><a href='#'>{0}</a></li>".format(state.name, state.id)
-
-    if states:
-        rndr_str = "<ul class='list'>" + rndr_str + "</ul>"
-    return rndr_str
-
-def globoard_display_world_countries(css_class=''):
-    rndr_str = "<ul class='country-list {}'>".format(css_class)
-    for country in Country.objects.all():
-        rndr_str += '<li><a href="/profile?state_id={0}#countries/{0}/{0}-all" class="show_country" data-country="{1}">{2}</a></li>'.format(country.sortname.lower(), country.sortname, country.name)
-    return rndr_str + '</ul>'
+    return render(request, 'profile.html')
 
 def get_regions(request):
     """
@@ -125,7 +99,7 @@ def get_regions(request):
         html = ''
         rs = City.objects.filter(state=state)
         for ii in rs:
-            html += '<li data-id="{1}"><a href="#">{0}</a></li>'.format(ii.name, ii.id)
+            html += '<li><a href="#" class="get_category_by_location" data-id="{1}">{0}</a></li>'.format(ii.name, ii.id)
         if html:
             html = '<ul class="city-list list">' + html + '</ul>'
         else:

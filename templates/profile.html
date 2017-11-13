@@ -257,6 +257,28 @@
             }
         });                            
     }    
+
+    jQuery("body").on('click', '.country-list li', function() {
+        var key = $(this).data('id');
+        mapName = 'countries/'+key+'/'+key+'-all';
+        location.hash = mapName;
+        loadMap();
+    });
+
+    $("body").on('click', '.get_category_by_location', function() {
+        var city_id = $(this).data('id');
+        jQuery.ajax({
+            type: 'get',
+            url: '/get_category_by_location_id',
+            data: {
+                city: city_id
+            },
+            success: function(data) {
+                $('#title_of_list').html('Select Category');
+                $('.content-select-country').html(data);
+            }
+        });
+    });    
 </script>
 {% endblock %}
 
