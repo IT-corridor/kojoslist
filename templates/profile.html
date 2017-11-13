@@ -137,6 +137,7 @@
     if (location.hash)
         mapName = location.hash.substring(1);
 
+    findSecname();
     loadMap();
 
     function loadMap() {
@@ -226,14 +227,7 @@
                             sec_name = '';
                             mapName = 'countries/' + key.substr(0, 2) + '/' + key + '-all';
 
-                            $.each(Highcharts.mapDataIndex, function(mapGroup, maps) {
-                                if (mapGroup !== "version") {
-                                    $.each(maps, function(desc, path) {
-                                        if (mapName+'.js' == path)
-                                            sec_name = desc.split(',')[0];
-                                    });
-                                }
-                            });                            
+                            findSecname();
 
                             if (sec_name) {
                                 location.hash = mapName;
@@ -252,6 +246,17 @@
             }]
         });        
     }
+
+    function findSecname() {
+        $.each(Highcharts.mapDataIndex, function(mapGroup, maps) {
+            if (mapGroup !== "version") {
+                $.each(maps, function(desc, path) {
+                    if (mapName+'.js' == path)
+                        sec_name = desc.split(',')[0];
+                });
+            }
+        });                            
+    }    
 </script>
 {% endblock %}
 

@@ -96,27 +96,46 @@ def get_regions(request):
     get regions like countries, states or cities
     and search link, list title
     """
-    state_id = request.GET.get('state_id')
+    mapName = request.GET.get('mapName')
     sec_name = request.GET.get('sec_name')
 
-    country = Country.objects.filter(sortname=state_id.upper()).first()
-    result = []
-    if country:
-        states = State.objects.filter(country=country)
-        num_states = states.count()        
-        result = [{'no': num_states, 'id': state.id, 'name': state.name, 'type': 'regions', 'country_id': state.country_id} 
-                  for state in states]
-        if not result:
-            result = [{'msg': 'not found', 'type': 'regions', 'no': 0}]
-    else:
-        if sec_name:
-            state_id = sec_name.split(',')[0]
-        cities = City.objects.filter(state__name=state_id)
-        num_cities = cities.count()        
-        result = [{'no': num_cities, 'id': city.id, 'name': city.name, 'type': 'cities', 'state_id': city.state_id} 
-                  for city in cities]
-        if not result:
-            result = [{'msg': 'not found', 'type': 'cities', 'no': 0}]
+    kind = mapName.count('-')
+    if kind == 0: # country
+        title = 'Select Country'
+        link = '/region-ads/'
+        html = ''
+        rs = Country.objects.all()
+        for ii in rs:
+            html += '<li data-id="{}"><a href="#">{}</a></li>'.format(ii.sortname.lower(), ii.name)
+        html = '<ul class="country-list">' + html + '</ul>'
+    elif kind == 1: # state
+        country = mapName.split('/')[1].upper()
+        country = Country.objects.filter(sortname=country).first()
+        title = 'Select Region'
+        link = '/region-ads/{}'.format(country.id)
+        html = ''
+        rs = State.objects.filter(country=country)
+        for ii in rs:
+            html += '<li data-id="{0}"><a href="#">{0}</a></li>'.format(ii.name)
+        html = '<ul class="state-list list">' + html + '</ul>'
+    else: # 2 - city
+        state = State.objects.filter(name=sec_name).first()
+        title = 'Select City'
+        link = '/region-ads/{}'.format(state.id)
+        html = ''
+        rs = City.objects.filter(state=state)
+        for ii in rs:
+            html += '<li data-id="{1}"><a href="#">{0}</a></li>'.format(ii.name, ii.id)
+        if html:
+            html = '<ul class="city-list list">' + html + '</ul>'
+        else:
+            html = '<ul class="city-list list">No city found</ul>'
+
+    result = {
+        'title': title,
+        'link': link,
+        'html': html
+    }
 
     return JsonResponse(result, safe=False)
 
