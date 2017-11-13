@@ -132,7 +132,8 @@
 <script type="text/javascript">
     var baseMapPath = "https://code.highcharts.com/mapdata/";
     var mapName = 'custom/world';
-    var sec_name = '';
+    var sec_name = '',
+        isState = false;
 
     if (location.hash)
         mapName = location.hash.substring(1);
@@ -158,7 +159,8 @@
             url: '/get_regions',
             data: {
                 mapName: mapName,
-                sec_name: sec_name
+                sec_name: sec_name,
+                is_state: isState
             },
             success: function(res) {
                 $('#title_of_list').html(res.title);
@@ -226,7 +228,7 @@
                             var key = this.key;
                             sec_name = '';
                             mapName = 'countries/' + key.substr(0, 2) + '/' + key + '-all';
-
+                            isState = false;
                             findSecname();
 
                             if (sec_name) {
@@ -258,9 +260,27 @@
         });                            
     }    
 
+    function findMapname(state) {
+        var secname, mapname='';
+        $.each(Highcharts.mapDataIndex, function(mapGroup, maps) {
+            if (mapGroup !== "version") {
+                $.each(maps, function(desc, path) {
+                    secname = desc.split(',')[0];
+                    if (secname == state) {
+                        mapname = path.slice(0, -3);
+                        return false;
+                    }
+                });
+            }
+        });          
+
+        return mapname;
+    }
+
     jQuery("body").on('click', '.country-list li', function() {
         var key = $(this).data('id');
         mapName = 'countries/'+key+'/'+key+'-all';
+        isState = false;
         location.hash = mapName;
         loadMap();
     });
@@ -278,6 +298,17 @@
                 $('.content-select-country').html(data);
             }
         });
+    });    
+
+    $("body").on('click', '.region_id', function() {
+        sec_name = $(this).data('id');
+        var mapname = findMapname(sec_name);
+        if (mapname) {
+            mapName = mapname;
+            location.hash = mapName;
+        }
+        isState = true;
+        loadMap();
     });    
 </script>
 {% endblock %}

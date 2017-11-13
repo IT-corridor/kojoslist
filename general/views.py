@@ -72,9 +72,23 @@ def get_regions(request):
     """
     mapName = request.GET.get('mapName')
     sec_name = request.GET.get('sec_name')
+    is_state = request.GET.get('is_state')
 
     kind = mapName.count('-')
-    if kind == 0: # country
+    print is_state, '@@@@2'
+    if kind == 2 or is_state == 'true': # - city
+        state = State.objects.filter(name=sec_name).first()
+        title = 'Select City'
+        link = '/region-ads/{}'.format(state.id)
+        html = ''
+        rs = City.objects.filter(state=state)
+        for ii in rs:
+            html += '<li><a href="#" class="get_category_by_location" data-id="{1}">{0}</a></li>'.format(ii.name, ii.id)
+        if html:
+            html = '<ul class="city-list list">' + html + '</ul>'
+        else:
+            html = '<ul class="city-list list">No city found</ul>'
+    elif kind == 0: # country
         title = 'Select Country'
         link = '/region-ads/'
         html = ''
@@ -90,20 +104,8 @@ def get_regions(request):
         html = ''
         rs = State.objects.filter(country=country)
         for ii in rs:
-            html += '<li data-id="{0}"><a href="#">{0}</a></li>'.format(ii.name)
+            html += '<li data-id="{0}" class="region_id"><a href="#">{0}</a></li>'.format(ii.name)
         html = '<ul class="state-list list">' + html + '</ul>'
-    else: # 2 - city
-        state = State.objects.filter(name=sec_name).first()
-        title = 'Select City'
-        link = '/region-ads/{}'.format(state.id)
-        html = ''
-        rs = City.objects.filter(state=state)
-        for ii in rs:
-            html += '<li><a href="#" class="get_category_by_location" data-id="{1}">{0}</a></li>'.format(ii.name, ii.id)
-        if html:
-            html = '<ul class="city-list list">' + html + '</ul>'
-        else:
-            html = '<ul class="city-list list">No city found</ul>'
 
     result = {
         'title': title,
