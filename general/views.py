@@ -91,9 +91,10 @@ def globoard_display_world_countries(css_class=''):
         rndr_str += '<li><a href="/profile?state_id={0}#countries/{0}/{0}-all" class="show_country" data-country="{1}">{2}</a></li>'.format(country.sortname.lower(), country.sortname, country.name)
     return rndr_str + '</ul>'
 
-def ajax_region(request):
+def get_regions(request):
     """
-    get sub region like states or cities
+    get regions like countries, states or cities
+    and search link, list title
     """
     state_id = request.GET.get('state_id')
     sec_name = request.GET.get('sec_name')

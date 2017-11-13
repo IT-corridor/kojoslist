@@ -5,16 +5,6 @@
 <link rel='stylesheet' id='dropdown-menu-style-css' href='/static/css/my-ads.css' type='text/css' media='all' /> 
 <link rel='stylesheet' id='dropdown-menu-style-css' href='/static/css/dropdown-menu-style.css?v=1' type='text/css' media='all' /> 
 
-{% block own_css %}
-<style type="text/css">
-.content-right-content.my-ads .ads_list .my_add .actions .status {
-    border: none !important;
-    width: auto !important;
-    margin-right: 0px !important;
-}
-</style>
-{% endblock %}
-
 {% endblock %} 
 
 {% block page_content %}
@@ -90,52 +80,18 @@
                             </div>
 
                             {% block right_content %}
-                            <!-- Content Right Content -->
                             <div class="col-sm-12">
                                 <div class="content-right-content">
                                     <nav class="breadcrumb">
                                         <a class="breadcrumb-item" href="/profile/">worldwide<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
                                         <!--<a class="breadcrumb-item" href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
                                     </nav>
-                                    <span id="world_link"><a href="#">World</a></span>
-
-                                    <!-- Content Full Width Map Img -->
-
-                                    <div class="full-map-img">
-
-                                        <!--  <div id="mapdiv"></div> -->
-
-                                    </div>
-
-                                    <div id="demo-wrapper">
-                                        <div id="mapBox">
-                                            <div id="up"></div>
-                                            <div class="selector" style="display:none">
-                                                <button id="btn-prev-map" class="prev-next"><i class="fa fa-angle-left"></i></button>
-                                                <select id="mapDropdown" class="ui-widget combobox"></select>
-                                                <button id="btn-next-map" class="prev-next"><i class="fa fa-angle-right"></i></button>
-                                                <input type="hidden" id="cn_code" value="US">
-                                            </div>
-                                            <div id="container"></div>
-                                        </div>
-                                    </div>
-
-                                    <!-- End Content Full Width Map Img -->
-
-                                    <div class="1" id="nearest">
-                                    </div>
+                                    <div id="container"></div>
 
                                     <!-- Content Full Select Country -->
-                                    <h3 id="title_of_list">
-                                        {% if request.GET.state_id or request.GET.mycusid %}
-                                            Select Regions            
-                                        {% else %}
-                                            Select Country
-                                        {% endif %}
-                                    </h3>
+                                    <h3 id="title_of_list"></h3>
 
                                     <div class="content-select-country clearfix">   
-                                        {% autoescape off %}{{ rndr_str }}{% endautoescape %} 
                                     </div>
 
 <!--                                     <div class="content-recent-ads ads_list">
@@ -144,7 +100,7 @@
  -->
 
                                     <div class="btn-view-all-center">
-                                        <a href="/view-all/" class="btn btn-default btn-view-all">
+                                        <a href="" class="btn btn-default btn-view-all">
                                             View All Ads
                                         </a>
                                     </div>
@@ -153,61 +109,15 @@
                                 <div class="loader_content"></div>
 
                             </div>
-                            <!-- End Content Right Content -->
                             {% endblock %}
 
-                            <div class="modal fade" id="subscribe-myModal" role="dialog">
-                                <div class="modal-dialog view-modal-dialog">
-
-                                    <!-- Modal content-->
-                                    <div class="modal-content comman-modal subscribe-modal">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Subscribe to Search</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="modal-service">
-                                                <span class="small-text">you are about to subscribe to following search</span>
-                                                <p>finance + finance1</p>
-                                            </div>
-                                            <div class="modal-service">
-                                                <span class="small-text">in the following region</span>
-                                                <p>Worldwide</p>
-                                            </div>
-                                            <div class="modal-service">
-                                                <span class="small-text">in the following category</span>
-                                                <p>Finance</p>
-                                            </div>
-                                            <p class="subscribe-info">you would receive mails daily, around 6 am GMT</p>
-                                            <div class="">
-                                                <input class="btn btn-info msg-send-btn experience-send-btn" name="" value="Confirm" type="button">
-                                                <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">cancel</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
-                        <!-- .md-media-full-widht -->
-
                     </div>
-                    <!-- .admin-content-menu-and-content-section -->
-
                 </div>
-                <!-- .row -->
-
             </div>
-            <!-- .container-fluid -->
-
         </div>
-        <!-- .site-content -->
-
     </div>
-    <!-- .site-inner -->
-
 </div>
-<!-- .site -->
 
 {% endblock %} 
 
@@ -222,6 +132,7 @@
 <script type="text/javascript">
     var baseMapPath = "https://code.highcharts.com/mapdata/";
     var mapName = 'custom/world';
+    var sec_name = '';
 
     if (location.hash)
         mapName = location.hash.substring(1);
@@ -229,12 +140,32 @@
     loadMap();
 
     function loadMap() {
+        console.log(mapName);
+        console.log(sec_name);
+        showRegions();
+
         if (Highcharts.maps[mapName]) {
             mapReady();
         } else {
             $.getScript(baseMapPath+mapName+'.js', mapReady);
         }        
     }    
+
+    function showRegions() {
+        jQuery.ajax({
+            type: 'get',
+            url: '/get_regions',
+            data: {
+                mapName: mapName,
+                sec_name: sec_name
+            },
+            success: function(res) {
+                $('#title_of_list').html(res.title);
+                $('.content-select-country').html(res.html);
+                $('.btn-view-all').attr('href', res.link);
+            }
+        });        
+    }
 
     function mapReady() {
         var mapGeoJSON = Highcharts.maps[mapName],
@@ -292,8 +223,7 @@
                         // On click, look for a detailed map
                         click: function() {
                             var key = this.key;
-                            var sec_name = '';
-
+                            sec_name = '';
                             mapName = 'countries/' + key.substr(0, 2) + '/' + key + '-all';
 
                             $.each(Highcharts.mapDataIndex, function(mapGroup, maps) {
@@ -305,33 +235,10 @@
                                 }
                             });                            
 
-                            console.log(mapName);
-                            console.log(sec_name);
-
                             if (sec_name) {
                                 location.hash = mapName;
                                 loadMap();
                             }
-
-                            // var state_id, shu = 'state';
-                            // var country_code = $("#cn_code").val(); //country code
-                            // state_id = this.name; // state name
-
-                            // if (country_code != "") {
-                            //     state_id = country_code;
-                            //     shu = 'country';
-                            // } 
-
-                            // $("#cn_code").val("");
-                            // breadcrumb(state_id);
-                            // fetch(state_id, sec_name);
-
-                            // if (state_id.substring(2,3) == '-' && shu == 'country') {
-                            //     state_id = this.name;
-                            //     shu = 'state';
-                            // }
-
-                            // home_recent_ads(state_id, shu);
                         }
                     }
                 }

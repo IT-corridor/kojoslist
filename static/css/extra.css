@@ -133,3 +133,11 @@ div.sub-category {
     width: 100px;
     background-color: #f0eeee;
 }
+
+.highcharts-legend-item.highcharts-undefined-series.highcharts-color-undefined {
+    display: none;
+}
+
+.highcharts-credits {
+    display: none;
+}
