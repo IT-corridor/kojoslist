@@ -71,7 +71,7 @@ def get_regions(request):
     and search link, list title
     """
     mapName = request.GET.get('mapName')
-    sec_name = request.GET.get('sec_name')
+    sec_name = request.GET.get('sec_name').replace('%27', "'")
     is_state = request.GET.get('is_state')
 
     kind = mapName.count('-')

@@ -83,8 +83,18 @@
                             <div class="col-sm-12">
                                 <div class="content-right-content">
                                     <nav class="breadcrumb">
-                                        <a class="breadcrumb-item" href="/profile/">worldwide<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-                                        <!--<a class="breadcrumb-item" href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
+                                        <a class="breadcrumb-item" href="/profile/">
+                                            worldwide
+                                        </a>
+                                        <a class="breadcrumb-item country-brcm" href="#">
+                                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>Canada
+                                        </a>
+                                        <a class="breadcrumb-item state-brcm" href="#">
+                                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>British Columbia
+                                        </a>
+                                        <span class="breadcrumb-item city-brcm" href="#">
+                                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>Vancouver
+                                        </span>
                                     </nav>
                                     <div id="container"></div>
 
@@ -135,15 +145,25 @@
     var sec_name = '',
         isState = false;
 
-    if (location.hash)
-        mapName = location.hash.substring(1);
+    if (location.hash) {
+        var urls = location.hash.substring(1).split('@');
+        mapName = urls[0];
 
-    findSecname();
+        if (urls.length > 1) {
+            sec_name = urls[1];
+            isState = true;
+        }
+    }
+
+    if (!isState)
+        findSecname();
     loadMap();
 
     function loadMap() {
         console.log(mapName);
         console.log(sec_name);
+        console.log(isState);
+        breadcrumb();
         showRegions();
 
         if (Highcharts.charts[0]) {
@@ -156,6 +176,21 @@
             $.getScript(baseMapPath+mapName+'.js', mapReady);
         }        
     }    
+
+    function breadcrumb() {
+        jQuery.ajax({
+            type: 'get',
+            url: '/breadcrumb',
+            data: {
+                mapName: mapName,
+                sec_name: sec_name,
+                is_state: isState
+            },
+            success: function(res) {
+                $('.breadcrumb').html(res);
+            }
+        });   
+    }
 
     function showRegions() {
         jQuery.ajax({
@@ -235,7 +270,7 @@
                             isState = false;
                             findSecname();
 
-                            if (sec_name) {
+                            if (sec_name) { // available data for highcharts
                                 location.hash = mapName;
                                 loadMap();
                             }
@@ -309,8 +344,8 @@
         var mapname = findMapname(sec_name);
         if (mapname) {
             mapName = mapname;
-            location.hash = mapName;
         }
+        location.hash = mapName + '@' + sec_name;
         isState = true;
         loadMap();
     });    
