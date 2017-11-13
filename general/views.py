@@ -75,7 +75,7 @@ def get_regions(request):
     is_state = request.GET.get('is_state')
 
     kind = mapName.count('-')
-    print is_state, '@@@@2'
+    
     if kind == 2 or is_state == 'true': # - city
         state = State.objects.filter(name=sec_name).first()
         title = 'Select City'

@@ -146,6 +146,10 @@
         console.log(sec_name);
         showRegions();
 
+        if (Highcharts.charts[0]) {
+            Highcharts.charts[0].showLoading('<i class="fa fa-spinner fa-spin fa-2x"></i>');
+        }
+
         if (Highcharts.maps[mapName]) {
             mapReady();
         } else {
