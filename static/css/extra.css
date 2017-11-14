@@ -145,3 +145,29 @@ div.sub-category {
 #search_ads {
     line-height: 20px;
 }
+
+div.favourite {
+    color: #64B7E7;
+}
+
+div.favourite.like {
+    color: gold;
+}
+
+.favourite .fa-star {
+    color: gold;
+    display: none;
+}
+
+.favourite .fa-star-o {
+    display: inline-block;
+}
+
+.favourite.like .fa-star {
+    display: inline-block;
+}
+
+.favourite.like .fa-star-o {
+    display: none;
+}
+

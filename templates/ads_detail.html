@@ -32,9 +32,10 @@
                     </div>
                     <div class="col-md-12" style="margin-top: 16px;">
                         <div class="col-md-7 no-padding">Posted on {{ post.created_at }}</div>
-                        <div class="col-md-5 no-padding" style="color: #64B7E7;">
-                            <span style="margin-left: 10px; float: right;">Add to Favorites</span>
+                        <div class="col-md-5 no-padding favourite {% if favourite %} like {% endif %}">
+                            <span style="margin-left: 10px; float: right;">Favourite</span>
                             <i class="fa fa-star-o pull-right" aria-hidden="true"></i>
+                            <i class="fa fa-star pull-right" aria-hidden="true"></i>
                         </div>                                       
                     </div>
                     <div class="col-md-12" style="margin-top: 32px;">
@@ -186,5 +187,8 @@
 
     });
 
+    $('.favourite').click(function() {
+        $(this).toggleClass('like');
+    });
 </script>
 {% endblock %}
