@@ -65,6 +65,39 @@ def get_posts_with_image(posts):
 def profile(request):
     return render(request, 'profile.html')
 
+def breadcrumb(request):
+    mapName = request.GET.get('mapName')
+    sec_name = request.GET.get('sec_name').replace('%27', "'")
+    is_state = request.GET.get('is_state')
+    kind = mapName.count('-')
+    html = ''
+
+    html = '<a class="breadcrumb-item" href="/profile/">worldwide</a>'
+    if kind == 2 or is_state == 'true': # - city
+        state = State.objects.filter(name=sec_name).first()
+        cmapname = 'countries/{0}/{0}-all'.format(state.country.sortname.lower())
+        html += """
+            <a class="breadcrumb-item country-brcm" href="#" data-mapname="{}">
+                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
+            </a>        
+        """.format(cmapname, state.country.name)
+        mapname = mapName if '@' in mapName else mapName + '@' + sec_name
+        html += """
+            <a class="breadcrumb-item state-brcm" href="#" data-mapname="{}">
+                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
+            </a>        
+        """.format(mapname, state.name)
+    elif kind == 1: # state
+        country = mapName.split('/')[1].upper()
+        country = Country.objects.filter(sortname=country).first()
+        html += """
+            <a class="breadcrumb-item country-brcm" href="#" data-mapname="{}">
+                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
+            </a>        
+        """.format(mapName, country.name)
+
+    return HttpResponse(html)
+
 def get_regions(request):
     """
     get regions like countries, states or cities

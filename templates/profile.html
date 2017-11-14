@@ -82,19 +82,7 @@
                             {% block right_content %}
                             <div class="col-sm-12">
                                 <div class="content-right-content">
-                                    <nav class="breadcrumb">
-                                        <a class="breadcrumb-item" href="/profile/">
-                                            worldwide
-                                        </a>
-                                        <a class="breadcrumb-item country-brcm" href="#">
-                                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>Canada
-                                        </a>
-                                        <a class="breadcrumb-item state-brcm" href="#">
-                                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>British Columbia
-                                        </a>
-                                        <span class="breadcrumb-item city-brcm" href="#">
-                                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>Vancouver
-                                        </span>
+                                    <nav class="breadcrumb">                                        
                                     </nav>
                                     <div id="container"></div>
 
@@ -142,22 +130,28 @@
 <script type="text/javascript">
     var baseMapPath = "https://code.highcharts.com/mapdata/";
     var mapName = 'custom/world';
-    var sec_name = '',
-        isState = false;
+    var sec_name, isState;
 
-    if (location.hash) {
-        var urls = location.hash.substring(1).split('@');
-        mapName = urls[0];
-
-        if (urls.length > 1) {
-            sec_name = urls[1];
-            isState = true;
-        }
-    }
-
-    if (!isState)
-        findSecname();
+    analyseHash();
     loadMap();
+
+    function analyseHash() {
+        sec_name = '';
+        isState = false;        
+
+        if (location.hash) {
+            var urls = location.hash.substring(1).split('@');
+            mapName = urls[0];
+
+            if (urls.length > 1) {
+                sec_name = urls[1];
+                isState = true;
+            }
+        }
+
+        if (!isState)
+            findSecname();        
+    }
 
     function loadMap() {
         console.log(mapName);
@@ -326,6 +320,8 @@
 
     $("body").on('click', '.get_category_by_location', function() {
         var city_id = $(this).data('id');
+        var city_name = $(this).text();
+
         jQuery.ajax({
             type: 'get',
             url: '/get_category_by_location_id',
@@ -335,6 +331,8 @@
             success: function(data) {
                 $('#title_of_list').html('Select Category');
                 $('.content-select-country').html(data);
+
+                $('.breadcrumb').append('<span class="breadcrumb-item city-brcm" href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i>'+city_name+'</span>');
             }
         });
     });    
@@ -342,13 +340,19 @@
     $("body").on('click', '.region_id', function() {
         sec_name = $(this).data('id');
         var mapname = findMapname(sec_name);
-        if (mapname) {
+        if (mapname) 
             mapName = mapname;
-        }
+        
         location.hash = mapName + '@' + sec_name;
         isState = true;
         loadMap();
     });    
+
+    $("body").on('click', 'a.breadcrumb-item', function() {
+        location.hash = $(this).data('mapname');
+        analyseHash();
+        loadMap();
+    });
 </script>
 {% endblock %}
 
