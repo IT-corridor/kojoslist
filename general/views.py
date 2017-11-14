@@ -383,10 +383,15 @@ def send_reply_email(request):
     send_email(from_email, subject, post.owner.email, content)
     return HttpResponse('')
 
-def region_ads(request):
-    posts = Post.objects.all()
+def region_ads(request, region_id):
+    if region_id:
+        posts = Post.objects.filter(Q(region_id=region_id)|Q(region__state__id=region_id)|Q(region__state__country__id=region_id)) \
+                    .exclude(status='deactive')
+    else:
+        posts = Post.objects.all().exclude(status='deactive')
+        
     posts = get_posts_with_image(posts)
-    return render(request, 'view-all.html', {'posts': posts})
+    return render(request, 'region-ads.html', {'posts': posts})
 
 @csrf_exempt
 def search_ads_all(request):
