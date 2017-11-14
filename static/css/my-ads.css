@@ -26,30 +26,31 @@
     text-transform: none;
 }
 .content-right-content.my-ads .ads_search{
+
 	position: relative;
 }
 .content-right-content.my-ads .ads_search input{
-	padding: 13px 20px;
+	padding: 8px 15px;
     width: 100%;
     border-radius: 7px;
     border: 1px solid #EAEAEA;
     font-size: 17px;
     /*font-weight: 100;*/
-    margin: 15px 0px;
+    /*margin: 15px 0px;*/
     outline: none;
 }
 .content-right-content.my-ads .ads_search input::-webkit-input-placeholder {color:rgb(225, 225, 225); text-shadow: 0px 0px 1px;}
 .content-right-content.my-ads .ads_search input::-moz-placeholder          {color:rgb(225, 225, 225); text-shadow: 0px 0px 1px;}
 .content-right-content.my-ads .ads_search input:-moz-placeholder           {color:rgb(225, 225, 225); text-shadow: 0px 0px 1px;}
 .content-right-content.my-ads .ads_search input:-ms-input-placeholder      {color:rgb(225, 225, 225); text-shadow: 0px 0px 1px;}
-.content-right-content.my-ads .ads_search:after{
+.content-right-content.my-ads .ads_search.search:after{
 	content: '';
     background-image: url(../img/search.png);
     position: absolute;
     width: 16px;
     height: 16px;
-    right: 12.5%;
-    top: 30px;
+    right: 2%;
+    top: 10px;
 }
 .content-right-content .ads_list{
 
@@ -129,8 +130,22 @@
 @media (max-width: 600px)
 {
 	.content-right-content .ads_list .my_add .photo{
-	width: 30%;
-}
+    	width: 30%;
+    }
+
+    .content-right-content.my-ads{
+        padding: 40px 0px;
+    }
+
+    .content-right-content.my-ads .ads_search.search:after{
+        content: '';
+        background-image: url(../img/search.png);
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        right: 6%;
+        top: 16px;
+    }
 }
 
 .content-right-content .ads_list .my_add .title{

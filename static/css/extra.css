@@ -141,3 +141,7 @@ div.sub-category {
 .highcharts-credits {
     display: none;
 }
+
+#search_ads {
+    line-height: 20px;
+}

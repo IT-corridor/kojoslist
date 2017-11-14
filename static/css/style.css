@@ -5271,9 +5271,6 @@ div.userpro-head{
     .my-account .pages .page .data_set{
     	width: auto;
     }
-    .ads_search{
-        margin-bottom: 15px;
-    }
 }
 
 @media screen and (max-width: 767px){
@@ -5528,9 +5525,6 @@ div.userpro-head{
 }
 
 @media screen and (max-width: 640px){
-    .content-right-content.my-ads{
-        padding: 40px 0px;
-    }
     .upload-btn, .my-ads .pages .page .change_pass, .update-btn, .post-add-btn-cancel, .strong-btn, .filter-btn, .btn-default.btn-view-all, .add-credit-btn #cancel_card_form{
         width: 110px;
         height: 40px;
