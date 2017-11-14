@@ -75,7 +75,8 @@ def breadcrumb(request):
 
     html = '<a class="breadcrumb-item" href="/profile/">worldwide</a>'
     if kind == 2 or is_state == 'true': # - city
-        state = State.objects.filter(name=sec_name).first()
+        country = mapName.split('/')[1].upper()
+        state = State.objects.filter(name=sec_name, country__sortname=country).first()
         cmapname = 'countries/{0}/{0}-all'.format(state.country.sortname.lower())
         html += """
             <a class="breadcrumb-item country-brcm" href="#" data-mapname="{}">
@@ -112,7 +113,8 @@ def get_regions(request):
     kind = mapName.count('-')
     
     if kind == 2 or is_state == 'true': # - city
-        state = State.objects.filter(name=sec_name).first()
+        country = mapName.split('/')[1].upper()
+        state = State.objects.filter(name=sec_name, country__sortname=country).first()
         title = 'Select City'
         link = '/region-ads/{}'.format(state.id)
         html = ''
@@ -152,6 +154,7 @@ def get_regions(request):
 
 def get_category_by_location_id(request):
     city = request.GET.get('city')  # not used
+    request.session['region'] = city
 
     result = []
     for column in range(1, 7):
@@ -299,24 +302,6 @@ def delete_ads(request):
     ads = request.POST.get('ads_id')
     Post.objects.filter(id=ads).delete()
     return HttpResponse('')
-
-def get_ads(request):
-    region_id = request.GET.get('region_id')
-    kind = request.GET.get('kind')
-
-    if kind == 'country':
-        posts = Post.objects.filter(region__state__country__sortname=region_id.upper()).exclude(status='deactive')#.exclude(owner=request.user)
-    elif kind == 'state':
-        posts = Post.objects.filter(region__state__name=region_id).exclude(status='deactive')#.exclude(owner=request.user)
-    else:
-        # store interested region
-        request.session['region'] = region_id
-        request.session.modified = True
-        posts = Post.objects.filter(region_id=region_id).exclude(status='deactive')#.exclude(owner=request.user)
-
-    posts = get_posts_with_image(posts)
-    rndr_str = render_to_string('_post_list.html', {'posts': posts, 'others': True})
-    return HttpResponse(rndr_str)
 
 def view_ads(request, ads_id):
     post = get_object_or_404(Post, pk=ads_id)    
