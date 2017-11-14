@@ -378,12 +378,16 @@ def send_reply_email(request):
 def region_ads(request, region_id):
     if region_id:
         posts = Post.objects.filter(Q(region_id=region_id)|Q(region__state__id=region_id)|Q(region__state__country__id=region_id)) \
-                    .exclude(status='deactive')
+                            .exclude(status='deactive')
     else:
         posts = Post.objects.all().exclude(status='deactive')
 
     posts = get_posts_with_image(posts)
-    return render(request, 'region-ads.html', {'posts': posts})
+    
+    return render(request, 'region-ads.html', {
+        'posts': posts,
+        'region': region_id
+    })
 
 @csrf_exempt
 def search_ads_all(request):
@@ -415,3 +419,10 @@ def my_favourites(request):
     posts = [ii.post for ii in Favourite.objects.filter(owner=request.user)]
     posts = get_posts_with_image(posts)
     return render(request, 'region-ads.html', {'posts': posts})
+
+def my_subscribe(request):
+    searches = Search.objects.filter(owner=request.user)
+    
+    return render(request, 'my-subscribe.html', {
+        'searches': searches
+    })

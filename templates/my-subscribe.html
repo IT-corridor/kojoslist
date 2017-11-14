@@ -8,7 +8,7 @@
     <div class="col-sm-12 full-h">
 
         <div class="content-right-content my-ads">
-            <h2>Ads List</h2>            
+            <h2>Subscribe List</h2>            
             <div class="col-md-9 ads_search search">
                 <input type="text" class="search-input ads_search_input" name="ads_search" placeholder="Search for ads name...">
             </div>
@@ -19,7 +19,21 @@
                 <input type="submit" id="search_ads" class="btn btn-info" value="Subscribe to Search">
             </div>
             <div class="ads_list" id="ads_list">
-            {% include '_post_list.html' %}            
+            {% for search in searches %}            
+                <div class="col-md-4">
+                    {{ search.keyword }}
+                </div>
+                <div class="col-md-4">
+                    {{ search.category.name }}
+                </div>
+                <div class="col-md-4">
+                    {% if search.city %}
+                        {{ search.city.name }}
+                    {% else %}
+                        {{ search.state.name }}
+                    {% endif %}
+                </div>                
+            {% endfor %}
             </div>
         </div>
 
@@ -31,34 +45,7 @@
 
 {% block own_js %}
 <script>
-    jQuery(document).ready(function(){                
-        jQuery('#search_ads').click(function() {
-            search_ads();
-        });
-
-        jQuery('.ads_search_input').keypress(function(e) {
-            var key = e.which;
-            if (key == 13) {
-                search_ads();
-            }
-        });
-
-        function search_ads() {
-            var search_val = jQuery('.ads_search_input').val();
-
-            jQuery.ajax({
-                type: 'post',
-                url: '/search_ads_all',
-                data: {
-                    keyword: search_val,
-                    others: true
-                },
-                success: function (data) {
-                    jQuery('#ads_list').html(data);
-                }
-            });                     
-        }
-    });     
+     
 </script>
 
 {% endblock %}
