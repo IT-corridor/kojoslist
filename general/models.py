@@ -5,6 +5,7 @@ import os
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import pre_delete
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
 
@@ -152,6 +153,16 @@ def delete_image_file(sender, instance, using, **kwargs):
     except Exception:
         pass
 
+@receiver(post_save, sender=Post)
+def apply_subscribe(sender, instance, **kwargs):
+    try:
+        for ss in Search.objects.all().exclue(owner=instance.owner):
+            if ss.keyword.lower() in instance.title.lower() or ss.keyword.lower() in instance.content.lower():
+                if ss.city == instance.region or ss.state == instance.region.state:
+                    if ss.category == instance.category or ss.category == instance.category.parent:
+                        send_email()
+    except Exception:
+        pass
 
 class Favourite(models.Model):
     owner =  models.ForeignKey(User, related_name="favourites")

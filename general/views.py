@@ -422,7 +422,7 @@ def my_favourites(request):
 
 def my_subscribe(request):
     searches = Search.objects.filter(owner=request.user)
-    
+
     return render(request, 'my-subscribe.html', {
         'searches': searches
     })
