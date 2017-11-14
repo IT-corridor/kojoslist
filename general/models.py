@@ -160,7 +160,13 @@ def apply_subscribe(sender, instance, **kwargs):
             if ss.keyword.lower() in instance.title.lower() or ss.keyword.lower() in instance.content.lower():
                 if ss.city == instance.region or ss.state == instance.region.state:
                     if ss.category == instance.category or ss.category == instance.category.parent:
-                        send_email()
+                        content = """
+                            1 new result for all posts as of 2017-11-14 06:35:18 PM ICT<br><br>
+                            {}<br>View all the results.<br><br>
+                            Review all saved searches.<br><br>
+                            Thank you for using <a href="/globoard">Globalboard</a>.                         
+                        """.format(post.title, )
+                        send_email(settings.FROM_EMAIL, 'Globalboard Subscripttion', ss.owner.email, content)
     except Exception:
         pass
 
