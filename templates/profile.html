@@ -331,7 +331,7 @@
             success: function(data) {
                 $('#title_of_list').html('Select Category');
                 $('.content-select-country').html(data);
-
+                $('.btn-view-all').attr('href', '/region-ads/'+city_id);
                 $('.breadcrumb').append('<span class="breadcrumb-item city-brcm" href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i>'+city_name+'</span>');
             }
         });

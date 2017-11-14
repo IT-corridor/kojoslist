@@ -67,7 +67,8 @@ def profile(request):
 
 def breadcrumb(request):
     mapName = request.GET.get('mapName')
-    sec_name = request.GET.get('sec_name').replace('%27', "'")
+    sec_name = request.GET.get('sec_name').replace('%27', "'") \
+                                          .replace('%20', " ")
     is_state = request.GET.get('is_state')
     kind = mapName.count('-')
     html = ''
@@ -104,7 +105,8 @@ def get_regions(request):
     and search link, list title
     """
     mapName = request.GET.get('mapName')
-    sec_name = request.GET.get('sec_name').replace('%27', "'")
+    sec_name = request.GET.get('sec_name').replace('%27', "'") \
+                                          .replace('%20', " ")
     is_state = request.GET.get('is_state')
 
     kind = mapName.count('-')
