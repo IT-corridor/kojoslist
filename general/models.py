@@ -151,7 +151,7 @@ def delete_image_file(sender, instance, using, **kwargs):
 
 
 class Favourite(models.Model):
-    owner =  models.ForeignKey(User)
+    owner =  models.ForeignKey(User, related_name="favourites")
     post = models.ForeignKey(Post)
 
     def __str__(self):

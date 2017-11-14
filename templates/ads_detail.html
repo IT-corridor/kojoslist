@@ -188,7 +188,17 @@
     });
 
     $('.favourite').click(function() {
-        $(this).toggleClass('like');
+        var tthis = this;
+        jQuery.ajax({
+            type: 'post',
+            url: '/toggle_favourite',
+            data: {
+                ads_id: {{ post.id }},
+            },
+            success: function(data) {
+                $(tthis).toggleClass('like');
+            }
+        });        
     });
 </script>
 {% endblock %}

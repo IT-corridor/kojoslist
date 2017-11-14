@@ -33,6 +33,7 @@ urlpatterns += [
     url(r"^active_deactive_ads", active_deactive_ads, name="active_deactive_ads"),
     url(r"^get_post_detail$", get_post_detail, name="get_post_detail"),
     url(r"^profile", profile, name="profile"),
+    url(r"^toggle_favourite", toggle_favourite, name="toggle_favourite"),
     url(r"^my-ads", my_ads, name="my-ads"),
     url(r"^post-ads/(?P<ads_id>\d*)", post_ads, name="post-ads"),
     url(r"^ads/(?P<ads_id>\d*)", view_ads, name="view-ads"),

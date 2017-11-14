@@ -306,6 +306,12 @@ def delete_ads(request):
 def view_ads(request, ads_id):
     post = get_object_or_404(Post, pk=ads_id)    
     images = post.images.all()
+    favourite = False
+
+    if request.user.is_authenticated():
+        posts = [ii.post for ii in Favourite.objects.filter(owner=request.user)]
+        favourite = post in posts
+
     if images:
         first_image = images[0].name
     else:
@@ -314,7 +320,8 @@ def view_ads(request, ads_id):
     return render(request, 'ads_detail.html', {
         'post': post,
         'images': images,
-        'first_image': first_image
+        'first_image': first_image,
+        'favourite': favourite
     })
 
 def category_ads(request, category_id):
@@ -393,3 +400,13 @@ def globoard_display_world_countries(css_class=''):
     for country in Country.objects.all():
         rndr_str += '<li><a href="/profile?state_id={0}#countries/{0}/{0}-all" class="show_country" data-country="{1}">{2}</a></li>'.format(country.sortname.lower(), country.sortname, country.name)
     return rndr_str + '</ul>'
+
+@csrf_exempt
+def toggle_favourite(request):
+    ads_id = request.POST.get('ads_id')
+    if Favourite.objects.filter(owner=request.user, post_id=ads_id):
+        Favourite.objects.filter(owner=request.user, post_id=ads_id).delete()
+    else:
+        Favourite.objects.create(owner=request.user, post_id=ads_id)
+
+    return HttpResponse('')

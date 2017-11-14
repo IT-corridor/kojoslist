@@ -148,6 +148,7 @@ div.sub-category {
 
 div.favourite {
     color: #64B7E7;
+    cursor: pointer;
 }
 
 div.favourite.like {
