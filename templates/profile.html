@@ -259,7 +259,10 @@
                         // On click, look for a detailed map
                         click: function() {
                             var key = this.key;
+                            var mapname;
+
                             sec_name = '';
+                            mapname = mapName;
                             mapName = 'countries/' + key.substr(0, 2) + '/' + key + '-all';
                             isState = false;
                             findSecname();
@@ -267,6 +270,8 @@
                             if (sec_name) { // available data for highcharts
                                 location.hash = mapName;
                                 loadMap();
+                            } else {
+                                mapName = mapname;
                             }
                         }
                     }
