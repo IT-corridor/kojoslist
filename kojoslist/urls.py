@@ -35,6 +35,7 @@ urlpatterns += [
     url(r"^profile", profile, name="profile"),
     url(r"^toggle_favourite", toggle_favourite, name="toggle_favourite"),
     url(r"^my-ads", my_ads, name="my-ads"),
+    url(r"^my-favourites", my_favourites, name="my-favourites"),
     url(r"^post-ads/(?P<ads_id>\d*)", post_ads, name="post-ads"),
     url(r"^ads/(?P<ads_id>\d*)", view_ads, name="view-ads"),
     url(r"^category-ads/(?P<category_id>\d*)", category_ads, name="category-ads"),

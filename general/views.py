@@ -410,3 +410,8 @@ def toggle_favourite(request):
         Favourite.objects.create(owner=request.user, post_id=ads_id)
 
     return HttpResponse('')
+
+def my_favourites(request):
+    posts = [ii.post for ii in Favourite.objects.filter(owner=request.user)]
+    posts = get_posts_with_image(posts)
+    return render(request, 'region-ads.html', {'posts': posts})
