@@ -122,16 +122,19 @@ class SaleGarage(Post):
 
 
 class Search(models.Model):
-    name = models.CharField(max_length=100)
+    keyword = models.CharField(max_length=100)
+    category = models.ForeignKey(Category)
+    city = models.ForeignKey(City, blank=True, null=True)
+    state = models.ForeignKey(State, blank=True, null=True)
+    owner = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
-    alert = models.BooleanField()
-    hits = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return '{} - {} - {}'.format(self.owner.username, self.category.name, self.keyword)
 
     class Meta:
-        verbose_name_plural = 'Searches'
+        verbose_name = 'Subscribe'
+        verbose_name_plural = 'Subscribes'
 
 
 class Image(models.Model):
