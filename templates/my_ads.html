@@ -17,9 +17,11 @@
                     </a>
                 </div>
             </div>
-            <div class="ads_search" style="padding-left: 10px; padding-right: 25px;">
-                <input type="text" class="search-input ads_search_input" name="ads_search" placeholder="Search for ads name..." style="width: 90%; display: inline;">
-                <input type="submit" id="search_ads" class="btn btn-info" value="Search" style="display: inline; float: right; width: 9%; height: 45px; padding: 10px 20px;" />
+            <div class="col-md-10 ads_search search">
+                <input type="text" class="search-input ads_search_input" name="ads_search" placeholder="Search for ads name...">
+            </div>
+            <div class="col-md-2 ads_search">
+                <input type="submit" id="search_ads" class="btn btn-info" value="Search">
             </div>
             <div class="ads_list" id="ads_list">
             {% include '_post_list.html' %}            

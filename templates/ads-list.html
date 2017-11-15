@@ -12,7 +12,17 @@
             {% autoescape off %}{{ breadcrumb }}{% endautoescape %}
             </nav>
 
-            <h2>Ads List</h2>            
+            <h2>
+                Ads List 
+                {% if category %}
+                    <small> (
+                    {% if category.parent %}
+                        {{ category.parent.name }} / 
+                    {% endif %}
+                    {{ category.name }}
+                    )</small>
+                {% endif %}
+            </h2>            
             <div class="col-md-8 ads_search search">
                 <input type="text" class="search-input ads_search_input" name="ads_search" placeholder="Search for ads name...">
             </div>

@@ -179,6 +179,7 @@ def get_regions(request):
 def get_category_by_location_id(request):
     city = request.GET.get('city')  # not used
     request.session['region'] = city
+    request.session['region_kind'] = 'city'
 
     result = []
     for column in range(1, 7):
@@ -360,11 +361,12 @@ def category_ads(request, category_id):
     posts = Post.objects.filter(region=region, category__in=categories).exclude(status='deactive')
     posts = get_posts_with_image(posts)
 
-    return render(request, 'ads_list.html', {
+    return render(request, 'ads-list.html', {
         'posts': posts,
         'region': region,
         'category': category,
-        'others': True
+        'others': True,
+        'breadcrumb': request.session['breadcrumb']
     })
 
 @csrf_exempt
@@ -407,7 +409,7 @@ def region_ads(request, region_id, region):
 
     posts = get_posts_with_image(posts.exclude(status='deactive'))
     
-    return render(request, 'region-ads.html', {
+    return render(request, 'ads-list.html', {
         'posts': posts,
         'region': region_id,
         'others': True,
@@ -433,7 +435,7 @@ def toggle_favourite(request):
 def my_favourites(request):
     posts = [ii.post for ii in Favourite.objects.filter(owner=request.user)]
     posts = get_posts_with_image(posts)
-    return render(request, 'region-ads.html', {'posts': posts})
+    return render(request, 'ads-list.html', {'posts': posts})
 
 def my_subscribe(request):
     searches = Search.objects.filter(owner=request.user)
