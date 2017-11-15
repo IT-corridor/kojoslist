@@ -155,6 +155,7 @@ def delete_image_file(sender, instance, using, **kwargs):
 
 @receiver(post_save, sender=Post)
 def apply_subscribe(sender, instance, **kwargs):
+    print 'apply_subscribe ##########'
     try:
         for ss in Search.objects.all().exclue(owner=instance.owner):
             if ss.keyword.lower() in instance.title.lower() or ss.keyword.lower() in instance.content.lower():

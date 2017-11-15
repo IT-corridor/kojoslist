@@ -8,32 +8,50 @@
     <div class="col-sm-12 full-h">
 
         <div class="content-right-content my-ads">
-            <h2>Subscribe List</h2>            
-            <div class="col-md-9 ads_search search">
-                <input type="text" class="search-input ads_search_input" name="ads_search" placeholder="Search for ads name...">
-            </div>
-            <div class="col-md-1 ads_search no-padding">
-                <input type="submit" id="search_ads" class="btn btn-info" value="Search">
-            </div>
-            <div class="col-md-2 ads_search">
-                <input type="submit" id="search_ads" class="btn btn-info" value="Subscribe to Search">
-            </div>
+            <h2>My Subscription List</h2>            
             <div class="ads_list" id="ads_list">
-            {% for search in searches %}            
-                <div class="col-md-4">
-                    {{ search.keyword }}
-                </div>
-                <div class="col-md-4">
-                    {{ search.category.name }}
-                </div>
-                <div class="col-md-4">
-                    {% if search.city %}
-                        {{ search.city.name }}
-                    {% else %}
-                        {{ search.state.name }}
-                    {% endif %}
-                </div>                
-            {% endfor %}
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Keyword</th>
+                        <th>Category</th>
+                        <th>Region</th>
+                        <th>Created_at</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for search in searches %}            
+                    <tr>
+                        <td>
+                            {% if search.keyword %}
+                            {{ search.keyword }}
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if search.category %}
+                            {{ search.category.name }}
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if search.city %}
+                                {{ search.city.state.country.name }} / {{ search.city.state.name }} / {{ search.city.name }}
+                            {% else %}
+                                {{ search.state.country.name }} / {{ search.state.name }}
+                            {% endif %}
+                        </td>                
+                        <td>
+                            {{ search.created_at }}
+                        </td>
+                        <td><a href="#" class="remove-subscription" data-id="{{ search.id }}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -45,7 +63,22 @@
 
 {% block own_js %}
 <script>
-     
+$('.remove-subscription').click(function() {
+    var r = confirm("Do you confirm to delete?");
+    if (r == true) {
+        var id = $(this).data('id');
+        jQuery.ajax({
+            type: 'post',
+            url: '/remove-subscribe',
+            data: {
+                sub_id: id,
+            },
+            success: function(data) {
+                location.reload();
+            }
+        });    
+    }
+});
 </script>
 
 {% endblock %}

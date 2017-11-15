@@ -473,3 +473,10 @@ def create_subscribe(request):
             })
 
     return HttpResponse('')
+
+@csrf_exempt
+def remove_subscribe(request):
+    sub_id = request.POST.get('sub_id')
+
+    Search.objects.filter(id=sub_id).delete()
+    return HttpResponse('')

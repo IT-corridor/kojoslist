@@ -51,5 +51,6 @@ urlpatterns += [
     url(r"^send_friend_email", send_friend_email, name="send_friend_email"), 
     url(r"^send_reply_email", send_reply_email, name="send_reply_email"),        
     url(r"^create-subscribe", create_subscribe, name="create-subscribe"),        
+    url(r"^remove-subscribe", remove_subscribe, name="remove-subscribe"),        
     url(r"^get_category_by_location_id", get_category_by_location_id, name="get_category_by_location_id"),    
 ]
