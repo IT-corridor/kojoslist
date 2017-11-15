@@ -127,7 +127,7 @@ def get_regions(request):
             html = '<ul class="city-list list">No city found</ul>'
     elif kind == 0: # country
         title = 'Select Country'
-        link = '/region-ads/'
+        link = ''# '/region-ads/'
         html = ''
         rs = Country.objects.all()
         for ii in rs:
@@ -137,7 +137,7 @@ def get_regions(request):
         country = mapName.split('/')[1].upper()
         country = Country.objects.filter(sortname=country).first()
         title = 'Select Region'
-        link = '/region-ads/{}'.format(country.id)
+        link = ''#'/region-ads/{}'.format(country.id)
         html = ''
         rs = State.objects.filter(country=country)
         for ii in rs:

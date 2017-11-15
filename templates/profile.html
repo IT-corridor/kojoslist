@@ -98,7 +98,7 @@
  -->
 
                                     <div class="btn-view-all-center">
-                                        <a href="" class="btn btn-default btn-view-all">
+                                        <a href="" class="btn btn-default btn-view-all" style="display: none;">
                                             View All Ads
                                         </a>
                                     </div>
@@ -198,7 +198,12 @@
             success: function(res) {
                 $('#title_of_list').html(res.title);
                 $('.content-select-country').html(res.html);
-                $('.btn-view-all').attr('href', res.link);
+                if (res.link) {
+                    $('.btn-view-all').attr('href', res.link);
+                    $('.btn-view-all').show();
+                } else {
+                    $('.btn-view-all').hide();
+                }
             }
         });        
     }
