@@ -181,7 +181,10 @@ div.favourite.like {
 }
 
 .title {
-    width: calc(100% - 120px);
     margin-top: 20px !important;    
-    margin-left: 4px !important;
+}
+
+.actions i {
+    padding: 3px 5px;
+    font-size: 20px;
 }

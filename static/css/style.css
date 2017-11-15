@@ -4283,31 +4283,7 @@ body.ads-template-default.single-ads,
 .billing-methods .billing-btn:hover{
     color: #fff;
 }
-.delete{
-    background-image: url("../images/delete.png");
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    cursor: pointer;
-    float: left;
-    height: 15px;
-    margin: 0 12px;
-    position: relative;
-    top: -3px;
-    width: 12px;
-}
-.edit{
-    background-image: url("../images/edit.png");
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    cursor: pointer;
-    float: left;
-    height: 13px;
-    margin: 0 12px;
-    position: relative;
-    width: 13px;
-}
+
 .modal-title{
     text-transform: capitalize;
 }

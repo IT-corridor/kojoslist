@@ -1,24 +1,22 @@
 {% for post in posts %}
-<div class="my_add col-xs-12">
-    <div>
+<div class="my_add col-md-12">
+    <div class="col-xs-12 col-md-10 title no-padding">
         <a href="/ads/{{ post.0.id }}">
             <img class="photo" src="/static/media/{{ post.1 }}">
+            <h3>{{ post.0.title }}</h3>
+            <span>Posted on {{ post.0.created_at }}</span>
         </a>
     </div>
-    <div class="title">
-        <h3><a href="/ads/{{ post.0.id }}"> {{ post.0.title }} </a></h3>
-        <span>Posted on {{ post.0.created_at }}</span>
-    </div>
     {% if not others %}
-    <div class="pull-right">
+    <div class="col-md-2">
         <!-- <div class="price">$60/month</div> -->
         <div class="actions">
             <select data-value="{{ post.0.id }}" class="active_deactive status">
                 <option value="active" {% if post.0.status == 'active' %} selected {% endif %}>Active</option>
                 <option value="deactive" {% if post.0.status == 'deactive' %} selected {% endif %}>Deactive</option>
             </select>
-            <a href="/post-ads/{{ post.0.id }}"><div class="edit"></div></a>
-            <a class="ads_post_delete" data-value="{{ post.0.id }}"><div class="delete"></div></a>                        
+            <a href="/post-ads/{{ post.0.id }}"><i class="fa fa-pencil"></i></a>
+            <a class="ads_post_delete" data-value="{{ post.0.id }}" href="#"><i class="fa fa-trash"></i></a>                        
         </div>
     </div>
     {% endif %}
