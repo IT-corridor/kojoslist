@@ -9,6 +9,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
 
+from general.utils import send_email
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name="info")
@@ -154,27 +156,24 @@ def delete_image_file(sender, instance, using, **kwargs):
         pass
 
 @receiver(post_save, sender=Post)
+@receiver(post_save, sender=JobPost)
+@receiver(post_save, sender=GaragePost)
+@receiver(post_save, sender=SaleGarage)
 def apply_subscribe(sender, instance, **kwargs):    
-    print 'apply_subscribe', '#####'
     try:
-        print '@#$@#$'
-        for ss in Search.objects.all():#.exclue(owner=instance.owner):
-            print '#'
+        for ss in Search.objects.all().exclue(owner=instance.owner):
             if not ss.keyword or ss.keyword.lower() in instance.title.lower() or ss.keyword.lower() in instance.content.lower():
-                print "##"
                 if ss.city == instance.region or ss.state == instance.region.state:
-                    print '###'
                     if ss.category == instance.category or ss.category == instance.category.parent:
                         content = """
-                            1 new result for all posts as of 2017-11-14 06:35:18 PM ICT<br><br>
-                            {}<br>View all the results.<br><br>
-                            Review all saved searches.<br><br>
-                            Thank you for using <a href="/globoard">Globalboard</a>.                         
-                        """.format(post.title, )
-                        print(settings.FROM_EMAIL, 'Globalboard Subscripttion', ss.owner.email, content, '@@@@@@@')
+                            1 new result for all posts as of {}<br><br>
+                            <a href="/ads/{}">{}</a><br><br>
+                            <a href="/my-subscribe">Review all saved searches.</a><br><br>
+                            Thank you for using <a href="/">Globalboard</a>.                         
+                        """.format(str(instance.created_at), instance.id, instance.title)
                         send_email(settings.FROM_EMAIL, 'Globalboard Subscripttion', ss.owner.email, content)
     except Exception:
-        print '~~~~~~~~~~~~~~'
+        pass
 
 class Favourite(models.Model):
     owner =  models.ForeignKey(User, related_name="favourites")
