@@ -154,12 +154,16 @@ def delete_image_file(sender, instance, using, **kwargs):
         pass
 
 @receiver(post_save, sender=Post)
-def apply_subscribe(sender, instance, **kwargs):
-    print 'apply_subscribe ##########'
+def apply_subscribe(sender, instance, **kwargs):    
+    print 'apply_subscribe', '#####'
     try:
-        for ss in Search.objects.all().exclue(owner=instance.owner):
-            if ss.keyword.lower() in instance.title.lower() or ss.keyword.lower() in instance.content.lower():
+        print '@#$@#$'
+        for ss in Search.objects.all():#.exclue(owner=instance.owner):
+            print '#'
+            if not ss.keyword or ss.keyword.lower() in instance.title.lower() or ss.keyword.lower() in instance.content.lower():
+                print "##"
                 if ss.city == instance.region or ss.state == instance.region.state:
+                    print '###'
                     if ss.category == instance.category or ss.category == instance.category.parent:
                         content = """
                             1 new result for all posts as of 2017-11-14 06:35:18 PM ICT<br><br>
@@ -167,9 +171,10 @@ def apply_subscribe(sender, instance, **kwargs):
                             Review all saved searches.<br><br>
                             Thank you for using <a href="/globoard">Globalboard</a>.                         
                         """.format(post.title, )
+                        print(settings.FROM_EMAIL, 'Globalboard Subscripttion', ss.owner.email, content, '@@@@@@@')
                         send_email(settings.FROM_EMAIL, 'Globalboard Subscripttion', ss.owner.email, content)
     except Exception:
-        pass
+        print '~~~~~~~~~~~~~~'
 
 class Favourite(models.Model):
     owner =  models.ForeignKey(User, related_name="favourites")
