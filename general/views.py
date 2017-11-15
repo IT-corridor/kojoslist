@@ -63,16 +63,6 @@ def search_ads(request):
     rndr_str = render_to_string('_post_list.html', {'posts': posts, 'others': others})
     return HttpResponse(rndr_str)
 
-@csrf_exempt
-def search_ads_all(request):
-    keyword = request.POST.get('keyword')
-
-    posts = Post.objects.filter(Q(title__icontains=keyword) | Q(content__icontains=keyword)) \
-                        .exclude(status='deactive')
-    posts = get_posts_with_image(posts)
-    rndr_str = render_to_string('_post_list.html', {'posts': posts, 'others': True})
-    return HttpResponse(rndr_str)
-
 def get_posts_with_image(posts):
     posts_with_image = []
     for post in posts:
@@ -451,3 +441,33 @@ def my_subscribe(request):
     return render(request, 'my-subscribe.html', {
         'searches': searches
     })
+
+@csrf_exempt
+def create_subscribe(request):
+    keyword = request.POST.get('keyword')
+    category = request.session['category']
+    region_kind = request.session['region_kind']
+    region_id = request.session['region']
+
+    search = Search.objects.filter(owner=request.user, keyword=keyword)
+    if category:
+        search = search.filter(category_id=category)
+    
+    if region_kind == 'state':
+        if not search.filter(state_id=region_id):
+            Search.objects.create(**{
+                'owner': request.user,
+                'keyword': keyword,
+                'category_id': category,
+                'state_id': region_id
+            })
+    else:
+        if not search.filter(city_id=region_id):
+            Search.objects.create(**{
+                'owner': request.user,
+                'keyword': keyword,
+                'category_id': category,
+                'city_id': region_id
+            })
+
+    return HttpResponse('')

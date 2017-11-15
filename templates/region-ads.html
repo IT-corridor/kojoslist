@@ -68,6 +68,20 @@
         location.href = '/profile#' + $(this).data('mapname');
     });
 
+    $('.subscribe').click(function() {
+        var keyword = jQuery('.ads_search_input').val();
+
+        jQuery.ajax({
+            type: 'post',
+            url: '/create-subscribe',
+            data: {
+                keyword: keyword,
+            },
+            success: function (data) {
+                alert('Subscribed successfully!');
+            }
+        });                             
+    });
 </script>
 
 {% endblock %}

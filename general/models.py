@@ -124,14 +124,14 @@ class SaleGarage(Post):
 
 class Search(models.Model):
     keyword = models.CharField(max_length=100)
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(Category, blank=True, null=True)
     city = models.ForeignKey(City, blank=True, null=True)
     state = models.ForeignKey(State, blank=True, null=True)
     owner = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '{} - {} - {}'.format(self.owner.username, self.category.name, self.keyword)
+        return self.owner.username
 
     class Meta:
         verbose_name = 'Subscribe'

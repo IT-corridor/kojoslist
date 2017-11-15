@@ -24,6 +24,16 @@ class CityAdmin(admin.ModelAdmin):
 	list_display = ['name', 'state']
 	search_fields = ['name']
 
+class SearchAdmin(admin.ModelAdmin):
+	list_display = ['owner', 'category', 'des_state', 'des_city', 'keyword']
+
+	def des_state(self, obj):
+		if obj.state:
+			return '{} / {}'.format(obj.state.country.name, obj.state.name)
+
+	def des_city(self, obj):
+		if obj.city:
+			return '{} / {} / {}'.format(obj.city.state.country.name, obj.city.state.name, obj.city.name)
 
 admin.site.register(UserProfile)
 # admin.site.register(Contact)
@@ -33,7 +43,7 @@ admin.site.register(JobPost)
 admin.site.register(Favourite)
 admin.site.register(Hidden)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Search)
+admin.site.register(Search, SearchAdmin)
 admin.site.register(Country, CountryAdmin)
 admin.site.register(State, StateAdmin)
 admin.site.register(City, CityAdmin)
