@@ -3462,7 +3462,7 @@ select, select.form-control {
 
 .content-select-country .list li{
 
-    width: 100%;
+    width: 50%;
 
     display: inline-block;
 
@@ -5856,9 +5856,9 @@ div.userpro-head{
         margin: 0 20px 10px 0;
     }
     .content-select-country .list {
-        column-count: 1;
-        margin-left: 37%;
-        width: 63%;
+        /*column-count: 1;*/
+        margin-left: 20px;
+        /*width: 63%;*/
     }
     .product-text p{
         font-size: 15px;

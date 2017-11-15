@@ -98,6 +98,9 @@ def breadcrumb(request):
             </a>        
         """.format(mapName, country.name)
 
+    request.session['breadcrumb'] = html
+    request.session.modified = True
+
     return HttpResponse(html)
 
 def get_regions(request):
@@ -387,7 +390,8 @@ def region_ads(request, region_id):
     return render(request, 'region-ads.html', {
         'posts': posts,
         'region': region_id,
-        'others': True
+        'others': True,
+        'breadcrumb': request.session['breadcrumb']
     })
 
 @csrf_exempt
