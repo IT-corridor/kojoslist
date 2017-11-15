@@ -42,16 +42,35 @@ def search_ads(request):
 
     if others:
         region_id = request.session['region']  # city
+        region_kind = request.session['region_kind']
         category_id = request.session['category']
-        categories = Category.objects.filter(Q(id=category_id) | Q(parent__id=category_id))
-        posts = Post.objects.filter(region_id=region_id, category__in=categories) \
-                            .filter(Q(title__icontains=keyword) | Q(content__icontains=keyword)) \
-                            .exclude(status='deactive')
+
+        if region_kind == 'state':
+            posts = Post.objects.filter(region__state__id=region_id)
+        elif region_kind == 'city':
+            posts = Post.objects.filter(region_id=region_id)
+
+        if category_id:
+            categories = Category.objects.filter(Q(id=category_id) | Q(parent__id=category_id))
+            posts = posts.filter(category__in=categories)
+
+        posts = posts.filter(Q(title__icontains=keyword) | Q(content__icontains=keyword)) \
+                     .exclude(status='deactive')
     else:
         posts = Post.objects.filter(owner=request.user).filter(Q(title__icontains=keyword) | Q(content__icontains=keyword))
 
     posts = get_posts_with_image(posts)
     rndr_str = render_to_string('_post_list.html', {'posts': posts, 'others': others})
+    return HttpResponse(rndr_str)
+
+@csrf_exempt
+def search_ads_all(request):
+    keyword = request.POST.get('keyword')
+
+    posts = Post.objects.filter(Q(title__icontains=keyword) | Q(content__icontains=keyword)) \
+                        .exclude(status='deactive')
+    posts = get_posts_with_image(posts)
+    rndr_str = render_to_string('_post_list.html', {'posts': posts, 'others': True})
     return HttpResponse(rndr_str)
 
 def get_posts_with_image(posts):
@@ -114,12 +133,16 @@ def get_regions(request):
     is_state = request.GET.get('is_state')
 
     kind = mapName.count('-')
-    
+    request.session['category'] = ''
+
     if kind == 2 or is_state == 'true': # - city
         country = mapName.split('/')[1].upper()
         state = State.objects.filter(name=sec_name, country__sortname=country).first()
         title = 'Select City'
-        link = '/region-ads/{}'.format(state.id)
+        link = '/region-ads/st/{}'.format(state.id)
+        request.session['region'] =  state.id
+        request.session['region_kind'] = 'state'
+
         html = ''
         rs = City.objects.filter(state=state)
         for ii in rs:
@@ -131,6 +154,9 @@ def get_regions(request):
     elif kind == 0: # country
         title = 'Select Country'
         link = ''# '/region-ads/'
+        request.session['region'] =  ''
+        request.session['region_kind'] = 'world'
+
         html = ''
         rs = Country.objects.all()
         for ii in rs:
@@ -141,11 +167,16 @@ def get_regions(request):
         country = Country.objects.filter(sortname=country).first()
         title = 'Select Region'
         link = ''#'/region-ads/{}'.format(country.id)
+        request.session['region'] =  country.id
+        request.session['region_kind'] = 'country'
+
         html = ''
         rs = State.objects.filter(country=country)
         for ii in rs:
             html += '<li data-id="{0}" class="region_id"><a href="#">{0}</a></li>'.format(ii.name)
         html = '<ul class="state-list list">' + html + '</ul>'
+
+    request.session.modified = True
 
     result = {
         'title': title,
@@ -378,14 +409,13 @@ def send_reply_email(request):
     send_email(from_email, subject, post.owner.email, content)
     return HttpResponse('')
 
-def region_ads(request, region_id):
-    if region_id:
-        posts = Post.objects.filter(Q(region_id=region_id)|Q(region__state__id=region_id)|Q(region__state__country__id=region_id)) \
-                            .exclude(status='deactive')
-    else:
-        posts = Post.objects.all().exclude(status='deactive')
+def region_ads(request, region_id, region):
+    if region == 'city':
+        posts = Post.objects.filter(region_id=region_id)                            
+    else:    
+        posts = Post.objects.filter(region__state__id=region_id)
 
-    posts = get_posts_with_image(posts)
+    posts = get_posts_with_image(posts.exclude(status='deactive'))
     
     return render(request, 'region-ads.html', {
         'posts': posts,
@@ -393,16 +423,6 @@ def region_ads(request, region_id):
         'others': True,
         'breadcrumb': request.session['breadcrumb']
     })
-
-@csrf_exempt
-def search_ads_all(request):
-    keyword = request.POST.get('keyword')
-
-    posts = Post.objects.filter(Q(title__icontains=keyword) | Q(content__icontains=keyword)) \
-                        .exclude(status='deactive')
-    posts = get_posts_with_image(posts)
-    rndr_str = render_to_string('_post_list.html', {'posts': posts, 'others': True})
-    return HttpResponse(rndr_str)
 
 def globoard_display_world_countries(css_class=''):
     rndr_str = "<ul class='country-list {}'>".format(css_class)
