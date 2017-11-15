@@ -3705,7 +3705,7 @@ select, select.form-control {
 
     .content-right-content{
 
-        padding: 40px 15px;
+        padding: 30px 3px;
 
     }
 
@@ -3981,7 +3981,7 @@ select, select.form-control {
             display: inline-block;
             width: 100%;
             vertical-align: top;
-            margin: 40px 0;
+            margin: 25px 0;
         }
         .product-location-info-left {
             width: 250px;
