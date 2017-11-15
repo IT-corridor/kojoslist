@@ -174,3 +174,14 @@ div.favourite.like {
     display: none;
 }
 
+.title h3 {
+    overflow: hidden;
+    max-height: 34px;
+    padding-right: 5px;
+}
+
+.title {
+    width: calc(100% - 120px);
+    margin-top: 20px !important;    
+    margin-left: 4px !important;
+}

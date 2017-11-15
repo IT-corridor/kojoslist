@@ -26,7 +26,7 @@
     text-transform: none;
 }
 .content-right-content.my-ads .ads_search{
-
+    padding: 0 5px;
 	position: relative;
 }
 .content-right-content.my-ads .ads_search input{
@@ -130,7 +130,7 @@
 @media (max-width: 600px)
 {
 	.content-right-content .ads_list .my_add .photo{
-    	width: 30%;
+    	/*width: 30%;*/
     }
 
     .content-right-content.my-ads{

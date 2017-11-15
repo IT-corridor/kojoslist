@@ -386,7 +386,8 @@ def region_ads(request, region_id):
     
     return render(request, 'region-ads.html', {
         'posts': posts,
-        'region': region_id
+        'region': region_id,
+        'others': True
     })
 
 @csrf_exempt
