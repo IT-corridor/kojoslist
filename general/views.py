@@ -482,3 +482,6 @@ def remove_subscribe(request):
 
     Search.objects.filter(id=sub_id).delete()
     return HttpResponse('')
+
+def my_account(request):
+    return render(request, 'my-account.html', {})
