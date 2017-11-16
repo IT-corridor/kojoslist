@@ -404,8 +404,10 @@ def send_reply_email(request):
 def region_ads(request, region_id, region):
     if region == 'city':
         posts = Post.objects.filter(region_id=region_id)                            
-    else:    
+    elif region == 'state':    
         posts = Post.objects.filter(region__state__id=region_id)
+    elif region == 'world':
+        posts = Post.objects.all()
 
     posts = get_posts_with_image(posts.exclude(status='deactive'))
     

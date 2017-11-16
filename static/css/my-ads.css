@@ -1,5 +1,4 @@
 .admin-content-menu-and-content-section {
-    /*display: flex;*/
     background-color: #F3F3F3;
     position: absolute;
     width: 100%;
@@ -15,14 +14,10 @@
     width: calc(100% - 25px);
 }
 .content-right-content.my-ads h2 {
-    /*border-bottom: 1px solid #eeeeee;*/
-/*    font-family: "Raleway-Thin";*/
     font-size: 25px;
-/*    font-weight: 400;*/
     margin: 20px 0 10px 15px;
     padding: 0 0 10px;
     text-align: left;
-    /*text-shadow: 0 0 1px rgba(0, 0, 0, 0.34);*/
     text-transform: none;
 }
 .content-right-content.my-ads .ads_search{
@@ -35,8 +30,6 @@
     border-radius: 7px;
     border: 1px solid #EAEAEA;
     font-size: 17px;
-    /*font-weight: 100;*/
-    /*margin: 15px 0px;*/
     outline: none;
 }
 .content-right-content.my-ads .ads_search input::-webkit-input-placeholder {color:rgb(225, 225, 225); text-shadow: 0px 0px 1px;}
@@ -102,7 +95,6 @@
     font-weight: 300;
     position: relative;
     float: left;
-/*    font-family: "Raleway-Thin";*/
     margin: 43px 10px;
 }
 .content-right-content .ads_list .my_add{
@@ -115,7 +107,6 @@
 .content-right-content .ads_list .my_add .photo{
 	width: 80px;
     height: 80px;
-    /*margin: 10px;*/
     position: relative;
     float: left;
     cursor: pointer;
@@ -153,7 +144,6 @@
     letter-spacing: 1px;
     margin: 10px 0px 13px;
     padding-left: 10px;
-    /*text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.48);*/
     font-weight: 500;
 }
 .content-right-content .ads_list .my_add .title h3 a{
@@ -168,32 +158,19 @@
 }
 .content-right-content .ads_list .my_add .price{
 	position: relative;
-    /*float: right;*/
     font-size: 16px;
     color: #484848;
-    /*font-weight: 100;*/
     letter-spacing: 1px;
-    /*margin: 29px 10px 10px;*/
     width: 220px;
     text-align: center;
-    /*text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.48);*/
 }
 .content-right-content .ads_list .my_add .actions{
-	/*position: relative;*/
-    /*float: right;*/
-    /*width: 150px;*/
     margin: 30px 10px;
 }
 .content-right-content .ads_list .my_add .actions .status{
     color: #4DBEE2;
     font-size: 13px;
-    /*font-weight: lighter;*/
-    /*text-shadow: 0px 0px 1px rgba(145, 145, 145, 0.44);*/
-    /*position: relative;*/
-    /*float: left;*/
-    /*width: 42px;*/
     padding-right: 20px;
-    /*box-sizing: content-box;*/
 	margin-right: 12px;
 	cursor: pointer;
 }

@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 
 from general.views import *
@@ -22,6 +22,7 @@ admin.site.site_header = "Globalboard Admin"
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/', include('allauth.urls')),
 ]
 
 
@@ -46,6 +47,7 @@ urlpatterns += [
     url(r"^logout$", ulogout, name="logout"),
     url(r"^region-ads/st/(?P<region_id>\d+)", region_ads, {'region': 'state'}, name="state-ads"),
     url(r"^region-ads/ct/(?P<region_id>\d+)", region_ads, {'region': 'city'}, name="city-ads"),
+    url(r"^region-ads/wd/(?P<region_id>\d*)", region_ads, {'region': 'world'}, name="world-ads"),
     url(r"^get_regions", get_regions, name="get_regions"),
     url(r"^auth_process", auth_process, name="auth_process"),   
     url(r"^send_friend_email", send_friend_email, name="send_friend_email"), 

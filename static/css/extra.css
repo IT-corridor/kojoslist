@@ -154,23 +154,23 @@ div.favourite {
 }
 
 div.favourite.like {
-    color: gold;
+    color: red;
 }
 
-.favourite .fa-star {
-    color: gold;
+.favourite .fa-heart {
+    color: red;
     display: none;
 }
 
-.favourite .fa-star-o {
+.favourite .fa-heart-o {
     display: inline-block;
 }
 
-.favourite.like .fa-star {
+.favourite.like .fa-heart {
     display: inline-block;
 }
 
-.favourite.like .fa-star-o {
+.favourite.like .fa-heart-o {
     display: none;
 }
 

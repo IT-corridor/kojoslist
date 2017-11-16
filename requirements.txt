@@ -1,3 +1,4 @@
 django==1.9.7
 Pillow
 sendgrid
+django-allauth
