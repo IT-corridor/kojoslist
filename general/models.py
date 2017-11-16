@@ -13,12 +13,13 @@ from general.utils import send_email
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name="info")
-    avatar = models.ImageField(upload_to='/avatar/')
+    user = models.OneToOneField(User, related_name="profile")
+    avatar = models.ImageField(upload_to='avatar/', default="avatar/big_avatar.png")
     phone = models.CharField(max_length=20, blank=True, null=True)
     phone_verified = models.BooleanField(default=False)
     dob = models.DateField(blank=True, null=True)
     forum_handle = models.CharField(max_length=100, blank=True, null=True)
+    # cache location
     default_site = models.CharField(max_length=100, blank=True, null=True)
     duration = models.CharField(max_length=100, blank=True, null=True)
 

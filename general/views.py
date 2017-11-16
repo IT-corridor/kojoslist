@@ -484,4 +484,5 @@ def remove_subscribe(request):
     return HttpResponse('')
 
 def my_account(request):
-    return render(request, 'my-account.html', {})
+    userprofile = UserProfile.objects.get_or_create(user=request.user, defaults={'user': request.user})
+    return render(request, 'my-account.html', {'profile': userprofile})
