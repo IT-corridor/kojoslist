@@ -21,6 +21,7 @@
                       </tr>
                     </thead>
                     <tbody>
+                    {% if searches %}
                     {% for search in searches %}            
                     <tr>
                         <td>
@@ -50,6 +51,9 @@
                         <td><a href="#" class="remove-subscription" data-id="{{ search.id }}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                     </tr>
                     {% endfor %}
+                    {% else %}
+                    <tr><td colspan="4">No subscription</td></tr>
+                    {% endif %}
                     </tbody>
                 </table>
             </div>
