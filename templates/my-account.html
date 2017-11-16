@@ -47,7 +47,7 @@
                                     <div class="input-group">
                                         <input autofocus="autofocus" id="id_email" name="email" type="email" class="form-control" required value="{{ user.email }}">
                                         <span class="input-group-addon">     
-                                            <input type="checkbox" class="" checked>     
+                                            <i class="fa fa-check c-green"></i>
                                         </span>
                                     </div>
 
@@ -59,9 +59,16 @@
                                     <div class="input-group">
                                         <input id="id_password1" name="phone" type="text" class="input-xlarge form-control" required="" value="{{ profile.phone }}">
                                         <span class="input-group-addon">     
-                                            <input type="checkbox" class="" name="email_contactable" {% if profile.phone_verified %}checked{% endif %} disabled="">     
+                                            {% if profile.phone_verified %}
+                                            <i class="fa fa-check c-green"></i>
+                                            {% else %}
+                                            <i class="fa fa-square-o" style="width: 14px;"></i>
+                                            {% endif %}
                                         </span>
                                     </div>
+                                    {% if not profile.phone_verified %}
+                                        <button class="btn btn-default" style="margin-top: 8px;">Verify</button>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -73,7 +80,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="id_remember">Password:</label>
                                 <div class="col-sm-6">
-                                    <input id="id_password2" name="password2" type="password" class="input-xlarge form-control" required="">
+                                    <button class="btn btn-default">Change Password</button>
                                 </div>
                             </div>                            
                             <div class="form-group">
