@@ -188,3 +188,49 @@ div.favourite.like {
     padding: 3px 5px;
     font-size: 20px;
 }
+
+.linkedin a {
+    background-color: rgb(5, 108, 151);
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 15px;
+    padding: 8px 22px;
+}
+
+.linkedin a:hover, .facebook a:hover {
+    color: white;
+}
+
+.facebook a {
+    background-color: rgb(59, 89, 152);
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 20px;
+    padding: 8px 22px;
+}
+
+.auth-header {
+    padding: 30px 10px;
+}
+
+.secondaryAction {
+    margin-left: 20px;
+}
+
+.container.auth {
+    font-size: 16px;
+}
+
+.primaryAction {
+    font-size: 16px;
+    padding: 8px 22px;
+}
+
+.login label {
+    text-align: left !important;
+    padding: 8px 15px;
+}
