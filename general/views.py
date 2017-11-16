@@ -80,7 +80,6 @@ def breadcrumb(request):
                                           .replace('%20', " ")
     is_state = request.GET.get('is_state')
     kind = mapName.count('-')
-    html = ''
 
     html = '<a class="breadcrumb-item" href="/profile/">worldwide</a>'
     if kind == 2 or is_state == 'true': # - city
@@ -293,10 +292,14 @@ def get_sub_info(request):
 @csrf_exempt
 def upload_image(request):
     myfile = request.FILES['images']
+    _type = request.POST.get('type', '')
+    if _type:
+        _type = _type + '/' 
+
     fs = FileSystemStorage()
-    filename = fs.save('static/media/'+myfile.name, myfile)
+    filename = fs.save(_type+myfile.name, myfile)
     uploaded_file_url = fs.url(filename)
-    res = {"image_url": "/"+uploaded_file_url,"image_name": uploaded_file_url[13:]}
+    res = {"image_url": uploaded_file_url,"image_name": uploaded_file_url.split('/')[-1]}
     return JsonResponse(res, safe=False)
 
 @csrf_exempt
@@ -360,13 +363,14 @@ def category_ads(request, category_id):
     categories = Category.objects.filter(Q(id=category_id) | Q(parent__id=category_id))
     posts = Post.objects.filter(region=region, category__in=categories).exclude(status='deactive')
     posts = get_posts_with_image(posts)
+    breadcrumb = request.session.get('breadcrumb', '<a class="breadcrumb-item" href="/profile/">worldwide</a>')
 
     return render(request, 'ads-list.html', {
         'posts': posts,
         'region': region,
         'category': category,
         'others': True,
-        'breadcrumb': request.session['breadcrumb']
+        'breadcrumb': breadcrumb
     })
 
 @csrf_exempt
@@ -410,12 +414,13 @@ def region_ads(request, region_id, region):
         posts = Post.objects.all()
 
     posts = get_posts_with_image(posts.exclude(status='deactive'))
-    
+    breadcrumb = request.session.get('breadcrumb', '<a class="breadcrumb-item" href="/profile/">worldwide</a>')
+
     return render(request, 'ads-list.html', {
         'posts': posts,
         'region': region_id,
         'others': True,
-        'breadcrumb': request.session['breadcrumb']
+        'breadcrumb': breadcrumb
     })
 
 def globoard_display_world_countries(css_class=''):
@@ -484,5 +489,8 @@ def remove_subscribe(request):
     return HttpResponse('')
 
 def my_account(request):
-    userprofile = UserProfile.objects.get_or_create(user=request.user, defaults={'user': request.user})
+    userprofile, _ = Customer.objects.get_or_create(user=request.user, 
+                                                    defaults={'user': request.user,
+                                                              'avatar': 'avatar/big_avatar.png'})
+    print userprofile.avatar, '######'
     return render(request, 'my-account.html', {'profile': userprofile})

@@ -111,7 +111,7 @@ AmCharts.ready(function() {
          console.log(event.mapObject.id);
          var cncode = event.mapObject.id;
          var countryid = cncode.toLowerCase();
-         window.location = "/profile/?mycusid="+countryid+"#countries/"+countryid+"/"+countryid+"-all";
+         window.location = "/profile/#countries/"+countryid+"/"+countryid+"-all";
     });
 });
 

@@ -3,18 +3,17 @@ from __future__ import unicode_literals
 
 import os
 from django.db import models
-from django.contrib.auth.models import User
 from django.db.models.signals import pre_delete
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 
 from general.utils import send_email
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name="profile")
-    avatar = models.ImageField(upload_to='avatar/', default="avatar/big_avatar.png")
+class Customer(AbstractUser):
+    avatar = models.CharField(max_length=100, default="avatar/big_avatar.png")
     phone = models.CharField(max_length=20, blank=True, null=True)
     phone_verified = models.BooleanField(default=False)
     dob = models.DateField(blank=True, null=True)
@@ -24,7 +23,7 @@ class UserProfile(models.Model):
     duration = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return self.user.username
+        return self.username
 
 
 class Category(models.Model):
@@ -82,7 +81,7 @@ class Post(models.Model):
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(Customer)
     region = models.ForeignKey(City)
     language = models.CharField(max_length=50, blank=True, null=True)
     # contact
@@ -134,7 +133,7 @@ class Search(models.Model):
     category = models.ForeignKey(Category, blank=True, null=True)
     city = models.ForeignKey(City, blank=True, null=True)
     state = models.ForeignKey(State, blank=True, null=True)
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(Customer)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -181,7 +180,7 @@ def apply_subscribe(sender, instance, **kwargs):
         pass
 
 class Favourite(models.Model):
-    owner =  models.ForeignKey(User, related_name="favourites")
+    owner =  models.ForeignKey(Customer, related_name="favourites")
     post = models.ForeignKey(Post)
 
     def __str__(self):
@@ -189,7 +188,7 @@ class Favourite(models.Model):
 
 
 class Hidden(models.Model):
-    owner =  models.ForeignKey(User)
+    owner =  models.ForeignKey(Customer)
     post = models.ForeignKey(Post, related_name='post')
 
     def __str__(self):

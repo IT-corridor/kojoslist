@@ -35,8 +35,7 @@ class SearchAdmin(admin.ModelAdmin):
 		if obj.city:
 			return '{} / {} / {}'.format(obj.city.state.country.name, obj.city.state.name, obj.city.name)
 
-admin.site.register(UserProfile)
-# admin.site.register(Contact)
+admin.site.register(Customer)
 admin.site.register(Post)
 admin.site.register(GaragePost)
 admin.site.register(JobPost)
