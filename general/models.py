@@ -17,7 +17,7 @@ class UserProfile(models.Model):
     avatar = models.ImageField(upload_to='/avatar/')
     phone = models.CharField(max_length=20, blank=True, null=True)
     phone_verified = models.BooleanField(default=False)
-    dob = models.DataField(blank=True, null=True)
+    dob = models.DateField(blank=True, null=True)
     forum_handle = models.CharField(max_length=100, blank=True, null=True)
     default_site = models.CharField(max_length=100, blank=True, null=True)
     duration = models.CharField(max_length=100, blank=True, null=True)
