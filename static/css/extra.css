@@ -230,7 +230,27 @@ div.favourite.like {
     padding: 8px 22px;
 }
 
+.login {
+    padding: 10px;
+}
+
 .login label {
     text-align: left !important;
     padding: 8px 15px;
+}
+
+.auth-text {
+    font-size: 17px;
+    padding: 10px;
+    line-height: 24px;
+}
+
+.error {
+    color: red;
+    font-size: 17px;
+    line-height: 24px;
+}
+
+.m-t-15 {
+    margin-top: 15px;
 }

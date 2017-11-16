@@ -1,17 +1,16 @@
 {% extends "index.html" %}
 
 {% load i18n %}
+{% load account socialaccount %}
 
-{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block meta_main %}
+<div class="header-menu">
+    <div class="container auth">
+    <h1 class="auth-header">{% trans "Verify Your E-mail Address" %}</h1>
 
-<div class="row" style="margin-top: 48px;">
-<div class="col-md-offset-1 col-md-10">
-    <h1>{% trans "Verify Your E-mail Address" %}</h1>
-
-    <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
+    <p class="auth-text">{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
 </div>
 </div>
-
 {% endblock %}
