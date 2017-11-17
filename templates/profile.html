@@ -4,6 +4,7 @@
 {% block extra_css %}
 <link rel='stylesheet' id='dropdown-menu-style-css' href='/static/css/my-ads.css' type='text/css' media='all' /> 
 <link rel='stylesheet' id='dropdown-menu-style-css' href='/static/css/dropdown-menu-style.css?v=1' type='text/css' media='all' /> 
+<link rel='stylesheet' id='dropdown-menu-style-css' href='/static/css/bootstrap-datetimepicker.css' type='text/css' media='all' /> 
 
 {% block own_css %}
 {% endblock %} 
@@ -122,10 +123,13 @@
 {% endblock %} 
 
 {% block extra_js %}
+<script src="/static/js/moment-with-locales.js"></script>
+<script src="/static/js/bootstrap-datetimepicker.js"></script>
 
 {% block load_highcharts_js %}
 <script src="/static/js/highmaps.js"></script>
 <script src="/static/js/index.js"></script>
+
 {% endblock %}
 
 {% block own_js %}

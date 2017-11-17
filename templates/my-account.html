@@ -88,7 +88,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="id_password">Birth Date:</label>
                                 <div class="col-sm-6">
-                                    <input id="id_password1" name="dob" type="text" class="input-xlarge form-control" required="" value="{{ form.dob.value }}">
+                                    <input id="id_dob" name="dob" type="text" class="input-xlarge form-control" required="" value="{{ form.dob.value }}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -204,6 +204,9 @@
             });            
         });
 
+        $('#id_dob').datetimepicker({
+            format: 'MM/DD/YYYY'
+        });
     });
 </script>
 
