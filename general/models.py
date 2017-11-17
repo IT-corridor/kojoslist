@@ -16,7 +16,7 @@ class Customer(AbstractUser):
     avatar = models.CharField(max_length=100, default="default_avatar.png")
     phone = models.CharField(max_length=20, blank=True, null=True)
     phone_verified = models.BooleanField(default=False)
-    dob = models.CharField(max_length=20, blank=True, null=True)
+    dob = models.CharField(max_length=50, blank=True, null=True)
     forum_handle = models.CharField(max_length=100, blank=True, null=True)
     # cache location
     default_site = models.CharField(max_length=100, blank=True, null=True)
@@ -116,15 +116,15 @@ class JobPost(Post):
 
 
 class GaragePost(Post):
-    start_day = models.CharField(max_length=20)
+    start_day = models.CharField(max_length=50)
     duration = models.IntegerField()
 
 
 class SaleGarage(Post):
-    sale_date1 = models.CharField(max_length=20)
-    sale_date2 = models.CharField(max_length=20)
-    sale_date3 = models.CharField(max_length=20)
-    start_time = models.CharField(max_length=20)
+    sale_date1 = models.CharField(max_length=50)
+    sale_date2 = models.CharField(max_length=50)
+    sale_date3 = models.CharField(max_length=50)
+    start_time = models.CharField(max_length=50)
     include_ads = models.BooleanField()
 
 
