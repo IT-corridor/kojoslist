@@ -489,8 +489,4 @@ def remove_subscribe(request):
     return HttpResponse('')
 
 def my_account(request):
-    userprofile, _ = Customer.objects.get_or_create(user=request.user, 
-                                                    defaults={'user': request.user,
-                                                              'avatar': 'avatar/big_avatar.png'})
-    print userprofile.avatar, '######'
-    return render(request, 'my-account.html', {'profile': userprofile})
+    return render(request, 'my-account.html', {})
