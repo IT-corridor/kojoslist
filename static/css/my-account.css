@@ -64,10 +64,6 @@
     height: 95px;
     background-color: aliceblue;
     border-radius: 100%;
-	//background-image: url(http://globalboard.world/wp-content/themes/globoard/images/big_avatar.png);
-    //background-size: contain;
-    //background-position: center;
-    //background-repeat: no-repeat;
 	float: left;
 }
 .my-account .pages .page .user_up .user_photo img{

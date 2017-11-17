@@ -44,10 +44,10 @@
                     <div class="col-md-12 no-padding" style="margin-top: 18px;">
                         <div class="star-profile">
                             <a href="#">
-                                <img src="/static/img/big_avatar.png" width="80" height="80">
+                                <img src="/static/media/avatar/{{ post.owner.avatar }}" width="80" height="80">
                             </a>
                             <div class="star-profile-name" style="display: inline-block;">
-                                <a href="#" class="username_on_detail">{{ user.first_name }} {{ user.last_name }}</a>
+                                <a href="#" class="username_on_detail">{{ post.owner.first_name }} {{ post.owner.last_name }}</a>
                                 <i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i>                               
                             </div>
                             <button class="btn btn-default btn-reply">Reply</button>
