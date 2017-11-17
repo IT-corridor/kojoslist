@@ -23,6 +23,8 @@ class Customer(AbstractUser):
     # cache location
     default_site = models.CharField(max_length=100, blank=True, null=True)
     duration = models.CharField(max_length=100, blank=True, null=True)
+    v_statue = models.CharField(max_length=10)
+    id_photo = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return self.username

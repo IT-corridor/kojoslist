@@ -34,4 +34,4 @@ class CustomerForm(ModelForm):
         model = Customer
         exclude = ['password', 'date_joined', 'last_login', 'is_superuser', 
                    'is_staff', 'is_active', 'phone_verified', 'forum_handle',
-                   'default_site', 'duration']
+                   'default_site', 'duration', 'v_statue', 'id_photo']
