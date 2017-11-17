@@ -456,7 +456,7 @@ def toggle_favourite(request):
 def my_favourites(request):
     posts = [ii.post for ii in Favourite.objects.filter(owner=request.user)]
     posts = get_posts_with_image(posts)
-    return render(request, 'ads-list.html', {'posts': posts})
+    return render(request, 'ads-list.html', {'posts': posts, 'others': True})
 
 def my_subscribe(request):
     searches = Search.objects.filter(owner=request.user)
