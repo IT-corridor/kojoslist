@@ -52,6 +52,15 @@
                                     <input id="id_password1" name="last_name" type="text" class="input-xlarge form-control" required="" value="{{ user.last_name }}">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="id_password">Gender:</label>
+                                <div class="col-sm-6">
+                                    <select name="gender" class="input-xlarge form-control" required="">
+                                    <option {% if user.gender != 'Female' %}selected{% endif %} value="Male">Male</option>
+                                    <option {% if user.gender == 'Female' %}selected{% endif %} value="Female">Female</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="form-group m-t-15">
                                 <label class="control-label col-sm-2" for="id_login">E-mail:</label>
                                 <div class="col-sm-6">
@@ -90,6 +99,13 @@
                                     <input id="id_dob" name="dob" type="text" class="input-xlarge form-control" required="" value="{% if form.dob.value %}{{ form.dob.value }}{% endif %}">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="id_password">Address:</label>
+                                <div class="col-sm-6">
+                                    <input id="id_password1" name="address" type="text" class="input-xlarge form-control" required="" value="{% if user.address %}{{ user.address }}{% endif %}">
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="id_remember">Password:</label>
                                 <div class="col-sm-6">

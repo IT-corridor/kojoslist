@@ -18,6 +18,8 @@ class Customer(AbstractUser):
     phone_verified = models.BooleanField(default=False)
     dob = models.CharField(max_length=50, blank=True, null=True)
     forum_handle = models.CharField(max_length=100, blank=True, null=True)
+    gender = models.CharField(max_length=20, blank=True, null=True)
+    address = models.CharField(max_length=200, blank=True, null=True)
     # cache location
     default_site = models.CharField(max_length=100, blank=True, null=True)
     duration = models.CharField(max_length=100, blank=True, null=True)
