@@ -509,6 +509,7 @@ def my_account(request):
         form = CustomerForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
+    print form
     return render(request, 'my-account.html', {'form': form})
 
 @csrf_exempt
