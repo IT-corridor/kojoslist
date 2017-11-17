@@ -20,6 +20,7 @@
                     <div class="pages balance">
                         <form class="login form-horizontal" method="POST">
                             {% csrf_token %}
+                            {{ form.errors }}
                             {% for _, error in form.errors.items %}
                                 <div class="error">{{ error }}</div>
                             {% endfor %}
@@ -27,10 +28,11 @@
                                 <div class="col-sm-1 col-xs-5 upload-image" style="margin-bottom: 15px;">
                                     <input id="inputfile" type="file" name="files[]" data-maxfilesize="4000000" class="hidden" data-maxuploadfile="20" data-imagequality="0.7">
                                     <input type="hidden" name="uploded_id[]" class="uploded_id" />
-                                    <img src="/static/media/{{ user.avatar }}" class="avatar" style="width: 100px; height: 100px;">
+                                    <input type="hidden" name="avatar" class="uploded_id1" value="{{ form.avatar.value }}" />
+                                    <img src="/static/media/avatar/{{ user.avatar }}" class="avatar" style="width: 100px; height: 100px;">
                                 </div>
                                 <div class="col-sm-6 col-xs-7">
-                                    <button class="btn upload-avatar" style="margin: 30px 10px;"><i class="fa fa-upload"></i> Upload Avatar</button>
+                                    <a class="btn btn-default upload-avatar" style="margin: 30px 10px;"><i class="fa fa-upload"></i> Upload Avatar</a>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -67,24 +69,26 @@
                                 <label class="control-label col-sm-2" for="id_password">Phone:</label>
                                 <div class="col-sm-6">
                                     <div class="input-group">
-                                        <input id="id_password1" name="phone" type="text" class="input-xlarge form-control" required="" value="{{ profile.phone }}">
-                                        <span class="input-group-addon">     
-                                            {% if profile.phone_verified %}
+                                        <input id="id_password1" name="phone" type="text" class="input-xlarge form-control phone_number" placeholder="+1 (212) 234 4342" value="{{ user.phone }}">
+                                        <span class="input-group-addon sym_phone">     
+                                            {% if user.phone_verified %}
                                             <i class="fa fa-check c-green"></i>
                                             {% else %}
                                             <i class="fa fa-square-o" style="width: 14px;"></i>
                                             {% endif %}
                                         </span>
                                     </div>
-                                    {% if not profile.phone_verified %}
-                                        <button class="btn btn-default" style="margin-top: 8px;">Verify</button>
+                                    {% if not user.phone_verified %}
+                                        <a class="btn btn-default verify_phone">Send SMS</a>
+                                        <input type="text" class="hidden input-xlarge form-control verify_code phone" placeholder="6 digits">
+                                        <a class="hidden btn btn-default verify_code">Verify</a>
                                     {% endif %}
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="id_password">Birth Date:</label>
                                 <div class="col-sm-6">
-                                    <input id="id_password1" name="dob" type="date" class="input-xlarge form-control" required="" value="{{ user.dob }}">
+                                    <input id="id_password1" name="dob" type="text" class="input-xlarge form-control" required="" value="{{ form.dob.value }}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -142,10 +146,64 @@
                 processData: false,
                 success: function(response) {
                     jQuery(".upload-image").find('input[class="uploded_id"]').val(response.image_name);
+                    jQuery(".upload-image").find('input[class="uploded_id1"]').val(response.image_name);
                     jQuery(".avatar").attr('src', response.image_url);
                 }
             });
         });
+
+        $('.verify_phone').click(function() {
+            var phone_number = $('.phone_number').val();
+            if (!phone_number) {
+                alert('Enter phone number!');
+                $('.phone_number').focus();
+                return false;
+            }
+
+            jQuery.ajax({
+                type: 'post',
+                url: '/send_vcode',
+                data: {
+                    phone: phone_number
+                },
+                success: function(res) {
+                    if (res == 'success') {
+                        $('.verify_code').toggleClass('hidden');
+                        $('.verify_phone').toggleClass('hidden');                        
+                    } else {
+                        alert('Please input correct phone number!');
+                        $('.phone_number').focus();
+                    }
+                }
+            });            
+
+        });
+
+        $('.btn.verify_code').click(function() {
+            var vcode = $('.verify_code.phone').val();
+            if (!vcode) {
+                alert('Put 6 digits verification code.');
+                $('.verify_code.phone').focus();
+                return false;
+            }
+
+            jQuery.ajax({
+                type: 'post',
+                url: '/verify_phone',
+                data: {
+                    vcode: vcode
+                },
+                success: function(res) {
+                    if (res == 'success') {
+                        $('.verify_code').toggleClass('hidden');
+                        $('.sym_phone').html('<i class="fa fa-check c-green"></i>');
+                    } else {
+                        alert('Verification failed!');
+                    }
+                }
+            });            
+        });
+
     });
 </script>
 

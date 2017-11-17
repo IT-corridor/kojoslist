@@ -16,7 +16,12 @@ def send_email(from_email, subject, to_email, content):
 def send_SMS(to_phone, body):
     client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
 
-    client.api.account.messages.create(
-        to="+"+to_phone,
-        from_="+1(201) 371-7692",
-        body=body)  
+    try:
+        res = client.api.account.messages.create(
+            to=to_phone,
+            from_="+1(201) 371-7692",
+            body=body)  
+    except Exception, e:
+        return False
+
+    return True

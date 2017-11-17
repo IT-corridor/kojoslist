@@ -27,3 +27,11 @@ class SaleGarageForm(ModelForm):
         model = SaleGarage
         fields = '__all__'
 
+class CustomerForm(ModelForm):
+    # dob = forms.DateField(input_formats='%d-%m-%Y')
+
+    class Meta:
+        model = Customer
+        exclude = ['password', 'date_joined', 'last_login', 'is_superuser', 
+                   'is_staff', 'is_active', 'phone_verified', 'forum_handle',
+                   'default_site', 'duration']

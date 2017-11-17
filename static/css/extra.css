@@ -258,3 +258,15 @@ div.favourite.like {
 .c-green {
     color: green;
 }
+
+.verify_phone {
+    margin: 8px 0;
+    margin-right: 10px;
+}
+
+input.verify_code {
+    display: inline-block;
+    width: 80px;
+    margin: 8px;    
+    margin-left: 0;
+}

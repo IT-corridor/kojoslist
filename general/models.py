@@ -13,7 +13,7 @@ from general.utils import send_email
 
 
 class Customer(AbstractUser):
-    avatar = models.CharField(max_length=100, default="avatar/big_avatar.png")
+    avatar = models.CharField(max_length=100, default="default_avatar.png")
     phone = models.CharField(max_length=20, blank=True, null=True)
     phone_verified = models.BooleanField(default=False)
     dob = models.DateField(blank=True, null=True)

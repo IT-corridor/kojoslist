@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 import os
 import json
 
+from random import randint
+
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
@@ -21,7 +23,7 @@ from django.db.models import Q
 
 from general.models import *
 from general.forms import *
-from general.utils import send_email
+from general.utils import *
 
 get_class = lambda x: globals()[x]
 
@@ -489,4 +491,39 @@ def remove_subscribe(request):
     return HttpResponse('')
 
 def my_account(request):
-    return render(request, 'my-account.html', {})
+    if request.method == 'GET':
+        form = CustomerForm(instance=request.user)
+    else:
+        form = CustomerForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+    return render(request, 'my-account.html', {'form': form})
+
+@csrf_exempt
+def send_vcode(request):
+    phone = request.POST.get('phone')
+    vcode = randint(100000, 999999)
+    print vcode, '###'
+    body = "{} is your Globalboard verification code.".format(vcode)
+    result = send_SMS(phone, body)
+
+    if result:
+        request.session['vcode'] = str(vcode)
+        request.session['phone'] = phone        
+        request.session.modified = True    
+        return HttpResponse('success')
+    else:
+        return HttpResponse('fail')
+
+@csrf_exempt
+def verify_phone(request):
+    code = request.POST.get('vcode')
+    vcode = request.session['vcode']
+
+    if code == vcode:
+        request.user.phone_verified = True
+        request.user.phone = request.session['phone']        
+        request.user.save()
+        return HttpResponse('success')
+    else:
+        return HttpResponse('fail')
