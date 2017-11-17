@@ -28,7 +28,7 @@ class SaleGarageForm(ModelForm):
         fields = '__all__'
 
 class CustomerForm(ModelForm):
-    # dob = forms.DateField(input_formats='%d-%m-%Y')
+    # dob = forms.DateTimeField(input_formats='%d-%m-%Y')
 
     class Meta:
         model = Customer

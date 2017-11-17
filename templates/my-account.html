@@ -20,7 +20,6 @@
                     <div class="pages balance">
                         <form class="login form-horizontal" method="POST">
                             {% csrf_token %}
-                            {{ form.errors }}
                             {% for _, error in form.errors.items %}
                                 <div class="error">{{ error }}</div>
                             {% endfor %}
