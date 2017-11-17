@@ -250,7 +250,10 @@ def post_ads(request, ads_id):
 
             # remove deleted ones
             for img in list(set(pimages)-set(images)):
-                os.remove(settings.BASE_DIR+'/static/media/'+img)
+                try:
+                    os.remove(settings.BASE_DIR+'/static/media/'+img)
+                except Exception:
+                    pass
                 Image.objects.filter(name=img).delete()
 
         print(form.errors, '$$$$$$$$')
@@ -315,7 +318,10 @@ def delete_image(request):
     image_name = request.POST.get('image_name')
     # if not belong to any post
     if not Image.objects.filter(name=image_name):
-        os.remove(settings.BASE_DIR+'/static/media/'+image_name)
+        try:
+            os.remove(settings.BASE_DIR+'/static/media/'+image_name)
+        except Exception:
+            pass
     return HttpResponse('')
 
 def get_post_detail(request):
