@@ -2,15 +2,15 @@
     <div class="col-md-6">
         <div class="form-group edit-profile">
             <label>garage sale dates</label>
-            <input type="date" class="form-control edit-post-wrap" name="sale_date1" required="" value="{{ post.sale_date1 }}">
-            <input type="date" class="form-control edit-post-wrap" name="sale_date2" value="{{ post.sale_date2 }}" required="">
-            <input type="date" class="form-control edit-post-wrap" name="sale_date3" value="{{ post.sale_date3 }}" required="">
+            <input type="date" class="form-control edit-post-wrap cl_datepicker" name="sale_date1" required="" value="{{ post.sale_date1 }}">
+            <input type="date" class="form-control edit-post-wrap cl_datepicker" name="sale_date2" value="{{ post.sale_date2 }}" required="">
+            <input type="date" class="form-control edit-post-wrap cl_datepicker" name="sale_date3" value="{{ post.sale_date3 }}" required="">
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group edit-profile">
             <label>start time</label>
-            <input type="text" placeholder="e.g) 9:30" class="form-control edit-post-wrap" name="start_time" required=""  value="{{ post.start_time }}">
+            <input type="text" placeholder="e.g) 9:30" class="form-control edit-post-wrap cl_timepicker" name="start_time" required=""  value="{{ post.start_time }}">
         </div>
     </div>
 </div>

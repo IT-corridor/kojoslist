@@ -306,6 +306,14 @@
                     success: function(res) {
                         jQuery('#ads_details').html(res.html);
                         jQuery('#ads_form').val(res.form);
+
+                        $('.cl_datepicker').datetimepicker({
+                            format: 'MM/DD/YYYY'
+                        });
+
+                        $('.cl_timepicker').datetimepicker({
+                            format: 'H:m'
+                        });
                     }
                 });                
             } else {

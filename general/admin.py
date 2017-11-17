@@ -6,7 +6,7 @@ from django.contrib import admin
 from .models import *
 
 class CategoryAdmin(admin.ModelAdmin):
-	list_display = ['name', 'parent', 'columns', 'column']
+	list_display = ['name', 'parent', 'columns', 'column', 'form']
 	search_fields = ['name']
 
 
