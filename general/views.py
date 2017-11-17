@@ -123,7 +123,7 @@ def get_regions(request):
                                           .replace('%20', " ")
     is_state = request.GET.get('is_state')
 
-    if request.user.is_authenticated:
+    if request.user.is_authenticated():
         # store last location
         loc = mapName + '@' + sec_name if is_state == 'true' else mapName
         request.user.default_site = loc
@@ -446,12 +446,16 @@ def globoard_display_world_countries(css_class=''):
 @csrf_exempt
 def toggle_favourite(request):
     ads_id = request.POST.get('ads_id')
-    if Favourite.objects.filter(owner=request.user, post_id=ads_id):
-        Favourite.objects.filter(owner=request.user, post_id=ads_id).delete()
+    res = 'success'
+    if request.user.is_authenticated():
+        if Favourite.objects.filter(owner=request.user, post_id=ads_id):
+            Favourite.objects.filter(owner=request.user, post_id=ads_id).delete()
+        else:
+            Favourite.objects.create(owner=request.user, post_id=ads_id)
     else:
-        Favourite.objects.create(owner=request.user, post_id=ads_id)
+        res = 'fail'
 
-    return HttpResponse('')
+    return HttpResponse(res)
 
 def my_favourites(request):
     posts = [ii.post for ii in Favourite.objects.filter(owner=request.user)]
@@ -509,7 +513,7 @@ def my_account(request):
         form = CustomerForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-    
+
     return render(request, 'my-account.html', {'form': form})
 
 @csrf_exempt

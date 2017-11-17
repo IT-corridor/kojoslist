@@ -197,8 +197,12 @@
             data: {
                 ads_id: {{ post.id }},
             },
-            success: function(data) {
-                $(tthis).toggleClass('like');
+            success: function(res) {
+                if (res == 'success') {
+                    $(tthis).toggleClass('like');                    
+                } else {
+                    alert('You need to login for saving this in your favourites.');
+                }
             }
         });        
     });
