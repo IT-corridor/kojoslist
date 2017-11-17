@@ -23,7 +23,7 @@ from django.db.models import Q
 
 from general.models import *
 from general.forms import *
-from general.utils import *
+from general.utils import send_email, send_SMS
 
 get_class = lambda x: globals()[x]
 
@@ -122,6 +122,12 @@ def get_regions(request):
     sec_name = request.GET.get('sec_name').replace('%27', "'") \
                                           .replace('%20', " ")
     is_state = request.GET.get('is_state')
+
+    if request.user.is_authenticated:
+        # store last location
+        loc = mapName + '@' + sec_name if is_state == 'true' else mapName
+        request.user.default_site = loc
+        request.user.save()
 
     kind = mapName.count('-')
     request.session['category'] = ''
