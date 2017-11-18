@@ -137,7 +137,7 @@
 <script type="text/javascript">
     var baseMapPath = "https://code.highcharts.com/mapdata/";
     var mapName = 'custom/world';
-    var sec_name, isState;
+    var state, isState;
 
     if (!location.hash) {
         location.hash = '{{ user.default_site }}';
@@ -147,7 +147,7 @@
     loadMap();
 
     function analyseHash() {
-        sec_name = '';
+        state = '';
         isState = false;        
 
         if (location.hash) {
@@ -155,7 +155,7 @@
             mapName = urls[0];
 
             if (urls.length > 1) {
-                sec_name = urls[1];
+                state = urls[1];
                 isState = true;
             }
         }
@@ -166,7 +166,7 @@
 
     function loadMap() {
         // console.log(mapName);
-        // console.log(sec_name);
+        // console.log(state);
         // console.log(isState);
         breadcrumb();
         showRegions();
@@ -188,7 +188,7 @@
             url: '/breadcrumb',
             data: {
                 mapName: mapName,
-                sec_name: sec_name,
+                state: state,
                 is_state: isState
             },
             success: function(res) {
@@ -203,7 +203,7 @@
             url: '/get_regions',
             data: {
                 mapName: mapName,
-                sec_name: sec_name,
+                state: state,
                 is_state: isState
             },
             success: function(res) {
@@ -277,13 +277,13 @@
                             var key = this.key;
                             var mapname;
 
-                            sec_name = '';
+                            state = '';
                             mapname = mapName;
                             mapName = 'countries/' + key.substr(0, 2) + '/' + key + '-all';
                             isState = false;
                             findSecname();
 
-                            if (sec_name) { // available data for highcharts
+                            if (state) { // available data for highcharts
                                 location.hash = mapName;
                                 loadMap();
                             } else {
@@ -308,7 +308,7 @@
             if (mapGroup !== "version") {
                 $.each(maps, function(desc, path) {
                     if (mapName+'.js' == path)
-                        sec_name = desc.split(',')[0];
+                        state = desc.split(',')[0];
                 });
             }
         });                            
@@ -359,12 +359,12 @@
     });    
 
     $("body").on('click', '.region_id', function() {
-        sec_name = $(this).data('id');
-        var mapname = findMapname(sec_name);
+        state = $(this).data('id');
+        var mapname = findMapname(state);
         if (mapname) 
             mapName = mapname;
         
-        location.hash = mapName + '@' + sec_name;
+        location.hash = mapName + '@' + state;
         isState = true;
         loadMap();
     });    

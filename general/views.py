@@ -80,7 +80,7 @@ def profile(request):
 
 def breadcrumb(request):
     mapName = request.GET.get('mapName')
-    sec_name = request.GET.get('sec_name').replace('%27', "'") \
+    state = request.GET.get('state').replace('%27', "'") \
                                           .replace('%20', " ")
     is_state = request.GET.get('is_state')
     kind = mapName.count('-')
@@ -88,14 +88,14 @@ def breadcrumb(request):
     html = '<a class="breadcrumb-item" href="/profile/" data-mapname="custom/world">worldwide</a>'
     if kind == 2 or is_state == 'true': # - city
         country = mapName.split('/')[1].upper()
-        state = State.objects.filter(name=sec_name, country__sortname=country).first()
+        state = State.objects.filter(name=state, country__sortname=country).first()
         cmapname = 'countries/{0}/{0}-all'.format(state.country.sortname.lower())
         html += """
             <a class="breadcrumb-item country-brcm" href="#" data-mapname="{}">
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
             </a>        
         """.format(cmapname, state.country.name)
-        mapname = mapName if '@' in mapName else mapName + '@' + sec_name
+        mapname = mapName if '@' in mapName else mapName + '@' + state.name
         html += """
             <a class="breadcrumb-item state-brcm" href="#" data-mapname="{}">
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
@@ -121,13 +121,13 @@ def get_regions(request):
     and search link, list title
     """
     mapName = request.GET.get('mapName')
-    sec_name = request.GET.get('sec_name').replace('%27', "'") \
+    state = request.GET.get('state').replace('%27', "'") \
                                           .replace('%20', " ")
     is_state = request.GET.get('is_state')
 
     if request.user.is_authenticated():
         # store last location
-        loc = mapName + '@' + sec_name if is_state == 'true' else mapName
+        loc = mapName + '@' + state if is_state == 'true' else mapName
         request.user.default_site = loc
         request.user.save()
 
@@ -136,7 +136,7 @@ def get_regions(request):
 
     if kind == 2 or is_state == 'true': # - city
         country = mapName.split('/')[1].upper()
-        state = State.objects.filter(name=sec_name, country__sortname=country).first()
+        state = State.objects.filter(name=state, country__sortname=country).first()
         title = 'Select City'
         link = '/region-ads/st/{}'.format(state.id)
         request.session['region'] =  state.id
