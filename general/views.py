@@ -17,6 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.db.models import Q
@@ -32,6 +33,7 @@ def home(request):
     rndr_str = globoard_display_world_countries()
     return render(request, 'index.html', {'rndr_str': rndr_str})
 
+@login_required(login_url='/accounts/login')
 def my_ads(request):
     posts = Post.objects.filter(owner=request.user)
     posts = get_posts_with_image(posts)
@@ -197,6 +199,7 @@ def get_category_by_location_id(request):
         result += [_result]
     return render(request, '_category.html', {'categories': result})
 
+@login_required(login_url='/accounts/login')
 def post_ads(request, ads_id):
     if request.method == 'GET':
         mcategories = Category.objects.filter(parent__isnull=True)
@@ -457,11 +460,13 @@ def toggle_favourite(request):
 
     return HttpResponse(res)
 
+@login_required(login_url='/accounts/login')
 def my_favourites(request):
     posts = [ii.post for ii in Favourite.objects.filter(owner=request.user)]
     posts = get_posts_with_image(posts)
     return render(request, 'ads-list.html', {'posts': posts, 'others': True})
 
+@login_required(login_url='/accounts/login')
 def my_subscribe(request):
     searches = Search.objects.filter(owner=request.user)
 
@@ -506,6 +511,7 @@ def remove_subscribe(request):
     Search.objects.filter(id=sub_id).delete()
     return HttpResponse('')
 
+@login_required(login_url='/accounts/login')
 def my_account(request):
     if request.method == 'GET':
         form = CustomerForm(instance=request.user)
@@ -553,7 +559,7 @@ def upload_id(request):
     content = """user {} uploaded his ID.<br> Please check and approve it 
                  <a href="http://18.216.225.192/admin/general/customer/{}/change/">here</a>.                 
     """.format(request.user.username, request.user.id)
-    
+
     send_email(settings.FROM_EMAIL, 'Verification Submitted', settings.ADMIN_EMAIL, content)
     request.user.id_photo = 'ID/' + id_photo
     request.user.save()
