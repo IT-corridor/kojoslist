@@ -81,12 +81,35 @@ def profile(request):
 def breadcrumb(request):
     mapName = request.GET.get('mapName')
     state = request.GET.get('state').replace('%27', "'") \
-                                          .replace('%20', " ")
+                                    .replace('%20', " ")
     is_state = request.GET.get('is_state')
+    city = request.GET.get('city')
     kind = mapName.count('-')
 
     html = '<a class="breadcrumb-item" href="/profile/" data-mapname="custom/world">worldwide</a>'
-    if kind == 2 or is_state == 'true': # - city
+
+    if city:
+        city = City.objects.get(id=city)
+        mapname = 'countries/{0}/{0}-all'.format(city.state.country.sortname.lower())
+        html += """
+            <a class="breadcrumb-item country-brcm" href="#" data-mapname="{}">
+                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
+            </a>        
+        """.format(mapname, city.state.country.name)
+        mapname += '@' + city.state.name
+        html += """
+            <a class="breadcrumb-item state-brcm" href="#" data-mapname="{}">
+                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
+            </a>        
+        """.format(mapname, city.state.name)
+        mapname += '@' + city.name
+        html += """
+            <a class="breadcrumb-item city-brcm" href="#" data-mapname="{}">
+                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
+            </a>        
+        """.format(mapname, city.name)
+
+    elif kind == 2 or is_state == 'true': # - city
         country = mapName.split('/')[1].upper()
         state = State.objects.filter(name=state, country__sortname=country).first()
         cmapname = 'countries/{0}/{0}-all'.format(state.country.sortname.lower())
@@ -205,17 +228,17 @@ def get_regions(request):
     return JsonResponse(result, safe=False)
 
 def get_category_by_location_id(request, ajax=True):
-    city = request.GET.get('city')  # not used
-    request.session['region'] = city
-    request.session['region_kind'] = 'city'
+    # city = request.GET.get('city')  # not used
+    # request.session['region'] = city
+    # request.session['region_kind'] = 'city'
 
-    result = []
-    for column in range(1, 7):
-        _result = []
-        for mc in Category.objects.filter(parent__isnull=True, column=column):
-            cc = Category.objects.filter(parent=mc)
-            _result += [(mc, cc)]
-        result += [_result]
+    # result = []
+    # for column in range(1, 7):
+    #     _result = []
+    #     for mc in Category.objects.filter(parent__isnull=True, column=column):
+    #         cc = Category.objects.filter(parent=mc)
+    #         _result += [(mc, cc)]
+    #     result += [_result]
     return render(request, '_category.html', {'categories': result})
 
 @login_required(login_url='/accounts/login')

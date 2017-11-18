@@ -198,7 +198,8 @@
             data: {
                 mapName: mapName,
                 state: state,
-                is_state: isState
+                is_state: isState,
+                city: city
             },
             success: function(res) {
                 $('.breadcrumb').html(res);
@@ -360,7 +361,7 @@
         city = $(this).data('id');
         location.hash = location.hash.substring(1) + '@' + city;
         loadMap();
-        
+
         // jQuery.ajax({
         //     type: 'get',
         //     url: '/get_category_by_location_id',
