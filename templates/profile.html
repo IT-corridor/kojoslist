@@ -136,19 +136,22 @@
 {% block own_js %}
 <script type="text/javascript">
     var baseMapPath = "https://code.highcharts.com/mapdata/";
+
     var mapName = 'custom/world';
     var state, isState;
+    var city;
 
-    if (!location.hash) {
+    // redirect to last loc for /profile
+    if (!location.hash) 
         location.hash = '{{ user.default_site }}';
-    }
 
     analyseHash();
     loadMap();
 
     function analyseHash() {
         state = '';
-        isState = false;        
+        isState = false;
+        city = '';        
 
         if (location.hash) {
             var urls = location.hash.substring(1).split('@');
@@ -158,16 +161,22 @@
                 state = urls[1];
                 isState = true;
             }
+
+            if (urls.length > 2) {
+                city = urls[2];
+            }
         }
 
         if (!isState)
-            findSecname();        
+            findState();        
     }
 
     function loadMap() {
-        // console.log(mapName);
-        // console.log(state);
-        // console.log(isState);
+        console.log(mapName);
+        console.log(state);
+        console.log(isState);
+        console.log(city);
+        
         breadcrumb();
         showRegions();
 
@@ -281,7 +290,7 @@
                             mapname = mapName;
                             mapName = 'countries/' + key.substr(0, 2) + '/' + key + '-all';
                             isState = false;
-                            findSecname();
+                            findState();
 
                             if (state) { // available data for highcharts
                                 location.hash = mapName;
@@ -303,7 +312,7 @@
         });        
     }
 
-    function findSecname() {
+    function findState() {
         $.each(Highcharts.mapDataIndex, function(mapGroup, maps) {
             if (mapGroup !== "version") {
                 $.each(maps, function(desc, path) {
@@ -340,19 +349,20 @@
     });
 
     $("body").on('click', '.get_category_by_location', function() {
-        var city_id = $(this).data('id');
         var city_name = $(this).text();
+        city = $(this).data('id');
+        location.hash = location.hash.substring(1) + '@' + city;
 
         jQuery.ajax({
             type: 'get',
             url: '/get_category_by_location_id',
             data: {
-                city: city_id
+                city: city
             },
             success: function(data) {
                 $('#title_of_list').html('Select Category');
                 $('.content-select-country').html(data);
-                $('.btn-view-all').attr('href', '/region-ads/ct/'+city_id);
+                $('.btn-view-all').attr('href', '/region-ads/ct/'+city);
                 $('.breadcrumb').append('<span class="breadcrumb-item city-brcm" href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i>'+city_name+'</span>');
             }
         });
