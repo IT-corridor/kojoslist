@@ -121,13 +121,18 @@
                     </div>
                 </div>
                 <div id="balance" class="tab-pane fade">
-                    <div class="pages balance">
-                        <form action="#" method="post">
-                            <textarea name="user_status" class="form-control" rows="3"></textarea>
-                            <input type="hidden" name="action" value="setStatus"  />
-                            <input type="button" class="btn btn-info strong-btn" value="Submit"  />
-                        </form>
-                        <span>Status : Normal placeholder</span>
+                    <div class="pages balance verify_section">
+                        {% if user.v_statue == 'unverified' %}
+                        <input id="ID_file" type="file" name="files[]" data-maxfilesize="4000000" class="hidden" data-maxuploadfile="20" data-imagequality="0.7">
+                        <input type="hidden" name="uploded_id[]" class="uploded_id" />
+                        <input type="hidden" name="avatar" class="uploded_id1" value="{{ form.avatar.value }}" />
+
+                        <button class="primaryAction btn btn-danger provide_id">Provide ID</button>
+                        {% elif user.v_statue == 'awaiting_approve' %}
+                        <span class="primaryAction btn btn-warning">Verifing ID</span>
+                        {% elif user.v_statue == 'approved' %}
+                        <span class="primaryAction btn btn-success">Verified</span>
+                        {% endif %}
                     </div>
                 </div>                
             </div>
@@ -144,6 +149,10 @@
     jQuery(document).ready(function() {
         jQuery("body").on("click", ".upload-avatar", function() {
             jQuery("#inputfile").click();
+        });
+
+        jQuery("body").on("click", ".provide_id", function() {
+            jQuery("#ID_file").click();
         });
 
         jQuery("#inputfile").change(function() {
@@ -163,6 +172,35 @@
                     jQuery(".upload-image").find('input[class="uploded_id"]').val(response.image_name);
                     jQuery(".upload-image").find('input[class="uploded_id1"]').val(response.image_name);
                     jQuery(".avatar").attr('src', response.image_url);
+                }
+            });
+        });
+
+        jQuery("#ID_file").change(function() {
+            var fd = new FormData();
+            var file = this.files;
+            fd.append("images", file[0]);
+            fd.append('type', 'ID');
+
+            jQuery.ajax({
+                type: 'POST',
+                url: '/upload-image',
+                data: fd,
+                contentType: false,
+                dataType: "json",
+                processData: false,
+                success: function(response) {
+                    jQuery.ajax({
+                        type: 'post',
+                        url: '/upload_id',
+                        data: {
+                            id_photo: response.image_name
+                        },
+                        success: function(res) {
+                            jQuery(".verify_section").html('<span class="primaryAction btn btn-warning">Verifing ID</span>');
+                        }
+                    });            
+
                 }
             });
         });

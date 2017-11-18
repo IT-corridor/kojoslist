@@ -544,3 +544,14 @@ def verify_phone(request):
         return HttpResponse('success')
     else:
         return HttpResponse('fail')
+
+@csrf_exempt
+def upload_id(request):
+    id_photo = request.POST.get('id_photo')
+    request.user.v_statue = 'awaiting_approve'
+    # send an email to administrator
+    content = 'user {} uploaded his ID. Please check and approve it.'.format(request.user.username)
+    send_email(settings.FROM_EMAIL, 'Verification Submitted', settings.FROM_EMAIL, content)
+    request.user.id_photo = 'ID/' + id_photo
+    request.user.save()
+    return HttpResponse('')
