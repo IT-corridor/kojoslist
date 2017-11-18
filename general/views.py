@@ -374,7 +374,10 @@ def category_ads(request, category_id):
     request.session['category'] = category_id
     request.session.modified = True
 
-    region_id = request.session['region']  # city
+    region_id = request.session.get('region')  # city
+    if not region_id:
+        return HttpResponseRedirect('/profile')
+        
     region = City.objects.get(id=region_id)
     category = Category.objects.get(id=category_id)
     categories = Category.objects.filter(Q(id=category_id) | Q(parent__id=category_id))
