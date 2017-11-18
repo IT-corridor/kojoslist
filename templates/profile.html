@@ -176,7 +176,7 @@
         console.log(state);
         console.log(isState);
         console.log(city);
-        
+
         breadcrumb();
         showRegions();
 
@@ -285,6 +285,7 @@
                         click: function() {
                             var key = this.key;
                             var mapname;
+                            console.log(key+'####');
 
                             state = '';
                             mapname = mapName;
@@ -293,7 +294,7 @@
                             findState();
 
                             if (state) { // available data for highcharts
-                                location.hash = mapName;
+                                location.hash = mapName + '@' + state;
                                 loadMap();
                             } else {
                                 mapName = mapname;
