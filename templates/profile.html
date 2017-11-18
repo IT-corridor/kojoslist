@@ -139,6 +139,10 @@
     var mapName = 'custom/world';
     var sec_name, isState;
 
+    if (!location.hash) {
+        location.hash = '{{ user.default_site }}';
+    }
+
     analyseHash();
     loadMap();
 
