@@ -213,7 +213,8 @@
             data: {
                 mapName: mapName,
                 state: state,
-                is_state: isState
+                is_state: isState,
+                city: city
             },
             success: function(res) {
                 $('#title_of_list').html(res.title);
@@ -293,10 +294,15 @@
                             isState = false;
                             findState();
 
-                            if (state) { // available data for highcharts
-                                location.hash = mapName + '@' + state;
+                            if (state) {    // available data for country or state
+                                if (key.length == 2) {   // country
+                                    location.hash = mapName;
+                                } else {                 // state
+                                    location.hash = mapName + '@' + state;
+                                }
+
                                 loadMap();
-                            } else {
+                            } else {        // no data
                                 mapName = mapname;
                             }
                         }
@@ -353,20 +359,21 @@
         var city_name = $(this).text();
         city = $(this).data('id');
         location.hash = location.hash.substring(1) + '@' + city;
-
-        jQuery.ajax({
-            type: 'get',
-            url: '/get_category_by_location_id',
-            data: {
-                city: city
-            },
-            success: function(data) {
-                $('#title_of_list').html('Select Category');
-                $('.content-select-country').html(data);
-                $('.btn-view-all').attr('href', '/region-ads/ct/'+city);
-                $('.breadcrumb').append('<span class="breadcrumb-item city-brcm" href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i>'+city_name+'</span>');
-            }
-        });
+        loadMap();
+        
+        // jQuery.ajax({
+        //     type: 'get',
+        //     url: '/get_category_by_location_id',
+        //     data: {
+        //         city: city
+        //     },
+        //     success: function(data) {
+        //         $('#title_of_list').html('Select Category');
+        //         $('.content-select-country').html(data);
+        //         $('.btn-view-all').attr('href', '/region-ads/ct/'+city);
+        //         $('.breadcrumb').append('<span class="breadcrumb-item city-brcm" href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i>'+city_name+'</span>');
+        //     }
+        // });
     });    
 
     $("body").on('click', '.region_id', function() {

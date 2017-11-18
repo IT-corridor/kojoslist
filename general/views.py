@@ -122,19 +122,38 @@ def get_regions(request):
     """
     mapName = request.GET.get('mapName')
     state = request.GET.get('state').replace('%27', "'") \
-                                          .replace('%20', " ")
+                                    .replace('%20', " ")
     is_state = request.GET.get('is_state')
+    city = request.GET.get('city')
 
     if request.user.is_authenticated():
         # store last location
-        loc = mapName + '@' + state if is_state == 'true' else mapName
+        loc = mapName
+        if is_state == 'true':
+            loc += '@' + state 
+        if city:
+            loc += '@' + city
         request.user.default_site = loc
         request.user.save()
 
     kind = mapName.count('-')
     request.session['category'] = ''
 
-    if kind == 2 or is_state == 'true': # - city
+    if city:
+        title = 'Select Category'
+        link = '/region-ads/ct/{}'.format(city)
+        request.session['region'] =  city
+        request.session['region_kind'] = 'city'
+
+        result = []
+        for column in range(1, 7):
+            _result = []
+            for mc in Category.objects.filter(parent__isnull=True, column=column):
+                cc = Category.objects.filter(parent=mc)
+                _result += [(mc, cc)]
+            result += [_result]
+        html = render_to_string('_category.html', {'categories': result})            
+    elif kind == 2 or is_state == 'true': # - city
         country = mapName.split('/')[1].upper()
         state = State.objects.filter(name=state, country__sortname=country).first()
         title = 'Select City'
@@ -185,7 +204,7 @@ def get_regions(request):
 
     return JsonResponse(result, safe=False)
 
-def get_category_by_location_id(request):
+def get_category_by_location_id(request, ajax=True):
     city = request.GET.get('city')  # not used
     request.session['region'] = city
     request.session['region_kind'] = 'city'
