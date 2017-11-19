@@ -122,7 +122,7 @@
                 </div>
                 <div id="balance" class="tab-pane fade">
                     <div class="pages balance verify_section">
-                        {% if user.v_statue == 'unverified' %}
+                        {% if not user.v_statue or user.v_statue == 'unverified' %}
                         <input id="ID_file" type="file" name="files[]" data-maxfilesize="4000000" class="hidden" data-maxuploadfile="20" data-imagequality="0.7">
                         <input type="hidden" name="uploded_id[]" class="uploded_id" />
                         <input type="hidden" name="avatar" class="uploded_id1" value="{{ form.avatar.value }}" />
