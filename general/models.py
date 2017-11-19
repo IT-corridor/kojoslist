@@ -12,6 +12,12 @@ from django.contrib.auth.models import AbstractUser
 from general.utils import send_email
 
 
+VSTATUS = (
+    ('unverified', 'Unverified'),
+    ('awaiting_approve', 'Awaiting Approve'),
+    ('approved', 'Approved')
+)
+
 class Customer(AbstractUser):
     avatar = models.CharField(max_length=100, default="default_avatar.png")
     phone = models.CharField(max_length=20, blank=True, null=True)
@@ -23,10 +29,10 @@ class Customer(AbstractUser):
     # cache location
     default_site = models.CharField(max_length=100, blank=True, null=True)
     duration = models.CharField(max_length=100, blank=True, null=True)
-    v_statue = models.CharField(max_length=50)
+    v_statue = models.CharField(max_length=50, choices=VSTATUS, default='unverified')
     id_photo = models.ImageField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    
+
     def __str__(self):
         return self.username
 
