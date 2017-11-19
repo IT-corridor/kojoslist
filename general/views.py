@@ -86,25 +86,25 @@ def breadcrumb(request):
     city = request.GET.get('city')
     kind = mapName.count('-')
 
-    html = '<a class="breadcrumb-item" href="#" data-mapname="custom/world">worldwide</a>'
+    html = '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>'
 
     if city:
         city = City.objects.get(id=city)
         mapname = 'countries/{0}/{0}-all'.format(city.state.country.sortname.lower())
         html += """
-            <a class="breadcrumb-item country-brcm" href="#" data-mapname="{}">
+            <a class="breadcrumb-item country-brcm" href="javascript:void();" data-mapname="{}">
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
             </a>        
         """.format(mapname, city.state.country.name)
         mapname += '@' + city.state.name
         html += """
-            <a class="breadcrumb-item state-brcm" href="#" data-mapname="{}">
+            <a class="breadcrumb-item state-brcm" href="javascript:void();" data-mapname="{}">
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
             </a>        
         """.format(mapname, city.state.name)
         mapname += '@' + str(city.id)
         html += """
-            <a class="breadcrumb-item city-brcm" href="#" data-mapname="{}">
+            <a class="breadcrumb-item city-brcm" href="javascript:void();" data-mapname="{}">
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
             </a>        
         """.format(mapname, city.name)
@@ -114,13 +114,13 @@ def breadcrumb(request):
         state = State.objects.filter(name=state, country__sortname=country).first()
         cmapname = 'countries/{0}/{0}-all'.format(state.country.sortname.lower())
         html += """
-            <a class="breadcrumb-item country-brcm" href="#" data-mapname="{}">
+            <a class="breadcrumb-item country-brcm" href="javascript:void();" data-mapname="{}">
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
             </a>        
         """.format(cmapname, state.country.name)
         mapname = mapName if '@' in mapName else mapName + '@' + state.name
         html += """
-            <a class="breadcrumb-item state-brcm" href="#" data-mapname="{}">
+            <a class="breadcrumb-item state-brcm" href="javascript:void();" data-mapname="{}">
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
             </a>        
         """.format(mapname, state.name)
@@ -128,7 +128,7 @@ def breadcrumb(request):
         country = mapName.split('/')[1].upper()
         country = Country.objects.filter(sortname=country).first()
         html += """
-            <a class="breadcrumb-item country-brcm" href="#" data-mapname="{}">
+            <a class="breadcrumb-item country-brcm" href="javascript:void();" data-mapname="{}">
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
             </a>        
         """.format(mapName, country.name)
@@ -187,7 +187,7 @@ def get_regions(request):
         html = ''
         rs = City.objects.filter(state=state)
         for ii in rs:
-            html += '<li><a href="#" class="get_category_by_location" data-id="{1}">{0}</a></li>'.format(ii.name, ii.id)
+            html += '<li><a href="javascript:void();" class="get_category_by_location" data-id="{1}">{0}</a></li>'.format(ii.name, ii.id)
         if html:
             html = '<ul class="city-list list">' + html + '</ul>'
         else:
@@ -201,7 +201,7 @@ def get_regions(request):
         html = ''
         rs = Country.objects.all()
         for ii in rs:
-            html += '<li data-id="{}"><a href="#">{}</a></li>'.format(ii.sortname.lower(), ii.name)
+            html += '<li data-id="{}"><a href="javascript:void();">{}</a></li>'.format(ii.sortname.lower(), ii.name)
         html = '<ul class="country-list">' + html + '</ul>'
     elif kind == 1: # state
         country = mapName.split('/')[1].upper()
@@ -214,7 +214,7 @@ def get_regions(request):
         html = ''
         rs = State.objects.filter(country=country)
         for ii in rs:
-            html += '<li data-id="{0}" class="region_id"><a href="#">{0}</a></li>'.format(ii.name)
+            html += '<li data-id="{0}" class="region_id"><a href="javascript:void();">{0}</a></li>'.format(ii.name)
         html = '<ul class="state-list list">' + html + '</ul>'
 
     request.session.modified = True
@@ -408,7 +408,7 @@ def category_ads(request, category_id):
     categories = Category.objects.filter(Q(id=category_id) | Q(parent__id=category_id))
     posts = Post.objects.filter(region=region, category__in=categories).exclude(status='deactive')
     posts = get_posts_with_image(posts)
-    breadcrumb = request.session.get('breadcrumb', '<a class="breadcrumb-item" href="#" data-mapname="custom/world">worldwide</a>')
+    breadcrumb = request.session.get('breadcrumb', '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>')
 
     return render(request, 'ads-list.html', {
         'posts': posts,
@@ -459,7 +459,7 @@ def region_ads(request, region_id, region):
         posts = Post.objects.all()
 
     posts = get_posts_with_image(posts.exclude(status='deactive'))
-    breadcrumb = request.session.get('breadcrumb', '<a class="breadcrumb-item" href="#" data-mapname="custom/world">worldwide</a>')
+    breadcrumb = request.session.get('breadcrumb', '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>')
 
     return render(request, 'ads-list.html', {
         'posts': posts,
