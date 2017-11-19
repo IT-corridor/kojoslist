@@ -262,7 +262,7 @@ def post_ads(request, ads_id):
                         city = loc[2]   # city id
                         post['region_id'] = int(city)
 
-        print post, mcategories
+        # print post, mcategories
         return render(request, 'post_ads.html', {
             'mcategories': mcategories,
             'countries': countries,
@@ -554,7 +554,7 @@ def my_account(request):
 def send_vcode(request):
     phone = request.POST.get('phone')
     vcode = randint(100000, 999999)
-    print vcode, '###'
+    # print vcode, '###'
     body = "{} is your Globalboard verification code.".format(vcode)
     result = send_SMS(phone, body)
 

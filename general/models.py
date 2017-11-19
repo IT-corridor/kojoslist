@@ -176,19 +176,19 @@ def delete_image_file(sender, instance, using, **kwargs):
 @receiver(post_save, sender=SaleGarage)
 def apply_subscribe(sender, instance, **kwargs):    
     try:
-        for ss in Search.objects.all().exclue(owner=instance.owner):
+        for ss in Search.objects.all().exclude(owner=instance.owner):
             if not ss.keyword or ss.keyword.lower() in instance.title.lower() or ss.keyword.lower() in instance.content.lower():
                 if ss.city == instance.region or ss.state == instance.region.state:
                     if ss.category == instance.category or ss.category == instance.category.parent:
                         content = """
-                            1 new result for all posts as of {}<br><br>
-                            <a href="/ads/{}">{}</a><br><br>
-                            <a href="/my-subscribe">Review all saved searches.</a><br><br>
-                            Thank you for using <a href="/">Globalboard</a>.                         
+                            1 new result for your subscriptions as of {}<br><br>
+                            <a href="http://18.216.225.192/ads/{}">{}</a><br><br>
+                            <a href="http://18.216.225.192/my-subscribe">Review all saved searches.</a><br><br>
+                            Thank you for using <a href="http://18.216.225.192/">Globalboard</a>.                         
                         """.format(str(instance.created_at), instance.id, instance.title)
                         send_email(settings.FROM_EMAIL, 'Globalboard Subscripttion', ss.owner.email, content)
-    except Exception:
-        pass
+    except Exception, e:
+        print e, '@@@@@@@@@'
 
 class Favourite(models.Model):
     owner =  models.ForeignKey(Customer, related_name="favourites")
