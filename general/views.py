@@ -86,7 +86,7 @@ def breadcrumb(request):
     city = request.GET.get('city')
     kind = mapName.count('-')
 
-    html = '<a class="breadcrumb-item" href="/profile/" data-mapname="custom/world">worldwide</a>'
+    html = '<a class="breadcrumb-item" href="#" data-mapname="custom/world">worldwide</a>'
 
     if city:
         city = City.objects.get(id=city)
@@ -102,7 +102,7 @@ def breadcrumb(request):
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
             </a>        
         """.format(mapname, city.state.name)
-        mapname += '@' + city.name
+        mapname += '@' + str(city.id)
         html += """
             <a class="breadcrumb-item city-brcm" href="#" data-mapname="{}">
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
@@ -425,7 +425,7 @@ def category_ads(request, category_id):
     categories = Category.objects.filter(Q(id=category_id) | Q(parent__id=category_id))
     posts = Post.objects.filter(region=region, category__in=categories).exclude(status='deactive')
     posts = get_posts_with_image(posts)
-    breadcrumb = request.session.get('breadcrumb', '<a class="breadcrumb-item" href="/profile/" data-mapname="custom/world">worldwide</a>')
+    breadcrumb = request.session.get('breadcrumb', '<a class="breadcrumb-item" href="#" data-mapname="custom/world">worldwide</a>')
 
     return render(request, 'ads-list.html', {
         'posts': posts,
@@ -476,7 +476,7 @@ def region_ads(request, region_id, region):
         posts = Post.objects.all()
 
     posts = get_posts_with_image(posts.exclude(status='deactive'))
-    breadcrumb = request.session.get('breadcrumb', '<a class="breadcrumb-item" href="/profile/" data-mapname="custom/world">worldwide</a>')
+    breadcrumb = request.session.get('breadcrumb', '<a class="breadcrumb-item" href="#" data-mapname="custom/world">worldwide</a>')
 
     return render(request, 'ads-list.html', {
         'posts': posts,
