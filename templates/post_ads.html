@@ -19,7 +19,7 @@
 
                                 <div class="category-select-wrap-full">
                                     <select id="ads_category" name="ads_category" class="form-control edit-post-wrap category-select-wrap" required>
-                                        {% if post %}
+                                        {% if post.id %}
                                             <option value="{{ post.category.parent.id }}"> {{ post.category.parent.name }} </option>
                                         {% else %}
                                             <option value=""> Select Ad Category </option>
@@ -35,7 +35,7 @@
                             <div class="form-group edit-profile">
                                 <label>Ad Sub Category</label>
                                 <select id="ads_sub_category" name="category" class="form-control edit-post-wrap" required>
-                                    {% if post %}
+                                    {% if post.id %}
                                         <option value="{{ post.category_id }}"> {{ post.category.name }} </option>
                                     {% else %}
                                         <option>Select Sub Category</option>
@@ -51,7 +51,7 @@
                                 <select id="ads_country" name="ads_country" class="form-control edit-post-wrap" required>
                                     <option value="">Select Country</option>
                                     {% for cc in countries %}
-                                    <option value="{{ cc.id }}" {% if cc.id == post.region.state.country_id %}selected{% endif %}>{{ cc.name }}</option>
+                                    <option value="{{ cc.id }}" {% if cc.id == post.region.state.country_id or cc.sortname == post.country %}selected{% endif %}>{{ cc.name }}</option>
                                     {% endfor %}                                    
                                 </select>
                             </div>
@@ -64,7 +64,7 @@
                                 <select id="ads_state" name="ads_state" class="form-control edit-post-wrap" required>
                                     <option>Select Region</option>
                                     {% for cc in states %}
-                                    <option value="{{ cc.id }}" {% if cc.id == post.region.state_id %}selected{% endif %}>{{ cc.name }}</option>
+                                    <option value="{{ cc.id }}" {% if cc.id == post.region.state_id or cc.name == post.state %}selected{% endif %}>{{ cc.name }}</option>
                                     {% endfor %}                                    
 
                                 </select>

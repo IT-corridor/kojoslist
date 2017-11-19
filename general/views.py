@@ -242,12 +242,27 @@ def post_ads(request, ads_id):
             images = Image.objects.filter(post=post)
             detail_template = 'post/{}.html'.format(post.category.form)
         else:
-            post = None
+            post = {}       # just for form
             states = None
             cities = None
             images = None
             detail_template = 'post/Post.html'
 
+            if request.user.default_site:
+                country = request.user.default_site.split('/')[1].upper()
+                post['country'] = country       # country sortname
+                states = State.objects.filter(country__sortname=country)
+                loc = request.user.default_site.split('@')
+                if len(loc) > 1:
+                    state = loc[1]  # state name
+                    post['state'] = state
+                    cities = City.objects.filter(state__name=state)
+
+                    if len(loc) > 2:
+                        city = loc[2]   # city id
+                        post['region_id'] = int(city)
+
+        print post, mcategories
         return render(request, 'post_ads.html', {
             'mcategories': mcategories,
             'countries': countries,
