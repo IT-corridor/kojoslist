@@ -227,20 +227,6 @@ def get_regions(request):
 
     return JsonResponse(result, safe=False)
 
-def get_category_by_location_id(request, ajax=True):
-    # city = request.GET.get('city')  # not used
-    # request.session['region'] = city
-    # request.session['region_kind'] = 'city'
-
-    # result = []
-    # for column in range(1, 7):
-    #     _result = []
-    #     for mc in Category.objects.filter(parent__isnull=True, column=column):
-    #         cc = Category.objects.filter(parent=mc)
-    #         _result += [(mc, cc)]
-    #     result += [_result]
-    return render(request, '_category.html', {'categories': result})
-
 @login_required(login_url='/accounts/login')
 def post_ads(request, ads_id):
     if request.method == 'GET':
@@ -303,24 +289,6 @@ def post_ads(request, ads_id):
 
         print(form.errors, '$$$$$$$$')
         return HttpResponseRedirect(reverse('my-ads'))
-
-@csrf_exempt
-def auth_process(request):
-    unique_id = request.POST.get('unique_id')
-    action = request.POST.get('action')
-
-    if action == 'userpro_process_form':
-        username = request.POST.get('username_or_email-'+unique_id)
-        passwd = request.POST.get('user_pass-'+unique_id)
-
-        user = authenticate(username=username, password=passwd)
-        if user:
-            res = {"error":"","redirect_uri":"/profile/"}
-            login(request, user)
-        else:
-            res = {"error":{"user_pass":"The password you entered is incorrect"}}
-
-        return JsonResponse(res, safe=False)
 
 def ulogout(request):
     logout(request)

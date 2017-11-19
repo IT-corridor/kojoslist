@@ -49,7 +49,6 @@ urlpatterns += [
     url(r"^region-ads/ct/(?P<region_id>\d+)", region_ads, {'region': 'city'}, name="city-ads"),
     url(r"^region-ads/wd/(?P<region_id>\d*)", region_ads, {'region': 'world'}, name="world-ads"),
     url(r"^get_regions", get_regions, name="get_regions"),
-    url(r"^auth_process", auth_process, name="auth_process"),   
     url(r"^verify_phone", verify_phone, name="verify_phone"),   
     url(r"^send_vcode", send_vcode, name="send_vcode"),   
     url(r"^upload_id", upload_id, name="upload_id"),   
@@ -58,5 +57,4 @@ urlpatterns += [
     url(r"^send_reply_email", send_reply_email, name="send_reply_email"),        
     url(r"^create-subscribe", create_subscribe, name="create-subscribe"),        
     url(r"^remove-subscribe", remove_subscribe, name="remove-subscribe"),        
-    url(r"^get_category_by_location_id", get_category_by_location_id, name="get_category_by_location_id"),    
 ]
