@@ -554,7 +554,7 @@ def my_account(request):
 def send_vcode(request):
     phone = request.POST.get('phone')
     vcode = randint(100000, 999999)
-    # print vcode, '###'
+    print vcode, '###'
     body = "{} is your Globalboard verification code.".format(vcode)
     result = send_SMS(phone, body)
 
