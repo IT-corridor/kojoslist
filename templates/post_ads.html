@@ -138,6 +138,7 @@
                             </div>
 
                         </div>
+                        <input type="hidden" name="stripeToken" id="stripe_token">
                         <div class="col-md-12">
                             <div class="edit-profile">
                                 <div class="userpro-column">
@@ -161,7 +162,7 @@
                             </div>        
 
                             <div class="form-group edit-profile">
-                                <input type="submit" class="btn btn-info update-btn" value="Submit" />
+                                <input type="submit" class="btn btn-info update-btn" value="Submit" disabled="" />
                                 <input class="btn btn-info post-add-btn-cancel" id="cancel" value="cancel" type="button">
                             </div>
                         </div>
@@ -185,14 +186,14 @@
         locale: 'auto',
         token: function(token) {
             $('#stripe_token').val(token.id);
-            $("#order_form").submit();
+            $("input.update-btn").removeAttr('disabled');
         }
     });
 
     $('#customButton').on('click', function(e) {
         handler.open({
-            name: "Seller: Globalboard",
-            description: "Purchase a item",
+            name: "Globalboard",
+            description: "Post Ads",
             currency: "usd",
             amount: 1000
         });
