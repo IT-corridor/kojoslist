@@ -67,6 +67,11 @@
                                 <!-- Header User Section -->
                                 <div class="header-user-section clearfix">
                                 {% if user.is_authenticated %}
+                                    <div class="header-user-section-welcome">
+                                        <a href="/logout">
+                                            <i style="margin: 0px 12px; font-size: 18px; color: #aaa;" class="fa fa-sign-out" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
                                     <div class="header-user-section-ico">
                                         <a href="/my-account"><img src="/static/media/avatar/{{ user.avatar }}" alt=""></a>
                                     </div>
@@ -77,6 +82,12 @@
                                     </div>
                                     <div class="header-user-section-welcome">
                                         Welcome, {{ user.username }}!
+                                    </div>
+                                {% else %}
+                                    <div class="header-user-section-welcome" style="margin: 0px 12px; font-size: 18px; color: #aaa;">
+                                        <a href="/accounts/login">
+                                            <i style="margin: 0px 12px; font-size: 18px; color: #aaa;" class="fa fa-sign-in" aria-hidden="true"></i>
+                                        </a>
                                     </div>
                                 {% endif %}
                                 </div>
