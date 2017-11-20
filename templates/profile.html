@@ -154,7 +154,7 @@
 
     // redirect to last loc for /profile
     if (!location.hash) 
-        location.hash = '{{ user.default_site }}';
+        location.hash = '{% if user.default_site %}{{ user.default_site }}{% endif %}';
 
     analyseHash();
     loadMap();
