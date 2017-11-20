@@ -6,7 +6,9 @@
 
 You're receiving this email from Global Board to verify your email address.
 
-Click link to confirm. <br> {{ activate_url }}
+Click link to confirm. 
+
+{{ activate_url }}
 {% endblocktrans %}
 {% endautoescape %}
 
