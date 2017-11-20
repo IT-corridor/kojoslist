@@ -180,13 +180,15 @@ def apply_subscribe(sender, instance, **kwargs):
             if not ss.keyword or ss.keyword.lower() in instance.title.lower() or ss.keyword.lower() in instance.content.lower():
                 if ss.city == instance.region or ss.state == instance.region.state:
                     if ss.category == instance.category or ss.category == instance.category.parent:
+                        subscription_info = ''
+
                         content = """
-                            1 new result for your subscriptions as of {}<br><br>
+                            1 new result for your subscription ( {} ) as of {}<br><br>
                             <a href="http://18.216.225.192/ads/{}">{}</a><br><br>
                             <a href="http://18.216.225.192/my-subscribe">Review all saved searches.</a><br><br>
                             Thank you for using <a href="http://18.216.225.192/">Globalboard</a>.                         
-                        """.format(str(instance.created_at), instance.id, instance.title)
-                        send_email(settings.FROM_EMAIL, 'Globalboard Subscripttion', ss.owner.email, content)
+                        """.format(ss.category.name, str(instance.created_at), instance.id, instance.title)
+                        send_email(settings.FROM_EMAIL, 'Globalboard Subscription Alarm', ss.owner.email, content)
     except Exception, e:
         print e, '@@@@@@@@@'
 

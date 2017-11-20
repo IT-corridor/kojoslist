@@ -19,7 +19,17 @@ div.sub-category a {
 }
 
 div.sub-category {
-	margin-bottom: 250px;
+    margin-bottom: 20px;
+}
+
+.category.row2 {
+    position: absolute;
+    top: 600px;
+}
+
+.sub-category.row2 {
+    position: absolute;
+    top: 624px;
 }
 
 .close_img{
