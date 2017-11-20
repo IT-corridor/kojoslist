@@ -270,7 +270,8 @@ def post_ads(request, ads_id):
             'cities': cities,
             'images': images,
             'post': post,
-            'detail_template': detail_template
+            'detail_template': detail_template,
+            'skey': settings.STRIPE_KEYS['PUBLIC_KEY']
         })
     else:
         form_name = request.POST.get('ads_form') + 'Form'
