@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import os
 import json
+import stripe
 
 from random import randint
 
@@ -27,7 +28,7 @@ from general.forms import *
 from general.utils import send_email, send_SMS
 
 get_class = lambda x: globals()[x]
-
+stripe.api_key = settings.STRIPE_KEYS['API_KEY']
 
 def home(request):
     rndr_str = globoard_display_world_countries()
@@ -303,6 +304,19 @@ def post_ads(request, ads_id):
                     pass
                 Image.objects.filter(name=img).delete()
 
+
+            price = int(post.category.price * 100)
+            card = request.POST.get('stripeToken')
+            if price and card:
+                try:
+                    stripe.Charge.create(
+                        amount=price,
+                        currency="usd",
+                        source=card, # obtained with Stripe.js
+                        description="Charge for Post(#{} - {})".format(post.id, post.title)
+                    )
+                except Exception, e:
+                    print e, 'stripe error ##'
         print(form.errors, '$$$$$$$$')
         return HttpResponseRedirect(reverse('my-ads'))
 

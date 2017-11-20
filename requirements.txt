@@ -3,3 +3,4 @@ Pillow
 sendgrid
 django-allauth
 twilio
+stripe
