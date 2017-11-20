@@ -592,3 +592,6 @@ def upload_id(request):
     request.user.id_photo = 'ID/' + id_photo
     request.user.save()
     return HttpResponse('')
+
+def confirm_phone(request):
+    return render(request, 'account/phone_confirm.html')

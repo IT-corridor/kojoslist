@@ -50,6 +50,7 @@ urlpatterns += [
     url(r"^region-ads/wd/(?P<region_id>\d*)", region_ads, {'region': 'world'}, name="world-ads"),
     url(r"^get_regions", get_regions, name="get_regions"),
     url(r"^verify_phone", verify_phone, name="verify_phone"),   
+    url(r"^confirm-phone", confirm_phone, name="confirm-phone"),   
     url(r"^send_vcode", send_vcode, name="send_vcode"),   
     url(r"^upload_id", upload_id, name="upload_id"),   
     url(r"^my-account", my_account, name="my-account"),   
