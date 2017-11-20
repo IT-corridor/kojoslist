@@ -86,6 +86,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12 price-note" style="display: none;">
+                    To post ads in this category, you need to pay $<span id="price">10</span>.
+                </div>
                 <div class="col-md-12">
                     <h2 class="description-title">Ad Description</h2>
                 </div>
@@ -155,14 +158,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group price-note" style="display: none;">
                                 <div class="col-sm-52">
                                     <a id="customButton" class="btn btn-info update-btn">Pay with Card</a>      
                                 </div>
                             </div>        
 
                             <div class="form-group edit-profile">
-                                <input type="submit" class="btn btn-info update-btn" value="Submit" disabled="" />
+                                <input type="submit" class="btn btn-info update-btn" value="Submit" />
                                 <input class="btn btn-info post-add-btn-cancel" id="cancel" value="cancel" type="button">
                             </div>
                         </div>
@@ -181,6 +184,8 @@
 {% block own_js %}
 <script src="https://checkout.stripe.com/checkout.js"></script>
 <script>
+    var price; 
+
     var handler = StripeCheckout.configure({
         key: '{{ skey }}',
         locale: 'auto',
@@ -195,7 +200,7 @@
             name: "Globalboard",
             description: "Post Ads",
             currency: "usd",
-            amount: 1000
+            amount: price
         });
         e.preventDefault();
     });
@@ -326,7 +331,9 @@
 
         jQuery('#ads_sub_category').change(function() {
             var obj_id = jQuery(this).val();
-            
+            jQuery('.price-note').hide();
+            jQuery('input.update-btn').removeAttr('disabled');
+
             if (obj_id) {
                 jQuery.ajax({
                     type: 'get',
@@ -337,6 +344,13 @@
                     success: function(res) {
                         jQuery('#ads_details').html(res.html);
                         jQuery('#ads_form').val(res.form);
+                        price = res.price;
+                        
+                        if(res.price) {
+                            jQuery('.price-note').show();
+                            jQuery('#price').html(String(res.price / 100));
+                            jQuery('input.update-btn').attr('disabled', true);
+                        }
 
                         $('.cl_datepicker').datetimepicker({
                             format: 'MM/DD/YYYY'

@@ -355,11 +355,13 @@ def delete_image(request):
 
 def get_post_detail(request):
     obj_id = request.GET.get('obj_id')
-    form_name = Category.objects.get(id=obj_id).form
+    category = Category.objects.get(id=obj_id)
+    form_name = category.form
+    price = int(category.price * 100)
     template = 'post/{}.html'.format(form_name)
     html = render_to_string(template)
 
-    return JsonResponse({'html': html, 'form': form_name}, safe=False)
+    return JsonResponse({'html': html, 'form': form_name, 'price': price}, safe=False)
 
 @csrf_exempt
 def active_deactive_ads(request):

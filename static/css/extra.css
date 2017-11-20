@@ -284,3 +284,10 @@ input.verify_code {
     margin: 8px;    
     margin-left: 0;
 }
+
+.price-note {
+    color: #5bc0de;
+    font-weight: 500;
+    font-size: 18px;
+    margin: 20px 0;
+}
