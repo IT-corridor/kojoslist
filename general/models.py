@@ -208,3 +208,34 @@ class Hidden(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.owner.first_name, self.post.title)
 
+
+class Perk(models.Model):
+    title = models.CharField(max_length=200)
+    campaign = models.ForeignKey("Campaign")
+    price = models.FloatField()
+    retail = models.FloatField()
+    description = models.TextField()
+
+    def __str__(self):
+        return '{} - {}'.format(self.campaign.title, self.title)
+
+
+class Video(models.Model):
+    campaign = models.ForeignKey("Campaign")
+    name = models.CharField(max_length=200)
+
+    
+class Campaign(models.Model):
+    title = models.CharField(max_length=200)
+    category = models.ForeignKey(Category)
+    budget = models.FloatField()
+    over_image = models.ImageField()
+    overview = models.TextField()
+    content = models.TextField()
+    stage = models.CharField(max_length=200)
+    duration = models.IntegerField()
+    tags = models.CharField(max_length=200)
+    location = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.title
