@@ -14,6 +14,7 @@
             <ul class="nav nav-pills tabs">
                 <li class="active"><a class="tab" data-toggle="pill" href="#profile">Profile</a></li>
                 <li class=""><a class="tab" data-toggle="pill" href="#balance">ID Verification</a></li>
+                <li class=""><a class="tab" data-toggle="pill" href="#resume">Resume</a></li>
             </ul>
             <div class="tab-content">
                 <div id="profile" class="tab-pane fade active in">
@@ -142,7 +143,17 @@
                         <span class="primaryAction btn btn-success">Verified</span>
                         {% endif %}
                     </div>
-                </div>                
+                </div>       
+                <div id="resume" class="tab-pane fade">
+                    <div class="pages balance">
+                        <form action="#" method="post">
+                            <textarea name="user_status" class="form-control" rows="3"></textarea>
+                            <input type="hidden" name="action" value="setStatus"  />
+                            <input type="button" class="btn btn-info strong-btn" value="Submit"  />
+                        </form>
+                        <span>Status : Normal placeholder</span>                    
+                    </div>
+                </div>                         
             </div>
         </div>      
 
