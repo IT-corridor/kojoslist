@@ -223,18 +223,10 @@ class Perk(models.Model):
         return '{} - {}'.format(self.campaign.title, self.title)
 
 
-class Video(models.Model):
-    campaign = models.ForeignKey("Campaign")
-    name = models.CharField(max_length=200)
-
-
 class CampCategory(models.Model):
     parent = models.ForeignKey("CampCategory", blank=True, null=True)
     name = models.CharField(max_length=50)
-    # columns = models.IntegerField(default=1)
     column = models.IntegerField(default=1)
-    # form = models.CharField(max_length=50, default='Post')
-    # price = models.FloatField(default=0)
 
     def __str__(self):
         return self.name
@@ -262,6 +254,7 @@ class Campaign(models.Model):
     duration = models.IntegerField()
     tagline = models.CharField(max_length=200)
     location = models.CharField(max_length=200)
-
+    videos = models.TextField(blank=True, null=True)
+    
     def __str__(self):
         return self.title

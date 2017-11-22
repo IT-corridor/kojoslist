@@ -95,9 +95,16 @@
                                 </textarea>
                             </div>
 
-                            <div id="ads_details">
+                            <div class="form-group edit-profile m-t-15">
+                                <label class=" edit-profile">Video URL (Youtube or Vimeo)</label>
+                                <input type="url" name="duration" class="edit-post-wrap col-md-10 col-xs-12" value="{{ post.title }}" placeholder="www.youtube.com/wa=zKkUN-mJQ" required style="margin-top: -8px;" />
+                                <button class="btn btn-danger col-md-2 col-xs-12"> Add Video </button>
                             </div>
-                            <input type="hidden" id="ads_form" name="ads_form" value="{{ post.category.form }}">
+
+                            <div id="ads_details">
+                            <iframe src="https://www.youtube.com/embed/zKkUN-mJtPQ" class="col-md-8 no-padding" height="350" frameborder="0" allowfullscreen="allowfullscreen" id="player_4"></iframe>
+                            </div>
+
                             <input type="hidden" name="owner" value="{{ user.id }}">
                             <div class="form-group edit-profile">
                                 <ul id="loaded-files" class="upload-image-thumbs upload-image-ul">
@@ -123,7 +130,6 @@
                             </div>
 
                         </div>
-                        <input type="hidden" name="stripeToken" id="stripe_token">
                         <div class="col-md-12">
                             <div class="edit-profile">
                                 <div class="userpro-column">
@@ -165,188 +171,10 @@
 
 {% block own_js %}
 <script src="/static/tinymce/tinymce.min.js"></script>
-<script src="https://checkout.stripe.com/checkout.js"></script>
 <script>
-    var price; 
-
-    var handler = StripeCheckout.configure({
-        key: '{{ skey }}',
-        locale: 'auto',
-        token: function(token) {
-            $('#stripe_token').val(token.id);
-            $("input.update-btn").removeAttr('disabled');
-        }
-    });
-
-    $('#customButton').on('click', function(e) {
-        handler.open({
-            name: "Globalboard",
-            description: "Post Ads",
-            currency: "usd",
-            amount: price
-        });
-        e.preventDefault();
-    });
-
-    // Close Checkout on page navigation:
-    $(window).on('popstate', function() {
-        handler.close();
-    });
-
     jQuery(document).ready(function() {
-        jQuery('#ads_category').change(function() {
-            var obj_id = jQuery(this).val();
-            
-            if (obj_id) {
-                jQuery.ajax({
-                    type: 'get',
-                    url: '/get_sub_info',
-                    data: {
-                        obj_id: obj_id,
-                        type: 'category'
-                    },
-                    success: function(data) {
-                        jQuery('#ads_sub_category').html(data);
-                    }
-                });                
-            } else {
-                jQuery('#ads_sub_category').html("<option>All Sub Categories</option>");
-            }
-        });
-
-        jQuery('#ads_country').change(function() {
-            var obj_id = jQuery(this).val();
-            
-            if (obj_id) {
-                jQuery.ajax({
-                    type: 'get',
-                    url: '/get_sub_info',
-                    data: {
-                        obj_id: obj_id,
-                        type: 'state'
-                    },
-                    success: function(data) {
-                        jQuery('#ads_state').html(data);
-                    }
-                });                
-            } else {
-                jQuery('#ads_state').html("<option>All Regions</option>");
-            }
-            jQuery('#ads_city').html("<option>All Locations</option>");
-        });
-
-        jQuery('#ads_state').change(function() {
-            var obj_id = jQuery(this).val();
-            
-            if (obj_id) {
-                jQuery.ajax({
-                    type: 'get',
-                    url: '/get_sub_info',
-                    data: {
-                        obj_id: obj_id,
-                        type: 'city'
-                    },
-                    success: function(data) {
-                        jQuery('#ads_city').html(data);
-                    }
-                });                
-            } else {
-                jQuery('#ads_city').html("<option>All Locations</option>");
-            }
-        });
-
-        window.liindex = 0;
-        jQuery("body").on("click", ".upload-image", function() {
-            window.liindex = jQuery(this).index();
-            jQuery("#inputfile").click();
-        });
-
-        jQuery("#inputfile").change(function() {
-            var fd = new FormData();
-            var file = this.files;
-            var count = file.length;
-            for (var i = 0; i < count; i++) {
-                if (fd) {
-                    fd.append("images", file[i]);
-                }
-                
-                jQuery("#loaded-files li").eq((i + window.liindex)).addClass("loader_img");
-                jQuery.ajax({
-                    type: 'POST',
-                    url: '/upload-image',
-                    data: fd,
-                    contentType: false,
-                    dataType: "json",
-                    processData: false,
-                    success: function(response) {
-                        jQuery("#loaded-files li").removeClass("loader_img");
-                        jQuery(".upload-image").find('input[class="uploded_id"]').val(response.image_name);
-                        var image = '<i class="fa fa-times close_img"></i><img class="image-responsive" src="' + response.image_url + '" >';
-                        jQuery(".upload-image .uploadedImg").html(image);
-                        jQuery(".upload-image").removeClass("upload-image");
-                        jQuery(".upload-image-ul").append('<li class="upload-placeholder upload-image"><div class="uploadedImg"></div><input type="hidden" name="uploded_id[]" class="uploded_id" /></li>');
-                    }
-                });
-            }
-        });
-
-        jQuery("body").on("click", ".close_img", function() {
-            var dataid = jQuery(this).parent().parent().find("input").attr("value");
-            jQuery(this).parent().parent().addClass('remove_uploded_img');
-
-            jQuery.ajax({
-                type: 'post',
-                url: '/delete-image',
-                dataType: 'json',
-                data: {
-                    image_name: dataid,
-                },
-                success: function(data) {
-                    jQuery(".remove_uploded_img").remove();                    
-                }
-            });
-
-        });
-
         $('#cancel').click(function() {
             window.location.href = '/my-ads/';
-        });
-
-        jQuery('#ads_sub_category').change(function() {
-            var obj_id = jQuery(this).val();
-            jQuery('.price-note').hide();
-            jQuery('input.update-btn').removeAttr('disabled');
-
-            if (obj_id) {
-                jQuery.ajax({
-                    type: 'get',
-                    url: '/get_post_detail',
-                    data: {
-                        obj_id: obj_id
-                    },
-                    success: function(res) {
-                        jQuery('#ads_details').html(res.html);
-                        jQuery('#ads_form').val(res.form);
-                        price = res.price;
-                        
-                        if(res.price) {
-                            jQuery('.price-note').show();
-                            jQuery('#price').html(String(res.price / 100));
-                            jQuery('input.update-btn').attr('disabled', true);
-                        }
-
-                        $('.cl_datepicker').datetimepicker({
-                            format: 'MM/DD/YYYY'
-                        });
-
-                        $('.cl_timepicker').datetimepicker({
-                            format: 'H:m'
-                        });
-                    }
-                });                
-            } else {
-                jQuery('#ads_details').html("");
-            }
         });
 
     }); 
@@ -387,6 +215,17 @@
           'save table contextmenu directionality emoticons template paste textcolor'
         ]
     });
+
+    function getId(url) {
+        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        var match = url.match(regExp);
+
+        if (match && match[2].length == 11) {
+            return match[2];
+        } else {
+            return 'error';
+        }
+    }    
 </script>
 
 {% endblock %}
