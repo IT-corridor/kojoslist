@@ -254,8 +254,9 @@ class Campaign(models.Model):
     duration = models.IntegerField()
     tagline = models.CharField(max_length=200)
     location = models.CharField(max_length=200)
+    # youtube video keys
     videos = models.TextField(blank=True, null=True)
     owner =  models.ForeignKey(Customer)
-        
+
     def __str__(self):
         return self.title
