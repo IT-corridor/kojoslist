@@ -255,6 +255,7 @@ class Campaign(models.Model):
     tagline = models.CharField(max_length=200)
     location = models.CharField(max_length=200)
     videos = models.TextField(blank=True, null=True)
-    
+    owner =  models.ForeignKey(Customer)
+        
     def __str__(self):
         return self.title

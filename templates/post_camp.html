@@ -97,38 +97,18 @@
 
                             <div class="form-group edit-profile m-t-15">
                                 <label class=" edit-profile">Video URL (Youtube or Vimeo)</label>
-                                <input type="url" name="duration" class="edit-post-wrap col-md-10 col-xs-12" value="{{ post.title }}" placeholder="www.youtube.com/wa=zKkUN-mJQ" required style="margin-top: -8px;" />
-                                <button class="btn btn-danger col-md-2 col-xs-12"> Add Video </button>
+                                <input type="url" name="duration" class="edit-post-wrap col-md-10 col-xs-12 video-url" placeholder="www.youtube.com/wa=zKkUN-mJQ" required style="margin-top: -8px;" />
+                                <a class="btn btn-danger col-md-2 col-xs-12 add-video"> Add Video </a>
                             </div>
 
-                            <div id="ads_details">
-                            <iframe src="https://www.youtube.com/embed/zKkUN-mJtPQ" class="col-md-8 no-padding" height="350" frameborder="0" allowfullscreen="allowfullscreen" id="player_4"></iframe>
+                            <div id="video-gallery">
+                                <div class="col-md-8 video-frame">
+                                    <i class="fa fa-times video_close_img"></i>
+                                    <iframe src="//www.youtube.com/embed/0bS23QoiFxg?rel=0&amp;showinfo=0&amp;enablejsapi=1" width="100%" height="400" frameborder="0" allowfullscreen="allowfullscreen" id="player_3"></iframe>
+                                </div>
                             </div>
 
                             <input type="hidden" name="owner" value="{{ user.id }}">
-                            <div class="form-group edit-profile">
-                                <ul id="loaded-files" class="upload-image-thumbs upload-image-ul">
-                                    {% for image in images %}
-                                    <li class="upload-placeholder">
-                                        <div class="uploadedImg">
-                                            <i class="fa fa-times close_img"></i>
-                                            <img class="image-responsive" src="/static/media/{{ image.name }}" >
-                                        </div>
-                                        <input type="hidden" name="uploded_id[]" value="{{ image.name }}" class="uploded_id" />
-                                    </li>
-                                    {% endfor %}
-                                    <li class="upload-placeholder upload-image">
-                                        <div class="uploadedImg"></div>
-                                        <input type="hidden" name="uploded_id[]" class="uploded_id" />
-                                    </li>
-                                </ul>
-                                <div style="display:none;" id="upload_btn" class="upload_btn button button-primary">
-                                    Add pictures
-                                    <input id="inputfile" type="file" name="files[]" data-maxfilesize="4000000" class="" data-maxuploadfile="20" data-imagequality="0.7" multiple="multiple">
-                                </div>
-
-                            </div>
-
                         </div>
                         <div class="col-md-12">
                             <div class="edit-profile">
@@ -204,6 +184,10 @@
         jQuery("#overview_img").click();
     });
 
+    jQuery("body").on("click", ".video_close_img", function() {
+        $(this).parent().remove();
+    });
+
     tinymce.init({ 
         selector:'#wys_content',
         menubar: false,
@@ -214,6 +198,17 @@
           'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
           'save table contextmenu directionality emoticons template paste textcolor'
         ]
+    });
+
+    $('.add-video').click(function() {
+        var video_url = $('.video-url').val();
+        var vid = getId(video_url);
+        var bbody = '<div class="col-md-8 video-frame"> \
+                        <i class="fa fa-times video_close_img"></i> \
+                        <iframe src="//www.youtube.com/embed/' + vid + 
+                        '?rel=0&amp;showinfo=0&amp;enablejsapi=1" width="100%" height="400" frameborder="0" allowfullscreen="allowfullscreen" id="player_3"></iframe> \
+                    </div>';
+        $('#video-gallery').append(bbody);
     });
 
     function getId(url) {

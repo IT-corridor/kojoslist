@@ -41,6 +41,16 @@ div.sub-category {
     position: absolute;
     right: 0;
 }
+
+.video_close_img {
+    background: #777 none repeat scroll 0 0;
+    color: white;
+    cursor: pointer;
+    padding: 6px 8px;
+    position: absolute;
+    right: 0;
+}
+
 .uploadedImg {
     height: 100%;
     left: 0;
@@ -300,4 +310,8 @@ input.verify_code {
 #camp_category option.main {
     padding: 15px 3px 5px 3px;
     color: black;
+}
+
+.video-frame {
+    padding: 20px 0;
 }
