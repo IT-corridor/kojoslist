@@ -617,4 +617,7 @@ def my_campaigns(request):
     return render(request, 'my-campaigns.html')
 
 def post_camp(request, camp_id):
-    return render(request, 'post_camp.html')
+    categories = CampCategory.objects.all()
+    return render(request, 'post_camp.html', {
+        'categories': categories   
+    })
