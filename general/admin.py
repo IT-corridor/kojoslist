@@ -10,6 +10,11 @@ class CategoryAdmin(admin.ModelAdmin):
 	search_fields = ['name']
 
 
+class CampCategoryAdmin(admin.ModelAdmin):
+	list_display = ['name', 'parent', 'column']
+	search_fields = ['name']
+
+
 class CountryAdmin(admin.ModelAdmin):
 	list_display = ['name', 'sortname']
 	search_fields = ['name']
@@ -47,3 +52,4 @@ admin.site.register(Country, CountryAdmin)
 admin.site.register(State, StateAdmin)
 admin.site.register(City, CityAdmin)
 admin.site.register(Image)
+admin.site.register(CampCategory, CampCategoryAdmin)

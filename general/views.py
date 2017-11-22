@@ -612,3 +612,9 @@ def upload_id(request):
 
 def confirm_phone(request):
     return render(request, 'account/phone_confirm.html')
+
+def my_campaigns(request):
+    return render(request, 'my-campaigns.html')
+
+def post_camp(request, camp_id):
+    return render(request, 'post_camp.html')

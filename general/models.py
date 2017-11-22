@@ -49,8 +49,8 @@ class Category(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Category'
-        verbose_name_plural = 'Categories'
+        verbose_name = 'Ads Category'
+        verbose_name_plural = 'Ads Categories'
 
 
 class Country(models.Model):
@@ -215,6 +215,9 @@ class Perk(models.Model):
     price = models.FloatField()
     retail = models.FloatField()
     description = models.TextField()
+    num_avail = models.IntegerField()
+    num_claimed = models.IntegerField()
+    image = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return '{} - {}'.format(self.campaign.title, self.title)
@@ -224,10 +227,26 @@ class Video(models.Model):
     campaign = models.ForeignKey("Campaign")
     name = models.CharField(max_length=200)
 
-    
+
+class CampCategory(models.Model):
+    parent = models.ForeignKey("CampCategory", blank=True, null=True)
+    name = models.CharField(max_length=50)
+    # columns = models.IntegerField(default=1)
+    column = models.IntegerField(default=1)
+    # form = models.CharField(max_length=50, default='Post')
+    # price = models.FloatField(default=0)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Campaign Category'
+        verbose_name_plural = 'Campaign Categories'
+
+
 class Campaign(models.Model):
     title = models.CharField(max_length=200)
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(CampCategory)
     budget = models.FloatField()
     over_image = models.ImageField()
     overview = models.TextField()
