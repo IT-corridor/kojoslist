@@ -244,6 +244,13 @@ class CampCategory(models.Model):
         verbose_name_plural = 'Campaign Categories'
 
 
+STAGES = [
+    ('concept', 'CONCEPT'),
+    ('prototype', 'PROTOTYPE'),
+    ('production', 'PRODUCTION'),
+    ('shipping', 'SHIPPING')
+]
+
 class Campaign(models.Model):
     title = models.CharField(max_length=200)
     category = models.ForeignKey(CampCategory)
@@ -251,9 +258,9 @@ class Campaign(models.Model):
     over_image = models.ImageField()
     overview = models.TextField()
     content = models.TextField()
-    stage = models.CharField(max_length=200)
+    stage = models.CharField(max_length=200, choices=STAGES)
     duration = models.IntegerField()
-    tags = models.CharField(max_length=200)
+    tagline = models.CharField(max_length=200)
     location = models.CharField(max_length=200)
 
     def __str__(self):
