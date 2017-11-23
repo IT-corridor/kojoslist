@@ -623,8 +623,8 @@ def post_camp(request, camp_id):
         form = CampaignForm()
     else:
         form = CampaignForm(request.POST, request.FILES)
-        PerkFormSet = formset_factory(PerkForm)
-        perkformset = PerkFormSet(request.POST, request.FILES)
+        PerkFormSet = formset_factory(PerkForm, extra=10)
+        perkformset = PerkFormSet(request.POST, request.FILES, prefix='pfix')
 
         if form.is_valid():
             camp = form.save()
