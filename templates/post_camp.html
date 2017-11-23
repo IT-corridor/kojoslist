@@ -207,6 +207,13 @@
         }
 
         var vid = getId(video_url);
+        if ($('#videos').val().indexOf(vid) != -1) {
+            alert("The video is already added!");
+            $('.video-url').val('');
+            $('.video-url').focus();
+            return false;            
+        }
+
         var bbody = '<div class="col-md-7 video-frame"> \
                         <i class="fa fa-times video_close_img" data-vid="' + vid + '"></i> \
                         <iframe src="//www.youtube.com/embed/' + vid + 
