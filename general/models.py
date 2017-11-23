@@ -215,7 +215,7 @@ class Perk(models.Model):
     price = models.FloatField()
     retail = models.FloatField()
     description = models.TextField()
-    num_avail = models.IntegerField()
+    num_avail = models.IntegerField(default=1000000)
     num_claimed = models.IntegerField()
     image = models.ImageField(blank=True, null=True)
 
@@ -247,6 +247,7 @@ class Campaign(models.Model):
     title = models.CharField(max_length=200)
     category = models.ForeignKey(CampCategory)
     budget = models.FloatField()
+    raised = models.FloatField(default=0)
     over_image = models.ImageField()
     overview = models.TextField()
     content = models.TextField()
