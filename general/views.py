@@ -616,10 +616,19 @@ def confirm_phone(request):
 def my_campaigns(request):
     return render(request, 'my-campaigns.html')
 
+@login_required(login_url='/accounts/login')
 def post_camp(request, camp_id):
     categories = CampCategory.objects.all()
+    if request.method == 'GET':
+        form = CampaignForm()
+    else:
+        form = CampaignForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('my-campaigns'))
 
     return render(request, 'post_camp.html', {
+        'form': form,
         'categories': categories,   
-        'rng_perks': range(3, 16)
+        'rng_perks': range(1, 11)
     })

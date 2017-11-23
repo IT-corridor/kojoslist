@@ -16,6 +16,10 @@
         <div class="pages">
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}               
+                {% for _, error in form.errors.items %}
+                    {{ _ }}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
 
                 <div class="col-md-7">
                     <div class="row">
@@ -23,17 +27,17 @@
 
                             <div class="form-group edit-profile">
                                 <label>Title</label>
-                                <input type="text" name="title" class="form-control edit-post-wrap" value="{{ post.title }}" required/>
+                                <input type="text" name="title" class="form-control edit-post-wrap" value="{{ form.title.value }}" required/>
                             </div>
                             <div class="form-group edit-profile">
                                 <label>Tagline</label>
-                                <input type="text" name="tagline" class="form-control edit-post-wrap" value="{{ post.title }}" required/>
+                                <input type="text" name="tagline" class="form-control edit-post-wrap" value="{{ form.tagline.value }}" required/>
                             </div>
 
                             <div class="form-group edit-profile">
                                 <label>Overview</label>
                                 <textarea name="overview" class="form-control edit-post-wrap" required="">
-                                    {{ post.content }}
+                                    {{ form.overview.value }}
                                 </textarea>
                             </div>
                             <div class="form-group edit-profile">
@@ -53,7 +57,7 @@
                                             <option value="{{ post.category.parent.id }}"> {{ post.category.parent.name }} </option>
                                         {% else %}
                                             {% for mc in categories %}
-                                            <option {% if not mc.parent %}disabled class="main"{% endif %} value="{{ mc.id }}" {% if mc.id == post.category.parent_id %}selected{% endif %}>{{ mc.name }}</option>
+                                            <option {% if not mc.parent %}disabled class="main"{% endif %} value="{{ mc.id }}" {% if mc.id == form.category.value %}selected{% endif %}>{{ mc.name }}</option>
                                             {% endfor %}                                        
                                         {% endif %}
                                     </select>
@@ -61,15 +65,15 @@
                             </div>
                             <div class="form-group edit-profile">
                                 <label>Location</label>
-                                <input type="text" name="location" class="form-control edit-post-wrap" value="{{ post.title }}" required/>
+                                <input type="text" name="location" class="form-control edit-post-wrap" value="{{ form.location.value }}" required/>
                             </div>
                             <div class="form-group edit-profile">
                                 <label>Budget (in USD)</label>
-                                <input type="number" name="budget" class="form-control edit-post-wrap" value="{{ post.title }}" required/>
+                                <input type="number" name="budget" class="form-control edit-post-wrap" value="{{ form.budget.value }}" required/>
                             </div>
                             <div class="form-group edit-profile">
                                 <label>Duration</label>
-                                <input type="number" name="duration" class="form-control edit-post-wrap" value="{{ post.title }}" required/>
+                                <input type="number" name="duration" class="form-control edit-post-wrap" value="{{ form.duration.value }}" required/>
                             </div>
 
                             <div class="form-group edit-profile m-t-25">
@@ -88,7 +92,7 @@
                                 <label>Content</label>
                                 <textarea name="content" id="wys_content" class="form-control edit-post-wrap" required="">
                                     {% if post.content %}
-                                    {{ post.content }}
+                                        {{ form.content.value }}
                                     {% else %}
                                         {% include "_camp_pitch_template.html" %}
                                     {% endif %}
@@ -97,7 +101,7 @@
 
                             <div class="form-group edit-profile m-t-15">
                                 <label class=" edit-profile">Video URL (Youtube or Vimeo)</label>
-                                <input type="url" name="duration" class="edit-post-wrap col-md-10 col-xs-12 video-url" placeholder="www.youtube.com/wa=zKkUN-mJQ" required style="margin-top: -8px;" />
+                                <input type="url" name="duration" class="edit-post-wrap col-md-10 col-xs-12 video-url" placeholder="www.youtube.com/wa=zKkUN-mJQ" style="margin-top: -8px;" />
                                 <a class="btn btn-danger col-md-2 col-xs-12 add-video"> Add Video </a>
                             </div>
 
@@ -105,7 +109,7 @@
                             </div>
 
                             <input type="hidden" name="owner" value="{{ user.id }}">
-                            <input type="hidden" name="videos" value="{{ user.videos }}" id="videos">
+                            <input type="hidden" name="videos" value="{{ form.videos.value }}" id="videos">
                         </div>
                         <div class="col-md-12">
                             <h2>Perks</h2>
@@ -246,12 +250,12 @@
                             <input type="text" name="perk_title" class="form-control edit-post-wrap" required/> \
                         </div> \
                         <div class="form-group edit-profile"> \
-                            <label>Perk Price</label> \
+                            <label>Perk Price (in USD)</label> \
                             <input type="text" name="perk_price" class="form-control edit-post-wrap" required/> \
                         </div> \
                         <div class="form-group edit-profile"> \
                             <label>Available Number</label> \
-                            <input type="number" name="perk_avail_num" class="form-control edit-post-wrap" required/> \
+                            <input type="number" name="perk_avail_num" class="form-control edit-post-wrap"/> \
                         </div> \
                         <div class="form-group edit-profile"> \
                             <label>Perk  Description</label> \
@@ -262,7 +266,7 @@
                             <label>Overview Image</label> \
                         </div> \
                         <div class="col-md-7 no-padding" style="margin-bottom: 20px;"> \
-                            <input type="file" name="perk_overview" class="overview_img form-control edit-post-wrap hidden" required/> \
+                            <input type="file" name="perk_overview" class="overview_img form-control edit-post-wrap hidden" /> \
                             <img class="overview_img_preview img-thumbnail img-responsive" src="/static/img/fill.png"> \
                         </div> \
                     </div></div>';
