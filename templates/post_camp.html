@@ -40,8 +40,8 @@
                                 <label>Overview Image</label>
                             </div>
                             <div class="col-md-8 no-padding">                                
-                                <input type="file" name="title" id="overview_img" class="form-control edit-post-wrap hidden" required/>
-                                <img id="overview_img_preview" class="img-thumbnail img-responsive" src="/static/img/fill.png">
+                                <input type="file" name="over_image" class="form-control edit-post-wrap hidden overview_img" required/>
+                                <img class="overview_img_preview img-thumbnail img-responsive" src="/static/img/fill.png">
                             </div>
 
                             <div class="form-group edit-profile m-t-25">
@@ -157,19 +157,20 @@
         var reader = new FileReader();
 
         reader.onload = function(e) {
-          $('#overview_img_preview').attr('src', e.target.result);
+          $(input).parent().find('.overview_img_preview').attr('src', e.target.result);
         }
 
         reader.readAsDataURL(input.files[0]);
       }
     }
 
-    $("#overview_img").change(function() {
+    jQuery("body").on("change", ".overview_img", function() {
         readURL(this);
     });    
 
-    jQuery("body").on("click", "#overview_img_preview", function() {
-        jQuery("#overview_img").click();
+    jQuery("body").on("click", ".overview_img_preview", function() {
+        console.log($(this).parent());
+        $(this).parent().find('.overview_img').click();
     });
 
     jQuery("body").on("click", ".video_close_img", function() {
@@ -206,7 +207,7 @@
             return false;
         }
 
-        var vid = getId(video_url);
+        var vid = getYoutubeId(video_url);
         if ($('#videos').val().indexOf(vid) != -1) {
             alert("The video is already added!");
             $('.video-url').val('');
@@ -223,7 +224,7 @@
         update_videos();
     });
 
-    function getId(url) {
+    function getYoutubeId(url) {
         var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
         var match = url.match(regExp);
 
@@ -261,8 +262,8 @@
                             <label>Overview Image</label> \
                         </div> \
                         <div class="col-md-7 no-padding" style="margin-bottom: 20px;"> \
-                            <input type="file" name="perk_overview" id="overview_img" class="form-control edit-post-wrap hidden" required/> \
-                            <img id="overview_img_preview" class="img-thumbnail img-responsive" src="/static/img/fill.png"> \
+                            <input type="file" name="perk_overview" class="overview_img form-control edit-post-wrap hidden" required/> \
+                            <img class="overview_img_preview img-thumbnail img-responsive" src="/static/img/fill.png"> \
                         </div> \
                     </div></div>';
 
