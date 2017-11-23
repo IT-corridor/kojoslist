@@ -8,7 +8,10 @@
             <div class="ctitle">{{ post.title }}</div>
             <div class="tagline">{{ post.tagline }}</div>
             <div class="category">{{ post.category.name }}</div>
-            <div class="budget"><span>${{ post.budget|intcomma }}</span> USD raised</div>
+            <div class="budget">
+                <span class="raised">${{ post.budget|intcomma }}</span> USD raised
+                <span class="percent">54%</span>
+            </div>
             <div id="myProgress">
                 <div id="myBar"></div>
             </div>            

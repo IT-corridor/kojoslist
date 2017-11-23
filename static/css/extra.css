@@ -367,10 +367,17 @@ input.verify_code {
     font-size: 13px;
 }
 
-.campaign-card .budget span {
+.campaign-card .budget span.raised {
     font-size: 16px;
     font-weight: 500;
     color: black;
+}
+
+.campaign-card .budget span.percent {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    float: right;
 }
 
 #myProgress {
@@ -380,6 +387,7 @@ input.verify_code {
     border-radius: 5px;   
     margin: 10px 0; 
 }
+
 #myBar {
     width: 10%;
     background-color: #35CA97;
