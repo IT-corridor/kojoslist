@@ -258,7 +258,7 @@ class Campaign(models.Model):
     # youtube video keys
     videos = models.TextField(blank=True, null=True)
     owner =  models.ForeignKey(Customer)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.title

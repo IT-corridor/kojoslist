@@ -1,7 +1,9 @@
 {% load humanize %}
+{% load extra %}
 
 {% for post in campaigns %}
 <div class="col-md-3">
+    <a href="/campaigns/{{ post.id }}">
     <div class="campaign-card">        
         <img src="/static/media/{{ post.over_image }}" class="overview" />
         <div class="card-body">
@@ -9,16 +11,17 @@
             <div class="tagline">{{ post.tagline }}</div>
             <div class="category">{{ post.category.name }}</div>
             <div class="budget">
-                <span class="raised">${{ post.budget|intcomma }}</span> USD raised
-                <span class="percent">54%</span>
+                <span class="raised">${{ post.raised|intcomma }}</span> USD raised
+                <span class="percent">{{ post|raised_percent }}%</span>
             </div>
             <div id="myProgress">
-                <div id="myBar"></div>
+                <div id="myBar" style="width: {{ post|raised_percent:1 }}%;"></div>
             </div>            
             <div class="duration"><i class="fa fa-clock-o" aria-hidden="true"></i>
-                {{ post.duration }} days left
+                {{ post|ramained_days }} days left
             </div>
         </div>
     </div>
+    </a>
 </div>
 {% endfor %}  

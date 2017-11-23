@@ -324,6 +324,12 @@ input.verify_code {
 .campaign-card {
     border: #bbb 1px solid;
     margin-bottom: 20px;
+    color: #777;
+}
+
+.campaign-card:hover {
+    border: 1px solid #a8a8a8;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
 }
 
 .campaign-card .overview {
@@ -389,7 +395,6 @@ input.verify_code {
 }
 
 #myBar {
-    width: 10%;
     background-color: #35CA97;
     height: 10px;
     border-radius: 5px;    
