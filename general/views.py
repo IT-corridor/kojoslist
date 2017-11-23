@@ -614,7 +614,10 @@ def confirm_phone(request):
     return render(request, 'account/phone_confirm.html')
 
 def my_campaigns(request):
-    return render(request, 'my-campaigns.html')
+    campaigns = Campaign.objects.filter(owner=request.user)
+    return render(request, 'my-campaigns.html', {
+        'campaigns': campaigns
+    })
 
 @login_required(login_url='/accounts/login')
 def post_camp(request, camp_id):
