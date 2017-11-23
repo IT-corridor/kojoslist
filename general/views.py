@@ -631,9 +631,13 @@ def post_camp(request, camp_id):
             num_perks = int(request.POST.get('num_perks'))
             fs = FileSystemStorage()
 
+            iii = 0
             for ii in range(num_perks):
-                perk_img = request.FILES.getlist('perk_overview')[ii]
-                filename = fs.save('perks/'+perk_img.name, perk_img)
+                filename = None
+                if request.POST.getlist('flag_perk_overview')[ii]:
+                    perk_img = request.FILES.getlist('perk_overview')[iii]
+                    filename = fs.save('perks/'+perk_img.name, perk_img)
+                    iii += 1
 
                 Perk.objects.create(title=request.POST.getlist('perk_title')[ii],
                                     campaign=camp,

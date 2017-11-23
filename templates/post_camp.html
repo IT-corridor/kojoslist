@@ -161,7 +161,8 @@
         var reader = new FileReader();
 
         reader.onload = function(e) {
-          $(input).parent().find('.overview_img_preview').attr('src', e.target.result);
+            $(input).parent().find('.overview_img_preview').attr('src', e.target.result);
+            $(input).parent().find('.flag_overview_img').val('true');
         }
 
         reader.readAsDataURL(input.files[0]);
@@ -267,6 +268,7 @@
                         </div> \
                         <div class="col-md-7 no-padding" style="margin-bottom: 20px;"> \
                             <input type="file" name="perk_overview" class="overview_img form-control edit-post-wrap hidden" /> \
+                            <input type="hidden" name="flag_perk_overview" class="flag_overview_img" /> \
                             <img class="overview_img_preview img-thumbnail img-responsive" src="/static/img/fill.png"> \
                         </div> \
                     </div></div>';
