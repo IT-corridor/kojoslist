@@ -16,8 +16,8 @@
         <div class="pages">
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}               
-                {% for _, error in form.errors.items %}
-                    {{ _ }}
+                {% for ee, error in form.errors.items %}
+                    {{ ee }}
                     <div class="error">{{ error }}</div>
                 {% endfor %}
 
@@ -27,17 +27,17 @@
 
                             <div class="form-group edit-profile">
                                 <label>Title</label>
-                                <input type="text" name="title" class="form-control edit-post-wrap" value="{{ form.title.value }}" required/>
+                                <input type="text" name="title" class="form-control edit-post-wrap" value="{% if form.title.value %}{{ form.title.value }}{% endif %}" required/>
                             </div>
                             <div class="form-group edit-profile">
                                 <label>Tagline</label>
-                                <input type="text" name="tagline" class="form-control edit-post-wrap" value="{{ form.tagline.value }}" required/>
+                                <input type="text" name="tagline" class="form-control edit-post-wrap" value="{% if form.tagline.value %}{{ form.tagline.value }}{% endif %}" required/>
                             </div>
 
                             <div class="form-group edit-profile">
                                 <label>Overview</label>
                                 <textarea name="overview" class="form-control edit-post-wrap" required="">
-                                    {{ form.overview.value }}
+                                    {% if form.overview.value %}{{ form.overview.value }}{% endif %}
                                 </textarea>
                             </div>
                             <div class="form-group edit-profile">
@@ -65,15 +65,15 @@
                             </div>
                             <div class="form-group edit-profile">
                                 <label>Location</label>
-                                <input type="text" name="location" class="form-control edit-post-wrap" value="{{ form.location.value }}" required/>
+                                <input type="text" name="location" class="form-control edit-post-wrap" value="{% if form.location.value %}{{ form.location.value }}{% endif %}" required/>
                             </div>
                             <div class="form-group edit-profile">
                                 <label>Budget (in USD)</label>
-                                <input type="number" name="budget" class="form-control edit-post-wrap" value="{{ form.budget.value }}" required/>
+                                <input type="number" name="budget" class="form-control edit-post-wrap" value="{% if form.budget.value %}{{ form.budget.value }}{% endif %}" required/>
                             </div>
                             <div class="form-group edit-profile">
                                 <label>Duration</label>
-                                <input type="number" name="duration" class="form-control edit-post-wrap" value="{{ form.duration.value }}" required/>
+                                <input type="number" name="duration" class="form-control edit-post-wrap" value="{% if form.duration.value %}{{ form.duration.value }}{% endif %}" required/>
                             </div>
 
                             <div class="form-group edit-profile m-t-25">
@@ -91,7 +91,7 @@
                             <div class="form-group edit-profile">
                                 <label>Content</label>
                                 <textarea name="content" id="wys_content" class="form-control edit-post-wrap" required="">
-                                    {% if post.content %}
+                                    {% if form.content.value %}
                                         {{ form.content.value }}
                                     {% else %}
                                         {% include "_camp_pitch_template.html" %}
@@ -109,7 +109,7 @@
                             </div>
 
                             <input type="hidden" name="owner" value="{{ user.id }}">
-                            <input type="hidden" name="videos" value="{{ form.videos.value }}" id="videos">
+                            <input type="hidden" name="videos" value="{% if form.videos.value %}{{ form.videos.value }}{% endif %}" id="videos">
                         </div>
                         <div class="col-md-12">
                             <h2>Perks</h2>
