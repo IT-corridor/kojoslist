@@ -213,11 +213,11 @@ class Perk(models.Model):
     title = models.CharField(max_length=200)
     campaign = models.ForeignKey("Campaign")
     price = models.FloatField()
-    retail = models.FloatField()
+    retail = models.FloatField(default=0)
     description = models.TextField()
     num_avail = models.IntegerField(default=1000000)
-    num_claimed = models.IntegerField()
-    image = models.ImageField(blank=True, null=True)
+    num_claimed = models.IntegerField(default=0)
+    image = models.ImageField(upload_to="perks", blank=True, null=True)
 
     def __str__(self):
         return '{} - {}'.format(self.campaign.title, self.title)
@@ -248,7 +248,7 @@ class Campaign(models.Model):
     category = models.ForeignKey(CampCategory)
     budget = models.FloatField()
     raised = models.FloatField(default=0)
-    over_image = models.ImageField()
+    over_image = models.ImageField(upload_to="campaigns")
     overview = models.TextField()
     content = models.TextField()
     stage = models.CharField(max_length=200, choices=STAGES)

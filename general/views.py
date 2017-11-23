@@ -623,8 +623,26 @@ def post_camp(request, camp_id):
         form = CampaignForm()
     else:
         form = CampaignForm(request.POST, request.FILES)
+        PerkFormSet = formset_factory(PerkForm)
+        perkformset = PerkFormSet(request.POST, request.FILES)
+
         if form.is_valid():
-            form.save()
+            camp = form.save()
+            # num_perks = int(request.POST.get('num_perks'))
+            # for ii in range(num_perks):
+            #     Perk.objects.create(title=request.POST.getlist('perk_title')[ii],
+            #                         campaign=camp,
+            #                         price=request.POST.getlist('perk_price')[ii],
+            #                         description=request.POST.getlist('perk_desc')[ii],
+            #                         num_avail=request.POST.getlist('perk_avail_num')[ii] or 1000000,
+            #                         image=request.POST.getlist('perk_overview')[ii])
+
+            if perkformset.is_valid():
+                for pform in perkformset:
+                    perk = pform.save(commit=False)
+                    perk.campaign = camp
+                    perk.save()
+
             return HttpResponseRedirect(reverse('my-campaigns'))
 
     return render(request, 'post_camp.html', {

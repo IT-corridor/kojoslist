@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.forms.utils import ErrorList
+from django.forms.formsets import formset_factory
 
 from .models import *
 
@@ -40,3 +41,8 @@ class CampaignForm(ModelForm):
     class Meta:
         model = Campaign
         exclude = ['raised']
+
+class PerkForm(ModelForm):
+    class Meta:
+        model = Perk
+        exclude = ['num_claimed', 'retail', 'campaign']
