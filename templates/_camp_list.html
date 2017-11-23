@@ -1,0 +1,21 @@
+{% load humanize %}
+
+{% for post in campaigns %}
+<div class="col-md-3">
+    <div class="campaign-card">        
+        <img src="/static/media/{{ post.over_image }}" class="overview" />
+        <div class="card-body">
+            <div class="ctitle">{{ post.title }}</div>
+            <div class="tagline">{{ post.tagline }}</div>
+            <div class="category">{{ post.category.name }}</div>
+            <div class="budget"><span>${{ post.budget|intcomma }}</span> USD raised</div>
+            <div id="myProgress">
+                <div id="myBar"></div>
+            </div>            
+            <div class="duration"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                {{ post.duration }} days left
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}  

@@ -41,8 +41,3 @@ class CampaignForm(ModelForm):
     class Meta:
         model = Campaign
         exclude = ['raised']
-
-# class PerkForm(ModelForm):
-#     class Meta:
-#         model = Perk
-#         exclude = ['num_claimed', 'retail', 'campaign']

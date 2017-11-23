@@ -246,8 +246,8 @@ STAGES = [
 class Campaign(models.Model):
     title = models.CharField(max_length=200)
     category = models.ForeignKey(CampCategory)
-    budget = models.FloatField()
-    raised = models.FloatField(default=0)
+    budget = models.IntegerField()
+    raised = models.IntegerField(default=0)
     over_image = models.ImageField(upload_to="campaigns")
     overview = models.TextField()
     content = models.TextField()
@@ -258,6 +258,7 @@ class Campaign(models.Model):
     # youtube video keys
     videos = models.TextField(blank=True, null=True)
     owner =  models.ForeignKey(Customer)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title

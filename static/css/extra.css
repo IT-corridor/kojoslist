@@ -320,3 +320,69 @@ input.verify_code {
     border: 1px dashed;
     margin-bottom: 20px;    
 }
+
+.campaign-card {
+    border: #bbb 1px solid;
+    margin-bottom: 20px;
+}
+
+.campaign-card .overview {
+    height: 30vh; 
+    width: 100%;
+}
+
+.campaign-card .card-body {
+    padding: 10px;
+}
+
+.campaign-card .ctitle {
+    color: black;
+    font-weight: 500;
+    font-size: 17px;
+    margin-bottom: 10px;
+    height: 36px;
+    overflow: hidden;
+    line-height: 20px;    
+}
+
+.campaign-card .tagline {
+    color: #777;
+    font-size: 16px;
+    margin-bottom: 18px;
+    height: 36px;
+    overflow: hidden;
+    line-height: 18px;    
+}
+
+.campaign-card .category {
+    color: #333;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    line-height: 18px;    
+}
+
+.campaign-card .budget {
+    font-size: 13px;
+}
+
+.campaign-card .budget span {
+    font-size: 16px;
+    font-weight: 500;
+    color: black;
+}
+
+#myProgress {
+    width: 100%;
+    background-color: #ccc;
+    height: 10px;
+    border-radius: 5px;   
+    margin: 10px 0; 
+}
+#myBar {
+    width: 10%;
+    background-color: #35CA97;
+    height: 10px;
+    border-radius: 5px;    
+}

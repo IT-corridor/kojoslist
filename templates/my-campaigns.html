@@ -13,18 +13,13 @@
                 <div class="ads_add">
                     <a href="/post-camp/">
                         <div class="photo"></div>
-                        <div class="text">Click to start a new campaign</div>
+                        <div class="text">New campaign</div>
                     </a>
                 </div>
             </div>
-            <div class="col-md-10 ads_search search">
-                <input type="text" class="search-input ads_search_input" name="ads_search" placeholder="Search for ads name...">
-            </div>
-            <div class="col-md-2 ads_search">
-                <input type="submit" id="search_ads" class="btn btn-info" value="Search">
-            </div>
-            <div class="ads_list" id="ads_list">
-            {% include '_post_list.html' %}            
+           
+            <div class="col-md-12 no-padding">
+                {% include '_camp_list.html' %}            
             </div>
         </div>
 
@@ -72,33 +67,6 @@
             }
             
         });
-
-        
-        jQuery('#search_ads').click(function() {
-            search_ads();
-        });
-
-        jQuery('.ads_search_input').keypress(function(e) {
-            var key = e.which;
-            if (key == 13) {
-                search_ads();
-            }
-        });
-
-        function search_ads() {
-            var search_val = jQuery('.ads_search_input').val();
-
-            jQuery.ajax({
-                type: 'post',
-                url: '/search_ads',
-                data: {
-                    keyword: search_val,
-                },
-                success: function (data) {
-                    jQuery('#ads_list').html(data);
-                }
-            });                     
-        }
     });     
 </script>
 
