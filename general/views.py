@@ -411,6 +411,9 @@ def view_ads(request, ads_id):
         'favourite': favourite
     })
 
+def view_campaign(request, camp_id):
+    return render(request, 'camp_detail.html')
+    
 def category_ads(request, category_id):
     # store category
     request.session['category'] = category_id
