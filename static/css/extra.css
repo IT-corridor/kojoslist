@@ -315,3 +315,8 @@ input.verify_code {
 .video-frame {
     padding: 20px 0;
 }
+
+#perks_region .perk_pannel {
+    border: 1px dashed;
+    margin-bottom: 20px;    
+}

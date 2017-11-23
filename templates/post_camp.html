@@ -126,33 +126,6 @@
                 </div>
                 <div class="col-md-12">
                     <div class="row" id="perks_region">
-                        <div class="col-md-6">                
-                            <div class="form-group edit-profile">
-                                <label>Perk Title</label>
-                                <input type="text" name="perk_title" class="form-control edit-post-wrap" value="{{ post.title }}" required/>
-                            </div>
-                            <div class="form-group edit-profile">
-                                <label>Perk Price</label>
-                                <input type="text" name="perk_price" class="form-control edit-post-wrap" value="{{ post.title }}" required/>
-                            </div>
-                            <div class="form-group edit-profile">
-                                <label>Available Number</label>
-                                <input type="number" name="perk_avail_num" class="form-control edit-post-wrap" value="{{ post.title }}" required/>
-                            </div>
-                            <div class="form-group edit-profile">
-                                <label>Perk  Description</label>
-                                <textarea name="perk_desc" class="form-control edit-post-wrap" required="">
-                                </textarea>
-                            </div>
-                            <div class="form-group edit-profile">
-                                <label>Overview Image</label>
-                            </div>
-
-                            <div class="col-md-8 no-padding">                                
-                                <input type="file" name="perk_overview" id="overview_img" class="form-control edit-post-wrap hidden" required/>
-                                <img id="overview_img_preview" class="img-thumbnail img-responsive" src="/static/img/fill.png">
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -234,7 +207,7 @@
         }
 
         var vid = getId(video_url);
-        var bbody = '<div class="col-md-8 video-frame"> \
+        var bbody = '<div class="col-md-7 video-frame"> \
                         <i class="fa fa-times video_close_img" data-vid="' + vid + '"></i> \
                         <iframe src="//www.youtube.com/embed/' + vid + 
                         '?rel=0&amp;showinfo=0&amp;enablejsapi=1" width="100%" height="400" frameborder="0" allowfullscreen="allowfullscreen" id="player_3"></iframe> \
@@ -255,14 +228,12 @@
     }    
 
     $('#num_perks').change(function() {
-        console.log('########');
-
         var num_perks = $(this).val();
         if (!num_perks)
             return;
 
-        var bbody = '<div class="col-md-6">' +               
-                        '<div class="form-group edit-profile"> \
+        var bbody = '<div class="col-md-6"><div class="col-md-12 perk_pannel">' +               
+                        '<div class="form-group edit-profile m-t-15"> \
                             <label>Perk Title</label> \
                             <input type="text" name="perk_title" class="form-control edit-post-wrap" required/> \
                         </div> \
@@ -282,11 +253,11 @@
                         <div class="form-group edit-profile"> \
                             <label>Overview Image</label> \
                         </div> \
-                        <div class="col-md-8 no-padding"> \
+                        <div class="col-md-7 no-padding" style="margin-bottom: 20px;"> \
                             <input type="file" name="perk_overview" id="overview_img" class="form-control edit-post-wrap hidden" required/> \
                             <img id="overview_img_preview" class="img-thumbnail img-responsive" src="/static/img/fill.png"> \
                         </div> \
-                    </div>';
+                    </div></div>';
 
         $('#perks_region').html('');
         var i;
