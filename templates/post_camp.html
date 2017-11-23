@@ -48,7 +48,7 @@
                                 <label>Category</label>
 
                                 <div class="category-select-wrap-full">
-                                    <select id="camp_category" name="category" class="form-control edit-post-wrap category-select-wrap" required>
+                                    <select name="category" class="form-control edit-post-wrap category-select-wrap camp_category" required>
                                         {% if post.id %}
                                             <option value="{{ post.category.parent.id }}"> {{ post.category.parent.name }} </option>
                                         {% else %}
@@ -76,7 +76,7 @@
                                 <label>Stage</label>
 
                                 <div class="category-select-wrap-full">
-                                    <select id="camp_category" name="stage" class="form-control edit-post-wrap category-select-wrap" required>
+                                    <select name="stage" class="form-control edit-post-wrap category-select-wrap camp_category" required>
                                     <option value="concept">CONCEPT</option>
                                     <option value="prototype">PROTOTYPE</option>
                                     <option value="production">PRODUCTION</option>
@@ -108,30 +108,48 @@
                             <input type="hidden" name="videos" value="{{ user.videos }}" id="videos">
                         </div>
                         <div class="col-md-12">
-                            <div class="edit-profile">
-                                <div class="userpro-column">
-                                    <div class="userpro-field userpro-field-compact">
-                                        <div class="userpro-input">
+                            <h2>Perks</h2>
+                            <div class="form-group edit-profile m-t-25">
+                                <label>Number of Perks</label>
 
-                                            <div class="userpro-checkbox-wrap">
-                                                <label class="userpro-checkbox hide-field">
-                                                    <span class="checked"></span>
-                                                    <input name="rememberm" id="" value="true" type="checkbox" checked="checked">i accept <a href="#">terms & service</a></label>
-                                            </div>
-
-                                        </div>
-                                    </div>
+                                <div class="category-select-wrap-full">
+                                    <select id="num_perks" name="num_perks" class="form-control edit-post-wrap category-select-wrap camp_category" required>
+                                    <option value=""> ---- </option>
+                                    {% for ii in rng_perks %}
+                                        <option value="{{ ii }}">{{ ii }}</option>
+                                    {% endfor %}
+                                    </select>
                                 </div>
+                            </div>      
+                            <div class="form-group edit-profile">
+                                <label>Perk Title</label>
+                                <input type="text" name="perk_title" class="form-control edit-post-wrap" value="{{ post.title }}" required/>
                             </div>
-                            <div class="form-group price-note" style="display: none;">
-                                <div class="col-sm-52">
-                                    <a id="customButton" class="btn btn-info update-btn">Pay with Card</a>      
-                                </div>
-                            </div>        
+                            <div class="form-group edit-profile">
+                                <label>Perk Price</label>
+                                <input type="text" name="perk_price" class="form-control edit-post-wrap" value="{{ post.title }}" required/>
+                            </div>
+                            <div class="form-group edit-profile">
+                                <label>Available Number</label>
+                                <input type="number" name="perk_avail_num" class="form-control edit-post-wrap" value="{{ post.title }}" required/>
+                            </div>
+                            <div class="form-group edit-profile">
+                                <label>Perk  Description</label>
+                                <textarea name="perk_desc" class="form-control edit-post-wrap" required="">
+                                </textarea>
+                            </div>
+                            <div class="form-group edit-profile">
+                                <label>Overview Image</label>
+                            </div>
+
+                            <div class="col-md-8 no-padding">                                
+                                <input type="file" name="perk_overview" id="overview_img" class="form-control edit-post-wrap hidden" required/>
+                                <img id="overview_img_preview" class="img-thumbnail img-responsive" src="/static/img/fill.png">
+                            </div>
 
                             <div class="form-group edit-profile">
                                 <input type="submit" class="btn btn-info update-btn" value="Submit" />
-                                <input class="btn btn-info post-add-btn-cancel" id="cancel" value="cancel" type="button">
+                                <a class="btn btn-info post-add-btn-cancel" id="cancel" href="/my-campaigns">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -149,17 +167,6 @@
 {% block own_js %}
 <script src="/static/tinymce/tinymce.min.js"></script>
 <script>
-    jQuery(document).ready(function() {
-        $('#cancel').click(function() {
-            window.location.href = '/my-ads/';
-        });
-
-    }); 
-
-    jQuery("body").on("click", ".userpro-checkbox span", function() {
-        $(this).toggleClass('checked');
-    }); 
-
     function readURL(input) {
 
       if (input.files && input.files[0]) {
@@ -192,7 +199,6 @@
             videos += $(this).data('vid') + ', ';
         });
 
-        console.log(videos); 
         $('#videos').val(videos);
     }
 
@@ -210,6 +216,12 @@
 
     $('.add-video').click(function() {
         var video_url = $('.video-url').val();
+        if (!video_url.trim()) {
+            alert("Please put proper Youtube or Vimeo url!");
+            $('.video-url').focus();
+            return false;
+        }
+
         var vid = getId(video_url);
         var bbody = '<div class="col-md-8 video-frame"> \
                         <i class="fa fa-times video_close_img" data-vid="' + vid + '"></i> \

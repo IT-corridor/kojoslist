@@ -302,12 +302,12 @@ input.verify_code {
     margin: 20px 0;
 }
 
-#camp_category option {
+.camp_category option {
     padding: 3px 10px;
     color: #777;
 }
 
-#camp_category option.main {
+.camp_category option.main {
     padding: 15px 3px 5px 3px;
     color: black;
 }

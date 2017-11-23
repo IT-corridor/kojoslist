@@ -618,6 +618,8 @@ def my_campaigns(request):
 
 def post_camp(request, camp_id):
     categories = CampCategory.objects.all()
+
     return render(request, 'post_camp.html', {
-        'categories': categories   
+        'categories': categories,   
+        'rng_perks': range(3, 16)
     })
