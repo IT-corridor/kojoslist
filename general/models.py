@@ -212,8 +212,8 @@ class Hidden(models.Model):
 class Perk(models.Model):
     title = models.CharField(max_length=200)
     campaign = models.ForeignKey("Campaign")
-    price = models.FloatField()
-    retail = models.FloatField(default=0)
+    price = models.IntegerField()
+    retail = models.IntegerField(default=0)
     description = models.TextField()
     num_avail = models.IntegerField(default=1000000)
     num_claimed = models.IntegerField(default=0)

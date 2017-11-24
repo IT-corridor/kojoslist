@@ -413,7 +413,8 @@ input.verify_code {
     font-weight: 500;
     font-size: 26px;
     margin-bottom: 10px;
-    line-height: 35px;        
+    line-height: 35px;  
+    padding-top: 5px;      
 }
 
 .campaign-detail .tagline {
@@ -462,4 +463,32 @@ input.verify_code {
     background-color: #eb1478;
     border: 2px solid #eb1478;
     border-radius: 2px;    
+}
+
+.cheader {
+    font-size: 16px;
+}
+
+.cheader.ext {
+    font-size: 17px;
+    font-weight: 600;
+    color: #eb1478;
+    margin-top: 25px;
+}
+
+.campaign-detail .overview {
+    font-size: 15px;
+    line-height: 20px;    
+}
+
+.perk-card {
+    border: #bbb 1px solid;
+    margin-bottom: 20px;
+    color: #777;
+    padding: 10px;
+}
+
+.perk-card:hover {
+    border: 1px solid #a8a8a8;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
 }

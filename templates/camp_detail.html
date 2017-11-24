@@ -7,16 +7,16 @@
     <!-- Content Right Content -->
 
     <div class="col-sm-offset-1 col-sm-10">
-        <div class="content-right-content ad-view">
-            <div class="main-product">
-                <div class="col-md-7 video-wrap">
+        <div class="content-right-content ad-view" style="padding: 15px 0;">
+            <div class="main-product campaign-detail">
+                <div class="col-md-7 no-padding video-wrap">
                     <div style="display:none;margin:0 auto;" class="html5gallery" data-skin="light" data-slideshadow="false" data-resizemode="fill">                
                         {% for vid in post|get_vids %}
                             <a href="http://www.youtube.com/embed/{{ vid }}"><img src="http://img.youtube.com/vi/{{ vid }}/0.jpg" alt="Youtube Video"></a>
                         {% endfor %}
                     </div>                    
                 </div>
-                <div class="col-md-5 campaign-detail">
+                <div class="col-md-5">
                     <div class="ctitle">{{ post.title }}</div>
                     <div class="tagline">{{ post.tagline }}</div>
                     <div class="col-md-12 no-padding" style="margin-top: 18px;">
@@ -31,47 +31,58 @@
                         </div>
                     </div>
                     
-                    <div class="main-product-info">
-                        <div class="product-location-info">
-                            <div class="product-location-info-left">
-                                <span>Category</span>
-                                <h6>{{ post.category.name }}</h6>
-                            </div>
+                    <div class="product-location-info">
+                        <div class="product-location-info-left">
+                            <span>Category</span>
+                            <h6>{{ post.category.name }}</h6>
                         </div>
-                        <div class="budget">
-                            <span class="raised">${{ post.raised|intcomma }}</span> USD raised by 345 bakers
-                        </div>
-                        <div id="myProgress">
-                            <div id="myBar" style="width: {{ post|raised_percent:1 }}%;"></div>
-                        </div>            
-                        <div class="duration">
-                            <span class="percent"><b>{{ post|raised_percent }}%</b> of ${{ post.budget|intcomma }}</span>
-                            <span class="left-days"> <i class="fa fa-clock-o" aria-hidden="true"></i> {{ post|ramained_days }} days left </span>
-                        </div>
-                        <div><button class="btn-donate">BACK IT</button></div>
                     </div>
+                    <div class="budget">
+                        <span class="raised">${{ post.raised|intcomma }}</span> USD raised by 345 bakers
+                    </div>
+                    <div id="myProgress">
+                        <div id="myBar" style="width: {{ post|raised_percent:1 }}%;"></div>
+                    </div>            
+                    <div class="duration">
+                        <span class="percent"><b>{{ post|raised_percent }}%</b> of ${{ post.budget|intcomma }}</span>
+                        <span class="left-days"> <i class="fa fa-clock-o" aria-hidden="true"></i> {{ post|ramained_days }} days left </span>
+                    </div>
+                    <div><button class="btn-donate">BACK IT</button></div>
                 </div>
                 <div class="col-md-7">
-                    <div>
-                        <div class="product-text">
-                            <span>Description</span>
-                            {% autoescape off %}{{ post.content }}{% endautoescape %}
+                    <span class="cheader">OVERVIEW</span>
+                    <hr>
+                    <div class="row overview">
+                        <div class="col-md-5">
+                            <img class="img-responsive" src="/static/media/{{ post.over_image }}">
                         </div>
+                        <div class="col-md-7">
+                            {{ post.overview }}
+                        </div>
+                    </div>
+                    <div class="cheader ext">STORY</div>
+                    <hr>
+                    <div class="product-text">
+                        {% autoescape off %}{{ post.content }}{% endautoescape %}
                     </div>
                 </div>
                 <div class="col-md-5">
+                <div class="col-sm-offset-1 col-sm-10">
+                <span class="cheader">PERKS</span>
+                <hr>
                 {% for perk in perks %}
                     <div class="perk-card">
-                        <div class="ctitle">{{ perk.title }}</div>
                         {% if perk.image %}
                             <img src="/static/media/{{ perk.image }}" class="img-responsive">
                         {% endif %}
+                        <div class="ctitle">{{ perk.title }}</div>
                         <div class="overview">{{ perk.description }}</div>
                         <div class="price">{{ perk.price }}</div>
                         <div class="num_avail">{{ perk.num_avail }}</div>
                         <div class="num_claimed">{{ perk.num_claimed }}</div>
                     </div>
                 {% endfor %}
+                </div>
                 </div>
             </div>            
             
@@ -85,8 +96,8 @@
 {% block own_js %}
 <script type="text/javascript">
     var w = $('.video-wrap').width();
-    $('.html5gallery').data('width', w);
-    $('.html5gallery').data('height', Math.floor(w*0.75));
+    $('.html5gallery').data('width', w-24);
+    $('.html5gallery').data('height', Math.floor(w*0.74));
     console.log(w);
 </script>
 <script type="text/javascript" src="/static/html5gallery/html5gallery.js"></script>
