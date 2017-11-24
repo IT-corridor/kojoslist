@@ -417,7 +417,8 @@ def view_campaign(request, camp_id):
 
     return render(request, 'camp_detail.html', {
         'post': campaign,
-        'perks': perks
+        'perks': perks,
+        'skey': settings.STRIPE_KEYS['PUBLIC_KEY']
     })
 
 def category_ads(request, category_id):
