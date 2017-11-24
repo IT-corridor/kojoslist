@@ -461,9 +461,13 @@ input.verify_code {
     font-weight: 500;
     padding: 10px 30px;
     color: white;
-    background-color: #eb1478;
-    border: 2px solid #eb1478;
+    background-color: #5bc0de;
+    border: 2px solid #5bc0de;
     border-radius: 2px;    
+}
+
+.btn-donate:hover {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
 }
 
 .cheader {
@@ -528,8 +532,8 @@ input.verify_code {
     font-weight: 500;
     padding: 10px 30px;
     color: white;
-    background-color: #eb1478;
-    border: 2px solid #eb1478;
+    background-color: #5bc0de;
+    border: 2px solid #5bc0de;
     border-radius: 2px;    
     text-align: center;
     cursor: pointer;    
@@ -537,7 +541,7 @@ input.verify_code {
 
 .perk-card .btn-perk:hover {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
-    background-color: #e01070;
+    background-color: #5bc0de;
 }
 
 .product-text {
