@@ -38,7 +38,7 @@ def home(request):
 def my_ads(request):
     posts = Post.objects.filter(owner=request.user)
     posts = get_posts_with_image(posts)
-    return render(request, 'my_ads.html', {'posts': posts})
+    return render(request, 'my-ads.html', {'posts': posts})
 
 @csrf_exempt
 def search_ads(request):
@@ -666,6 +666,25 @@ def post_camp(request, camp_id):
     })
 
 def explorer_campaigns(request):
-    return render(request, 'explorer_campaigns.html', {
-        
-        })
+    categories = CampCategory.objects.all()
+    campaigns = Campaign.objects.all()[:10]
+
+    return render(request, 'campaign-list.html', {
+        'categories': categories,
+        'campaigns': campaigns
+    })
+
+@csrf_exempt
+def search_camps(request):
+    keyword = request.POST.get('keyword')
+    category = request.POST.get('category')
+    others = request.POST.get('others')
+
+    # if others:
+        # .filter(owner=request.user)
+    campaigns = Campaign.objects.filter(Q(title__icontains=keyword) | Q(overview__icontains=keyword) | Q(tagline__icontains=keyword))
+    if category:
+        campaigns = campaigns.filter(Q(category=category) | Q(category__parent=category))
+
+    rndr_str = render_to_string('_camp_list.html', {'campaigns': campaigns[:20]})
+    return HttpResponse(rndr_str)

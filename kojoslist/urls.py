@@ -31,6 +31,7 @@ urlpatterns += [
     url(r"^delete_ads$", delete_ads, name="delete_ads"),
     url(r"^breadcrumb$", breadcrumb, name="breadcrumb"),
     url(r"^search_ads$", search_ads, name="search_ads"),
+    url(r"^search_camps$", search_camps, name="search_camps"),    
     url(r"^active_deactive_ads", active_deactive_ads, name="active_deactive_ads"),
     url(r"^get_post_detail$", get_post_detail, name="get_post_detail"),
     url(r"^profile", profile, name="profile"),

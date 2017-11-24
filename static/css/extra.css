@@ -543,3 +543,7 @@ input.verify_code {
 .product-text {
     margin-bottom: 25px;
 }
+
+.camp-filter-bar .camp_category {
+    height: 40px;
+}
