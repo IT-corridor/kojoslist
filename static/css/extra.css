@@ -533,3 +533,8 @@ input.verify_code {
     text-align: center;
     cursor: pointer;    
 }
+
+.perk-card .btn-perk:hover {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
+    background-color: #e01070;
+}
