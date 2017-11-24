@@ -149,18 +149,18 @@ def get_regions(request):
                                     .replace('%20', " ")
     is_state = request.GET.get('is_state')
     city = request.GET.get('city')
+    kind = mapName.count('-')
 
     if request.user.is_authenticated():
         # store last location
         loc = mapName
-        if is_state == 'true':
+        if kind == 2 or is_state == 'true':
             loc += '@' + state 
         if city:
             loc += '@' + city
         request.user.default_site = loc
         request.user.save()
 
-    kind = mapName.count('-')
     request.session['category'] = ''
 
     if city:
