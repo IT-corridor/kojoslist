@@ -271,6 +271,10 @@ div.favourite.like {
     line-height: 24px;
 }
 
+.m-t-10 {
+    margin-top: 10px;
+}
+
 .m-t-15 {
     margin-top: 15px;
 }
@@ -395,7 +399,67 @@ input.verify_code {
 }
 
 #myBar {
-    background-color: #35CA97;
+    background-color: #5bc0de;
     height: 10px;
     border-radius: 5px;    
+}
+
+.campaign-detail {
+    padding: 5px 18px;
+}
+
+.campaign-detail .ctitle {
+    color: black;
+    font-weight: 500;
+    font-size: 26px;
+    margin-bottom: 10px;
+    line-height: 35px;        
+}
+
+.campaign-detail .tagline {
+    color: #777;
+    font-weight: 400;
+    font-size: 22px;
+    margin-bottom: 10px;
+    line-height: 32px;        
+}
+
+
+.campaign-detail .budget {
+    font-size: 16px;
+}
+
+.campaign-detail .duration {
+    font-size: 16px;
+}
+
+.campaign-detail .budget span.raised {
+    font-size: 19px;
+    font-weight: 500;
+    color: black;
+}
+
+.campaign-detail .duration span.percent {
+    font-size: 18px;
+    font-weight: 400;
+    color: #333;
+    /*float: right;*/
+}
+
+.campaign-detail .duration span.left-days {
+    font-size: 17px;
+    font-weight: 400;
+    color: #333;
+    float: right;
+}
+
+.btn-donate {
+    margin-top: 20px;
+    font-size: 17px;
+    font-weight: 500;
+    padding: 10px 30px;
+    color: white;
+    background-color: #eb1478;
+    border: 2px solid #eb1478;
+    border-radius: 2px;    
 }

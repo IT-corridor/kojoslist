@@ -412,8 +412,14 @@ def view_ads(request, ads_id):
     })
 
 def view_campaign(request, camp_id):
-    return render(request, 'camp_detail.html')
-    
+    campaign = Campaign.objects.get(id=camp_id)
+    perks = Perk.objects.filter(campaign=campaign)
+
+    return render(request, 'camp_detail.html', {
+        'post': campaign,
+        'perks': perks
+    })
+
 def category_ads(request, category_id):
     # store category
     request.session['category'] = category_id
@@ -618,6 +624,7 @@ def confirm_phone(request):
 
 def my_campaigns(request):
     campaigns = Campaign.objects.filter(owner=request.user)
+
     return render(request, 'my-campaigns.html', {
         'campaigns': campaigns
     })

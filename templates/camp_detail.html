@@ -1,0 +1,192 @@
+{% extends "profile.html" %} 
+{% load staticfiles %} 
+{% load humanize %} 
+{% load extra %} 
+
+{% block right_content %}
+    <!-- Content Right Content -->
+
+    <div class="col-sm-offset-1 col-sm-10">
+        <div class="content-right-content ad-view">
+            <div class="main-product">
+                <div class="col-md-7 video-wrap">
+                    <div style="display:none;margin:0 auto;" class="html5gallery" data-skin="light" data-slideshadow="false" data-resizemode="fill">                
+                        {% for vid in post|get_vids %}
+                            <a href="http://www.youtube.com/embed/{{ vid }}"><img src="http://img.youtube.com/vi/{{ vid }}/0.jpg" alt="Youtube Video"></a>
+                        {% endfor %}
+                    </div>                    
+                </div>
+                <div class="col-md-5 campaign-detail">
+                    <div class="ctitle">{{ post.title }}</div>
+                    <div class="tagline">{{ post.tagline }}</div>
+                    <div class="col-md-12 no-padding" style="margin-top: 18px;">
+                        <div class="star-profile">
+                            <a href="#">
+                                <img src="/static/media/avatar/{{ post.owner.avatar }}" width="80" height="80">
+                            </a>
+                            <div class="star-profile-name" style="display: inline-block;">
+                                <div><b>{{ post.owner.first_name }} {{ post.owner.last_name }}</b></div>
+                                <div class="m-t-10">{{ post.owner.address }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="main-product-info">
+                        <div class="product-location-info">
+                            <div class="product-location-info-left">
+                                <span>Category</span>
+                                <h6>{{ post.category.name }}</h6>
+                            </div>
+                        </div>
+                        <div class="budget">
+                            <span class="raised">${{ post.raised|intcomma }}</span> USD raised by 345 bakers
+                        </div>
+                        <div id="myProgress">
+                            <div id="myBar" style="width: {{ post|raised_percent:1 }}%;"></div>
+                        </div>            
+                        <div class="duration">
+                            <span class="percent"><b>{{ post|raised_percent }}%</b> of ${{ post.budget|intcomma }}</span>
+                            <span class="left-days"> <i class="fa fa-clock-o" aria-hidden="true"></i> {{ post|ramained_days }} days left </span>
+                        </div>
+                        <div><button class="btn-donate">BACK IT</button></div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div>
+                        <div class="product-text">
+                            <span>Description</span>
+                            {% autoescape off %}{{ post.content }}{% endautoescape %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                {% for perk in perks %}
+                    <div class="perk-card">
+                        <div class="ctitle">{{ perk.title }}</div>
+                        {% if perk.image %}
+                            <img src="/static/media/{{ perk.image }}" class="img-responsive">
+                        {% endif %}
+                        <div class="overview">{{ perk.description }}</div>
+                        <div class="price">{{ perk.price }}</div>
+                        <div class="num_avail">{{ perk.num_avail }}</div>
+                        <div class="num_claimed">{{ perk.num_claimed }}</div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>            
+            
+        </div>
+    </div>
+{% endblock %}
+
+{% block load_highcharts_js %}
+{% endblock %}
+
+{% block own_js %}
+<script type="text/javascript">
+    var w = $('.video-wrap').width();
+    $('.html5gallery').data('width', w);
+    $('.html5gallery').data('height', Math.floor(w*0.75));
+    console.log(w);
+</script>
+<script type="text/javascript" src="/static/html5gallery/html5gallery.js"></script>
+
+<script type="text/javascript">
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    function set_image(obj) {
+        var img = $(obj).attr('src');
+        $('.first_image').attr('src', img);
+    }
+
+    $('.email_to_friend').click(function() {
+        $('.femail_body').toggleClass('hidden');
+    })
+
+    $('.btn-reply').click(function() {
+        $('.reply-post').toggleClass('hidden');
+    })
+
+    $('#send_femail').click(function() {
+        var from_email = $('#from_email').val();
+        var to_email = $('#to_email').val();
+
+        if (!re.test(from_email)) {
+            alert('Please provide a valid email!');
+            $('#from_email').focus();
+            return;
+        }
+
+        if (!re.test(to_email)) {
+            alert('Please provide a valid email!');
+            $('#to_email').focus();
+            return
+        }
+        
+        jQuery.ajax({
+            type: 'post',
+            url: '/send_friend_email',
+            data: {
+                ads_id: {{ post.id }},
+                from_email: from_email,
+                to_email: to_email
+            },
+            success: function(data) {
+                alert('Email sent successfully!');
+                $('.femail_body').toggleClass('hidden');
+            }
+        });
+
+    });
+
+    $('#send_remail').click(function() {
+        var from_email = $('#from_remail').val();
+        var content = $('#reply-body').val().trim();
+
+        if (!re.test(from_email)) {
+            alert('Please provide a valid email!');
+            $('#from_remail').focus();
+            return;
+        }
+        
+        if (content == '') {
+            alert('Please provide some content!');
+            $('#reply-body').focus();
+            return;
+        }
+
+        jQuery.ajax({
+            type: 'post',
+            url: '/send_reply_email',
+            data: {
+                ads_id: {{ post.id }},
+                from_email: from_email,
+                content: content
+            },
+            success: function(data) {
+                alert('Reply email sent successfully!');
+                $('.reply-post').toggleClass('hidden');
+            }
+        });
+
+    });
+
+    $('.favourite').click(function() {
+        var tthis = this;
+        jQuery.ajax({
+            type: 'post',
+            url: '/toggle_favourite',
+            data: {
+                ads_id: {{ post.id }},
+            },
+            success: function(res) {
+                if (res == 'success') {
+                    $(tthis).toggleClass('like');                    
+                } else {
+                    alert('You need to login for saving this in your favourites.');
+                }
+            }
+        });        
+    });
+</script>
+{% endblock %}
