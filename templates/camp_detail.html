@@ -75,11 +75,13 @@
                         {% if perk.image %}
                             <img src="/static/media/{{ perk.image }}" class="img-responsive">
                         {% endif %}
+                        <div class="price"><span>${{ perk.price|intcomma }}</span> USD</div>
                         <div class="ctitle">{{ perk.title }}</div>
                         <div class="overview">{{ perk.description }}</div>
-                        <div class="price">{{ perk.price }}</div>
-                        <div class="num_avail">{{ perk.num_avail }}</div>
-                        <div class="num_claimed">{{ perk.num_claimed }}</div>
+                        <div class="num_claimed">
+                            {{ perk.num_claimed }} {% if perk.num_avail != 1000000 %}out of {{ perk.num_avail }}{% endif %} claimed
+                        </div>
+                        <div class="btn-perk">GET THIS PERK</div>
                     </div>
                 {% endfor %}
                 </div>

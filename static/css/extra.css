@@ -492,3 +492,44 @@ input.verify_code {
     border: 1px solid #a8a8a8;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
 }
+
+.perk-card .price
+{
+    padding-top: 18px;
+    font-size: 18px;
+}
+
+.perk-card .price span {
+    font-size: 20px;
+    font-weight: 700;
+    color: black;    
+}
+
+.perk-card .ctitle {
+    font-size: 21px;
+    color: #333;
+}
+
+.perk-card .overview {
+    font-size: 16px;
+}
+
+.perk-card .num_claimed {
+    font-weight: 500;
+    padding: 10px 0;
+    color: #555;
+    font-size: 17px;
+}
+
+.perk-card .btn-perk {
+    margin-top: 20px;
+    font-size: 17px;
+    font-weight: 500;
+    padding: 10px 30px;
+    color: white;
+    background-color: #eb1478;
+    border: 2px solid #eb1478;
+    border-radius: 2px;    
+    text-align: center;
+    cursor: pointer;    
+}
