@@ -3419,9 +3419,33 @@ select, select.form-control {
 
 }
 
+#menu-profile-side-menu li.my-ads::before {
+
+    content: "\f07c";
+
+}
+
 #menu-profile-side-menu li.account::before {
 
     content: "\f007";
+
+}
+
+#menu-profile-side-menu li.subscription::before {
+
+    content: "\f0b1";
+
+}
+
+#menu-profile-side-menu li.campaign::before {
+
+    content: "\f1d9";
+
+}
+
+#menu-profile-side-menu li.explorer-campaign::before {
+
+    content: "\f06e";
 
 }
 

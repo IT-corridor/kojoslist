@@ -456,6 +456,7 @@ input.verify_code {
 
 .btn-donate {
     margin-top: 20px;
+    margin-bottom: 25px;
     font-size: 17px;
     font-weight: 500;
     padding: 10px 30px;
@@ -537,4 +538,8 @@ input.verify_code {
 .perk-card .btn-perk:hover {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
     background-color: #e01070;
+}
+
+.product-text {
+    margin-bottom: 25px;
 }
