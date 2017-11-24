@@ -664,3 +664,8 @@ def post_camp(request, camp_id):
         'categories': categories,   
         'rng_perks': range(1, 11)
     })
+
+def explorer_campaigns(request):
+    return render(request, 'explorer_campaigns.html', {
+        
+        })

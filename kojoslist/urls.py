@@ -36,6 +36,7 @@ urlpatterns += [
     url(r"^profile", profile, name="profile"),
     url(r"^toggle_favourite", toggle_favourite, name="toggle_favourite"),
     url(r"^my-ads", my_ads, name="my-ads"),
+    url(r"^explorer-campaigns", explorer_campaigns, name="explorer-campaigns"),
     url(r"^my-campaigns", my_campaigns, name="my-campaigns"),
     url(r"^my-favourites", my_favourites, name="my-favourites"),
     url(r"^my-subscribe", my_subscribe, name="my-subscribe"),
