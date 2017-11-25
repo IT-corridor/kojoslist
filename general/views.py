@@ -414,6 +414,7 @@ def view_ads(request, ads_id):
 def view_campaign(request, camp_id):
     campaign = Campaign.objects.get(id=camp_id)
     perks = Perk.objects.filter(campaign=campaign)
+    result = ''
 
     if request.method == 'POST':
         perk = request.POST.get('perk_id') or -1
@@ -464,16 +465,17 @@ def view_campaign(request, camp_id):
             campaign.raised = campaign.raised + int(amount) / 100
             campaign.save()
 
-            result = 'success'
+            result = charge.id
         except Exception, e:
             print e, 'stripe error ##'
-            result = 'failed'
+            # result = 'failed'
 
         
     return render(request, 'camp_detail.html', {
         'post': campaign,
         'perks': perks,
-        'skey': settings.STRIPE_KEYS['PUBLIC_KEY']
+        'skey': settings.STRIPE_KEYS['PUBLIC_KEY'],
+        'result': result
     })
 
 def category_ads(request, category_id):

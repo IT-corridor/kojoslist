@@ -557,6 +557,11 @@ input.verify_code {
     font-size: 22px;
 }
 
+#result-modal .modal-title {
+    color: #5bc0de;
+    font-size: 22px;
+}
+
 .perk-modal .modal-price {
     margin-bottom: 20px;
     font-size: 16px;    

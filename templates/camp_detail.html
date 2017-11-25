@@ -128,6 +128,29 @@
 
   </div>
 </div>    
+
+<!-- Modal -->
+<div id="result-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Contribution</h4>
+      </div>
+      <div class="modal-body" style="font-size: 18px; line-height: 24px;">
+        <p>The transaction is processed successfully</p>
+        <p>Transaction ID: {{ result }}</p>
+        <p>Thank you for your contribution</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 {% endblock %}
 
 {% block load_highcharts_js %}
@@ -143,7 +166,11 @@
 <script src="https://checkout.stripe.com/checkout.js"></script>
 
 <script type="text/javascript">
-    var price; 
+    var transaction = '{{ result }}';
+    if (transaction)
+        $('#result-modal').modal();
+
+    var price, desc; 
 
     var handler = StripeCheckout.configure({
         key: '{{ skey }}',
@@ -171,7 +198,7 @@
 
         handler.open({
             name: "Globalboard",
-            description: "Claim Perk",
+            description: desc,
             currency: "usd",
             amount: price
         });
@@ -188,6 +215,7 @@
         var t = $(this).parent().data('title');
         var k = $(this).parent().data('perk');
         price = parseInt(p) * 100;
+        desc = t;
 
         $('#perk-modal .modal-price').show();
         $('#perk-modal .donate-div').hide();
@@ -200,6 +228,7 @@
     });
 
     $('.btn-donate').click(function() {
+        desc = 'Donation';
         $('#perk-modal .modal-price').hide();
         $('#perk-modal .donate-div').show();
 
