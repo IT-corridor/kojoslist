@@ -423,43 +423,50 @@ def view_campaign(request, camp_id):
         card = request.POST.get('stripeToken')
 
         perk = Perk.objects.filter(id=perk).first()
-        if amount and card:
-            try:
-                charge = stripe.Charge.create(
-                    amount=amount,
-                    currency="usd",
-                    source=card, # obtained with Stripe.js
-                    description="Contribute to the Campaign (#{} - {})".format(campaign.id, campaign.title)
-                )
-            except Exception, e:
-                print e, 'stripe error ##'
 
-        PerkClaim.objects.create(campaign_id=camp_id,
-                                 perk=perk,
-                                 contact=contact,
-                                 claimer=claimer,
-                                 amount=amount,
-                                 transaction=charge.id)
-        # send notification email to the owner
-        if perk:
-            subject = 'Perk Claimatoin from Globalboard'
-            content = "Perk ({}) in the campaign ({}) is claimed<br><br>Contact Info:<br>" \
-                      .format(perk.title, campaign.title)
-        else:
-            subject = 'Donation to your campaign on Globalboard'
-            content = "Donation (${}) is made to the campaign ({})<br><br>Contact Info:<br>" \
-                      .format(int(amount)/100, campaign.title)
+        try:
+            stripe_account_id = SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
+            app_fee = 0.3
+            charge = stripe.Charge.create(
+                amount=amount,
+                currency="usd",
+                source=card, # obtained with Stripe.js
+                destination=stripe_account_id,
+                application_fee = int(amount * app_fee),                
+                description="Contribute to the Campaign (#{} - {})".format(campaign.id, campaign.title)
+            )
+    
+            PerkClaim.objects.create(campaign_id=camp_id,
+                                     perk=perk,
+                                     contact=contact,
+                                     claimer=claimer,
+                                     amount=amount,
+                                     transaction=charge.id)
+            # send notification email to the owner
+            if perk:
+                subject = 'Perk Claimatoin from Globalboard'
+                content = "Perk ({}) in the campaign ({}) is claimed<br><br>Contact Info:<br>" \
+                          .format(perk.title, campaign.title)
+            else:
+                subject = 'Donation to your campaign on Globalboard'
+                content = "Donation (${}) is made to the campaign ({})<br><br>Contact Info:<br>" \
+                          .format(int(amount)/100, campaign.title)
 
-        content += contact
-        send_email(settings.FROM_EMAIL, subject, campaign.owner.email, content)
+            content += contact
+            send_email(settings.FROM_EMAIL, subject, campaign.owner.email, content)
 
-        # update campaign's raised amount, used for cache for less db transaction
-        campaign.raised = campaign.raised + int(amount) / 100
-        campaign.save()
+            # update campaign's raised amount, used for cache for less db transaction
+            campaign.raised = campaign.raised + int(amount) / 100
+            campaign.save()
 
-        # update perk's claimed count, used for cache for less db transaction
-        perk.num_claimed = perk.num_claimed + 1
-        perk.save()
+            # update perk's claimed count, used for cache for less db transaction
+            perk.num_claimed = perk.num_claimed + 1
+            perk.save()
+            result = 'success'
+        except Exception, e:
+            print e, 'stripe error ##'
+            result = 'failed'
+
         
     return render(request, 'camp_detail.html', {
         'post': campaign,
