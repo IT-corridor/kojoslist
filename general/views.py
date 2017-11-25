@@ -416,7 +416,7 @@ def view_campaign(request, camp_id):
     perks = Perk.objects.filter(campaign=campaign)
 
     if request.method == 'POST':
-        perk = request.POST.get('perk_id', -1)
+        perk = request.POST.get('perk_id') or -1
         contact = request.POST.get('contact')
         amount = request.POST.get('amount')
         claimer = request.user if request.user.is_authenticated() else None
