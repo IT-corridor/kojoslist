@@ -680,6 +680,7 @@ def upload_id(request):
 def confirm_phone(request):
     return render(request, 'account/phone_confirm.html')
 
+@login_required(login_url='/accounts/login')
 def my_campaigns(request):
     campaigns = Campaign.objects.filter(owner=request.user)
 
