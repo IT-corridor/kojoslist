@@ -71,7 +71,7 @@
                 <span class="cheader">PERKS</span>
                 <hr>
                 {% for perk in perks %}
-                    <div class="perk-card" data-price="{{ perk.price }}" data-title="{{ perk.title }}">
+                    <div class="perk-card" data-price="{{ perk.price }}" data-title="{{ perk.title }}" data-perk="{{ perk.id }}">
                         {% if perk.image %}
                             <img src="/static/media/{{ perk.image }}" class="img-responsive">
                         {% endif %}
@@ -107,11 +107,13 @@
         <div class="form-group">
         <label>Contact Information</label>
         <small>Please provide email, phone number, address ...</small>
-        <textarea class="form-control" rows=4>{{ user.email }}             
+        <textarea class="form-control" name="contact" rows=4>{{ user.email }}             
             {{ user.phone }}
         </textarea>
         </div>
         <input type="hidden" name="stripeToken" id="stripe_token">
+        <input type="hidden" name="perk_id" class="perk_id">
+        <input type="hidden" name="amount" class="modal-amount">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn" id="btn-pay">CONTINUE</button>
@@ -166,8 +168,11 @@
     $('.btn-perk').click(function() {
         var p = $(this).parent().data('price');
         var t = $(this).parent().data('title');
+        var k = $(this).parent().data('perk');
         price = parseInt(p) * 100;
 
+        $('#perk-modal .perk_id').val(k);
+        $('#perk-modal .modal-amount').val(price);
         $('#perk-modal .modal-title').html(t);
         $('#perk-modal .modal-price b').html('$'+p);
         $('#perk-modal').modal();

@@ -413,6 +413,30 @@ def view_ads(request, ads_id):
 
 def view_campaign(request, camp_id):
     campaign = Campaign.objects.get(id=camp_id)
+    if request.method == 'POST':
+        perk = request.POST.get('perk_id')
+        contact = request.POST.get('contact')
+        amount = request.POST.get('amount')
+        claimer = request.user if request.user.is_authenticated() else None
+        card = request.POST.get('stripeToken')
+
+        if amount and card:
+            try:
+                charge = stripe.Charge.create(
+                    amount=amount,
+                    currency="usd",
+                    source=card, # obtained with Stripe.js
+                    description="Contribute to the Campaign (#{} - {})".format(campaign.id, campaign.title)
+                )
+            except Exception, e:
+                print e, 'stripe error ##'
+
+        PerkClaim.objects.create(campaign_id=camp_id,
+                                 perk_id=perk,
+                                 contact=contact,
+                                 claimer=claimer,
+                                 amount=amount,
+                                 transaction=charge.id)
     perks = Perk.objects.filter(campaign=campaign)
 
     return render(request, 'camp_detail.html', {

@@ -223,6 +223,20 @@ class Perk(models.Model):
         return '{} - {}'.format(self.campaign.title, self.title)
 
 
+class PerkClaim(models.Model):
+    campaign = models.ForeignKey("Campaign")
+    # null for donate
+    perk = models.ForeignKey(Perk, blank=True, null=True)
+    contact = models.TextField(blank=True, null=True)
+    # null for Anonymous
+    claimer = models.ForeignKey(Customer, blank=True, null=True)
+    amount = models.IntegerField()
+    transaction = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.campaign.title
+
+
 class CampCategory(models.Model):
     parent = models.ForeignKey("CampCategory", blank=True, null=True)
     name = models.CharField(max_length=50)
