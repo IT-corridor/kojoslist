@@ -416,7 +416,7 @@ def view_campaign(request, camp_id):
     perks = Perk.objects.filter(campaign=campaign)
 
     if request.method == 'POST':
-        perk = request.POST.get('perk_id')
+        perk = request.POST.get('perk_id', -1)
         contact = request.POST.get('contact')
         amount = request.POST.get('amount')
         claimer = request.user if request.user.is_authenticated() else None
@@ -425,15 +425,15 @@ def view_campaign(request, camp_id):
         perk = Perk.objects.filter(id=perk).first()
 
         try:
-            stripe_account_id = SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
+            stripe_account_id = '' #SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
             app_fee = 0.3
-            
+
             charge = stripe.Charge.create(
                 amount=amount,
                 currency="usd",
                 source=card, # obtained with Stripe.js
-                destination=stripe_account_id,
-                application_fee = int(amount * app_fee),                
+                # destination=stripe_account_id,
+                # application_fee = int(amount * app_fee),                
                 description="Contribute to the Campaign (#{} - {})".format(campaign.id, campaign.title)
             )
     
@@ -448,6 +448,10 @@ def view_campaign(request, camp_id):
                 subject = 'Perk Claimatoin from Globalboard'
                 content = "Perk ({}) in the campaign ({}) is claimed<br><br>Contact Info:<br>" \
                           .format(perk.title, campaign.title)
+
+                # update perk's claimed count, used for cache for less db transaction
+                perk.num_claimed = perk.num_claimed + 1
+                perk.save()
             else:
                 subject = 'Donation to your campaign on Globalboard'
                 content = "Donation (${}) is made to the campaign ({})<br><br>Contact Info:<br>" \
@@ -460,9 +464,6 @@ def view_campaign(request, camp_id):
             campaign.raised = campaign.raised + int(amount) / 100
             campaign.save()
 
-            # update perk's claimed count, used for cache for less db transaction
-            perk.num_claimed = perk.num_claimed + 1
-            perk.save()
             result = 'success'
         except Exception, e:
             print e, 'stripe error ##'

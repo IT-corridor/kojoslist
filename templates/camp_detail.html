@@ -97,7 +97,8 @@
 
     <!-- Modal content-->
     <div class="modal-content">
-    <form action="" method="post">
+    <form action="" method="post" class="donate-form">
+      {% csrf_token %}
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Early Bird Backers- Board Only</h4>
@@ -149,7 +150,7 @@
         locale: 'auto',
         token: function(token) {
             $('#stripe_token').val(token.id);
-            $("input.update-btn").removeAttr('disabled');
+            $(".donate-form").submit();
         }
     });
 
