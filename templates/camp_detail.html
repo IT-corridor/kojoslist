@@ -71,7 +71,7 @@
                 <span class="cheader">PERKS</span>
                 <hr>
                 {% for perk in perks %}
-                    <div class="perk-card" data-price="{{ perk.price }}00" data-title="{{ perk.title }}">
+                    <div class="perk-card" data-price="{{ perk.price }}" data-title="{{ perk.title }}">
                         {% if perk.image %}
                             <img src="/static/media/{{ perk.image }}" class="img-responsive">
                         {% endif %}
@@ -107,8 +107,7 @@
         <div class="form-group">
         <label>Contact Information</label>
         <small>Please provide email, phone number, address ...</small>
-        <textarea class="form-control" rows=4>
-            {{ user.email }} 
+        <textarea class="form-control" rows=4>{{ user.email }}             
             {{ user.phone }}
         </textarea>
         </div>
@@ -133,13 +132,12 @@
     var w = $('.video-wrap').width();
     $('.html5gallery').data('width', w-24);
     $('.html5gallery').data('height', Math.floor(w*0.74));
-    console.log(w);
 </script>
 <script type="text/javascript" src="/static/html5gallery/html5gallery.js"></script>
 <script src="https://checkout.stripe.com/checkout.js"></script>
 
 <script type="text/javascript">
-    var price = 1000; 
+    var price; 
 
     var handler = StripeCheckout.configure({
         key: '{{ skey }}',
@@ -166,6 +164,12 @@
     });
 
     $('.btn-perk').click(function() {
+        var p = $(this).parent().data('price');
+        var t = $(this).parent().data('title');
+        price = parseInt(p) * 100;
+
+        $('#perk-modal .modal-title').html(t);
+        $('#perk-modal .modal-price b').html('$'+p);
         $('#perk-modal').modal();
     });
 </script>
