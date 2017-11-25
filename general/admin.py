@@ -35,6 +35,11 @@ class PerkAdmin(admin.ModelAdmin):
     search_fields = ['title']
 
 
+class PerkClaimAdmin(admin.ModelAdmin):
+    list_display = ['campaign', 'perk', 'claimer', 'amount', 'transaction']
+    search_fields = ['campaign']
+
+
 class SearchAdmin(admin.ModelAdmin):
     list_display = ['owner', 'category', 'des_state', 'des_city', 'keyword']
 
@@ -61,4 +66,4 @@ admin.site.register(Image)
 admin.site.register(CampCategory, CampCategoryAdmin)
 admin.site.register(Campaign)
 admin.site.register(Perk, PerkAdmin)
-
+admin.site.register(PerkClaim, PerkClaimAdmin)

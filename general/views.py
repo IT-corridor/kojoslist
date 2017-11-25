@@ -413,6 +413,8 @@ def view_ads(request, ads_id):
 
 def view_campaign(request, camp_id):
     campaign = Campaign.objects.get(id=camp_id)
+    perks = Perk.objects.filter(campaign=campaign)
+
     if request.method == 'POST':
         perk = request.POST.get('perk_id')
         contact = request.POST.get('contact')
@@ -420,6 +422,7 @@ def view_campaign(request, camp_id):
         claimer = request.user if request.user.is_authenticated() else None
         card = request.POST.get('stripeToken')
 
+        perk = Perk.objects.filter(id=perk).first()
         if amount and card:
             try:
                 charge = stripe.Charge.create(
@@ -432,13 +435,32 @@ def view_campaign(request, camp_id):
                 print e, 'stripe error ##'
 
         PerkClaim.objects.create(campaign_id=camp_id,
-                                 perk_id=perk,
+                                 perk=perk,
                                  contact=contact,
                                  claimer=claimer,
                                  amount=amount,
                                  transaction=charge.id)
-    perks = Perk.objects.filter(campaign=campaign)
+        # send notification email to the owner
+        if perk:
+            subject = 'Perk Claimatoin from Globalboard'
+            content = "Perk ({}) in the campaign ({}) is claimed<br><br>Contact Info:<br>" \
+                      .format(perk.title, campaign.title)
+        else:
+            subject = 'Donation to your campaign on Globalboard'
+            content = "Donation (${}) is made to the campaign ({})<br><br>Contact Info:<br>" \
+                      .format(int(amount)/100, campaign.title)
 
+        content += contact
+        send_email(settings.FROM_EMAIL, subject, campaign.owner.email, content)
+
+        # update campaign's raised amount, used for cache for less db transaction
+        campaign.raised = campaign.raised + int(amount) / 100
+        campaign.save()
+
+        # update perk's claimed count, used for cache for less db transaction
+        perk.num_claimed = perk.num_claimed + 1
+        perk.save()
+        
     return render(request, 'camp_detail.html', {
         'post': campaign,
         'perks': perks,

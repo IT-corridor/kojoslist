@@ -224,13 +224,13 @@ class Perk(models.Model):
 
 
 class PerkClaim(models.Model):
-    campaign = models.ForeignKey("Campaign")
+    campaign = models.ForeignKey("Campaign", related_name="claims")
     # null for donate
-    perk = models.ForeignKey(Perk, blank=True, null=True)
+    perk = models.ForeignKey(Perk, blank=True, null=True, related_name="claims")
     contact = models.TextField(blank=True, null=True)
     # null for Anonymous
     claimer = models.ForeignKey(Customer, blank=True, null=True)
-    amount = models.IntegerField()
+    amount = models.IntegerField()      # in cent
     transaction = models.CharField(max_length=100)
 
     def __str__(self):
