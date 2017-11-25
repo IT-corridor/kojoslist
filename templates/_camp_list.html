@@ -20,9 +20,9 @@
             <div class="duration"><i class="fa fa-clock-o" aria-hidden="true"></i>
                 {{ post|ramained_days }} days left
             </div>
+            <div class="camp-link">{{ request.get_host }}/campaigns/{{ post.id }}</div>
         </div>
     </div>
-    <span>{{ request.get_host }}/campaigns/{{ post.id }}</span>
     </a>
 </div>
 {% endfor %}  

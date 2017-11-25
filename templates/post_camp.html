@@ -70,7 +70,7 @@
                             </div>
                             <div class="form-group edit-profile">
                                 <label>Duration</label>
-                                <input type="number" name="duration" class="form-control edit-post-wrap" value="{% if form.duration.value %}{{ form.duration.value }}{% endif %}" required min="3" />
+                                <input type="number" name="duration" class="form-control edit-post-wrap" value="{% if form.duration.value %}{{ form.duration.value }}{% endif %}" required min="3" max="60" placeholder="60 day maximum." />
                             </div>
 
                             <div class="form-group edit-profile m-t-25">

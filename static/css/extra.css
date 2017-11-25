@@ -391,6 +391,11 @@ input.verify_code {
     float: right;
 }
 
+.campaign-card .camp-link {
+    color: #337ab7;
+    margin: 11px 0;
+}
+
 #myProgress {
     width: 100%;
     background-color: #ccc;
