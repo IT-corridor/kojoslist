@@ -716,7 +716,7 @@ def post_camp(request, camp_id):
                                     image=filename)
 
             return HttpResponseRedirect(reverse('my-campaigns'))
-
+        print form, '@@@@@@@@'
     return render(request, 'post_camp.html', {
         'form': form,
         'categories': categories,   

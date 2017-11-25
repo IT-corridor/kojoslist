@@ -26,7 +26,6 @@
                 </span>
             </div>
             {% if not user.phone_verified %}
-                <a class="btn btn-default verify_phone">Send SMS</a>
                 <input type="text" class="hidden input-xlarge form-control verify_code phone" placeholder="6 digits">
                 <a class="hidden btn btn-default verify_code">Verify</a>
             {% endif %}
@@ -34,8 +33,9 @@
     </div>   
     <div class="clearfix"></div>
     <div class="form-group m-t-25">
-        <div class="col-sm-offset-2 col-sm-5">
-            <a href="/" class="btn btn-success">Do it Later</a>
+        <div class="col-sm-offset-2 col-sm-8">
+            <a href="/my-account" class="btn btn-success">Do it Later</a>
+            <a class="btn btn-default verify_phone">Verify via SMS</a>
         </div>
     </div>
 

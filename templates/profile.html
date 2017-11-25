@@ -84,7 +84,11 @@
                                         </a>
                                     </div>
                                     <div class="header-user-section-welcome">
-                                        Welcome, {{ user.username }}!
+                                        {% if user.first_name %}
+                                            Welcome, {{ user.first_name }} {{ user.last_name }}
+                                        {% else %}
+                                            Welcome, {{ user.username }}!
+                                        {% endif %}
                                     </div>
                                 {% else %}
                                     <div class="header-user-section-welcome" style="margin: 0px 12px; font-size: 18px; color: #aaa;">
