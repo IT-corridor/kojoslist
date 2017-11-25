@@ -104,6 +104,9 @@
       </div>
       <div class="modal-body">
         <div class="modal-price">Price: <b>$399</b> USD</div>
+        <div class="form-group donate-div">
+            <input type="number" class="form-control" placeholder="Donate Amount (USD)" id="donate_amount">
+        </div>
         <div class="form-group">
         <label>Contact Information</label>
         <small>Please provide email, phone number, address ...</small>
@@ -151,6 +154,20 @@
     });
 
     $('#btn-pay').on('click', function(e) {
+        if (!$('#perk-modal .perk_id').val()) { // donation
+            var p = $('#donate_amount').val();
+            
+            if(p.trim() == '' || isNaN(+p)) {
+                alert('Please type proper amount!');
+                $('#donate_amount').val('');
+                $('#donate_amount').focus();
+                return false;
+            }
+
+            price = (+p) * 100;
+            $('#perk-modal .modal-amount').val(price);            
+        }
+
         handler.open({
             name: "Globalboard",
             description: "Claim Perk",
@@ -171,11 +188,23 @@
         var k = $(this).parent().data('perk');
         price = parseInt(p) * 100;
 
+        $('#perk-modal .modal-price').show();
+        $('#perk-modal .donate-div').hide();
+
         $('#perk-modal .perk_id').val(k);
         $('#perk-modal .modal-amount').val(price);
         $('#perk-modal .modal-title').html(t);
         $('#perk-modal .modal-price b').html('$'+p);
         $('#perk-modal').modal();
+    });
+
+    $('.btn-donate').click(function() {
+        $('#perk-modal .modal-price').hide();
+        $('#perk-modal .donate-div').show();
+
+        $('#perk-modal .modal-title').html("Contribution to {{ post.title }}");
+        $('#perk-modal .perk_id').val('');
+        $('#perk-modal').modal(); 
     });
 </script>
 {% endblock %}
