@@ -71,7 +71,7 @@
                 <span class="cheader">PERKS</span>
                 <hr>
                 {% for perk in perks %}
-                    <div class="perk-card">
+                    <div class="perk-card" data-price="{{ perk.price }}00" data-title="{{ perk.title }}">
                         {% if perk.image %}
                             <img src="/static/media/{{ perk.image }}" class="img-responsive">
                         {% endif %}
@@ -81,7 +81,7 @@
                         <div class="num_claimed">
                             {{ perk.num_claimed }} {% if perk.num_avail != 1000000 %}out of {{ perk.num_avail }}{% endif %} claimed
                         </div>
-                        <div class="btn-perk" data-toggle="modal" data-target="#perk-modal">GET THIS PERK</div>
+                        <div class="btn-perk">GET THIS PERK</div>
                     </div>
                 {% endfor %}
                 </div>
@@ -92,7 +92,7 @@
     </div>
 
 <!-- Modal -->
-<div id="perk-modal" class="modal fade" role="dialog">
+<div id="perk-modal" class="perk-modal modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -100,12 +100,14 @@
     <form action="" method="post">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Perk Claim</h4>
+        <h4 class="modal-title">Early Bird Backers- Board Only</h4>
       </div>
       <div class="modal-body">
+        <div class="modal-price">Price: <b>$399</b> USD</div>
         <div class="form-group">
-        <label>Contact Detail.</label>
-        <textarea class="form-control" rows=5>
+        <label>Contact Information</label>
+        <small>Please provide email, phone number, address ...</small>
+        <textarea class="form-control" rows=4>
             {{ user.email }} 
             {{ user.phone }}
         </textarea>
@@ -113,8 +115,8 @@
         <input type="hidden" name="stripeToken" id="stripe_token">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="btn-pay">Continue</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn" id="btn-pay">CONTINUE</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
       </div>
     </form>
     </div>
@@ -161,6 +163,10 @@
     // Close Checkout on page navigation:
     $(window).on('popstate', function() {
         handler.close();
+    });
+
+    $('.btn-perk').click(function() {
+        $('#perk-modal').modal();
     });
 </script>
 {% endblock %}

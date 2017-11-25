@@ -551,3 +551,33 @@ input.verify_code {
 .camp-filter-bar .camp_category {
     height: 40px;
 }
+
+.perk-modal .modal-title {
+    color: #5bc0de;
+    font-size: 22px;
+}
+
+.perk-modal .modal-price {
+    margin-bottom: 20px;
+    font-size: 16px;    
+}
+
+.perk-modal .modal-price b {
+    font-size: 19px;
+}
+
+.perk-modal label {
+    font-size: 16px;
+    color: #555;
+}
+
+.perk-modal small {
+    display: block;
+    padding: 10px 0px;
+}
+
+#btn-pay {
+    background-color: #5bc0de;   
+    color: white;
+    font-weight: 500;
+}
