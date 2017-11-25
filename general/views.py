@@ -427,6 +427,7 @@ def view_campaign(request, camp_id):
         try:
             stripe_account_id = SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
             app_fee = 0.3
+            
             charge = stripe.Charge.create(
                 amount=amount,
                 currency="usd",
