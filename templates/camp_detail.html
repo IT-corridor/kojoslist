@@ -111,8 +111,7 @@
         <div class="form-group">
         <label>Contact Information</label>
         <small>Please provide email, phone number, address ...</small>
-        <textarea class="form-control" name="contact" rows=4>{{ user.email }}&#13;&#10;
-            {% if user.phone %}{{ user.phone }}{% endif %}
+        <textarea class="form-control" name="contact" rows=4>{{ user.email }}&#13;&#10;{% if user.phone %}{{ user.phone }}{% endif %}
         </textarea>
         </div>
         <input type="hidden" name="stripeToken" id="stripe_token">
