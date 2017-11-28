@@ -69,7 +69,7 @@ class State(models.Model):
     country = models.ForeignKey(Country)
 
     def __str__(self):
-        return self.name
+        return self.name.encode('utf-8')
 
 
 class City(models.Model):
