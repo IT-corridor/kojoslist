@@ -139,6 +139,12 @@
                   <label title="Put money on escrow until you approve it"><input style="margin-top: -1px;" type="radio" name="optpay" value="escrow">Put on escrow</label>
                 </div>
             </div>
+            <div class="form-group">
+                <label>Contact Information</label>
+                <small>Please provide email, phone number, address ...</small>
+                <textarea class="form-control" name="contact" rows=4>{{ user.email }}&#13;&#10;{% if user.phone %}{{ user.phone }}{% endif %}
+                </textarea>
+            </div>            
             <input type="hidden" name="stripeToken" id="stripe_token">
           </div>
           <div class="modal-footer">

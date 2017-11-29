@@ -407,6 +407,7 @@ def view_ads(request, ads_id):
 
     if request.method == 'POST':
         optpay = request.POST.get('optpay')
+        contact = request.POST.get('contact')
         card = request.POST.get('stripeToken')
         amount = int(post.price * 100)
 
@@ -437,6 +438,18 @@ def view_ads(request, ads_id):
                 )
 
             result = charge.id
+
+            # send email to the owner
+            content = "Ads (<a href='/ads/{}'>{}</a>) is purchased<br><br>Contact Info:<br>" \
+                      .format(post.id, post.title)
+            if perk:
+                subject = 'Item purchased directly'
+            else:
+                subject = 'Item purchased via escrow'
+
+            content += contact
+            send_email(settings.FROM_EMAIL, subject, post.owner.email, content)
+
         except Exception as e:
             pass
 
