@@ -152,34 +152,47 @@
 {% block own_js %}
 <script type="text/javascript">
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    var loggedin = '{{ user.is_authenticated }}';
 
-    var price, desc; 
+    {% if post.price %}
+        var loggedin = '{{ user.is_authenticated }}';
 
-    var handler = StripeCheckout.configure({
-        key: '{{ skey }}',
-        locale: 'auto',
-        token: function(token) {
-            $('#stripe_token').val(token.id);
-            $(".ads-pay-form").submit();
-        }
-    });
+        var price = {{ post.price }} * 100; 
 
-    $('#btn-pay').on('click', function(e) {
-        handler.open({
-            name: "Globalboard",
-            description: desc,
-            currency: "usd",
-            amount: price
+        var handler = StripeCheckout.configure({
+            key: '{{ skey }}',
+            locale: 'auto',
+            token: function(token) {
+                $('#stripe_token').val(token.id);
+                $(".ads-pay-form").submit();
+            }
         });
-        e.preventDefault();
-    });
 
-    // Close Checkout on page navigation:
-    $(window).on('popstate', function() {
-        handler.close();
-    });
+        $('#btn-pay').on('click', function(e) {
+            handler.open({
+                name: "Globalboard",
+                description: {{ post.title }},
+                currency: "usd",
+                amount: price
+            });
+            e.preventDefault();
+        });
 
+        // Close Checkout on page navigation:
+        $(window).on('popstate', function() {
+            handler.close();
+        });
+
+        $('.btn-payment').click(function() {
+            if(loggedin == 'False') {
+                alert('Please login and process payment!');
+                location.href = '/accounts/login?next={{ request.path }}';
+                return;
+            }
+
+            $('#pay-modal').modal();
+        });
+
+    {% endif %}
 
     function set_image(obj) {
         var img = $(obj).attr('src');
@@ -274,16 +287,6 @@
                 }
             }
         });        
-    });
-
-    $('.btn-payment').click(function() {
-        if(loggedin == 'False') {
-            alert('Please login and process payment!');
-            location.href = '/accounts/login?next={{ request.path }}';
-            return;
-        }
-
-        $('#pay-modal').modal();
     });
 </script>
 {% endblock %}

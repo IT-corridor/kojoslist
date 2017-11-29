@@ -408,7 +408,8 @@ def view_ads(request, ads_id):
         'post': post,
         'images': images,
         'first_image': first_image,
-        'favourite': favourite
+        'favourite': favourite,
+        'skey': settings.STRIPE_KEYS['PUBLIC_KEY'],
     })
 
 def view_campaign(request, camp_id):
