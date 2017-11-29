@@ -366,7 +366,7 @@
         return mapname;
     }
 
-    jQuery("body").on('click', '.country-list li', function() {
+    jQuery("body").on('click', '.country_id', function() {
         var key = $(this).data('id');
         mapName = 'countries/'+key+'/'+key+'-all';
         isState = false;
@@ -374,7 +374,7 @@
         loadMap();
     });
 
-    $("body").on('click', '.get_category_by_location', function() {
+    $("body").on('click', '.city_id', function() {
         var city_name = $(this).text();
         city = $(this).data('id');
         location.hash = location.hash.substring(1) + '@' + city;

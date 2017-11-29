@@ -188,7 +188,7 @@ def get_regions(request):
         html = ''
         rs = City.objects.filter(state=state).order_by('name')
         for ii in rs:
-            html += '<li><a href="javascript:void();" class="get_category_by_location" data-id="{1}">{0}</a></li>'.format(ii.name, ii.id)
+            html += '<li><a href="javascript:void();" class="city_id" data-id="{1}">{0}</a></li>'.format(ii.name, ii.id)
         if html:
             html = '<ul class="country-list">' + html + '</ul>'
         else:
@@ -202,7 +202,7 @@ def get_regions(request):
         html = ''
         rs = Country.objects.all()
         for ii in rs:
-            html += '<li data-id="{}"><a href="javascript:void();">{}</a></li>'.format(ii.sortname.lower(), ii.name)
+            html += '<li><a data-id="{}" class="country_id" href="javascript:void();">{}</a></li>'.format(ii.sortname.lower(), ii.name)
         html = '<ul class="country-list">' + html + '</ul>'
     elif kind == 1: # state
         country = mapName.split('/')[1].upper()
