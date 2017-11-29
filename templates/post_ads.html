@@ -101,10 +101,10 @@
                                 <label>Title</label>
                                 <input type="text" name="title" class="form-control edit-post-wrap" value="{{ post.title }}" required/>
                             </div>
-<!--                             <div class="form-group edit-profile">
-                                <label>Price</label>
-                                <input type="number" name="price" class="form-control edit-post-wrap" min="0" required/>
-                            </div> -->
+                            <div class="form-group edit-profile">
+                                <label>Price (in USD)</label>
+                                <input type="number" step="0.01" name="price" class="form-control edit-post-wrap" min="0" value="{{ post.price }}" />
+                            </div>
 
                             <div class="form-group edit-profile">
                                 <label>Description</label>

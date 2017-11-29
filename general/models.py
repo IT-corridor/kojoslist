@@ -77,7 +77,7 @@ class City(models.Model):
     state = models.ForeignKey(State)
 
     def __str__(self):
-        return self.name
+        return self.name.encode('utf-8')
 
     class Meta:
         verbose_name_plural = 'Cities'
@@ -122,7 +122,7 @@ class Review(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.post.title)
 
-        
+
 EMPLOYMENT_TYPE = [
     ('full-time', 'full-time'), 
     ('part-time', 'part-time'), 
