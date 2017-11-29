@@ -90,7 +90,8 @@ class Post(models.Model):
     content = models.TextField()
     status = models.CharField(max_length=50, blank=True, null=True)
     category = models.ForeignKey(Category)
-    
+    price = models.FloatField(default=0)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(Customer)
@@ -111,6 +112,17 @@ class Post(models.Model):
         return self.title
 
 
+class Review(models.Model):
+    post = models.ForeignKey(Post)
+    rater = models.ForeignKey(Customer)
+    rating = models.FloatField()
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '{} - {}'.format(self.post.title)
+
+        
 EMPLOYMENT_TYPE = [
     ('full-time', 'full-time'), 
     ('part-time', 'part-time'), 
