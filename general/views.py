@@ -394,6 +394,7 @@ def view_ads(request, ads_id):
     post = get_object_or_404(Post, pk=ads_id)    
     images = post.images.all()
     favourite = False
+    result = ''
 
     if request.user.is_authenticated():
         posts = [ii.post for ii in Favourite.objects.filter(owner=request.user)]
@@ -407,11 +408,8 @@ def view_ads(request, ads_id):
     if request.method == 'POST':
         optpay = request.POST.get('optpay')
         card = request.POST.get('stripeToken')
-        amount = post.price * 100
-        result = ''
+        amount = int(post.price * 100)
 
-        print optpay, '@@@'
-        
         try:
             if optpay == "direct":
                 stripe_account_id = '' #SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
