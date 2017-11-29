@@ -13,7 +13,8 @@ from .models import *
 class SignupForm(UserCreationForm):
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password1', 'password2', 'first_name', 'last_name', 'gender', 'dob', 'address')
+        fields = ('username', 'email', 'password1', 'password2', 
+                  'first_name', 'last_name', 'gender', 'dob', 'address')
 
 
 class PostForm(ModelForm):

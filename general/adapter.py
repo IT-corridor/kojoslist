@@ -16,8 +16,8 @@ class MyAccountAdapter(DefaultAccountAdapter):
         user.first_name = data['first_name']
         user.last_name = data['last_name']
         user.gender = data['gender']
-        user.birth_date = data['dob']
-        user.city = data['address']
+        user.dob = data['dob']
+        user.address = data['address']
 
         if 'password1' in data:
             user.set_password(data['password1'])
@@ -25,7 +25,8 @@ class MyAccountAdapter(DefaultAccountAdapter):
             user.set_unusable_password()
 
         self.populate_username(request, user)
-        
+
+        print user, '########3'
         if commit:
             user.save()
         return user
