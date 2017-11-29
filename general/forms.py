@@ -5,8 +5,16 @@ from django import forms
 from django.forms import ModelForm
 from django.forms.utils import ErrorList
 from django.forms.formsets import formset_factory
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
 
 from .models import *
+
+class SignupForm(UserCreationForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('email', 'password1', 'password2', 'first_name', 'last_name', 'gender', 'dob', 'address')
+
 
 class PostForm(ModelForm):
     class Meta:
