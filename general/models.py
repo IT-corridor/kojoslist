@@ -94,7 +94,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(Customer)
-    region = models.ForeignKey(City)
+    region = models.ForeignKey(City, blank=True, null=True)
     language = models.CharField(max_length=50, blank=True, null=True)
     # contact
     mail_relay = models.BooleanField(default=False)

@@ -9,7 +9,7 @@
     <div class="content-right-content my-ads">
         <h2>Post Ads</h2>
         <div class="pages">
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" id="post-form">
                 {% csrf_token %}
                 <div class="col-md-7">    
                     <div class="row">
@@ -48,8 +48,8 @@
                         <div class="col-md-12">
                             <div class="form-group edit-profile">
                                 <label>Ad Country</label>
-                                <select id="ads_country" name="ads_country" class="form-control edit-post-wrap" required>
-                                    <option value="">Select Country</option>
+                                <select id="ads_country" name="ads_country" class="form-control edit-post-wrap">
+                                    <option value="">Global</option>
                                     {% for cc in countries %}
                                     <option value="{{ cc.id }}" {% if cc.id == post.region.state.country_id or cc.sortname == post.country %}selected{% endif %}>{{ cc.name }}</option>
                                     {% endfor %}                                    
@@ -61,7 +61,7 @@
                         <div class="col-md-12">
                             <div class="form-group edit-profile">
                                 <label>Ad Region ( State )</label>
-                                <select id="ads_state" name="ads_state" class="form-control edit-post-wrap" required>
+                                <select id="ads_state" name="ads_state" class="form-control edit-post-wrap">
                                     <option>Select Region</option>
                                     {% for cc in states %}
                                     <option value="{{ cc.id }}" {% if cc.id == post.region.state_id or cc.name == post.state %}selected{% endif %}>{{ cc.name }}</option>
@@ -75,8 +75,8 @@
                         <div class="col-md-12">
                             <div class="form-group edit-profile">
                                 <label>Specify City</label>
-                                <select id="ads_city" name="region" class="form-control edit-post-wrap" required>
-                                    <option>Select City</option>
+                                <select id="ads_city" name="region" class="form-control edit-post-wrap">
+                                    <option value="">Select City</option>
                                     {% for cc in cities %}
                                     <option value="{{ cc.id }}" {% if cc.id == post.region_id %}selected{% endif %}>{{ cc.name }}</option>
                                     {% endfor %}                                    
@@ -108,9 +108,7 @@
 
                             <div class="form-group edit-profile">
                                 <label>Description</label>
-                                <textarea name="content" class="form-control edit-post-wrap" required="">
-                                    {{ post.content }}
-                                </textarea>
+                                <textarea name="content" class="form-control edit-post-wrap" required="">{{ post.content }}</textarea>
                             </div>
                             <div id="ads_details">
                             {% include detail_template %}
@@ -166,7 +164,7 @@
 
                             <div class="form-group edit-profile">
                                 <input type="submit" class="btn btn-info update-btn" value="Submit" />
-                                <input class="btn btn-info post-add-btn-cancel" id="cancel" value="cancel" type="button">
+                                <input class="btn btn-info post-add-btn-cancel" id="cancel" value="Cancel" type="button">
                             </div>
                         </div>
                     </div>
@@ -204,6 +202,19 @@
         });
         e.preventDefault();
     });
+
+    $('#post-form').submit(function(e) {
+        var cn_id = jQuery('#ads_country').val();
+        var ct_id = jQuery('#ads_city').val();
+        console.log(cn_id);
+        console.log(ct_id);
+
+        if (cn_id && !ct_id) {
+            e.preventDefault();
+            alert('Please select a city');
+            jQuery('#ads_city').focus();
+        }
+    }); 
 
     // Close Checkout on page navigation:
     $(window).on('popstate', function() {
@@ -249,7 +260,7 @@
             } else {
                 jQuery('#ads_state').html("<option>All Regions</option>");
             }
-            jQuery('#ads_city').html("<option>All Locations</option>");
+            jQuery('#ads_city').html("<option value=''>All Locations</option>");
         });
 
         jQuery('#ads_state').change(function() {
@@ -268,7 +279,7 @@
                     }
                 });                
             } else {
-                jQuery('#ads_city').html("<option>All Locations</option>");
+                jQuery('#ads_city').html("<option value=''>All Locations</option>");
             }
         });
 

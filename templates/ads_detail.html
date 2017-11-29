@@ -68,7 +68,11 @@
                         <div class="product-location-info">
                             <div class="product-location-info-left">
                                 <span>Location</span>
-                                <h6>{{ post.region.state.country.name }}</h6>
+                                {% if post.region %}
+                                    <h6>{{ post.region.state.country.name }}</h6>
+                                {% else %}
+                                    <h6>Global</h6>
+                                {% endif %}
                             </div>
                             <div class="product-location-info-left">
                                 <span>Category</span>
