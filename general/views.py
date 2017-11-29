@@ -186,13 +186,13 @@ def get_regions(request):
         request.session['region_kind'] = 'state'
 
         html = ''
-        rs = City.objects.filter(state=state)
+        rs = City.objects.filter(state=state).order_by('name')
         for ii in rs:
             html += '<li><a href="javascript:void();" class="get_category_by_location" data-id="{1}">{0}</a></li>'.format(ii.name, ii.id)
         if html:
-            html = '<ul class="city-list list">' + html + '</ul>'
+            html = '<ul class="country-list">' + html + '</ul>'
         else:
-            html = '<ul class="city-list list">No city found</ul>'
+            html = '<ul class="country-list">No city found</ul>'
     elif kind == 0: # country
         title = 'Select Country'
         link = ''# '/region-ads/'
@@ -213,10 +213,10 @@ def get_regions(request):
         request.session['region_kind'] = 'country'
 
         html = ''
-        rs = State.objects.filter(country=country)
+        rs = State.objects.filter(country=country).order_by('name')
         for ii in rs:
             html += '<li data-id="{0}" class="region_id"><a href="javascript:void();">{0}</a></li>'.format(ii.name)
-        html = '<ul class="state-list list">' + html + '</ul>'
+        html = '<ul class="country-list">' + html + '</ul>'
 
     request.session.modified = True
 

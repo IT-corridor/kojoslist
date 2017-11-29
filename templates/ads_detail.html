@@ -9,9 +9,11 @@
         <div class="content-right-content ad-view">
             <nav class="breadcrumb">
               <a class="breadcrumb-item" href="/profile/">worldwide<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+              {% if post.region %}
               <a class="breadcrumb-item" href="#">{{ post.region.state.country.name }}<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
               <a class="breadcrumb-item" href="#">{{ post.region.state.name }}<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
               <a class="breadcrumb-item" href="#">{{ post.region.name }}<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+              {% endif %}
               <span class="breadcrumb-item active">{{ post.category.name }}</span>
             </nav>
 
