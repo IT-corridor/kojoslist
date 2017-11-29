@@ -394,7 +394,7 @@ def view_ads(request, ads_id):
     post = get_object_or_404(Post, pk=ads_id)    
     images = post.images.all()
     favourite = False
-    result = ''
+    result = '2'
 
     if request.user.is_authenticated():
         posts = [ii.post for ii in Favourite.objects.filter(owner=request.user)]

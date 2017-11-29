@@ -133,7 +133,7 @@
             <div class="modal-price">Price: <b>${{ post.price }}</b> USD</div>
             <div class="form-group" style="padding: 12px;">
                 <div class="radio">
-                  <label title="Direct pay to owner"><input style="margin-top: -1px;" type="radio" name="optpay" value="direct">Direct Pay</label>
+                  <label title="Direct pay to owner"><input style="margin-top: -1px;" type="radio" name="optpay" value="direct" checked="">Direct Pay</label>
                 </div>
                 <div class="radio">
                   <label title="Put money on escrow until you approve it"><input style="margin-top: -1px;" type="radio" name="optpay" value="escrow">Put on escrow</label>
@@ -142,7 +142,7 @@
             <div class="form-group">
                 <label>Contact Information</label>
                 <small>Please provide email, phone number, address ...</small>
-                <textarea class="form-control" name="contact" rows=4>{{ user.email }}&#13;&#10;{% if user.phone %}{{ user.phone }}{% endif %}
+                <textarea class="form-control" name="contact" rows=4>{{ user.email }}&#13;&#10;{% if user.phone %}{{ user.phone }}{% endif %}&#13;&#10;{% if user.address %}{{ user.address }}{% endif %}
                 </textarea>
             </div>            
             <input type="hidden" name="stripeToken" id="stripe_token">
@@ -164,14 +164,23 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Contribution</h4>
+            <h4 class="modal-title">Purchase an Item</h4>
           </div>
-          <div class="modal-body" style="font-size: 18px; line-height: 24px;">
-            <p>The transaction is processed successfully</p>
+          <div class="modal-body" style="font-size: 16px; line-height: 22px;">
+            <p>Thank you for your purchase</p>
             <p>Transaction ID: {{ result }}</p>
-            <p>Thank you for your contribution</p>
           </div>
+          <h4>Please rate the item</h4>
+          <div>
+              <i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i>
+          </div>
+            <div class="form-group">
+                <label>Message</label>
+                <textarea class="form-control" name="content" rows=4></textarea>
+            </div>            
+
           <div class="modal-footer">
+            <button type="button" class="btn" id="btn-rate">Rate</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
