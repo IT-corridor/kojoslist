@@ -80,6 +80,12 @@
                                 <span>Category</span>
                                 <h6>{{ post.category.parent.name }} / {{ post.category.name }}</h6>
                             </div>
+                            {% if post.price %}
+                            <div class="product-location-info-left m-t-15">
+                                <span>Price</span>
+                                <h6><b>${{ post.price }}</b></h6>
+                            </div>
+                            {% endif %}
                         </div>
                         <div class="product-text">
                             <span>Description</span>
@@ -112,7 +118,7 @@
         </div>
     </div>
 
-    <div id="pay-modal" class="pay-modal modal fade" role="dialog">
+    <div id="pay-modal" class="perk-modal modal fade" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -125,15 +131,15 @@
           </div>
           <div class="modal-body">
             <div class="modal-price">Price: <b>${{ post.price }}</b> USD</div>
-            <div class="form-group">
-            <label>Contact Information</label>
-            <small>Please provide email, phone number, address ...</small>
-            <textarea class="form-control" name="contact" rows=4>{{ user.email }}&#13;&#10;{% if user.phone %}{{ user.phone }}{% endif %}
-            </textarea>
+            <div class="form-group" style="padding: 12px;">
+                <div class="radio">
+                  <label title="Direct pay to owner"><input style="margin-top: -1px;" type="radio" name="optpay" value="direct">Direct Pay</label>
+                </div>
+                <div class="radio">
+                  <label title="Put money on escrow until you approve it"><input style="margin-top: -1px;" type="radio" name="optpay" value="escrow">Put on escrow</label>
+                </div>
             </div>
             <input type="hidden" name="stripeToken" id="stripe_token">
-            <input type="hidden" name="ads_id" value="{{ post.id }}">
-            <input type="hidden" name="amount" value="{{ post.price }}">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn" id="btn-pay">CONTINUE</button>
@@ -143,15 +149,42 @@
         </div>
 
       </div>
-    </div>        
+    </div>      
+
+    <div id="result-modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Contribution</h4>
+          </div>
+          <div class="modal-body" style="font-size: 18px; line-height: 24px;">
+            <p>The transaction is processed successfully</p>
+            <p>Transaction ID: {{ result }}</p>
+            <p>Thank you for your contribution</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
 {% endblock %}
 
 {% block load_highcharts_js %}
 {% endblock %}
 
 {% block own_js %}
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <script type="text/javascript">
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    var transaction = '{{ result }}';
+    if (transaction)
+        $('#result-modal').modal();
 
     {% if post.price %}
         var loggedin = '{{ user.is_authenticated }}';
@@ -170,7 +203,7 @@
         $('#btn-pay').on('click', function(e) {
             handler.open({
                 name: "Globalboard",
-                description: {{ post.title }},
+                description: "{{ post.title }}",
                 currency: "usd",
                 amount: price
             });

@@ -404,12 +404,51 @@ def view_ads(request, ads_id):
     else:
         first_image = 'dummy.jpg'
 
+    if request.method == 'POST':
+        optpay = request.POST.get('optpay')
+        card = request.POST.get('stripeToken')
+        amount = post.price * 100
+        result = ''
+
+        print optpay, '@@@'
+        
+        try:
+            if optpay == "direct":
+                stripe_account_id = '' #SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
+                app_fee = 0.3
+
+                charge = stripe.Charge.create(
+                    amount=amount,
+                    currency="usd",
+                    source=card, # obtained with Stripe.js
+                    # destination=stripe_account_id,
+                    # application_fee = int(amount * app_fee),                
+                    description="Direct pay to the ads (#{} - {})".format(post.id, post.title)
+                )
+            else:
+                stripe_account_id = '' #SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
+                app_fee = 0.3
+
+                charge = stripe.Charge.create(
+                    amount=amount,
+                    currency="usd",
+                    source=card, # obtained with Stripe.js
+                    # destination=stripe_account_id,
+                    # application_fee = int(amount * app_fee),                
+                    description="Escrow for the ads (#{} - {})".format(post.id, post.title)
+                )
+
+            result = charge.id
+        except Exception as e:
+            pass
+
     return render(request, 'ads_detail.html', {
         'post': post,
         'images': images,
         'first_image': first_image,
         'favourite': favourite,
         'skey': settings.STRIPE_KEYS['PUBLIC_KEY'],
+        'result': result
     })
 
 def view_campaign(request, camp_id):
