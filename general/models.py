@@ -122,6 +122,9 @@ class PostPurchase(models.Model):
 
 
 class Review(models.Model):
+    """
+    review on post
+    """
     post = models.ForeignKey(Post)
     rater = models.ForeignKey(Customer)
     rating = models.FloatField()

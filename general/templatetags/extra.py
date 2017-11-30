@@ -1,5 +1,9 @@
-from django import template
 import datetime
+
+from django import template
+from django.db.models import Avg
+
+from general.models import *
 
 register = template.Library()
 
@@ -16,6 +20,9 @@ def ramained_days(campaign):
     
 @register.filter
 def get_vids(campaign):
-	vids = [ii.strip() for ii in campaign.videos.split(',') if ii.strip()]
-	return vids
+    vids = [ii.strip() for ii in campaign.videos.split(',') if ii.strip()]
+    return vids
 
+@register.filter
+def rating(customer):
+    return Review.objects.filter(post__owner=customer).aggregate(Avg('rating')).values()[0]

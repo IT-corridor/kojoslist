@@ -123,7 +123,7 @@ div.sub-category {
 
 .btn-reply {
     margin-left: 30px; 
-    margin-top: -25px; 
+    margin-top: -41px; 
     background-color: #f0eeee;
 }
 
@@ -171,6 +171,7 @@ div.favourite {
     color: #64B7E7;
     cursor: pointer;
     font-size: 16px;
+    margin-bottom: 15px;
 }
 
 div.favourite.like {

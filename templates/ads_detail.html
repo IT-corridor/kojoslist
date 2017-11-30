@@ -1,5 +1,6 @@
 {% extends "profile.html" %} 
 {% load staticfiles %} 
+{% load extra %}
 
 {% block own_css %}
 <link href="/static/star-rating/star-rating.css" rel="stylesheet">
@@ -53,7 +54,7 @@
                             </a>
                             <div class="star-profile-name" style="display: inline-block;">
                                 <a href="#" class="username_on_detail">{{ post.owner.first_name }} {{ post.owner.last_name }}</a>
-                                <i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i>                               
+                                <input id="rating-owner" value="{{ post.owner|rating }}"/>
                             </div>
                             <button class="btn btn-default btn-reply">Reply</button>
                         </div>
@@ -207,16 +208,23 @@
 <script type="text/javascript">
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    var $inp = $('#rating-input');
+    $('#rating-input').rating({
+        min: 0,
+        max: 5,
+        step: 0.5,
+        size: 'xs',
+        showClear: false,
+        showCaption: false
+    });
 
-    $inp.rating({
+    $('#rating-owner').rating({
         min: 0,
         max: 5,
         step: 0.5,
         size: 'xs',
         showClear: false,
         showCaption: false,
-        // displayOnly: true
+        displayOnly: true
     });
 
     {% if post.price %}
