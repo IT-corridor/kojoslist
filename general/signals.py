@@ -44,7 +44,7 @@ def apply_subscribe(sender, instance, **kwargs):
 def rating_notify(sender, instance, **kwargs):    
     try:
         content = '<a href="/user/{}">{} {}</a> left review on your ads ({}) at {}'.format(-1, instance.rater.first_name,
-            instance.rater.last_name, instance.post.title)
+            instance.rater.last_name, instance.post.title, instance.created_at)
         send_email(settings.FROM_EMAIL, 'Globalboard Rating Notification', instance.post.owner.email, content)
     except Exception, e:
         print e, '@@@@@ Error in rating_notify()'
@@ -53,9 +53,10 @@ def rating_notify(sender, instance, **kwargs):
 def post_purchase_notify(sender, instance, **kwargs):    
     try:
         # send email to the owner
-        content = "Ads (<a href='/ads/{}'>{}</a>) is purchased<br><br>Contact Info:<br>" \
-                  .format(instance.post.id, instance.post.title)
-        if perk:
+        content = "Ads (<a href='/ads/{}'>{}</a>) is purchased by {} {} at {}<br><br>Contact Info:<br>" \
+                  .format(instance.post.id, instance.post.title, instance.purchaser.first_name, 
+                          instance.purchaser.last_name, instance.created_at)
+        if instance.type == 'direct':
             subject = 'Item purchased directly'
         else:
             subject = 'Item purchased via escrow'

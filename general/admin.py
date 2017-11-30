@@ -41,7 +41,12 @@ class PerkClaimAdmin(admin.ModelAdmin):
 
 
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ['post', 'rating', 'rater']
+    list_display = ['post', 'rating', 'rater', 'created_at']
+    search_fields = ['post']
+
+
+class PostPurchaseAdmin(admin.ModelAdmin):
+    list_display = ['post', 'purchaser', 'type', 'transaction', 'created_at']
     search_fields = ['post']
 
 
@@ -58,6 +63,7 @@ class SearchAdmin(admin.ModelAdmin):
 
 admin.site.register(Customer)
 admin.site.register(Review, ReviewAdmin)
+admin.site.register(PostPurchase, PostPurchaseAdmin)
 admin.site.register(Post)
 admin.site.register(GaragePost)
 admin.site.register(JobPost)

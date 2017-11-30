@@ -445,7 +445,7 @@ def view_ads(request, ads_id):
                                         contact=contact,
                                         transaction=charge.id)
         except Exception as e:
-            pass
+            print e, '@@@@@ Error in view_ads()'
 
     return render(request, 'ads_detail.html', {
         'post': post,
