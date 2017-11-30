@@ -15,8 +15,8 @@ from general.utils import send_email
 def delete_image_file(sender, instance, using, **kwargs):
     try:
         os.remove(settings.BASE_DIR+'/static/media/'+instance.name)
-    except Exception:
-        pass
+    except Exception, e:
+        print e, '@@@@@ Error in delete_image_file()'
 
 @receiver(post_save, sender=Post)
 @receiver(post_save, sender=JobPost)
@@ -38,4 +38,13 @@ def apply_subscribe(sender, instance, **kwargs):
                         """.format(ss.category.name, str(instance.created_at), instance.id, instance.title)
                         send_email(settings.FROM_EMAIL, 'Globalboard Subscription Alarm', ss.owner.email, content)
     except Exception, e:
-        print e, '@@@@@@@@@'
+        print e, '@@@@@ Error in apply_subscribe()'
+
+@receiver(post_save, sender=Review)
+def rating_notify(sender, instance, **kwargs):    
+    try:
+        content = '<a href="/user/{}">{} {}</a> left review on your ads ({}) at {}'.format(-1, instance.rater.first_name,
+            instance.rater.last_name, instance.post.title)
+        send_email(settings.FROM_EMAIL, 'Globalboard Rating Notification', instance.post.owner.email, content)
+    except Exception, e:
+        print e, '@@@@@ Error in rating_notify()'

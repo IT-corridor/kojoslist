@@ -104,6 +104,22 @@ class Post(models.Model):
         return self.title
 
 
+PURCHASE_TYPE = (
+    ('DIRECT', 'DIRECT'),
+    ('ESCROW', 'ESCROW')
+)
+
+class PostPurchase(models.Model):
+    post = models.ForeignKey(Post)
+    created_at = models.DateTimeField(auto_now_add=True)
+    purchaser = models.ForeignKey(Customer)
+    type = models.CharField(max_length=20, choices=PURCHASE_TYPE)
+    transaction = models.CharField(max_length=100)
+
+    def __str__(self):
+        return '{} - {}'.format(self.post.title, self.purchaser.username)
+
+
 class Review(models.Model):
     post = models.ForeignKey(Post)
     rater = models.ForeignKey(Customer)
