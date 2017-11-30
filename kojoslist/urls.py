@@ -45,6 +45,7 @@ urlpatterns += [
     url(r"^post-ads/(?P<ads_id>\d*)", post_ads, name="post-ads"),
     url(r"^post-camp/(?P<camp_id>\d*)", post_camp, name="post-camp"),
     url(r"^ads/(?P<ads_id>\d*)", view_ads, name="view-ads"),
+    url(r"^user_show/(?P<user_id>\d*)", user_show, name="user review"),
     url(r"^campaigns/(?P<camp_id>\d*)", view_campaign, name="view-campaign"),
     url(r"^category-ads/(?P<category_id>\d*)", category_ads, name="category-ads"),
     url(r"^upload-image$", upload_image, name="upload-image"),

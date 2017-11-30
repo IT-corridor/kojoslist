@@ -800,3 +800,7 @@ def rate_ads(request):
                           content=request.POST.get('content'))
 
     return HttpResponse('')
+
+def user_show(request, user_id):
+    host = Customer.objects.get(id=user_id)
+    return render(request, 'user_show.html', { 'host': host })
