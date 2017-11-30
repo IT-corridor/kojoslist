@@ -1,6 +1,9 @@
 {% extends "profile.html" %} 
 {% load staticfiles %} 
 
+{% block own_css %}
+<link href="/static/star-rating/star-rating.css" rel="stylesheet">
+{% endblock %} 
 
 {% block right_content %}
     <!-- Content Right Content -->
@@ -107,7 +110,7 @@
                         {% if post.price %}
                         <div class="main-product-btn">
                             <div class="col-xs-6 col-md-3 no-padding">
-                                <input class="btn btn-info btn-payment" type="button" value="Make Payment">
+                                <input class="btn btn-info btn-payment" type="button" value="Purchase">
                             </div>  
                         </div>
                         {% endif %}
@@ -157,7 +160,7 @@
       </div>
     </div>      
 
-    <div id="result-modal" class="modal fade" role="dialog">
+    <div id="result-modal" class="modal fade perk-modal" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -166,23 +169,28 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">Purchase an Item</h4>
           </div>
-          <div class="modal-body" style="font-size: 16px; line-height: 22px;">
-            <p>Thank you for your purchase</p>
-            <p>Transaction ID: {{ result }}</p>
+        <form id="rate-form">
+        <div class="modal-body" style="font-size: 16px; line-height: 22px;">
+            <div class="well">
+                <p>Thank you for your purchase</p>
+                <p>Transaction ID: {{ result }}</p>
+            </div>
+                <h4>Please rate the item</h4>
+                <div style="padding: 10px 0;">
+                    <input id="rating-input" name="rating" type="text" title="" value="0"/>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea class="form-control" name="content" rows=4 required=""></textarea>
+                </div>            
+                <input type="hidden" name="post_id" value="{{ post.id }}">
           </div>
-          <h4>Please rate the item</h4>
-          <div>
-              <i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i><i class="fa fa-star not_review"></i>
-          </div>
-            <div class="form-group">
-                <label>Message</label>
-                <textarea class="form-control" name="content" rows=4></textarea>
-            </div>            
 
           <div class="modal-footer">
-            <button type="button" class="btn" id="btn-rate">Rate</button>
+            <button type="submit" class="btn" id="btn-rate">Rate</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
+        </form>
         </div>
 
       </div>
@@ -194,14 +202,28 @@
 
 {% block own_js %}
 <script src="https://checkout.stripe.com/checkout.js"></script>
+<script src="/static/star-rating/star-rating.min.js"></script>
+
 <script type="text/javascript">
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    var transaction = '{{ result }}';
-    if (transaction)
-        $('#result-modal').modal();
+    var $inp = $('#rating-input');
+
+    $inp.rating({
+        min: 0,
+        max: 5,
+        step: 0.5,
+        size: 'xs',
+        showClear: false,
+        showCaption: false,
+        // displayOnly: true
+    });
 
     {% if post.price %}
+        var transaction = '{{ result }}';
+        if (transaction)
+            $('#result-modal').modal();
+    
         var loggedin = '{{ user.is_authenticated }}';
 
         var price = {{ post.price }} * 100; 
@@ -240,6 +262,22 @@
             $('#pay-modal').modal();
         });
 
+        $('#rate-form').submit(function(e) {
+            var rate_form = $(this).serialize();
+            e.preventDefault();
+
+            jQuery.ajax({
+                type: 'post',
+                url: '/rate_ads',
+                data: {
+                    rate_form: rate_form,
+                },
+                success: function(res) {
+                    alert('You need to login for saving this in your favourites.');
+                }
+            }); 
+
+        });
     {% endif %}
 
     function set_image(obj) {
