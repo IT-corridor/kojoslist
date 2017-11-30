@@ -120,7 +120,7 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '{} - {}'.format(self.post.title)
+        return '{} - {}'.format(self.post.title, self.rater.username)
 
 
 EMPLOYMENT_TYPE = [

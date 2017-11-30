@@ -263,20 +263,17 @@
         });
 
         $('#rate-form').submit(function(e) {
-            var rate_form = $(this).serialize();
             e.preventDefault();
 
             jQuery.ajax({
                 type: 'post',
                 url: '/rate_ads',
-                data: {
-                    rate_form: rate_form,
-                },
+                data: $(this).serialize(),
                 success: function(res) {
-                    alert('You need to login for saving this in your favourites.');
+                    alert('Thank you for your rating.');
+                    $('#result-modal').modal('hide');
                 }
             }); 
-
         });
     {% endif %}
 

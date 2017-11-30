@@ -40,6 +40,11 @@ class PerkClaimAdmin(admin.ModelAdmin):
     search_fields = ['campaign']
 
 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['post', 'rating', 'rater']
+    search_fields = ['post']
+
+
 class SearchAdmin(admin.ModelAdmin):
     list_display = ['owner', 'category', 'des_state', 'des_city', 'keyword']
 
@@ -52,11 +57,11 @@ class SearchAdmin(admin.ModelAdmin):
             return '{} / {} / {}'.format(obj.city.state.country.name, obj.city.state.name, obj.city.name)
 
 admin.site.register(Customer)
+admin.site.register(Review, ReviewAdmin)
 admin.site.register(Post)
 admin.site.register(GaragePost)
 admin.site.register(JobPost)
 admin.site.register(Favourite)
-# admin.site.register(Hidden)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Search, SearchAdmin)
 admin.site.register(Country, CountryAdmin)

@@ -394,7 +394,7 @@ def view_ads(request, ads_id):
     post = get_object_or_404(Post, pk=ads_id)    
     images = post.images.all()
     favourite = False
-    result = '2'
+    result = ''
 
     if request.user.is_authenticated():
         posts = [ii.post for ii in Favourite.objects.filter(owner=request.user)]
@@ -797,3 +797,12 @@ def search_camps(request):
 
     rndr_str = render_to_string('_camp_list.html', {'campaigns': campaigns[:20]})
     return HttpResponse(rndr_str)
+
+@csrf_exempt
+def rate_ads(request):
+    Review.objects.create(post_id=request.POST.get('post_id'),
+                          rater=request.user,
+                          rating=request.POST.get('rating'),
+                          content=request.POST.get('content'))
+
+    return HttpResponse('')
