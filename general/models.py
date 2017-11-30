@@ -105,16 +105,17 @@ class Post(models.Model):
 
 
 PURCHASE_TYPE = (
-    ('DIRECT', 'DIRECT'),
-    ('ESCROW', 'ESCROW')
+    ('direct', 'DIRECT'),
+    ('escrow', 'ESCROW')
 )
 
 class PostPurchase(models.Model):
     post = models.ForeignKey(Post)
-    created_at = models.DateTimeField(auto_now_add=True)
     purchaser = models.ForeignKey(Customer)
     type = models.CharField(max_length=20, choices=PURCHASE_TYPE)
+    contact = models.TextField(blank=True, null=True)
     transaction = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return '{} - {}'.format(self.post.title, self.purchaser.username)

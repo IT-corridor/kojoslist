@@ -439,17 +439,11 @@ def view_ads(request, ads_id):
 
             result = charge.id
 
-            # send email to the owner
-            content = "Ads (<a href='/ads/{}'>{}</a>) is purchased<br><br>Contact Info:<br>" \
-                      .format(post.id, post.title)
-            if perk:
-                subject = 'Item purchased directly'
-            else:
-                subject = 'Item purchased via escrow'
-
-            content += contact
-            send_email(settings.FROM_EMAIL, subject, post.owner.email, content)
-
+            PostPurchase.objects.create(post=post,
+                                        purchaser=request.user,
+                                        type=optpay,
+                                        contact=contact,
+                                        transaction=charge.id)
         except Exception as e:
             pass
 

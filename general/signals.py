@@ -48,3 +48,20 @@ def rating_notify(sender, instance, **kwargs):
         send_email(settings.FROM_EMAIL, 'Globalboard Rating Notification', instance.post.owner.email, content)
     except Exception, e:
         print e, '@@@@@ Error in rating_notify()'
+
+@receiver(post_save, sender=PostPurchase)
+def post_purchase_notify(sender, instance, **kwargs):    
+    try:
+        # send email to the owner
+        content = "Ads (<a href='/ads/{}'>{}</a>) is purchased<br><br>Contact Info:<br>" \
+                  .format(instance.post.id, instance.post.title)
+        if perk:
+            subject = 'Item purchased directly'
+        else:
+            subject = 'Item purchased via escrow'
+
+        content += instance.contact
+        send_email(settings.FROM_EMAIL, subject, instance.post.owner.email, content)
+
+    except Exception, e:
+        print e, '@@@@@ Error in post_purchase_notify()'
