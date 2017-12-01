@@ -681,7 +681,8 @@ def my_account(request):
 
     return render(request, 'my-account.html', {
         'form': form,
-        'reviews': reviews
+        'reviews': reviews,
+        'stripe': request.user.socialaccount_set.filter(provider='stripe')
     })
 
 @csrf_exempt

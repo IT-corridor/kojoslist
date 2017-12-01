@@ -1,5 +1,6 @@
 from django.conf import settings
 from allauth.account.adapter import DefaultAccountAdapter
+from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 
 class MyAccountAdapter(DefaultAccountAdapter):
 
@@ -10,3 +11,8 @@ class MyAccountAdapter(DefaultAccountAdapter):
             path = "/profile/#" + default_site
         return path
 
+
+class MySocialAdapter(DefaultSocialAccountAdapter):
+	
+    def get_connect_redirect_url(self, request, socialaccount):
+    	return '/my-account'
