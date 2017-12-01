@@ -1,8 +1,10 @@
 {% extends "profile.html" %} 
 {% load staticfiles %} 
+{% load extra %}
 
 {% block own_css %}
 <link rel='stylesheet' id='dropdown-menu-style-css' href='/static/css/my-account.css' type='text/css' media='all' /> 
+<link href="/static/star-rating/star-rating.css" rel="stylesheet">
 {% endblock %} 
 
 {% block right_content %}
@@ -144,12 +146,26 @@
                 </div>       
                 <div id="resume" class="tab-pane fade">
                     <div class="pages balance">
-                        <form action="#" method="post">
-                            <textarea name="user_status" class="form-control" rows="3"></textarea>
-                            <input type="hidden" name="action" value="setStatus"  />
-                            <input type="button" class="btn btn-info strong-btn" value="Submit"  />
-                        </form>
-                        <span>Status : Normal placeholder</span>                    
+                    <div class="col-md-10">
+                        <div class="rv-title m-t-15">
+                            Reviews ( {{ reviews.count }} ) 
+                        </div>
+                        <input id="rating-owner" value="{{ user|rating }}"/>
+                        <hr>
+                        {% for review in reviews %}
+                        <div class="review-card row">            
+                            <div class="col-sm-2">            
+                                <img src="/static/media/avatar/{{ review.rater.avatar }}" class="img-responsive rv-avatar">
+                                <div class="rv-rater">{{ review.rater.first_name }}</div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="rv-content">{{ review.content }}</div>
+                                <div class="rv-created">{{ review.created_at }}</div>
+                            </div>
+                        </div>
+                        <hr>
+                        {% endfor %}
+                        </div>
                     </div>
                 </div>                         
             </div>
@@ -162,7 +178,18 @@
 {% endblock %}
 
 {% block own_js %}
+<script src="/static/star-rating/star-rating.min.js"></script>
+
 <script>
+    $('#rating-owner').rating({
+        min: 0,
+        max: 5,
+        step: 0.5,
+        size: 'xs',
+        showClear: false,
+        displayOnly: true
+    });
+
     jQuery(document).ready(function() {
         jQuery("body").on("click", ".upload-avatar", function() {
             jQuery("#inputfile").click();

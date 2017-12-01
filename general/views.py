@@ -670,6 +670,8 @@ def remove_subscribe(request):
 
 @login_required(login_url='/accounts/login')
 def my_account(request):
+    reviews = Review.objects.filter(post__owner=request.user)
+
     if request.method == 'GET':
         form = CustomerForm(instance=request.user)
     else:
@@ -677,7 +679,10 @@ def my_account(request):
         if form.is_valid():
             form.save()
 
-    return render(request, 'my-account.html', {'form': form})
+    return render(request, 'my-account.html', {
+        'form': form,
+        'reviews': reviews
+    })
 
 @csrf_exempt
 def send_vcode(request):
@@ -804,7 +809,7 @@ def rate_ads(request):
 def user_show(request, user_id):
     host = Customer.objects.get(id=user_id)
     reviews = Review.objects.filter(post__owner=host)
-    
+
     return render(request, 'user_show.html', { 
         'host': host,
         'reviews': reviews

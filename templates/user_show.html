@@ -1,8 +1,10 @@
 {% extends "profile.html" %} 
 {% load staticfiles %} 
+{% load extra %}
 
 {% block own_css %}
 <link rel='stylesheet' id='dropdown-menu-style-css' href='/static/css/my-account.css' type='text/css' media='all' /> 
+<link href="/static/star-rating/star-rating.css" rel="stylesheet">
 {% endblock %} 
 
 {% block right_content %}
@@ -17,9 +19,19 @@
                     <div class="panel panel-success" style="margin: 12px;">
                         <div class="panel-heading">Verified Info</div>
                         <div class="panel-body">
-                            <div class="ht-verify">Government ID <i class="fa fa-check-circle-o c-green pull-right"></i></div>
-                            <div class="ht-verify">Email address <i class="fa fa-check-circle-o c-grey pull-right"></i></div>
-                            <div class="ht-verify">Phone number <i class="fa fa-check-circle-o c-green pull-right"></i></div>                      
+                            <div class="ht-verify">Government ID 
+                                {% if host.v_statue == 'verified' %}
+                                <i class="fa fa-check c-green pull-right"></i>
+                                {% endif %}
+                            </div>
+                            <div class="ht-verify">Email address                                 
+                                <i class="fa fa-check c-green pull-right"></i>
+                            </div>
+                            <div class="ht-verify">Phone number 
+                                {% if host.phone_verified %}
+                                <i class="fa fa-check c-green pull-right"></i>
+                                {% endif %}
+                            </div>                      
                         </div>
                     </div>                                        
                 </div>
@@ -29,6 +41,7 @@
                     <div class="su-desc">{{ host.description }}</div>
 
                     <div class="rv-title m-t-15">Reviews ( {{ reviews.count }} )</div>
+                    <input id="rating-owner" value="{{ host|rating }}"/>
                     <hr>
                     {% for review in reviews %}
                     <div class="review-card row">            
@@ -54,6 +67,16 @@
 {% endblock %}
 
 {% block own_js %}
+<script src="/static/star-rating/star-rating.min.js"></script>
 
-
+<script>
+    $('#rating-owner').rating({
+        min: 0,
+        max: 5,
+        step: 0.5,
+        size: 'xs',
+        showClear: false,
+        displayOnly: true
+    });
+</script>
 {% endblock %}
