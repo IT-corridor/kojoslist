@@ -9,154 +9,44 @@
     <!-- Content Right Content -->
 
     <div class="col-sm-12 full-h">
-
         <div class="content-right-content my-account">
-            <ul class="nav nav-pills tabs">
-                <li class="active"><a class="tab" data-toggle="pill" href="#profile">Profile</a></li>
-                <li class=""><a class="tab" data-toggle="pill" href="#balance">ID Verification</a></li>
-                <li class=""><a class="tab" data-toggle="pill" href="#resume">Resume</a></li>
-            </ul>
-            <div class="tab-content">
-                <div id="profile" class="tab-pane fade active in">
-                    <div class="pages balance">
-                        <form class="login form-horizontal" method="POST">
-                            {% csrf_token %}
-                            {% for _, error in form.errors.items %}
-                                <div class="error">{{ error }}</div>
-                            {% endfor %}
-                            <div class="form-group m-t-15">
-                                <div class="col-sm-1 col-xs-5 upload-image" style="margin-bottom: 15px;">
-                                    <input id="inputfile" type="file" name="files[]" data-maxfilesize="4000000" class="hidden" data-maxuploadfile="20" data-imagequality="0.7">
-                                    <input type="hidden" name="uploded_id[]" class="uploded_id" />
-                                    <input type="hidden" name="avatar" class="uploded_id1" value="{{ form.avatar.value }}" />
-                                    <img src="/static/media/avatar/{{ user.avatar }}" class="avatar" style="width: 100px; height: 100px;">
-                                </div>
-                                <div class="col-sm-6 col-xs-7">
-                                    <a class="btn btn-default upload-avatar" style="margin: 30px 5px 10px 24px;"><i class="fa fa-upload"></i> Upload Avatar</a>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="id_login">Username:</label>
-                                <div class="col-sm-6">
-                                    <input autofocus="autofocus" id="id_email" name="username" type="text" class="form-control" required value="{{ user.username }}" readonly="">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="id_login">First Name:</label>
-                                <div class="col-sm-6">
-                                    <input autofocus="autofocus" id="id_email" name="first_name" type="text" class="form-control" required value="{{ user.first_name }}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="id_password">Last Name:</label>
-                                <div class="col-sm-6">
-                                    <input id="id_password1" name="last_name" type="text" class="input-xlarge form-control" required="" value="{{ user.last_name }}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="id_password">Gender:</label>
-                                <div class="col-sm-6">
-                                    <select name="gender" class="input-xlarge form-control" required="">
-                                    <option {% if user.gender != 'Female' %}selected{% endif %} value="Male">Male</option>
-                                    <option {% if user.gender == 'Female' %}selected{% endif %} value="Female">Female</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group m-t-15">
-                                <label class="control-label col-sm-2" for="id_login">E-mail:</label>
-                                <div class="col-sm-6">
-                                    <div class="input-group">
-                                        <input autofocus="autofocus" id="id_email" name="email" type="email" class="form-control" required value="{{ user.email }}">
-                                        <span class="input-group-addon">     
-                                            <i class="fa fa-check c-green"></i>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="id_password">Phone:</label>
-                                <div class="col-sm-6">
-                                    <div class="input-group">
-                                        <input id="id_password1" name="phone" type="text" class="input-xlarge form-control phone_number" placeholder="+1 (212) 234 4342" value="{% if user.phone %}{{ user.phone }}{% endif %}">
-                                        <span class="input-group-addon sym_phone">     
-                                            {% if user.phone_verified %}
-                                            <i class="fa fa-check c-green"></i>
-                                            {% else %}
-                                            <i class="fa fa-square-o" style="width: 14px;"></i>
-                                            {% endif %}
-                                        </span>
-                                    </div>
-                                    {% if not user.phone_verified %}
-                                        <a class="btn btn-default verify_phone">Verify via SMS</a>
-                                        <input type="text" class="hidden input-xlarge form-control verify_code phone" placeholder="6 digits">
-                                        <a class="hidden btn btn-default verify_code">Verify</a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="id_password">Birth Date:</label>
-                                <div class="col-sm-6">
-                                    <input id="id_dob" name="dob" type="text" class="input-xlarge form-control" required="" value="{% if form.dob.value %}{{ form.dob.value }}{% endif %}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="id_password">Address:</label>
-                                <div class="col-sm-6">
-                                    <input id="id_password1" name="address" type="text" class="input-xlarge form-control" required="" value="{% if user.address %}{{ user.address }}{% endif %}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="id_password">Description:</label>
-                                <div class="col-sm-6">
-                                    <textarea name="description" class="input-xlarge form-control">
-                                        {% if user.description %}{{ user.description }}{% endif %}
-                                    </textarea>                                    
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="id_remember">Password:</label>
-                                <div class="col-sm-6">
-                                    <a class="btn btn-default" href="/accounts/password/change/">Change Password</a>
-                                </div>
-                            </div>                            
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-5">
-                                    <button type="submit" class="primaryAction btn btn-success">Save Updates</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 m-t-25">
+                <div class="col-md-3">
+                    <img src="/static/media/avatar/{{ host.avatar }}" class="avatar img-responsive">
+                    <div class="panel panel-success" style="margin: 12px;">
+                        <div class="panel-heading">Verified Info</div>
+                        <div class="panel-body">
+                            <div class="ht-verify">Government ID <i class="fa fa-check-circle-o c-green pull-right"></i></div>
+                            <div class="ht-verify">Email address <i class="fa fa-check-circle-o c-grey pull-right"></i></div>
+                            <div class="ht-verify">Phone number <i class="fa fa-check-circle-o c-green pull-right"></i></div>                      
+                        </div>
+                    </div>                                        
                 </div>
-                <div id="balance" class="tab-pane fade">
-                    <div class="pages balance verify_section">
-                        {% if not user.v_statue or user.v_statue == 'unverified' %}
-                        <input id="ID_file" type="file" name="files[]" data-maxfilesize="4000000" class="hidden" data-maxuploadfile="20" data-imagequality="0.7">
-                        <input type="hidden" name="uploded_id[]" class="uploded_id" />
-                        <input type="hidden" name="avatar" class="uploded_id1" value="{{ form.avatar.value }}" />
+                <div class="col-md-8">
+                    <div class="su-title">Hey, I'm {{ host.first_name }} {{ host.last_name}}</div>
+                    <div class="su-joined">Joined at {{ host.date_joined }}</div>
+                    <div class="su-desc">{{ host.description }}</div>
 
-                        <button class="primaryAction btn btn-danger provide_id">Provide ID</button>
-                        {% elif user.v_statue == 'awaiting_approve' %}
-                        <span class="primaryAction btn btn-warning">Verifing ID</span>
-                        {% elif user.v_statue == 'approved' %}
-                        <span class="primaryAction btn btn-success">Verified</span>
-                        {% endif %}
+                    <div class="rv-title m-t-15">Reviews ( {{ reviews.count }} )</div>
+                    <hr>
+                    {% for review in reviews %}
+                    <div class="review-card row">            
+                        <div class="col-sm-3">            
+                            <img src="/static/media/avatar/{{ review.rater.avatar }}" class="img-responsive rv-avatar">
+                            <div class="rv-rater">{{ review.rater.first_name }}</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="rv-content">{{ review.content }}</div>
+                            <div class="rv-created">{{ review.created_at }}</div>
+                        </div>
                     </div>
-                </div>       
-                <div id="resume" class="tab-pane fade">
-                    <div class="pages balance">
-                        <form action="#" method="post">
-                            <textarea name="user_status" class="form-control" rows="3"></textarea>
-                            <input type="hidden" name="action" value="setStatus"  />
-                            <input type="button" class="btn btn-info strong-btn" value="Submit"  />
-                        </form>
-                        <span>Status : Normal placeholder</span>                    
-                    </div>
-                </div>                         
+                    <hr>
+                    {% endfor %}
+                </div>
             </div>
+        </div>
         </div>      
-
     </div>
 {% endblock %}
 

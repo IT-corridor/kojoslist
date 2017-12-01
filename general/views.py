@@ -803,4 +803,9 @@ def rate_ads(request):
 
 def user_show(request, user_id):
     host = Customer.objects.get(id=user_id)
-    return render(request, 'user_show.html', { 'host': host })
+    reviews = Review.objects.filter(post__owner=host)
+    
+    return render(request, 'user_show.html', { 
+        'host': host,
+        'reviews': reviews
+    })
