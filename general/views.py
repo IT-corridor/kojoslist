@@ -670,7 +670,7 @@ def remove_subscribe(request):
 
 @login_required(login_url='/accounts/login')
 def my_account(request):
-    reviews = Review.objects.filter(post__owner=request.user)
+    reviews = Review.objects.filter(post__owner=request.user).order_by('post__category')
 
     if request.method == 'GET':
         form = CustomerForm(instance=request.user)

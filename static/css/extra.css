@@ -650,3 +650,17 @@ input.verify_code {
 .ht-verify .fa {
     margin-top: 7px;
 }
+
+.rv-category {
+    font-size: 17px;
+    line-height: 22px;
+    font-weight: 500;
+    padding: 10px;
+    color: #5bc0de;
+}
+
+.rv-ptitle {
+    padding: 10px;
+    font-weight: 500;
+    font-size: 20px;
+}
