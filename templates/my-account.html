@@ -190,11 +190,29 @@
                     </div>
                 </div>
                 <div id="purchase" class="tab-pane fade">
-                    {% for purchase in purchases %}
-                        <div>{{ purchase.post.title }}</div>
-                        <div>{{ purchase.type }}</div>
-                        <div>${{ purchase.post.price }}</div>
-                    {% endfor %}
+                    <div class="pages balance">
+                        <div class="rv-title">Pending Purchases</div>
+                        <hr>
+                        {% for purchase in dpurchases %}
+                            <div class="row" style="font-size: 18px;">
+                                <div class="col-md-4">{{ purchase.post.title }}</div>
+                                <div class="col-md-1">${{ purchase.post.price }}</div>
+                                <div class="col-md-3">{{ purchase.created_at }}</div>
+                                <div class="col-md-3 pull-right">
+                                    <button class="btn btn-primary">Release</button>
+                                    <button class="btn btn-warning">Dispute</button>
+                                </div>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                        <div class="rv-title">Finished Purchases</div>
+                        {% for purchase in ppurchases %}
+                            <div>{{ purchase.post.title }}</div>
+                            <div>{{ purchase.type }}</div>
+                            <div>${{ purchase.post.price }}</div>
+                            <div>{{ purchase.created_at }}</div>
+                        {% endfor %}
+                    </div>
                 </div>                         
             </div>
         </div>      

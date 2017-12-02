@@ -46,7 +46,7 @@ class ReviewAdmin(admin.ModelAdmin):
 
 
 class PostPurchaseAdmin(admin.ModelAdmin):
-    list_display = ['post', 'purchaser', 'type', 'transaction', 'created_at']
+    list_display = ['post', 'purchaser', 'type', 'transaction', 'status', 'created_at']
     search_fields = ['post']
 
 
