@@ -671,6 +671,7 @@ def remove_subscribe(request):
 @login_required(login_url='/accounts/login')
 def my_account(request):
     reviews = Review.objects.filter(post__owner=request.user).order_by('post__category')
+    purchases = PostPurchase.objects.filter(purchaser=request.user)
 
     if request.method == 'GET':
         form = CustomerForm(instance=request.user)
@@ -682,6 +683,7 @@ def my_account(request):
     return render(request, 'my-account.html', {
         'form': form,
         'reviews': reviews,
+        'purchases': purchases,
         'stripe': request.user.socialaccount_set.filter(provider='stripe')
     })
 

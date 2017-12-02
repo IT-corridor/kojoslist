@@ -18,6 +18,7 @@
                 <li class="active"><a class="tab" data-toggle="pill" href="#profile">Profile</a></li>
                 <li class=""><a class="tab" data-toggle="pill" href="#balance">ID Verification</a></li>
                 <li class=""><a class="tab" data-toggle="pill" href="#resume">Resume</a></li>
+                <li class=""><a class="tab" data-toggle="pill" href="#purchase">Purchases</a></li>
             </ul>
             <div class="tab-content">
                 <div id="profile" class="tab-pane fade active in">
@@ -187,6 +188,13 @@
                         {% endfor %}
                         </div>
                     </div>
+                </div>
+                <div id="purchase" class="tab-pane fade">
+                    {% for purchase in purchases %}
+                        <div>{{ purchase.post.title }}</div>
+                        <div>{{ purchase.type }}</div>
+                        <div>${{ purchase.post.price }}</div>
+                    {% endfor %}
                 </div>                         
             </div>
         </div>      

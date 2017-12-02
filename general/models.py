@@ -109,12 +109,19 @@ PURCHASE_TYPE = (
     ('escrow', 'ESCROW')
 )
 
+PURCHASE_STATUS = (
+    (0, 'FINISHED SUCCESSFULLY'),
+    (1, 'WAIT RELEASE'),
+    (2, 'UNDER DISPUTE')
+)
+
 class PostPurchase(models.Model):
     post = models.ForeignKey(Post)
     purchaser = models.ForeignKey(Customer)
     type = models.CharField(max_length=20, choices=PURCHASE_TYPE)
     contact = models.TextField(blank=True, null=True)
     transaction = models.CharField(max_length=100)
+    status = models.IntegerField(choices=PURCHASE_STATUS, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
