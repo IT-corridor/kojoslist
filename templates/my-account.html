@@ -199,25 +199,65 @@
                                 <div class="col-md-1">${{ purchase.post.price }}</div>
                                 <div class="col-md-3">{{ purchase.created_at }}</div>
                                 <div class="col-md-3 pull-right">
-                                    <button class="btn btn-primary">Release</button>
+                                    <button class="btn btn-primary btn-release" data-id="{{ purchase.id }}">Release</button>
                                     <button class="btn btn-warning">Dispute</button>
                                 </div>
                             </div>
                             <hr>
                         {% endfor %}
                         <div class="rv-title">Finished Purchases</div>
-                        {% for purchase in ppurchases %}
-                            <div>{{ purchase.post.title }}</div>
-                            <div>{{ purchase.type }}</div>
-                            <div>${{ purchase.post.price }}</div>
-                            <div>{{ purchase.created_at }}</div>
-                        {% endfor %}
+                        <hr>
+                        {% for purchase in dpurchases %}
+                            <div class="row" style="font-size: 18px;">
+                                <div class="col-md-4">{{ purchase.post.title }}</div>
+                                <div class="col-md-1">${{ purchase.post.price }}</div>
+                                <div class="col-md-3">{{ purchase.created_at }}</div>
+                                <div class="col-md-3">{{ purchase.type }}</div>
+                            </div>
+                            <hr>
+                        {% endfor %}                    
                     </div>
                 </div>                         
             </div>
         </div>      
 
     </div>
+
+    <div id="result-modal" class="modal fade perk-modal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Purchase an Item</h4>
+          </div>
+        <form id="rate-form">
+        <div class="modal-body" style="font-size: 16px; line-height: 22px;">
+            <div class="well">
+                <p>Thank you for your purchase</p>
+                <p>Transaction ID: {{ result }}</p>
+            </div>
+                <h4>Please rate the item</h4>
+                <div style="padding: 10px 0;">
+                    <input id="rating-input" name="rating" type="text" title="" value="5"/>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea class="form-control" name="content" rows=4 required=""></textarea>
+                </div>            
+                <input type="hidden" name="post_id" value="{{ post.id }}">
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn" id="btn-rate">Rate</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+        </div>
+
+      </div>
+    </div>        
 {% endblock %}
 
 {% block load_highcharts_js %}
@@ -237,6 +277,27 @@
     });
 
     jQuery(document).ready(function() {
+        // purchase / release management
+        jQuery("body").on("click", ".btn-release", function() {
+            var r = confirm("Do you confirm to release?");
+            var p_id = $(this).data('id');
+
+            if (r == true) {
+                jQuery.ajax({
+                    type: 'post',
+                    url: '/release_purchase',
+                    data: {
+                        p_id: p_id
+                    },
+                    success: function(res) {
+                        $('#result-modal').modal();
+                    }
+                });            
+
+            }
+        });
+
+        // profile management        
         jQuery("body").on("click", ".upload-avatar", function() {
             jQuery("#inputfile").click();
         });
