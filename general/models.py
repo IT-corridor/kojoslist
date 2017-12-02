@@ -65,10 +65,14 @@ class State(models.Model):
 
 
 class City(models.Model):
+    """
+    cities do not have district
+    districts have district as parent city
+    """
     name = models.CharField(max_length=30)
     state = models.ForeignKey(State)
-    district = models.ForeignKey("City", blank=True, null=True)
-    
+    district = models.ForeignKey("City", blank=True, null=True, related_name='districts')
+
     def __str__(self):
         return self.name.encode('utf-8')
 

@@ -87,53 +87,37 @@ def breadcrumb(request):
     city = request.GET.get('city')
     kind = mapName.count('-')
 
-    html = '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>'
-
     if city:
         city = City.objects.get(id=city)
         mapname = 'countries/{0}/{0}-all'.format(city.state.country.sortname.lower())
-        html += """
-            <a class="breadcrumb-item country-brcm" href="javascript:void();" data-mapname="{}">
-                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
-            </a>        
-        """.format(mapname, city.state.country.name)
-        # mapname += '@' + city.state.name
-        mapname = mapName + '@' + city.state.name
-        html += """
-            <a class="breadcrumb-item state-brcm" href="javascript:void();" data-mapname="{}">
-                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
-            </a>        
-        """.format(mapname, city.state.name)
-        mapname += '@' + str(city.id)
-        html += """
-            <a class="breadcrumb-item city-brcm" href="javascript:void();" data-mapname="{}">
-                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
-            </a>        
-        """.format(mapname, city.name)
+        smapname = mapName + '@' + city.state.name
+
+        if city.district:   # district
+            cmapname = smapname + '@' + str(city.district.id)
+            dmapname = smapname + '@' + str(city.id)
+            args = [mapname, city.state.country.name, 
+                    smapname, city.state.name, 
+                    cmapname, city.district.name,
+                    dmapname, city.name]
+        else:
+            cmapname = smapname + '@' + str(city.id)
+            args = [mapname, city.state.country.name, 
+                    smapname, city.state.name, 
+                    cmapname, city.name]
 
     elif kind == 2 or is_state == 'true': # - city
         country = mapName.split('/')[1].upper()
         state = State.objects.filter(name=state, country__sortname=country).first()
         cmapname = 'countries/{0}/{0}-all'.format(state.country.sortname.lower())
-        html += """
-            <a class="breadcrumb-item country-brcm" href="javascript:void();" data-mapname="{}">
-                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
-            </a>        
-        """.format(cmapname, state.country.name)
         mapname = mapName if '@' in mapName else mapName + '@' + state.name
-        html += """
-            <a class="breadcrumb-item state-brcm" href="javascript:void();" data-mapname="{}">
-                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
-            </a>        
-        """.format(mapname, state.name)
+        args = [cmapname, state.country.name, 
+                mapname, state.name]
     elif kind == 1: # state
         country = mapName.split('/')[1].upper()
         country = Country.objects.filter(sortname=country).first()
-        html += """
-            <a class="breadcrumb-item country-brcm" href="javascript:void();" data-mapname="{}">
-                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
-            </a>        
-        """.format(mapName, country.name)
+        args = [mapName, country.name]
+
+    html = render_to_string('_breadcrumb.html', locals())
 
     request.session['breadcrumb'] = html
     request.session.modified = True
@@ -165,19 +149,26 @@ def get_regions(request):
     request.session['category'] = ''
 
     if city:
-        title = 'Select Category'
-        link = '/region-ads/ct/{}'.format(city)
-        request.session['region'] =  city
+        city = City.objects.get(id=city)
+        link = '/region-ads/ct/{}'.format(city.id)
+        request.session['region'] =  city.id
         request.session['region_kind'] = 'city'
 
-        result = []
-        for column in range(1, 7):
-            _result = []
-            for mc in Category.objects.filter(parent__isnull=True, column=column):
-                cc = Category.objects.filter(parent=mc)
-                _result += [(mc, cc)]
-            result += [_result]
-        html = render_to_string('_category.html', {'categories': result})            
+        if city.districts.all():
+            title = 'Select City'
+            html = render_to_string('_city_list.html', 
+                                    {'cities': city.districts.all().order_by('name')})
+        else:
+            title = 'Select Category'
+
+            result = []
+            for column in range(1, 7):
+                _result = []
+                for mc in Category.objects.filter(parent__isnull=True, column=column):
+                    cc = Category.objects.filter(parent=mc)
+                    _result += [(mc, cc)]
+                result += [_result]
+            html = render_to_string('_category.html', {'categories': result})            
     elif kind == 2 or is_state == 'true': # - city
         country = mapName.split('/')[1].upper()
         state = State.objects.filter(name=state, country__sortname=country).first()
