@@ -819,3 +819,25 @@ def user_show(request, user_id):
         'host': host,
         'reviews': reviews
     })
+
+@csrf_exempt
+def release_purchase(request):
+    p_id = request.POST.get('p_id')
+    purchase = PostPurchase.objects.get(id=p_id)
+
+    # send money to the post's owner
+    amount = int(purchase.post.price * 100)
+    app_fee = 0.3
+
+    transfer = stripe.Transfer.create(
+        amount=amount,
+        currency="usd",
+        source_transaction=purchase.transaction,
+        destination=purchase.post.owner.socialaccount_set.get(provider='stripe').uid,
+    )
+
+    purchase.status = 0
+    purchase.transaction = transfer.id
+    purchase.save()
+
+    return HttpResponse(transfer.id)
