@@ -209,11 +209,8 @@ def get_regions(request):
         request.session['region'] =  country.id
         request.session['region_kind'] = 'country'
 
-        html = ''
-        rs = State.objects.filter(country=country).order_by('name')
-        for ii in rs:
-            html += '<li data-id="{0}" class="region_id"><a href="javascript:void();">{0}</a></li>'.format(ii.name)
-        html = '<ul class="country-list">' + html + '</ul>'
+        html = render_to_string('_state_list.html', 
+                                {'states': State.objects.filter(country=country).order_by('name')})
 
     request.session.modified = True
 
