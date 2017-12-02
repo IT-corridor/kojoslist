@@ -186,14 +186,8 @@ def get_regions(request):
         request.session['region'] =  state.id
         request.session['region_kind'] = 'state'
 
-        html = ''
-        rs = City.objects.filter(state=state).order_by('name')
-        for ii in rs:
-            html += '<li><a href="javascript:void();" class="city_id" data-id="{1}">{0}</a></li>'.format(ii.name, ii.id)
-        if html:
-            html = '<ul class="country-list">' + html + '</ul>'
-        else:
-            html = '<ul class="country-list">No city found</ul>'
+        html = render_to_string('_city_list.html', 
+                                {'cities': City.objects.filter(state=state).order_by('name')})
     elif kind == 0: # country
         title = 'Select Country'
         link = ''# '/region-ads/'
