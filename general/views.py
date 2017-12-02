@@ -200,11 +200,7 @@ def get_regions(request):
         request.session['region'] =  ''
         request.session['region_kind'] = 'world'
 
-        html = ''
-        rs = Country.objects.all()
-        for ii in rs:
-            html += '<li><a data-id="{}" class="country_id" href="javascript:void();">{}</a></li>'.format(ii.sortname.lower(), ii.name)
-        html = '<ul class="country-list">' + html + '</ul>'
+        html = render_to_string('_country_list_.html', {'countries': Country.objects.all()})
     elif kind == 1: # state
         country = mapName.split('/')[1].upper()
         country = Country.objects.filter(sortname=country).first()
