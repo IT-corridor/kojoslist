@@ -1,0 +1,1 @@
+districts = ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island', 'New Jersey', 'Long Island', 'Westchester', 'Fairfield']

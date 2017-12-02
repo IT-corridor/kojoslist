@@ -26,7 +26,7 @@ class StateAdmin(admin.ModelAdmin):
 
 
 class CityAdmin(admin.ModelAdmin):
-    list_display = ['name', 'state']
+    list_display = ['name', 'state', 'district']
     search_fields = ['name']
 
 
