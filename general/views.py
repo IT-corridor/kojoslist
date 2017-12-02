@@ -62,7 +62,8 @@ def search_ads(request):
         posts = posts.filter(Q(title__icontains=keyword) | Q(content__icontains=keyword)) \
                      .exclude(status='deactive')
     else:
-        posts = Post.objects.filter(owner=request.user).filter(Q(title__icontains=keyword) | Q(content__icontains=keyword))
+        posts = Post.objects.filter(owner=request.user) \
+                            .filter(Q(title__icontains=keyword) | Q(content__icontains=keyword))
 
     posts = get_posts_with_image(posts)
     rndr_str = render_to_string('_post_list.html', {'posts': posts, 'others': others})
@@ -392,7 +393,8 @@ def view_ads(request, ads_id):
 
         try:
             if optpay == "direct":
-                stripe_account_id = '' #SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
+                stripe_account_id = '' 
+                # SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
                 app_fee = 0.3
 
                 charge = stripe.Charge.create(
@@ -404,7 +406,8 @@ def view_ads(request, ads_id):
                     description="Direct pay to the ads (#{} - {})".format(post.id, post.title)
                 )
             else:
-                stripe_account_id = '' #SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
+                stripe_account_id = '' 
+                # SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
                 app_fee = 0.3
 
                 charge = stripe.Charge.create(
@@ -450,7 +453,8 @@ def view_campaign(request, camp_id):
         perk = Perk.objects.filter(id=perk).first()
 
         try:
-            stripe_account_id = '' #SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
+            stripe_account_id = '' 
+            # SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
             app_fee = 0.3
 
             charge = stripe.Charge.create(
@@ -516,7 +520,8 @@ def category_ads(request, category_id):
     categories = Category.objects.filter(Q(id=category_id) | Q(parent__id=category_id))
     posts = Post.objects.filter(region=region, category__in=categories).exclude(status='deactive')
     posts = get_posts_with_image(posts)
-    breadcrumb = request.session.get('breadcrumb', '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>')
+    breadcrumb = '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>'
+    breadcrumb = request.session.get('breadcrumb', breadcrumb)
 
     return render(request, 'ads-list.html', {
         'posts': posts,
@@ -567,7 +572,8 @@ def region_ads(request, region_id, region):
         posts = Post.objects.all()
 
     posts = get_posts_with_image(posts.exclude(status='deactive'))
-    breadcrumb = request.session.get('breadcrumb', '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>')
+    breadcrumb = '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>'
+    breadcrumb = request.session.get('breadcrumb', breadcrumb)
 
     return render(request, 'ads-list.html', {
         'posts': posts,
@@ -652,8 +658,10 @@ def remove_subscribe(request):
 @login_required(login_url='/accounts/login')
 def my_account(request):
     reviews = Review.objects.filter(post__owner=request.user).order_by('post__category')
-    dpurchases = PostPurchase.objects.filter(purchaser=request.user, status=0).order_by('created_at')
-    ppurchases = PostPurchase.objects.filter(purchaser=request.user).exclude(status=0).order_by('created_at')
+    dpurchases = PostPurchase.objects.filter(purchaser=request.user, status=0) \
+                                     .order_by('created_at')
+    ppurchases = PostPurchase.objects.filter(purchaser=request.user).exclude(status=0) \
+                                     .order_by('created_at')
 
     if request.method == 'GET':
         form = CustomerForm(instance=request.user)
@@ -776,7 +784,9 @@ def search_camps(request):
 
     # if others:
         # .filter(owner=request.user)
-    campaigns = Campaign.objects.filter(Q(title__icontains=keyword) | Q(overview__icontains=keyword) | Q(tagline__icontains=keyword))
+    campaigns = Campaign.objects.filter(Q(title__icontains=keyword) 
+                                      | Q(overview__icontains=keyword) 
+                                      | Q(tagline__icontains=keyword))
     if category:
         campaigns = campaigns.filter(Q(category=category) | Q(category__parent=category))
 
