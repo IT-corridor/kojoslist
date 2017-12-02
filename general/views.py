@@ -97,7 +97,8 @@ def breadcrumb(request):
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}
             </a>        
         """.format(mapname, city.state.country.name)
-        mapname += '@' + city.state.name
+        # mapname += '@' + city.state.name
+        mapname = mapName + '@' + city.state.name
         html += """
             <a class="breadcrumb-item state-brcm" href="javascript:void();" data-mapname="{}">
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>{}

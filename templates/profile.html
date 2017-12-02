@@ -311,6 +311,8 @@
                             mapname = mapName;
                             mapName = 'countries/' + key.substr(0, 2) + '/' + key + '-all';
                             isState = false;
+                            city = '';
+                            
                             findState();
 
                             if (state) {    // available data for country or state
