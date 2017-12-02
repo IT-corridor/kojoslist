@@ -599,10 +599,12 @@ def region_ads(request, region_id, region):
     })
 
 def globoard_display_world_countries(css_class=''):
-    rndr_str = "<ul class='country-list {}'>".format(css_class)
-    for country in Country.objects.all():
-        rndr_str += '<li><a href="/profile#countries/{0}/{0}-all" class="show_country" data-country="{1}">{2}</a></li>'.format(country.sortname.lower(), country.sortname, country.name)
-    return rndr_str + '</ul>'
+    rndr_str = render_to_string('_country_list.html', {
+        'css_class': css_class,
+        'countries': Country.objects.all()
+    })
+
+    return rndr_str
 
 @csrf_exempt
 def toggle_favourite(request):
