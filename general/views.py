@@ -177,9 +177,8 @@ def get_regions(request):
         link = '/region-ads/st/{}'.format(state.id)
         request.session['region'] =  state.id
         request.session['region_kind'] = 'state'
-
-        html = render_to_string('_city_list.html', 
-                                {'cities': City.objects.filter(state=state).order_by('name')})
+        cities = City.objects.filter(state=state, district__isnull=True).order_by('name')
+        html = render_to_string('_city_list.html', {'cities': cities})
     elif kind == 0: # country
         title = 'Select Country'
         link = ''# '/region-ads/'
@@ -220,7 +219,7 @@ def post_ads(request, ads_id):
             model = eval(post.category.form)
             post = model.objects.get(id=ads_id)
             states = State.objects.filter(country=post.region.state.country)
-            cities = City.objects.filter(state=post.region.state)    
+            cities = City.objects.filter(state=post.region.state, district__isnull=True)    
 
             if post.region.district:
                 districts = City.objects.filter(district=post.region.district)
@@ -239,13 +238,16 @@ def post_ads(request, ads_id):
                 if len(loc) > 1:
                     state = loc[1]  # state name
                     post['state'] = state
-                    cities = City.objects.filter(state__name=state)
+                    cities = City.objects.filter(state__name=state, district__isnull=True)
 
-                    if len(loc) > 2:
-                        city = loc[2]   # city id
-                        post['region_id'] = int(city)
+                if len(loc) > 2:    # city or district id
+                    city = City.objects.get(id=loc[-1])   
+                    if city.district:
+                        districts = City.objects.filter(district=city.district)
+                        post['region'] = city.district.id
+                    post['region_id'] = city.id
 
-        # print post, mcategories
+        print post, '#########'
         return render(request, 'post_ads.html', locals())
     else:
         form_name = request.POST.get('ads_form') + 'Form'
