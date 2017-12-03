@@ -213,20 +213,22 @@ def post_ads(request, ads_id):
     if request.method == 'GET':
         mcategories = Category.objects.filter(parent__isnull=True)
         countries = Country.objects.all()
-        
+        skey = settings.STRIPE_KEYS['PUBLIC_KEY']
+
         if ads_id:
             post = Post.objects.get(id=ads_id)
             model = eval(post.category.form)
             post = model.objects.get(id=ads_id)
             states = State.objects.filter(country=post.region.state.country)
-            cities = City.objects.filter(state=post.region.state)
-            images = Image.objects.filter(post=post)
+            cities = City.objects.filter(state=post.region.state)    
+
+            if post.region.district:
+                districts = City.objects.filter(district=post.region.district)
+            
+            images = post.images.all()
             detail_template = 'post/{}.html'.format(post.category.form)
         else:
             post = {}       # just for form
-            states = None
-            cities = None
-            images = None
             detail_template = 'post/Post.html'
 
             if request.user.default_site:
@@ -244,16 +246,7 @@ def post_ads(request, ads_id):
                         post['region_id'] = int(city)
 
         # print post, mcategories
-        return render(request, 'post_ads.html', {
-            'mcategories': mcategories,
-            'countries': countries,
-            'states': states,
-            'cities': cities,
-            'images': images,
-            'post': post,
-            'detail_template': detail_template,
-            'skey': settings.STRIPE_KEYS['PUBLIC_KEY']
-        })
+        return render(request, 'post_ads.html', locals())
     else:
         form_name = request.POST.get('ads_form') + 'Form'
         form = get_class(form_name)
