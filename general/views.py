@@ -244,10 +244,9 @@ def post_ads(request, ads_id):
                     city = City.objects.get(id=loc[-1])   
                     if city.district:
                         districts = City.objects.filter(district=city.district)
-                        post['region'] = city.district.id
+                        post['district_id'] = city.district.id
                     post['region_id'] = city.id
 
-        print post, '#########'
         return render(request, 'post_ads.html', locals())
     else:
         form_name = request.POST.get('ads_form') + 'Form'
@@ -304,15 +303,17 @@ def get_sub_info(request):
     ajax call for sub category, state, city
     """
     obj_id = request.GET.get('obj_id')
-    sc_type = request.GET.get('type') # Category, State, City
+    sc_type = request.GET.get('type') # Category, State, City, District
     rndr_str = '<option value="">-Select-</option>'
 
     if sc_type == 'category':
         objects = Category.objects.filter(parent__id=obj_id)
     elif sc_type == 'state':
         objects = State.objects.filter(country__id=obj_id)
+    elif sc_type == 'city':
+        objects = City.objects.filter(state__id=obj_id, district__isnull=True)
     else:
-        objects = City.objects.filter(state__id=obj_id)
+        objects = City.objects.filter(district_id=obj_id)
         
     for sc in objects:
         rndr_str += '<option value="{}">{}</option>'.format(sc.id, sc.name)
