@@ -78,7 +78,7 @@
                                 <select id="ads_city" name="region{% if districts %} _1 {% endif %}" class="form-control edit-post-wrap">
                                     <option value="">Select City</option>
                                     {% for cc in cities %}
-                                    <option value="{{ cc.id }}" {% if cc.id == post.region_id or cc.id == post.district_id %}selected{% endif %}>{{ cc.name }}</option>
+                                    <option value="{{ cc.id }}" {% if cc.id == post.region_id or cc.id == post.region.district_id or cc.id == post.district_id %}selected{% endif %}>{{ cc.name }}</option>
                                     {% endfor %}                                    
 
                                 </select>
@@ -89,7 +89,7 @@
                         <div class="col-md-12">
                             <div class="form-group edit-profile">
                                 <label>Specify District</label>
-                                <select id="ads_district" name="region" class="form-control edit-post-wrap">
+                                <select id="ads_district" name="region{% if not districts %} _2 {% endif %}" class="form-control edit-post-wrap">
                                     <option value="">Select District</option>
                                     {% for cc in districts %}
                                     <option value="{{ cc.id }}" {% if cc.id == post.region_id %}selected{% endif %}>{{ cc.name }}</option>
@@ -313,15 +313,18 @@
                             $('#ads_district').html(data);
                             $('.ads-district').removeClass('hidden');
                             $('#ads_city').attr('name', 'region_1');
+                            $('#ads_district').attr('name', 'region');
                         } else {
                             $('.ads-district').addClass('hidden');
                             $('#ads_city').attr('name', 'region');
+                            $('#ads_district').attr('name', 'region_2');
                         }
                     }
                 });                
             } else {
                 $('.ads-district').addClass('hidden');
                 $('#ads_city').attr('name', 'region');
+                $('#ads_district').attr('name', 'region_2');                
             }
         });
 
