@@ -155,21 +155,21 @@ def get_regions(request):
         request.session['region'] =  city.id
         request.session['region_kind'] = 'city'
 
-        if city.districts.all():
-            title = 'Select City'
-            html = render_to_string('_city_list.html', 
-                                    {'cities': city.districts.all().order_by('name')})
-        else:
-            title = 'Select Category'
+        # if city.districts.all():
+        #     title = 'Select City'
+        #     html = render_to_string('_city_list.html', 
+        #                             {'cities': city.districts.all().order_by('name')})
+        # else:
+        title = 'Select Category'
 
-            result = []
-            for column in range(1, 7):
-                _result = []
-                for mc in Category.objects.filter(parent__isnull=True, column=column):
-                    cc = Category.objects.filter(parent=mc)
-                    _result += [(mc, cc)]
-                result += [_result]
-            html = render_to_string('_category.html', {'categories': result})            
+        result = []
+        for column in range(1, 7):
+            _result = []
+            for mc in Category.objects.filter(parent__isnull=True, column=column):
+                cc = Category.objects.filter(parent=mc)
+                _result += [(mc, cc)]
+            result += [_result]
+        html = render_to_string('_category.html', {'categories': result})            
     elif kind == 2 or is_state == 'true': # - city
         country = mapName.split('/')[1].upper()
         state = State.objects.filter(name=state, country__sortname=country).first()
