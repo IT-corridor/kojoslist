@@ -62,7 +62,7 @@ div.sub-category {
 .upload-image-thumbs li.upload-image {
     cursor: pointer;
     background-color: #f5f5f4;
-    /*background-image: url(http://gumtree.classistatic.com/RC-4b815836bb48ed24646d0e3b8614589a18fefff4/legacy/add-picture-on.svg);*/
+    background-image: url(/static/css/add_picture.png);
 }
 .upload-image-thumbs li {
     background-color: #f5f5f4;
