@@ -62,7 +62,7 @@ div.sub-category {
 .upload-image-thumbs li.upload-image {
     cursor: pointer;
     background-color: #f5f5f4;
-    background-image: url(/static/css/add_picture.png);
+    background-image: url(/static/img/add_picture.png);
 }
 .upload-image-thumbs li {
     background-color: #f5f5f4;
