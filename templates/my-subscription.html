@@ -13,6 +13,7 @@
                 <table class="table table-striped ">
                     <thead>
                       <tr style="color: #5bc0de;">
+                        <th>Alert</th>
                         <th>Keyword</th>
                         <th>Category</th>
                         <th>Region</th>
@@ -24,6 +25,7 @@
                     {% if searches %}
                     {% for search in searches %}            
                     <tr>
+                        <td><input type="checkbox" name=""></td>
                         <td>
                             {% if search.keyword %}
                             {{ search.keyword }}
@@ -48,7 +50,10 @@
                         <td>
                             {{ search.created_at }}
                         </td>
-                        <td><a href="#" class="remove-subscription" data-id="{{ search.id }}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                        <td style="font-size: 17px;">
+                            <a href="#" class="remove-subscription" data-id="{{ search.id }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                            <a href="#" class="remove-subscription" data-id="{{ search.id }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </td>
                     </tr>
                     {% endfor %}
                     {% else %}
