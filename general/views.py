@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import os
 import json
 import stripe
+import datetime
 
 from random import randint
 
@@ -22,6 +23,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.db.models import Q
+from django.db.models import Count
 
 from general.models import *
 from general.forms import *
@@ -44,6 +46,11 @@ def my_ads(request):
 def search_ads(request):
     keyword = request.POST.get('keyword')
     others = request.POST.get('others')
+    ck_search_title = request.POST.get('ck_search_title') == 'true'
+    ck_has_image = request.POST.get('ck_has_image') == 'true'
+    ck_posted_today = request.POST.get('ck_posted_today') == 'true'
+    ft_min_price = request.POST.get('ft_min_price')
+    ft_max_price = request.POST.get('ft_max_price')
 
     if others:
         region_id = request.session['region']  # city
@@ -59,8 +66,16 @@ def search_ads(request):
             categories = Category.objects.filter(Q(id=category_id) | Q(parent__id=category_id))
             posts = posts.filter(category__in=categories)
 
-        posts = posts.filter(Q(title__icontains=keyword) | Q(content__icontains=keyword)) \
-                     .exclude(status='deactive')
+        if ck_search_title:
+            posts = posts.filter(title__icontains=keyword) \
+                         .exclude(status='deactive')
+        else:
+            posts = posts.filter(Q(title__icontains=keyword) | Q(content__icontains=keyword)) \
+                         .exclude(status='deactive')
+        if ck_has_image:
+            posts = posts.annotate(img_num=Count('images')).filter(img_num__gt=0)
+        if ck_posted_today:
+            posts = posts.filter(created_at__gte=datetime.datetime.now().date())
     else:
         posts = Post.objects.filter(owner=request.user) \
                             .filter(Q(title__icontains=keyword) | Q(content__icontains=keyword))
