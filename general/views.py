@@ -49,8 +49,8 @@ def search_ads(request):
     ck_search_title = request.POST.get('ck_search_title') == 'true'
     ck_has_image = request.POST.get('ck_has_image') == 'true'
     ck_posted_today = request.POST.get('ck_posted_today') == 'true'
-    ft_min_price = request.POST.get('ft_min_price')
-    ft_max_price = request.POST.get('ft_max_price')
+    ft_min_price = request.POST.get('min_price')
+    ft_max_price = request.POST.get('max_price')
 
     if others:
         region_id = request.session['region']  # city
@@ -76,6 +76,11 @@ def search_ads(request):
             posts = posts.annotate(img_num=Count('images')).filter(img_num__gt=0)
         if ck_posted_today:
             posts = posts.filter(created_at__gte=datetime.datetime.now().date())
+
+        if ft_min_price:
+            posts = posts.filter(price__gte=ft_min_price)
+        if ft_max_price:
+            posts = posts.filter(price__lte=ft_max_price)
     else:
         posts = Post.objects.filter(owner=request.user) \
                             .filter(Q(title__icontains=keyword) | Q(content__icontains=keyword))
