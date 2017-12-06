@@ -183,6 +183,12 @@ class Search(models.Model):
     state = models.ForeignKey(State, blank=True, null=True)
     owner = models.ForeignKey(Customer)
     created_at = models.DateTimeField(auto_now_add=True)
+    alert = models.BooleanField(default=True)
+    search_title = models.BooleanField(default=False)
+    has_image = models.BooleanField(default=False)
+    posted_today = models.BooleanField(default=False)
+    min_price = models.FloatField(blank=True, null=True)
+    max_price = models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return self.owner.username
