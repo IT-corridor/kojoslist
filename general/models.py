@@ -176,6 +176,21 @@ class SaleGarage(Post):
     include_ads = models.BooleanField()
 
 
+class CarPost(Post):
+    model_year = models.IntegerField()
+    make_model = models.CharField(max_length=100)
+    odometer = models.IntegerField()
+    condition = models.CharField(max_length=50)
+    cylinder = models.IntegerField()
+    drive = models.CharField(max_length=50)
+    fuel = models.CharField(max_length=50)
+    transmission = models.CharField(max_length=50)
+    paint_color = models.CharField(max_length=50)
+    size = models.CharField(max_length=50)
+    type = models.CharField(max_length=50)
+    title_status = models.CharField(max_length=50)
+
+    
 class Search(models.Model):
     keyword = models.CharField(max_length=100)
     category = models.ForeignKey(Category, blank=True, null=True)

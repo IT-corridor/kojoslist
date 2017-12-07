@@ -36,7 +36,7 @@ def home(request):
     rndr_str = globoard_display_world_countries()
     return render(request, 'index.html', {'rndr_str': rndr_str})
 
-@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login/')
 def my_ads(request):
     posts = Post.objects.filter(owner=request.user)
     posts = get_posts_with_image(posts)
@@ -227,7 +227,7 @@ def get_regions(request):
 
     return JsonResponse(result, safe=False)
 
-@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login/')
 def post_ads(request, ads_id):
     if request.method == 'GET':
         mcategories = Category.objects.filter(parent__isnull=True)
@@ -620,13 +620,13 @@ def toggle_favourite(request):
 
     return HttpResponse(res)
 
-@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login/')
 def my_favourites(request):
     posts = [ii.post for ii in Favourite.objects.filter(owner=request.user)]
     posts = get_posts_with_image(posts)
     return render(request, 'ads-list.html', {'posts': posts, 'others': True})
 
-@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login/')
 def my_subscribe(request):
     searches = Search.objects.filter(owner=request.user)
 
@@ -671,7 +671,7 @@ def remove_subscribe(request):
     Search.objects.filter(id=sub_id).delete()
     return HttpResponse('')
 
-@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login/')
 def my_account(request):
     reviews = Review.objects.filter(post__owner=request.user).order_by('post__category')
     dpurchases = PostPurchase.objects.filter(purchaser=request.user, status=0) \
@@ -740,7 +740,7 @@ def upload_id(request):
 def confirm_phone(request):
     return render(request, 'account/phone_confirm.html')
 
-@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login/')
 def my_campaigns(request):
     campaigns = Campaign.objects.filter(owner=request.user)
 
@@ -748,7 +748,7 @@ def my_campaigns(request):
         'campaigns': campaigns
     })
 
-@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login/')
 def post_camp(request, camp_id):
     categories = CampCategory.objects.all()
     if request.method == 'GET':

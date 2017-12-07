@@ -26,3 +26,7 @@ def get_vids(campaign):
 @register.filter
 def rating(customer):
     return Review.objects.filter(post__owner=customer).aggregate(Avg('rating')).values()[0]
+
+@register.filter
+def rangee(start, end):
+	return range(start, end)
