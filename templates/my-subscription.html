@@ -15,6 +15,8 @@
                       <tr style="color: #5bc0de;">
                         <th>Alert</th>
                         <th>Keyword</th>
+                        <th>Search Title</th>
+                        <th>Has Image</th>
                         <th>Category</th>
                         <th>Region</th>
                         <th>Created At</th>
@@ -25,7 +27,7 @@
                     {% if searches %}
                     {% for search in searches %}            
                     <tr>
-                        <td><input type="checkbox" name=""></td>
+                        <td><input type="checkbox" data-id="{{ search.id }}" class="alert" {% if search.alert %} checked {% endif %}></td>
                         <td>
                             {% if search.keyword %}
                             {{ search.keyword }}
@@ -33,6 +35,8 @@
                             -
                             {% endif %}
                         </td>
+                        <td><input type="checkbox" disabled="" {% if search.search_title %} checked="" {% endif %}></td>
+                        <td><input type="checkbox" disabled="" {% if search.has_image %} checked="" {% endif %}></td>
                         <td>
                             {% if search.category %}
                             {{ search.category.name }}
@@ -51,7 +55,7 @@
                             {{ search.created_at }}
                         </td>
                         <td style="font-size: 17px;">
-                            <a href="#" class="remove-subscription" data-id="{{ search.id }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                            <a href="#" class="edit-subscription" data-id="{{ search.id }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
                             <a href="#" class="remove-subscription" data-id="{{ search.id }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         </td>
                     </tr>
@@ -87,6 +91,19 @@ $('.remove-subscription').click(function() {
             }
         });    
     }
+});
+
+$('.alert').click(function() {
+    jQuery.ajax({
+        type: 'post',
+        url: '/update_alert',
+        data: {
+            alert: $(this).prop('checked'),
+            sid: $(this).data('id')
+        },
+        success: function(data) {
+        }
+    });        
 });
 </script>
 

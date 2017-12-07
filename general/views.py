@@ -848,3 +848,10 @@ def release_purchase(request):
     purchase.save()
 
     return HttpResponse(transfer.id)
+    
+@csrf_exempt    
+def update_alert(request):
+    sid = request.POST.get('sid')
+    alert = request.POST.get('alert') == 'true'
+    Search.objects.filter(id=sid).update(alert=alert)
+    return HttpResponse('')

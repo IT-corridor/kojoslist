@@ -24,7 +24,7 @@ def delete_image_file(sender, instance, using, **kwargs):
 @receiver(post_save, sender=SaleGarage)
 def apply_subscribe(sender, instance, **kwargs):    
     try:
-        for ss in Search.objects.all().exclude(owner=instance.owner):
+        for ss in Search.objects.filter(alert=True).exclude(owner=instance.owner):
             if not ss.keyword or ss.keyword.lower() in instance.title.lower() or ss.keyword.lower() in instance.content.lower():
                 if ss.city == instance.region or ss.state == instance.region.state:
                     if ss.category == instance.category or ss.category == instance.category.parent:
