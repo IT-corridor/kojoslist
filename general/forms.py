@@ -65,7 +65,7 @@ class SaleGarageForm(ModelForm):
         fields = '__all__'
 
 
-class CarForm(ModelForm):
+class CarPostForm(ModelForm):
     class Meta:
         model = CarPost
         fields = '__all__'
