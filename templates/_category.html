@@ -1,7 +1,7 @@
 {% for mmc in categories %}
     <div class="col-md-2 col-xs-6">
         {% for mc in mmc %}
-            <div class="category row{{forloop.counter}}"><a href="/category-ads/{{ mc.0.id }}">{{ mc.0.name }}</a></div>
+            <div class="category row{{forloop.counter}}"><a href="javascript:void();">{{ mc.0.name }}</a></div>
             <div class="sub-category row{{forloop.counter}}">
             {% for cc in mc.1 %}
                 <a href="/category-ads/{{ cc.id }}">{{ cc.name }}</a>
