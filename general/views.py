@@ -62,6 +62,7 @@ def search_ads(request):
             q &= Q(**{key: value})
     
     q &= Q(region_id=request.session['region'])
+    q |= Q(region__district__id=request.session['region'])
     q &= Q(category_id=request.session['category'])
 
     posts = model.objects.filter(q).exclude(status='deactive')
