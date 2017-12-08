@@ -314,7 +314,14 @@ def get_sub_info(request):
     rndr_str = '<option value="">-Select-</option>'
 
     if sc_type == 'category':
-        objects = Category.objects.filter(parent__id=obj_id)
+        for cc in Category.objects.filter(parent__id=obj_id):
+            if cc.category_set.all():
+                rndr_str += '<option value="" disabled>{}</option>'.format(cc.name)        
+                for sc in cc.category_set.all():
+                    rndr_str += '<option value="{}">&nbsp;&nbsp;&nbsp;&nbsp;{}</option>'.format(sc.id, sc.name)        
+            else:
+                rndr_str += '<option value="{}">{}</option>'.format(cc.id, cc.name)        
+        objects = []
     elif sc_type == 'state':
         objects = State.objects.filter(country__id=obj_id)
     elif sc_type == 'city':
