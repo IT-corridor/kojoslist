@@ -4,7 +4,14 @@
             <div class="category row{{forloop.counter}}"><a href="javascript:void();">{{ mc.0.name }}</a></div>
             <div class="sub-category row{{forloop.counter}}">
             {% for cc in mc.1 %}
-                <a href="/category-ads/{{ cc.id }}">{{ cc.name }}</a>
+                {% if cc.category_set.all %}
+                    <a href="javascript:void();">{{ cc.name }}</a>
+                    {% for ccc in cc.category_set.all %}
+                        <a href="/category-ads/{{ ccc.id }}">&nbsp;&nbsp;&nbsp;&nbsp;{{ ccc.name }}</a>
+                    {% endfor %}
+                {% else %}
+                    <a href="/category-ads/{{ cc.id }}">{{ cc.name }}</a>
+                {% endif %}
             {% endfor %}
             </div>
         {% endfor %}

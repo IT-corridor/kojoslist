@@ -190,7 +190,22 @@ class CarPost(Post):
     type = models.CharField(max_length=50)
     title_status = models.CharField(max_length=50)
 
-    
+
+class AptPost(Post):
+    area = models.FloatField()
+    available_on = models.DateField()    
+    bedrooms = models.IntegerField()
+    bathrooms = models.IntegerField()
+    type = models.CharField(max_length=50)
+    laundry = models.CharField(max_length=50, blank=True, null=True)
+    parking = models.CharField(max_length=50, blank=True, null=True)
+    cats_ok = models.BooleanField(default=False)
+    dogs_ok = models.BooleanField(default=False)
+    furnished = models.BooleanField(default=False)
+    no_smoking = models.BooleanField(default=False)
+    wheelchair = models.BooleanField(default=False)
+
+
 class Search(models.Model):
     keyword = models.CharField(max_length=100)
     category = models.ForeignKey(Category, blank=True, null=True)

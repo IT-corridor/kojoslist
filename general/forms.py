@@ -71,6 +71,12 @@ class CarPostForm(ModelForm):
         fields = '__all__'
 
 
+class AptPostForm(ModelForm):
+    class Meta:
+        model = AptPost
+        fields = '__all__'
+
+
 class CustomerForm(ModelForm):
     # dob = forms.DateTimeField(input_formats='%d-%m-%Y')
 
