@@ -50,6 +50,14 @@ class PostPurchaseAdmin(admin.ModelAdmin):
     search_fields = ['post']
 
 
+class PostAdmin(admin.ModelAdmin):
+    list_display = ['title', 'detail_category', 'category', 'region', 'owner', 'created_at']
+    search_fields = ['title', 'category']
+
+    def detail_category(self, obj):
+        return '{}/{}'.format(obj.category.parent, obj.category)
+
+
 class SearchAdmin(admin.ModelAdmin):
     list_display = ['owner', 'category', 'des_state', 'des_city', 'keyword']
 
@@ -61,10 +69,11 @@ class SearchAdmin(admin.ModelAdmin):
         if obj.city:
             return '{} / {} / {}'.format(obj.city.state.country.name, obj.city.state.name, obj.city.name)
 
+
 admin.site.register(Customer)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(PostPurchase, PostPurchaseAdmin)
-admin.site.register(Post)
+admin.site.register(Post, PostAdmin)
 admin.site.register(GaragePost)
 admin.site.register(JobPost)
 admin.site.register(CarPost)

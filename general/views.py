@@ -45,13 +45,17 @@ def my_ads(request):
 @csrf_exempt
 def search_ads(request):
     keyword = request.POST.get('keyword')
-    others = request.POST.get('others')
+    others = request.POST.get('others') == 'true'
     ck_search_title = request.POST.get('ck_search_title') == 'true'
     ck_has_image = request.POST.get('ck_has_image') == 'true'
     ck_posted_today = request.POST.get('ck_posted_today') == 'true'
     ft_min_price = request.POST.get('min_price')
     ft_max_price = request.POST.get('max_price')
 
+    for key, value in request.POST.iteritems():
+        print "%s | %s ##########" % (key, value)
+
+    ['model', 'keyword', 'others']
     if others:
         region_id = request.session['region']  # city
         region_kind = request.session['region_kind']
@@ -533,6 +537,7 @@ def category_ads(request, category_id):
 
     region = City.objects.get(id=region_id)
     category = Category.objects.get(id=category_id)
+    form = get_class(category.form+'Form')
     posts = Post.objects.filter(region=region, category_id=category_id).exclude(status='deactive')
     posts = get_posts_with_image(posts)
     breadcrumb = '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>'
