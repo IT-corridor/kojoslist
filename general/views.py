@@ -529,7 +529,8 @@ def category_ads(request, category_id):
     region = City.objects.get(id=region_id)
     category = Category.objects.get(id=category_id)
     form = get_class(category.form+'Form')
-    posts = Post.objects.filter(region=region, category_id=category_id).exclude(status='deactive')
+    posts = Post.objects.filter(Q(region=region) | Q(region__district=region)) \
+                        .filter(category_id=category_id).exclude(status='deactive')
     posts = get_posts_with_image(posts)
     breadcrumb = '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>'
     breadcrumb = request.session.get('breadcrumb', breadcrumb)
