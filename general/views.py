@@ -573,7 +573,7 @@ def send_reply_email(request):
 
 def region_ads(request, region_id, region):
     if region == 'city':
-        posts = Post.objects.filter(region_id=region_id)                            
+        posts = Post.objects.filter(Q(region_id=region_id) | Q(region__district__id=region_id))
     elif region == 'state':    
         posts = Post.objects.filter(region__state__id=region_id)
     elif region == 'world':
