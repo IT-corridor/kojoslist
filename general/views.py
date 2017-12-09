@@ -50,6 +50,8 @@ def search_ads(request):
     others = request.POST.get('others') == 'true'
 
     q = Q(title__icontains=keyword)
+    q &= (Q(region_id=request.session['region']) | Q(region__district__id=request.session['region']))
+
     if 'ck_search_title' not in request.POST:
         q |= Q(content__icontains=keyword)
     if not others:
@@ -60,13 +62,10 @@ def search_ads(request):
         and key[:3] != 'ck_':
             q &= Q(**{key: value})
     
-    if model:
-        q &= (Q(region_id=request.session['region']) | Q(region__district__id=request.session['region']))
+    if model:   # search on specific category page
         q &= Q(category_id=request.session['category'])
-    else:
-        model = 'Post'
 
-    model = apps.get_model('general', model)
+    model = apps.get_model('general', model or 'Post')
     posts = model.objects.filter(q).exclude(status='deactive')
 
     if 'ck_has_image' in request.POST:
@@ -164,11 +163,6 @@ def get_regions(request):
         request.session['region'] =  city.id
         request.session['region_kind'] = 'city'
 
-        # if city.districts.all():
-        #     title = 'Select City'
-        #     html = render_to_string('_city_list.html', 
-        #                             {'cities': city.districts.all().order_by('name')})
-        # else:
         title = 'Select Category'
 
         result = []
