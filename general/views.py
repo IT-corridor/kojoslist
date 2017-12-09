@@ -47,7 +47,6 @@ def my_ads(request):
 def search_ads(request):
     keyword = request.POST.get('keyword')
     model = request.POST.get('model')
-    model = apps.get_model('general', model)
     others = request.POST.get('others') == 'true'
 
     q = Q(title__icontains=keyword)
@@ -61,9 +60,13 @@ def search_ads(request):
         and key[:3] != 'ck_':
             q &= Q(**{key: value})
     
-    q &= (Q(region_id=request.session['region']) | Q(region__district__id=request.session['region']))
-    q &= Q(category_id=request.session['category'])
+    if model:
+        q &= (Q(region_id=request.session['region']) | Q(region__district__id=request.session['region']))
+        q &= Q(category_id=request.session['category'])
+    else:
+        model = 'Post'
 
+    model = apps.get_model('general', model)
     posts = model.objects.filter(q).exclude(status='deactive')
 
     if 'ck_has_image' in request.POST:
@@ -180,7 +183,7 @@ def get_regions(request):
         country = mapName.split('/')[1].upper()
         state = State.objects.filter(name=state, country__sortname=country).first()
         title = 'Select City'
-        link = '/region-ads/st/{}'.format(state.id)
+        link = '' #'/region-ads/st/{}'.format(state.id)
         request.session['region'] =  state.id
         request.session['region_kind'] = 'state'
         cities = City.objects.filter(state=state, district__isnull=True).order_by('name')

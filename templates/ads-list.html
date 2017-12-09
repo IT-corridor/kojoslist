@@ -66,7 +66,9 @@
                 </div>
                 </div>
                 <input type="hidden" name="model" value="{{ category.form }}">
-                {% include 'search/'|add:category.form|add:'.html' %}
+                {% if category %}
+                    {% include 'search/'|add:category.form|add:'.html' %}
+                {% endif %}
             </div>
             </form>
             <div class="ads_list" id="ads_list">
