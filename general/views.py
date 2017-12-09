@@ -53,7 +53,7 @@ def search_ads(request):
     q = Q(title__icontains=keyword)
     if 'ck_search_title' not in request.POST:
         q |= Q(content__icontains=keyword)
-    if others:
+    if not others:
         q &= Q(owner=request.user)
 
     for key, value in request.POST.iteritems():
