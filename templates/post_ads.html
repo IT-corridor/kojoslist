@@ -208,6 +208,8 @@
         }
     });
 
+    refresh_datetime_picker();
+    
     $('#customButton').on('click', function(e) {
         handler.open({
             name: "Globalboard",
@@ -409,13 +411,7 @@
                             jQuery('input.update-btn').attr('disabled', true);
                         }
 
-                        $('.cl_datepicker').datetimepicker({
-                            format: 'MM/DD/YYYY'
-                        });
-
-                        $('.cl_timepicker').datetimepicker({
-                            format: 'H:m'
-                        });
+                        refresh_datetime_picker();
                     }
                 });                
             } else {
@@ -424,6 +420,16 @@
         });
 
     }); 
+
+    function refresh_datetime_picker() {
+        $('.cl_datepicker').datetimepicker({
+            format: 'MM/DD/YYYY'
+        });
+
+        $('.cl_timepicker').datetimepicker({
+            format: 'H:m'
+        });        
+    }
 
     jQuery("body").on("click", ".userpro-checkbox span", function() {
         $(this).toggleClass('checked');

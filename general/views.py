@@ -268,7 +268,8 @@ def post_ads(request, ads_id):
 
         # ignore last empty one due to template
         images = request.POST.getlist('uploded_id[]')[:-1]  
-        
+        print images, '#########'
+
         if form.is_valid():
             post = form.save()
             pimages = [ii.name for ii in post.images.all()]
