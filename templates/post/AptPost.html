@@ -1,9 +1,9 @@
 {% load extra %}
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
         <div class="form-group edit-profile">
             <label>Area</label>
-            <input type="text" name="area" class="form-control edit-post-wrap" required value="{{ post.area }}" />
+            <input type="number" name="area" class="form-control edit-post-wrap" required value="{{ post.area }}" />
         </div>
     </div>
     <div class="col-md-3">
@@ -71,23 +71,35 @@
             </select>
         </div>
     </div>
-
-    <div class="col-md-3">
+    <div class="clearfix"></div>
+    <div class="col-md-2">
         <div class="form-group edit-profile">
             <label>Cats Ok</label>
             <input type="checkbox" name="cats_ok" class="edit-post-wrap" style="display: block;">
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group edit-profile">
             <label>Dogs Ok</label>
             <input type="checkbox" name="dogs_ok" class="edit-post-wrap" style="display: block;">
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group edit-profile">
             <label>Furnished</label>
             <input type="checkbox" name="furnished" class="edit-post-wrap" style="display: block;">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group edit-profile">
+            <label>No smoking</label>
+            <input type="checkbox" name="no_smoking" class="edit-post-wrap" style="display: block;">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group edit-profile">
+            <label>Wheelchair accessible</label>
+            <input type="checkbox" name="wheelchair" class="edit-post-wrap" style="display: block;">
         </div>
     </div>
 </div>
