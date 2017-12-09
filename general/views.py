@@ -50,10 +50,10 @@ def search_ads(request):
     others = request.POST.get('others') == 'true'
 
     q = Q(title__icontains=keyword)
+    if 'ck_search_title' not in request.POST:
+        q = Q(title__icontains=keyword) | Q(content__icontains=keyword)
     q &= (Q(region_id=request.session['region']) | Q(region__district__id=request.session['region']))
 
-    if 'ck_search_title' not in request.POST:
-        q |= Q(content__icontains=keyword)
     if not others:
         q &= Q(owner=request.user)
 
@@ -160,7 +160,7 @@ def get_regions(request):
     if city:
         city = City.objects.get(id=city)
         link = '/region-ads/ct/{}'.format(city.id)
-        request.session['region'] =  city.id
+        request.session['region'] = city.id
         request.session['region_kind'] = 'city'
 
         title = 'Select Category'
@@ -178,14 +178,14 @@ def get_regions(request):
         state = State.objects.filter(name=state, country__sortname=country).first()
         title = 'Select City'
         link = '' #'/region-ads/st/{}'.format(state.id)
-        request.session['region'] =  state.id
+        request.session['region'] = state.id
         request.session['region_kind'] = 'state'
         cities = City.objects.filter(state=state, district__isnull=True).order_by('name')
         html = render_to_string('_city_list.html', {'cities': cities})
     elif kind == 0: # country
         title = 'Select Country'
         link = ''# '/region-ads/'
-        request.session['region'] =  ''
+        request.session['region'] = ''
         request.session['region_kind'] = 'world'
 
         html = render_to_string('_country_list_.html', {'countries': Country.objects.all()})
@@ -194,7 +194,7 @@ def get_regions(request):
         country = Country.objects.filter(sortname=country).first()
         title = 'Select Region'
         link = ''#'/region-ads/{}'.format(country.id)
-        request.session['region'] =  country.id
+        request.session['region'] = country.id
         request.session['region_kind'] = 'country'
 
         html = render_to_string('_state_list.html', 
