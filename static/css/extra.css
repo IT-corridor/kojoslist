@@ -664,7 +664,7 @@ input.verify_code {
         width: 20%;
     }
 
-    .sub-category {
+    .sub-category.row1 {
         min-height: 600px;
     }
 }
