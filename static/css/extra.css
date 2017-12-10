@@ -22,14 +22,8 @@ div.sub-category {
     margin-bottom: 20px;
 }
 
-.category.row2 {
-    position: absolute;
-    top: 600px;
-}
-
-.sub-category.row2 {
-    position: absolute;
-    top: 624px;
+.sub-category {
+    margin-bottom: 30px;
 }
 
 .close_img{
@@ -663,4 +657,14 @@ input.verify_code {
     padding: 10px;
     font-weight: 500;
     font-size: 20px;
+}
+
+@media screen and (min-width: 1024px){
+    .col-md-24 {
+        width: 20%;
+    }
+
+    .sub-category {
+        min-height: 600px;
+    }
 }
