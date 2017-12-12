@@ -5090,20 +5090,10 @@ div.userpro-head{
         width: 100%;
         margin: 40px auto 80px;
     }
-    // .hedle_zoom { 
-    //     top: 70px;
-    // }
-    // .hedle_zoom .btn-view-all-center{
-    //     top: 160px;
-    // }
-
 }
 
 @media screen and (max-width: 1199px) {
-    
-    select, select.form-control{
-        background-position: right 0 top 20px !important;
-    }
+
     .content-right-content.my-account td{
         padding: 8px 4px;
     }
