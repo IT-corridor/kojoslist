@@ -5566,14 +5566,12 @@ div.userpro-head{
     .content-right-content.my-ads h2{
         margin: 0 15px 30px;
     }
-    // .ads_search {
-    //     padding: 0 10px;
-    // }
+
     .content-right-content .ads_list .my_add .price{
         width: 140px;
     }
     .content-right-content .ads_list .my_add .actions{
-        width: 155px !important;
+        width: 161px !important;
     }
     .main-product-info .main-product-btn .product-btn, .product-btn{
         font-size: 15px;
