@@ -659,6 +659,12 @@ input.verify_code {
     font-size: 20px;
 }
 
+@media screen and (max-width: 768px){
+    .col-md-24 {
+        margin-left: 10%;
+    }
+}
+
 @media screen and (min-width: 1024px){
     .col-md-24 {
         width: 20%;
@@ -666,5 +672,12 @@ input.verify_code {
 
     .sub-category.row1 {
         min-height: 600px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .my-ads small {
+        display: block;
+        margin-top: 10px;
     }
 }
