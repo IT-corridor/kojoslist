@@ -25,12 +25,10 @@
         </div>
     </div>
     <div class="col-md-6" style="padding-top: 10px;">
-        <div class="userpro-input">
-            <div class="userpro-checkbox-wrap">
-                <label class="userpro-checkbox hide-field">
-                    <span {% if post.include_ads %}class="checked" {% endif %}></span>
-                    <input {% if post.include_ads %}checked {% endif %} name="include_ads" type="checkbox">include "more ads by this user" link</label>
-            </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" style="margin-top: -2px;" {% if post.include_ads %}class="checked" {% endif %} name="include_ads" value="">Include "more ads by this user" link
+            </label>
         </div>
     </div>
     

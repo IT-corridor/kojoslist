@@ -16,7 +16,9 @@
                 Ads List 
                 {% if category %}
                     <small> (
-                    {% if category.parent %}
+                    {% if category.parent.parent %}
+                        {{ category.parent.parent.name }} / 
+                    {% elif category.parent %}
                         {{ category.parent.name }} / 
                     {% endif %}
                     {{ category.name }}
