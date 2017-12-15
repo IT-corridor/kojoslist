@@ -61,6 +61,7 @@ urlpatterns += [
     url(r"^confirm-phone", confirm_phone, name="confirm-phone"),   
     url(r"^send_vcode", send_vcode, name="send_vcode"),   
     url(r"^upload_id", upload_id, name="upload_id"),   
+    url(r"^about", about, name="about"),   
     url(r"^my-account", my_account, name="my-account"),   
     url(r"^send_friend_email", send_friend_email, name="send_friend_email"), 
     url(r"^send_reply_email", send_reply_email, name="send_reply_email"),        

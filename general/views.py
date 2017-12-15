@@ -37,6 +37,10 @@ def home(request):
     rndr_str = globoard_display_world_countries()
     return render(request, 'index.html', {'rndr_str': rndr_str})
 
+def about(request):
+    rndr_str = ''
+    return render(request, 'about.html', {'rndr_str': rndr_str})
+
 @login_required(login_url='/accounts/login/')
 def my_ads(request):
     posts = Post.objects.filter(owner=request.user)
