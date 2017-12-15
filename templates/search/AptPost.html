@@ -54,9 +54,17 @@
             <select name="type" class="form-control edit-post-wrap" required>
                 <option value="">-</option>
                 <option value="apartment" {% if post.type == "apartment" %}selected{% endif %}>apartment</option>
+                <option value="condo" {% if post.type == "condo" %}selected{% endif %}>condo</option>
+                <option value="cottage/cabin" {% if post.type == "cottage/cabin" %}selected{% endif %}>cottage/cabin</option>
                 <option value="duplex" {% if post.type == "duplex" %}selected{% endif %}>duplex</option>
                 <option value="flat" {% if post.type == "flat" %}selected{% endif %}>flat</option>
                 <option value="house" {% if post.type == "house" %}selected{% endif %}>house</option>
+                <option value="in-law" {% if post.type == "in-law" %}selected{% endif %}>in-law</option>
+                <option value="loft" {% if post.type == "loft" %}selected{% endif %}>loft</option>
+                <option value="townhouse" {% if post.type == "townhouse" %}selected{% endif %}>townhouse</option>
+                <option value="manufactured" {% if post.type == "manufactured" %}selected{% endif %}>manufactured</option>
+                <option value="assited living" {% if post.type == "assited living" %}selected{% endif %}>assited living</option>
+                <option value="land" {% if post.type == "land" %}selected{% endif %}>land</option>
             </select>
         </div>
     </div>

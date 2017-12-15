@@ -101,6 +101,12 @@ class LicensePostForm(ModelForm):
         fields = '__all__'
 
 
+class RealEstatePostForm(ModelForm):
+    class Meta:
+        model = RealEstatePost
+        fields = '__all__'
+
+
 class CustomerForm(ModelForm):
     # dob = forms.DateTimeField(input_formats='%d-%m-%Y')
 

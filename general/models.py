@@ -206,6 +206,20 @@ class AptPost(Post):
     wheelchair = models.BooleanField(default=False)
 
 
+class RealEstatePost(Post):
+    area = models.FloatField()
+    available_on = models.DateField()    
+    bedrooms = models.IntegerField()
+    bathrooms = models.IntegerField()
+    type = models.CharField(max_length=50)
+    laundry = models.CharField(max_length=50, blank=True, null=True)
+    parking = models.CharField(max_length=50, blank=True, null=True)
+    furnished = models.BooleanField(default=False)
+    no_smoking = models.BooleanField(default=False)
+    wheelchair = models.BooleanField(default=False)
+    licensed = models.BooleanField(default=True)
+
+
 class RoomPost(Post):
     area = models.FloatField()
     available_on = models.DateField()    
