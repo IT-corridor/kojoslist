@@ -485,16 +485,16 @@ li.content-select-country-part-li-sections ul li{
     background-size: 40px;
     }
 .why_block:nth-of-type(1) .why_block_img{
-    background-image:url(../images/why_item_ico_1.png);
+    background-image:url(../img/why_item_ico_1.png);
     }
 .why_block:nth-of-type(2) .why_block_img{
-    background-image:url(../images/why_item_ico_2.png);
+    background-image:url(../img/why_item_ico_2.png);
     }
 .why_block:nth-of-type(3) .why_block_img{
-    background-image:url(../images/why_item_ico_3.png);
+    background-image:url(../img/why_item_ico_3.png);
     }
 .why_block:nth-of-type(4) .why_block_img{
-    background-image:url(../images/why_item_ico_4.png);
+    background-image:url(../img/why_item_ico_4.png);
     }
 .why_block .why_block_text{
     width: 65%;
@@ -5123,10 +5123,10 @@ div.userpro-head{
     .why_block{
         min-height: 270px;
     }
-    .page-id-10 .video-desc{
+    .video-desc{
         padding-top: 100px;
     }
-    .page-id-10 .video-play-p {
+    .video-play-p {
         margin: 30px auto;
         width: 55%;
     }
@@ -5229,10 +5229,10 @@ div.userpro-head{
     .why_block{
         min-height: 350px;
     }
-    .page-id-10 .video-desc{
+    .video-desc{
         padding-top: 6%;
     }
-    .page-id-10 .video-play-p{
+    .video-play-p{
         font-size: 18px;
         line-height: 32px;
         width: 75%;
@@ -5342,7 +5342,7 @@ div.userpro-head{
     .why_block{
         padding: 10px;
     }
-    .page-id-10 .video-play-p {
+    .video-play-p {
         margin: 20px auto;
         width: 75%;
         font-size: 16px;
@@ -5651,7 +5651,7 @@ div.userpro-head{
     .page-id-10 .video-title{
         font-size: 20px;
     }
-    .page-id-10 .video-play-p{
+    .video-play-p{
         width: 97%;
         line-height: 22px;
         font-size: 15px;
@@ -5859,14 +5859,14 @@ div.userpro-head{
     .view-profile .content-right-content .ads_list .my_add .title{
         height: auto;
     }
-    .page-id-10 .video-desc {
+    .video-desc {
         padding-top: 0;
     }
     .page-id-10 .video-title{
         font-size: 16px;
         margin: 15px 0 0;
     }
-    .page-id-10 .video-play-p{
+    .video-play-p{
         margin: 5px 0;
         line-height: 18px;
         font-size: 14px;

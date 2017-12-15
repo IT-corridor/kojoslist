@@ -40,11 +40,26 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+def faq(request):
+    return render(request, 'faq.html')
+
 def how_it_works(request):
     return render(request, 'how-it-works.html')
 
 def contact_us(request):
     return render(request, 'contact-us.html')
+
+def customer_support(request):
+    return render(request, 'customer-support.html')
+
+def why_global_board(request):
+    return render(request, 'why-global-board.html')
+
+def terms_of_use(request):
+    return render(request, 'terms-of-use.html')
+
+def why_use(request):
+    return render(request, 'why-use.html')
 
 @login_required(login_url='/accounts/login/')
 def my_ads(request):
