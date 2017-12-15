@@ -119,6 +119,12 @@ class AntiquePostForm(ModelForm):
         fields = '__all__'
 
 
+class AutoWheelPostForm(ModelForm):
+    class Meta:
+        model = AutoWheelPost
+        fields = '__all__'
+
+
 class CustomerForm(ModelForm):
     # dob = forms.DateTimeField(input_formats='%d-%m-%Y')
 

@@ -232,6 +232,11 @@ class AntiquePost(Post):
     include_ads = models.BooleanField()
 
 
+class AutoWheelPost(Post):
+    cryptocurrency_ok = models.BooleanField()
+    include_ads = models.BooleanField()
+
+
 class RealEstatePost(Post):
     area = models.FloatField()
     available_on = models.DateField()    
