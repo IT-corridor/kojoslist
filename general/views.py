@@ -38,8 +38,13 @@ def home(request):
     return render(request, 'index.html', {'rndr_str': rndr_str})
 
 def about(request):
-    rndr_str = ''
-    return render(request, 'about.html', {'rndr_str': rndr_str})
+    return render(request, 'about.html')
+
+def how_it_works(request):
+    return render(request, 'how-it-works.html')
+
+def contact_us(request):
+    return render(request, 'contact-us.html')
 
 @login_required(login_url='/accounts/login/')
 def my_ads(request):
