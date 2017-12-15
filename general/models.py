@@ -206,6 +206,23 @@ class AptPost(Post):
     wheelchair = models.BooleanField(default=False)
 
 
+class SubletPost(Post):
+    area = models.FloatField()
+    available_on = models.DateField()    
+    private_bed = models.CharField(max_length=50, blank=True, null=True)
+    private_bath = models.CharField(max_length=50, blank=True, null=True)
+    bedrooms = models.IntegerField()
+    bathrooms = models.IntegerField()
+    type = models.CharField(max_length=50)
+    laundry = models.CharField(max_length=50, blank=True, null=True)
+    parking = models.CharField(max_length=50, blank=True, null=True)
+    cats_ok = models.BooleanField(default=False)
+    dogs_ok = models.BooleanField(default=False)
+    furnished = models.BooleanField(default=False)
+    no_smoking = models.BooleanField(default=False)
+    wheelchair = models.BooleanField(default=False)
+
+
 class RealEstatePost(Post):
     area = models.FloatField()
     available_on = models.DateField()    
@@ -223,8 +240,8 @@ class RealEstatePost(Post):
 class RoomPost(Post):
     area = models.FloatField()
     available_on = models.DateField()    
-    private_bed = models.CharField(max_length=50)
-    private_bath = models.CharField(max_length=50)
+    private_bed = models.CharField(max_length=50, blank=True, null=True)
+    private_bath = models.CharField(max_length=50, blank=True, null=True)
     laundry = models.CharField(max_length=50, blank=True, null=True)
     parking = models.CharField(max_length=50, blank=True, null=True)
     cats_ok = models.BooleanField(default=False)
