@@ -77,6 +77,12 @@ class AptPostForm(ModelForm):
         fields = '__all__'
 
 
+class RoomPostForm(ModelForm):
+    class Meta:
+        model = RoomPost
+        fields = '__all__'
+
+
 class BuyGigPostForm(ModelForm):
     class Meta:
         model = BuyGigPost
