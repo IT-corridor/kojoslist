@@ -77,6 +77,12 @@ class AptPostForm(ModelForm):
         fields = '__all__'
 
 
+class BuyGigPostForm(ModelForm):
+    class Meta:
+        model = BuyGigPost
+        fields = '__all__'
+
+
 class CustomerForm(ModelForm):
     # dob = forms.DateTimeField(input_formats='%d-%m-%Y')
 

@@ -206,6 +206,12 @@ class AptPost(Post):
     wheelchair = models.BooleanField(default=False)
 
 
+class BuyGigPost(Post):
+    direct_contact_by_recruiters_is_okay = models.BooleanField()
+    compensation = models.CharField(max_length=200)
+    pay = models.BooleanField()
+
+
 class Search(models.Model):
     keyword = models.CharField(max_length=100)
     category = models.ForeignKey(Category, blank=True, null=True)
