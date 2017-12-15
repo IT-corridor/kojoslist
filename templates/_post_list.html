@@ -1,6 +1,6 @@
 {% for post in posts %}
 <div class="my_add col-md-12 col-xs-12">
-    <div class="col-xs-12 col-md-10 title no-padding">
+    <div class="col-xs-12 col-md-9 title no-padding">
         <a href="/ads/{{ post.0.id }}">
             <img class="photo" src="/static/media/{{ post.1 }}">
             <h3>{{ post.0.title }}</h3>
@@ -8,7 +8,7 @@
         </a>
     </div>
     {% if not others %}
-        <div class="col-md-2">
+        <div class="col-md-3">
             <!-- <div class="price">$60/month</div> -->
             <div class="actions">
                 <select data-value="{{ post.0.id }}" class="active_deactive status form-control">
