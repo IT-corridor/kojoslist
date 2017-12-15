@@ -212,6 +212,11 @@ class BuyGigPost(Post):
     pay = models.BooleanField()
 
 
+class LicensePost(Post):
+    licensed = models.BooleanField()
+    description = models.CharField(max_length=200)
+
+
 class Search(models.Model):
     keyword = models.CharField(max_length=100)
     category = models.ForeignKey(Category, blank=True, null=True)

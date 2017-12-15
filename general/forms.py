@@ -83,6 +83,12 @@ class BuyGigPostForm(ModelForm):
         fields = '__all__'
 
 
+class LicensePostForm(ModelForm):
+    class Meta:
+        model = LicensePost
+        fields = '__all__'
+
+
 class CustomerForm(ModelForm):
     # dob = forms.DateTimeField(input_formats='%d-%m-%Y')
 
