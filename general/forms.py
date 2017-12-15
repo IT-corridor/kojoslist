@@ -83,6 +83,12 @@ class RoomPostForm(ModelForm):
         fields = '__all__'
 
 
+class OfficePostForm(ModelForm):
+    class Meta:
+        model = OfficePost
+        fields = '__all__'
+
+
 class BuyGigPostForm(ModelForm):
     class Meta:
         model = BuyGigPost

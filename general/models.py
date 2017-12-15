@@ -220,6 +220,10 @@ class RoomPost(Post):
     wheelchair = models.BooleanField(default=False)
 
 
+class OfficePost(Post):
+    area = models.FloatField()
+
+
 class BuyGigPost(Post):
     direct_contact_by_recruiters_is_okay = models.BooleanField()
     compensation = models.CharField(max_length=200)
