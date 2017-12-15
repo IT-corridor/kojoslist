@@ -113,6 +113,12 @@ class SubletPostForm(ModelForm):
         fields = '__all__'
 
 
+class AntiquePostForm(ModelForm):
+    class Meta:
+        model = AntiquePost
+        fields = '__all__'
+
+
 class CustomerForm(ModelForm):
     # dob = forms.DateTimeField(input_formats='%d-%m-%Y')
 

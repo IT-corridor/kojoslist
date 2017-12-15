@@ -223,6 +223,15 @@ class SubletPost(Post):
     wheelchair = models.BooleanField(default=False)
 
 
+class AntiquePost(Post):
+    make = models.CharField(max_length=100, null=True, blank=True)
+    model = models.CharField(max_length=100, null=True, blank=True)
+    size = models.CharField(max_length=100, null=True, blank=True)
+    condition = models.CharField(max_length=100, null=True, blank=True)
+    cryptocurrency_ok = models.BooleanField()
+    include_ads = models.BooleanField()
+
+
 class RealEstatePost(Post):
     area = models.FloatField()
     available_on = models.DateField()    
