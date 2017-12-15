@@ -86,6 +86,9 @@
 
 {% block own_js %}
 <script>
+    var logged_in = {% if user.is_authenticated %} true {% else %} false {% endif %};
+    var url = "{{ request.path }}";
+
     jQuery(document).ready(function(){                
         jQuery('#search_ads').click(function() {
             search_ads();
@@ -112,7 +115,6 @@
 
         function search_ads() {
             var search_val = jQuery('.ads_search_input').val();
-            console.log($('#ck_search_title').prop("checked"));
 
             jQuery.ajax({
                 type: 'post',
@@ -131,6 +133,12 @@
 
     $('.subscribe').click(function() {
         var keyword = jQuery('.ads_search_input').val();
+        if (!logged_in) {
+            var r = confirm("You need to login for subscription!");
+            if (r == true) {
+                location.href = "/accounts/login?next="+url;
+            }
+        }
 
         jQuery.ajax({
             type: 'post',
