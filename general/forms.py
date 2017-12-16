@@ -139,3 +139,10 @@ class CampaignForm(ModelForm):
     class Meta:
         model = Campaign
         exclude = ['raised']
+
+
+class BoatPostForm(ModelForm):
+    class Meta:
+        model = BoatPost
+        fields = '__all__'
+
