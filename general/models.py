@@ -244,6 +244,13 @@ class AntiquePost(Post):
     include_ads = models.BooleanField()
 
 
+class BookPost(Post):
+    size = models.CharField(max_length=100, null=True, blank=True)
+    condition = models.CharField(max_length=100, null=True, blank=True)
+    cryptocurrency_ok = models.BooleanField()
+    include_ads = models.BooleanField()
+
+
 class AutoWheelPost(Post):
     cryptocurrency_ok = models.BooleanField()
     include_ads = models.BooleanField()

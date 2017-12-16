@@ -146,3 +146,9 @@ class BoatPostForm(ModelForm):
         model = BoatPost
         fields = '__all__'
 
+
+class BookPostForm(ModelForm):
+    class Meta:
+        model = BookPost
+        fields = '__all__'
+
