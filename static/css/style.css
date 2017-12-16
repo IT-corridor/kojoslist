@@ -3245,7 +3245,7 @@ footer.site-footer {
 
 }
 
-.page-id-10 .video-section .video::after {
+.video-section .video::after {
     background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
     content: "";
     height: 100%;
@@ -5653,7 +5653,7 @@ div.userpro-head{
     .why_block_img{
         background-position: left;
     }
-    .page-id-10 .video-title{
+    .video-title{
         font-size: 20px;
     }
     .video-play-p{
@@ -5867,7 +5867,7 @@ div.userpro-head{
     .video-desc {
         padding-top: 0;
     }
-    .page-id-10 .video-title{
+    .video-title{
         font-size: 16px;
         margin: 15px 0 0;
     }
@@ -5879,7 +5879,7 @@ div.userpro-head{
     .why-content {
         padding: 0;
     }
-    .page-id-10 .why-content .btn-view-all-center {
+    .why-content .btn-view-all-center {
         margin-bottom: 30px;
     }
     .page-id-51 #content h1{
