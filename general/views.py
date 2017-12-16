@@ -27,6 +27,7 @@ from django.db.models import Count
 from django.apps import apps
 
 from general.models import *
+from general.post_models import *
 from general.forms import *
 from general.utils import send_email, send_SMS
 

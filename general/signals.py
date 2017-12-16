@@ -9,6 +9,8 @@ from django.db.models.signals import post_save
 from django.conf import settings
 
 from general.models import *
+from general.post_models import *
+
 from general.utils import send_email
 
 @receiver(pre_delete, sender=Image, dispatch_uid='image_delete_signal')

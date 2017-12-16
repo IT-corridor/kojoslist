@@ -10,6 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 from allauth.utils import generate_unique_username
 
 from .models import *
+from .post_models import *
 
 class SignupForm(UserCreationForm):
     def signup(self, request, user):
@@ -39,6 +40,22 @@ class SignupForm(UserCreationForm):
         model = get_user_model()
         fields = ('email', 'password1', 'password2', 'first_name', 
                   'last_name', 'gender', 'dob', 'address')
+
+
+class CustomerForm(ModelForm):
+    # dob = forms.DateTimeField(input_formats='%d-%m-%Y')
+
+    class Meta:
+        model = Customer
+        exclude = ['password', 'date_joined', 'last_login', 'is_superuser', 
+                   'is_staff', 'is_active', 'phone_verified', 'forum_handle',
+                   'default_site', 'duration', 'v_statue', 'id_photo']
+
+
+class CampaignForm(ModelForm):
+    class Meta:
+        model = Campaign
+        exclude = ['raised']
 
 
 class PostForm(ModelForm):
@@ -125,22 +142,6 @@ class AutoWheelPostForm(ModelForm):
         fields = '__all__'
 
 
-class CustomerForm(ModelForm):
-    # dob = forms.DateTimeField(input_formats='%d-%m-%Y')
-
-    class Meta:
-        model = Customer
-        exclude = ['password', 'date_joined', 'last_login', 'is_superuser', 
-                   'is_staff', 'is_active', 'phone_verified', 'forum_handle',
-                   'default_site', 'duration', 'v_statue', 'id_photo']
-
-
-class CampaignForm(ModelForm):
-    class Meta:
-        model = Campaign
-        exclude = ['raised']
-
-
 class BoatPostForm(ModelForm):
     class Meta:
         model = BoatPost
@@ -168,5 +169,11 @@ class CellPhonePostForm(ModelForm):
 class MotorCyclePostForm(ModelForm):
     class Meta:
         model = MotorCyclePost
+        fields = '__all__'
+
+
+class TicketPostForm(ModelForm):
+    class Meta:
+        model = TicketPost
         fields = '__all__'
 

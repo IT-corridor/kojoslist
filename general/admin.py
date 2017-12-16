@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 
 from .models import *
+from .post_models import *
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'parent', 'columns', 'column', 'form']
@@ -91,6 +92,7 @@ admin.site.register(SubletPost)
 admin.site.register(AutoWheelPost)
 admin.site.register(RealEstatePost)
 admin.site.register(LicensePost)
+admin.site.register(TicketPost)
 admin.site.register(Favourite)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Search, SearchAdmin)
