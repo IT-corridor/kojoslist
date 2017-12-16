@@ -78,6 +78,8 @@
                 <option value="gas" {% if post.fuel == "gas" %}selected{% endif %}>gas</option>
                 <option value="diesel" {% if post.fuel == "diesel" %}selected{% endif %}>diesel</option>
                 <option value="hybrid" {% if post.fuel == "hybrid" %}selected{% endif %}>hybrid</option>
+                <option value="electric" {% if post.fuel == "electric" %}selected{% endif %}>electric</option>
+                <option value="other" {% if post.fuel == "other" %}selected{% endif %}>other</option>
             </select>
         </div>
     </div>
@@ -100,6 +102,15 @@
                 <option value="red" {% if post.paint_color == "red" %}selected{% endif %}>red</option>
                 <option value="blue" {% if post.paint_color == "blue" %}selected{% endif %}>blue</option>
                 <option value="black" {% if post.paint_color == "black" %}selected{% endif %}>black</option>
+                <option value="brown" {% if post.paint_color == "brown" %}selected{% endif %}>brown</option>
+                <option value="green" {% if post.paint_color == "green" %}selected{% endif %}>green</option>
+                <option value="grey" {% if post.paint_color == "grey" %}selected{% endif %}>grey</option>
+                <option value="orange" {% if post.paint_color == "orange" %}selected{% endif %}>orange</option>
+                <option value="purple" {% if post.paint_color == "purple" %}selected{% endif %}>purple</option>
+                <option value="yellow" {% if post.paint_color == "yellow" %}selected{% endif %}>yellow</option>
+                <option value="silver" {% if post.paint_color == "silver" %}selected{% endif %}>silver</option>
+                <option value="white" {% if post.paint_color == "white" %}selected{% endif %}>white</option>
+                <option value="custom" {% if post.paint_color == "custom" %}selected{% endif %}>custom</option>
             </select>
         </div>
     </div>
@@ -133,6 +144,9 @@
                 <option value="clean" {% if post.title_status == "clean" %}selected{% endif %}>clean</option>
                 <option value="salvage" {% if post.title_status == "salvage" %}selected{% endif %}>salvage</option>
                 <option value="lien" {% if post.title_status == "lien" %}selected{% endif %}>lien</option>
+                <option value="rebuilt" {% if post.title_status == "rebuilt" %}selected{% endif %}>rebuilt</option>
+                <option value="parts only" {% if post.title_status == "parts only" %}selected{% endif %}>parts only</option>
+                <option value="missing" {% if post.title_status == "missing" %}selected{% endif %}>missing</option>
             </select>
         </div>
     </div>

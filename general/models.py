@@ -194,6 +194,21 @@ class CarPost(Post):
     include_ads = models.BooleanField()
 
 
+class MotorCyclePost(Post):
+    model_year = models.IntegerField()
+    make_model = models.CharField(max_length=100)
+    odometer = models.IntegerField()
+    engine_displacement = models.IntegerField()
+    condition = models.CharField(max_length=50)
+    fuel = models.CharField(max_length=50)
+    transmission = models.CharField(max_length=50)
+    paint_color = models.CharField(max_length=50)
+    title_status = models.CharField(max_length=50, blank=True, null=True)
+    vin = models.CharField(max_length=50, blank=True, null=True)
+    cryptocurrency_ok = models.BooleanField()
+    include_ads = models.BooleanField()
+
+
 class BoatPost(Post):
     engine_hours = models.IntegerField()
     length_overall = models.IntegerField()
@@ -250,7 +265,7 @@ class AntiquePost(Post):
 class CellPhonePost(AntiquePost):
     mobile_os = models.CharField(max_length=100, null=True, blank=True)
 
-    
+
 class BookPost(Post):
     size = models.CharField(max_length=100, null=True, blank=True)
     condition = models.CharField(max_length=100, null=True, blank=True)

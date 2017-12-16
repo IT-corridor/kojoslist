@@ -164,3 +164,9 @@ class CellPhonePostForm(ModelForm):
         model = CellPhonePost
         fields = '__all__'
 
+
+class MotorCyclePostForm(ModelForm):
+    class Meta:
+        model = MotorCyclePost
+        fields = '__all__'
+
