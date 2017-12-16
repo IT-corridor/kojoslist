@@ -6,19 +6,19 @@
 
     <div class="col-sm-12 full-h">
 
-        <div class="content-right-content my-ads">
+        <div class="content-right-content my-ads choose-dealer">
         <h3>{{ category.name }}</h3>
-        <ul>
-            <li><a href="/category-ads-dealer/{{ category.id }}/all">
-                All Ads <div>(dealer + by-owner)</div>
-            </a></li>
-            <li><a href="/category-ads-dealer/{{ category.id }}/owner">
-                By Owner Only <div>(private party, no dealers)</div>
-            </a></li>
-            <li><a href="/category-ads-dealer/{{ category.id }}/dealer">
-                By Dealer Only <div>(no private party)</div>
-            </a></li>
-        </ul>
+            <div class="col-md-12">
+            <a href="/category-ads-dealer/{{ category.id }}/all">
+                All Ads 
+            </a><div>(dealer + by-owner)</div>
+            <a href="/category-ads-dealer/{{ category.id }}/owner">
+                By Owner Only 
+            </a><div>(private party, no dealers)</div>
+            <a href="/category-ads-dealer/{{ category.id }}/dealer">
+                By Dealer Only 
+            </a><div>(no private party)</div>
+            </div>
         </div>
 
     </div>

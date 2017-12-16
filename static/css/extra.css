@@ -681,3 +681,14 @@ input.verify_code {
         margin-top: 10px;
     }
 }
+
+.choose-dealer a {
+    font-size: 22px;
+    padding: 10px 0;
+    display: block;
+}
+
+.choose-dealer div {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
