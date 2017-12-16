@@ -4128,11 +4128,11 @@ select, select.form-control {
     }
 
     .star-profile-name{
-        padding-left: 7px !important;
+        padding-left: 5px !important;
     }    
 
     .btn-reply {
-        margin-left: 5px !important;
+        margin-left: 2px !important;
     }
 }
 
