@@ -49,9 +49,9 @@
             <label>Propulsion type</label>
             <select name="propulsion_type" class="form-control edit-post-wrap">
                 <option value="">-</option>
-                <option value="sail" {% if post.cylinder == "sail" %}selected{% endif %}>sail</option>
-                <option value="power" {% if post.cylinder == "power" %}selected{% endif %}>power</option>
-                <option value="human" {% if post.cylinder == "human" %}selected{% endif %}>human</option>
+                <option value="sail" {% if post.propulsion_type == "sail" %}selected{% endif %}>sail</option>
+                <option value="power" {% if post.propulsion_type == "power" %}selected{% endif %}>power</option>
+                <option value="human" {% if post.propulsion_type == "human" %}selected{% endif %}>human</option>
             </select>
         </div>
     </div>
