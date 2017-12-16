@@ -152,3 +152,9 @@ class BookPostForm(ModelForm):
         model = BookPost
         fields = '__all__'
 
+
+class CDPostForm(ModelForm):
+    class Meta:
+        model = CDPost
+        fields = '__all__'
+
