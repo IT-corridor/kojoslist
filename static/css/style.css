@@ -3832,19 +3832,10 @@ select, select.form-control {
 
 
 @media screen and (max-width: 420px){
-
-
-
     .content-select-country ul li.content-select-country-part-li-sections {
-
         width: 100%;
-
         text-align: center;
-
     }
-
-
-
 }
 
 
@@ -4130,6 +4121,20 @@ select, select.form-control {
             width:100%;
             margin: 10px 0 20px 0;
         }
+
+@media screen and (max-width: 340px){
+    .star-profile img {
+        margin-right: 0 !important;
+    }
+
+    .star-profile-name{
+        padding-left: 7px !important;
+    }    
+
+    .btn-reply {
+        margin-left: 8px !important;
+    }
+}
 
 body.ads-template-default.single-ads,
 .content-right-content.my-ads {
