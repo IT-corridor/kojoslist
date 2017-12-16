@@ -129,6 +129,7 @@
                             </div>
                             <input type="hidden" id="ads_form" name="ads_form" value="{{ post.category.form }}">
                             <input type="hidden" name="owner" value="{{ user.id }}">
+                            <input type="hidden" name="by_dealer" id="by_dealer" value="0">
                             <div class="form-group edit-profile">
                                 <label>Add Pictures</label>
                                 <ul id="loaded-files" class="upload-image-thumbs upload-image-ul">
@@ -400,6 +401,7 @@
                                     jQuery('.price-note').show();
                                     jQuery('#price').html(String(res.price / 100));
                                     jQuery('input.update-btn').attr('disabled', true);
+                                    jQuery('#by_dealer').val(1);
                                 }
                             } else {
                                 jQuery('.price-note').show();

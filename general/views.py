@@ -547,15 +547,26 @@ def category_ads(request, category_id):
     request.session['category'] = category_id
     request.session.modified = True
 
+    category = Category.objects.get(id=category_id)
+
+    if category.column == 10:   # has dealer class
+        return render(request, 'choose_dealer_class.html', {'category': category})
+
+def category_ads_dealer(request, category_id, kind):
     region_id = request.session.get('region')  # city
     if not region_id:
         return HttpResponseRedirect('/profile')
-
     region = City.objects.get(id=region_id)
+
     category = Category.objects.get(id=category_id)
     form = get_class(category.form+'Form')
     posts = Post.objects.filter(Q(region=region) | Q(region__district=region)) \
                         .filter(category_id=category_id).exclude(status='deactive')
+    if kind == 'owner':
+        posts = posts.filter(by_dealer=False)
+    elif kind == 'dealer':
+        posts = posts.filter(by_dealer=True)
+
     posts = get_posts_with_image(posts)
     breadcrumb = '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>'
     breadcrumb = request.session.get('breadcrumb', breadcrumb)

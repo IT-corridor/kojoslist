@@ -52,7 +52,7 @@ class PostPurchaseAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'detail_category', 'category', 'region', 'owner', 'created_at']
+    list_display = ['title', 'detail_category', 'category', 'region', 'owner', 'created_at', 'by_dealer']
     search_fields = ['title', 'category']
 
     def detail_category(self, obj):

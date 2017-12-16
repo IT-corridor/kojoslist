@@ -103,6 +103,7 @@ class Post(models.Model):
     extension = models.CharField(max_length=10, blank=True, null=True)
     name = models.CharField(max_length=50, blank=True, null=True)
     allow_other_contact = models.BooleanField(default=False)
+    by_dealer = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -257,6 +258,6 @@ class Campaign(models.Model):
     videos = models.TextField(blank=True, null=True)
     owner =  models.ForeignKey(Customer)
     created_at = models.DateField(auto_now_add=True)
-
+    
     def __str__(self):
         return self.title
