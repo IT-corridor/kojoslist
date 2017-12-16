@@ -49,6 +49,7 @@ urlpatterns += [
     url(r"^user_show/(?P<user_id>\d*)", user_show, name="user review"),
     url(r"^campaigns/(?P<camp_id>\d*)", view_campaign, name="view-campaign"),
     url(r"^category-ads/(?P<category_id>\d*)", category_ads, name="category-ads"),
+    url(r"^category-ads-dealer/(?P<category_id>\d*)/(?P<kind>.*)", category_ads_dealer, name="category-ads-dealer"),
     url(r"^upload-image$", upload_image, name="upload-image"),
     url(r"^delete-image$", delete_image, name="delete-image"),
     url(r"^get_sub_info$", get_sub_info, name="get_sub_info"),

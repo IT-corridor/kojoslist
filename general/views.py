@@ -551,6 +551,7 @@ def category_ads(request, category_id):
 
     if category.column == 10:   # has dealer class
         return render(request, 'choose_dealer_class.html', {'category': category})
+    return category_ads_dealer(request, category_id, 'all')
 
 def category_ads_dealer(request, category_id, kind):
     region_id = request.session.get('region')  # city
