@@ -79,6 +79,17 @@ class BoatPost(Post):
     include_ads = models.BooleanField()
 
 
+class TrailerPost(Post):
+    make = models.CharField(max_length=100, null=True, blank=True)
+    model = models.CharField(max_length=100, null=True, blank=True)
+    made_year = models.IntegerField()
+    condition = models.CharField(max_length=50)
+    paint_color = models.CharField(max_length=50)
+    size = models.CharField(max_length=50)    
+    cryptocurrency_ok = models.BooleanField()
+    include_ads = models.BooleanField()
+
+
 class AptPost(Post):
     area = models.FloatField()
     available_on = models.DateField()    

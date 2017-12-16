@@ -177,3 +177,9 @@ class TicketPostForm(ModelForm):
         model = TicketPost
         fields = '__all__'
 
+
+class TrailerPostForm(ModelForm):
+    class Meta:
+        model = TrailerPost
+        fields = '__all__'
+
