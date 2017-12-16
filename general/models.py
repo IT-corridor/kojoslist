@@ -32,8 +32,7 @@ class Customer(AbstractUser):
 class Category(models.Model):
     parent = models.ForeignKey("Category", blank=True, null=True)
     name = models.CharField(max_length=50)
-    columns = models.IntegerField(default=1)
-    column = models.IntegerField(default=1)
+    column = models.IntegerField(default=1) # 10: dealer for sub category
     form = models.CharField(max_length=50, default='Post')
     price = models.FloatField(default=0)
 
