@@ -158,3 +158,9 @@ class CDPostForm(ModelForm):
         model = CDPost
         fields = '__all__'
 
+
+class CellPhonePostForm(ModelForm):
+    class Meta:
+        model = CellPhonePost
+        fields = '__all__'
+

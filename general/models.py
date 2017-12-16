@@ -247,6 +247,10 @@ class AntiquePost(Post):
     include_ads = models.BooleanField()
 
 
+class CellPhonePost(AntiquePost):
+    mobile_os = models.CharField(max_length=100, null=True, blank=True)
+
+    
 class BookPost(Post):
     size = models.CharField(max_length=100, null=True, blank=True)
     condition = models.CharField(max_length=100, null=True, blank=True)
