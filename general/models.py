@@ -188,7 +188,10 @@ class CarPost(Post):
     paint_color = models.CharField(max_length=50)
     size = models.CharField(max_length=50)
     type = models.CharField(max_length=50)
-    title_status = models.CharField(max_length=50)
+    title_status = models.CharField(max_length=50, blank=True, null=True)
+    vin = models.CharField(max_length=50, blank=True, null=True)
+    cryptocurrency_ok = models.BooleanField()
+    include_ads = models.BooleanField()
 
 
 class BoatPost(Post):
