@@ -7,7 +7,7 @@ from .models import *
 from .post_models import *
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'parent', 'column', 'form']
+    list_display = ['name', 'parent', 'column', 'form', 'price']
     search_fields = ['name']
 
 

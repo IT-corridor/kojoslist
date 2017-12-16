@@ -213,8 +213,6 @@
     $('#post-form').submit(function(e) {
         var cn_id = jQuery('#ads_country').val();
         var ct_id = jQuery('#ads_city').val();
-        console.log(cn_id);
-        console.log(ct_id);
 
         if (cn_id && !ct_id) {
             e.preventDefault();
@@ -396,9 +394,18 @@
                         price = res.price;
                         
                         if(res.price) {
-                            jQuery('.price-note').show();
-                            jQuery('#price').html(String(res.price / 100));
-                            jQuery('input.update-btn').attr('disabled', true);
+                            if(res.dealer_avail) {
+                                var r = confirm("Do you want to post as a dealer?");
+                                if (r == true) {
+                                    jQuery('.price-note').show();
+                                    jQuery('#price').html(String(res.price / 100));
+                                    jQuery('input.update-btn').attr('disabled', true);
+                                }
+                            } else {
+                                jQuery('.price-note').show();
+                                jQuery('#price').html(String(res.price / 100));
+                                jQuery('input.update-btn').attr('disabled', true);
+                            }
                         }
 
                         refresh_datetime_picker();

@@ -387,7 +387,11 @@ def get_post_detail(request):
     template = 'post/{}.html'.format(form_name)
     html = render_to_string(template)
 
-    return JsonResponse({'html': html, 'form': form_name, 'price': price}, safe=False)
+    return JsonResponse({
+        'html': html, 
+        'form': form_name,
+        'dealer_avail': category.column == 10,  
+        'price': price}, safe=False)
 
 @csrf_exempt
 def active_deactive_ads(request):
