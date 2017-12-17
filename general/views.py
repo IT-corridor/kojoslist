@@ -194,7 +194,7 @@ def get_regions(request):
         for column in range(1, 7):
             _result = []
             for mc in Category.objects.filter(parent__isnull=True, column=column):
-                cc = Category.objects.filter(parent=mc)
+                cc = Category.objects.filter(parent=mc).order_by('name')
                 _result += [(mc, cc)]
             result += [_result]
         html = render_to_string('_category.html', {'categories': result})            
