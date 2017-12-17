@@ -5,10 +5,12 @@
             <div class="sub-category row{{forloop.counter}}">
             {% for cc in mc.1 %}
                 {% if cc.category_set.all %}
-                    <a href="javascript:void();">{{ cc.name }}</a>
+                    <a href="javascript:void();" data-toggle="collapse" data-target="#c{{cc.id}}">{{ cc.name }}</a>
+                    <div id="c{{cc.id}}" class="collapse">
                     {% for ccc in cc.category_set.all %}
                         <a href="/category-ads/{{ ccc.id }}">&nbsp;&nbsp;&nbsp;&nbsp;{{ ccc.name }}</a>
                     {% endfor %}
+                    </div>
                 {% else %}
                     <a href="/category-ads/{{ cc.id }}">{{ cc.name }}</a>
                 {% endif %}
