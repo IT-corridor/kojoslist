@@ -35,6 +35,7 @@ class Category(models.Model):
     column = models.IntegerField(default=1) # 10: dealer for sub category
     form = models.CharField(max_length=50, default='Post')
     price = models.FloatField(default=0)
+    order = models.IntegerField(default=1) # for display
 
     def __str__(self):
         return self.name
