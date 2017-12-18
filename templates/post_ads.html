@@ -1,6 +1,10 @@
 {% extends "profile.html" %} 
 {% load staticfiles %} 
 
+{% block own_css %}
+<link rel='stylesheet' id='dropdown-menu-style-css' href='/static/css/jquery-ui.css' type='text/css' media='all' /> 
+{% endblock %}
+
 {% block right_content %}
 <!-- Content Right Content -->
 
@@ -181,7 +185,9 @@
     </div>
 
 </div>
-
+<div id="dialog-confirm" title="Confirmation" style="padding-top: 25px;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Do you want to post as a dealer?</p>
+</div>
 <!-- End Content Right Content -->
 {% endblock %}
 
@@ -396,13 +402,24 @@
                         
                         if(res.price) {
                             if(res.dealer_avail) {
-                                var r = confirm("Do you want to post as a dealer?");
-                                if (r == true) {
-                                    jQuery('.price-note').show();
-                                    jQuery('#price').html(String(res.price / 100));
-                                    jQuery('input.update-btn').attr('disabled', true);
-                                    jQuery('#by_dealer').val(1);
-                                }
+                                $( "#dialog-confirm" ).dialog({
+                                    resizable: false,
+                                    height: "auto",
+                                    width: 400,
+                                    modal: true,
+                                    buttons: {
+                                        Yes: function() {
+                                            jQuery('.price-note').show();
+                                            jQuery('#price').html(String(res.price / 100));
+                                            jQuery('input.update-btn').attr('disabled', true);
+                                            jQuery('#by_dealer').val(1);
+                                            $( this ).dialog( "close" );
+                                        },
+                                        No: function() {
+                                            $( this ).dialog( "close" );
+                                        }
+                                    }
+                                });                                
                             } else {
                                 jQuery('.price-note').show();
                                 jQuery('#price').html(String(res.price / 100));
