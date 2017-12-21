@@ -10,7 +10,7 @@
 .content-right-content.my-ads{
 	padding: 40px 40px;
     min-height: calc(100% - 25px);
-    position: absolute;
+    /*position: absolute;*/
 }
 .content-right-content.my-ads h2 {
     font-size: 25px;

@@ -12,7 +12,7 @@
 
     <div class="content-right-content my-ads">
         <h2>Post Ads</h2>
-        <div class="pages">
+        <div class="row" style="margin:0;">
             <form method="post" enctype="multipart/form-data" id="post-form">
                 {% csrf_token %}
                 <div class="col-md-8 col-lg-7">    
@@ -185,8 +185,8 @@
     </div>
 
 </div>
-<div id="dialog-confirm" title="Confirmation" style="padding-top: 25px;">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Do you want to post as a dealer?</p>
+<div id="dialog-confirm" title="Confirmation" style="padding-top: 25px; display: none;">
+  <p>Do you want to post as a dealer?</p>
 </div>
 <!-- End Content Right Content -->
 {% endblock %}
@@ -405,7 +405,7 @@
                                 $( "#dialog-confirm" ).dialog({
                                     resizable: false,
                                     height: "auto",
-                                    width: 400,
+                                    width: "auto",
                                     modal: true,
                                     buttons: {
                                         Yes: function() {
