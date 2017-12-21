@@ -238,6 +238,12 @@
             success: function(res) {
                 $('#title_of_list').html(res.title);
                 $('.content-select-country').html(res.html);
+
+                if ($(window).width() > 768) {
+                    $('.category a').attr('data-toggle', 'coll');
+                    $('.sub-category').removeClass('collapse');
+                }
+
                 if (res.link) {
                     $('.btn-view-all').attr('href', res.link);
                     $('.btn-view-all').show();
