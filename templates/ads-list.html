@@ -39,9 +39,9 @@
             </div>
             <div class="col-md-12 m-t-15">
                 <a class="" href="javascript: void();" onclick="$('.filters').toggle();"><i class="fa fa-filter"></i> More filters</a>
-                <select class="view-mode">
-                    <option value="list">List View</option>
-                    <option value="gallery">Gallery</option>
+                <select class="view-mode" name="view_mode">
+                    <option value="_post_list.html">List View</option>
+                    <option value="_gads_list.html">Gallery</option>
                 </select>
             </div>
             <div class="col-md-12 m-t-15 filters well" style="display: none;">
@@ -101,6 +101,10 @@
             if (key == 13) {
                 search_ads();
             }
+        });
+
+        $('.view-mode').change(function() {
+            search_ads();
         });
 
         $('#ck_search_title').click(function() {

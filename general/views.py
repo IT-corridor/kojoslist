@@ -73,6 +73,7 @@ def search_ads(request):
     keyword = request.POST.get('keyword')
     model = request.POST.get('model')
     others = request.POST.get('others') == 'true'
+    view_mode = request.POST.get('view_mode')
 
     q = Q(title__icontains=keyword)
     if 'ck_search_title' not in request.POST:
@@ -83,7 +84,7 @@ def search_ads(request):
         q &= Q(owner=request.user)
 
     for key, value in request.POST.iteritems():
-        if value and key not in ['model', 'keyword', 'others', 'csrfmiddlewaretoken'] \
+        if value and key not in ['model', 'keyword', 'others', 'csrfmiddlewaretoken', 'view_mode'] \
         and key[:3] != 'ck_':
             q &= Q(**{key: value})
     
@@ -99,7 +100,7 @@ def search_ads(request):
         posts = posts.filter(created_at__gte=datetime.datetime.now().date())
     
     posts = get_posts_with_image(posts)
-    rndr_str = render_to_string('_post_list.html', {'posts': posts, 'others': others})
+    rndr_str = render_to_string(view_mode, {'posts': posts, 'others': others})
     return HttpResponse(rndr_str)
 
 def get_posts_with_image(posts):
