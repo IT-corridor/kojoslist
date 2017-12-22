@@ -226,6 +226,8 @@
     color: #4dbee2;
 }
 .view-mode {
+    margin-top: -7px;
+    margin-bottom: 10px;
     float: right;
     padding: 3px 18px 3px 6px;
     font-size: 14px;
