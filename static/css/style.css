@@ -235,8 +235,6 @@ a{
 
     float: right;
 
-    margin-left: 30px;
-
 }
 
 .header-user-section-ico img{
@@ -291,7 +289,7 @@ a{
 
     color: #9C9C9C;
 
-    margin-top: 18px;
+    margin: 18px 5px 5px;
 
 }
 
