@@ -673,6 +673,10 @@ input.verify_code {
     .sub-category.row1 {
         min-height: 900px;
     }
+
+    div.sub-category {
+        margin-bottom: 50px;
+    }    
 }
 
 @media screen and (max-width: 768px){

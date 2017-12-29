@@ -14,7 +14,11 @@
                     {% endfor %}
                     </div>
                 {% else %}
-                    <a href="/category-ads/{{ cc.id }}">{{ cc.name }}</a>
+                    {% if cc.column == 20 %}
+                        <a href="{{ cc.form }}">{{ cc.name }}</a>
+                    {% else %}
+                        <a href="/category-ads/{{ cc.id }}">{{ cc.name }}</a>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
             </div>
