@@ -109,7 +109,7 @@ article.message[data-status="typing"] > div {
     max-width: 98px;
 }
 .message-content.indent {
-    padding-left: 55px;
+    padding-left: 45px;
     width: 492px;
 }
 .message-info {
@@ -336,7 +336,7 @@ article.message[data-status="typing"] > div {
     }
 
     .message-content.indent {
-        width: calc(100% - 65px);
+        width: calc(100% - 55px);
     }
 
     .message-time {

@@ -802,7 +802,7 @@ input[type="search"]::-moz-search-cancel-button:after {
     width: 54px; }
 
   .name_chat.c2 {
-    width: 190px; }
+    width: 150px; }
 
   .chat-controls.c3 {
     width: 85px; } }
@@ -2614,7 +2614,7 @@ article.message[data-status="typing"] > div {
   max-width: 98px; }
 
 .message-content.indent {
-  padding-left: 55px;
+  padding-left: 45px;
   width: 492px; }
 
 .message-info {
@@ -2837,7 +2837,7 @@ article.message[data-status="typing"] > div {
     max-width: calc(100vw - 142px); }
 
   .message-content.indent {
-    width: calc(100% - 65px); }
+    width: calc(100% - 55px); }
 
   .message-time {
     width: 65px; } }
