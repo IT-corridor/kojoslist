@@ -1592,6 +1592,9 @@ span.send-request {
 .favourite {
   color: red; }
 
+@media screen and (max-width: 340px) {
+  .name_chat {
+    max-width: 112px; } }
 /* form elements */
 .form-header {
   margin: 7vh 0 5vh;
