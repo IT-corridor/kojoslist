@@ -374,7 +374,7 @@ button.btn.btn_search:hover {
 }
 .users-nav-btn {
     cursor: pointer;
-    width: 28px;
+    width: 24px;
     height: 24px;
 }
 .users-nav-contacts {
@@ -388,4 +388,23 @@ button.btn.btn_search:hover {
 .users-nav-share {
     background: url(../images/icon-fb_header.svg) 50% no-repeat;
     background-size: 18px 18px;
+}
+
+@media screen and (max-width: 425px) {
+    .btn_chat {
+        margin-right: 3px;
+    }
+}
+
+.btn_chat_extra {
+    position: fixed;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 12px;
+    border: solid 1px #ddd;
+    margin: 7px -38px;
+}
+
+.btn_chat_more {
+    margin-right: 0;
 }

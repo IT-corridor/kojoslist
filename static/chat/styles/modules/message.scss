@@ -60,7 +60,7 @@ article.message[data-status="typing"] > div {
     margin-top: 0;
 }
 .message-content {
-    padding-left: 15px;
+    padding-left: 5px;
     width: 460px;
     color: #333;
     word-wrap: break-word;
@@ -114,7 +114,6 @@ article.message[data-status="typing"] > div {
 }
 .message-info {
     position: relative;
-    width: 120px;
     height: 14px;
     line-height: 14px;
     font-family: Roboto, sans-serif;
@@ -321,4 +320,26 @@ article.message[data-status="typing"] > div {
     width: 45px;
     height: 45px;
     background: url('../images/ic-play-video.svg') no-repeat center;
+}
+@media screen and (max-width: 425px) {
+    .message {
+        padding: 8px;
+    }
+
+    .message-content {
+        margin-right: auto;
+        width: 100%;
+    }
+
+    .message-body {
+        max-width: calc(100vw - 142px);
+    }
+
+    .message-content.indent {
+        width: calc(100% - 65px);
+    }
+
+    .message-time {
+        width: 65px;
+    }
 }
