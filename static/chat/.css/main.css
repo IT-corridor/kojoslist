@@ -2206,6 +2206,9 @@ textarea.without_M.materialize-textarea:focus:not([readonly]) {
   display: flex;
   padding-left: 10px; }
 
+@media screen and (max-width: 340px) {
+  .popup_contacts, .popup_profile, .popup_search, .temp-box {
+    height: 486px; } }
 /* spinner */
 .spinner {
   margin: 100px auto;
