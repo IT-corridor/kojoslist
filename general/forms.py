@@ -183,3 +183,9 @@ class TrailerPostForm(ModelForm):
         model = TrailerPost
         fields = '__all__'
 
+
+class ShortTermPostForm(ModelForm):
+    class Meta:
+        model = ShortTermPost
+        fields = '__all__'
+
