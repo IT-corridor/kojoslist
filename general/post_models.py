@@ -208,6 +208,7 @@ class LicensePost(Post):
 class ShortTermPost(Post):
     address = models.CharField(max_length=100)
     zip_code = models.CharField(max_length=50, null=True, blank=True)
+    calendar = models.TextField(null=True, blank=True)
     num_adults = models.IntegerField(default=1)
     num_children = models.IntegerField(default=0)
     num_infants = models.IntegerField(default=0)

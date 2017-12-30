@@ -9,7 +9,7 @@
     <div class="col-md-3">
         <div class="form-group edit-profile">
             <label>ZIP code</label>
-            <input type="text" name="zip_code" class="form-control edit-post-wrap" value="{{ post.zip_code }}" required/>
+            <input type="text" name="zip_code" class="form-control edit-post-wrap" value="{{ post.zip_code }}" />
         </div>
     </div>    
     <div class="col-md-3">
@@ -21,12 +21,6 @@
                     <option value="{{ ii }}" {% if post.beds == ii %} selected="" {% endif %}>{{ ii }}</option>
                 {% endfor %}
             </select>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group edit-profile">
-            <label>Available On</label>
-            <input type="text" name="available_on" class="form-control edit-post-wrap cl_datepicker" required value="{{ post.available_on|date:'m/d/Y' }}" />
         </div>
     </div>
     <div class="col-md-3">
@@ -83,7 +77,23 @@
             </select>
         </div>
     </div>
-
+    <div class="col-md-3">
+        <div class="form-group edit-profile">
+            <label>Infants</label>
+            <select name="num_infants" class="form-control edit-post-wrap" required>
+                <option value="">-</option>
+                {% for ii in 0|rangee:6 %}
+                    <option value="{{ ii }}" {% if post.num_infants == ii %} selected="" {% endif %}>{{ ii }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="col-md-3 col-xs-6">
+        <div class="form-group edit-profile">
+            <label>Instant Booking</label>
+            <input type="checkbox" name="instant_book" class="edit-post-wrap" style="display: block;" {% if post.instant_book %} checked="" {% endif %}>
+        </div>
+    </div>
     <div class="col-md-12">
         <h4 class="st-house-sub-header">Amenities</h4>
     </div>
@@ -265,6 +275,7 @@
     <div class="col-md-12" style="margin-bottom: 35px;">
         <div id='calendar'></div>
     </div>
+    <input type="hidden" name="calendar" id="json_calendar" value="{% if post.calendar %} {{ psot.calendar }} {% endif %}">
 </div>
 
 <script type="text/javascript">
@@ -285,83 +296,22 @@
           eventData = {
             title: title,
             start: start,
-            end: end
+            end: end,
+            type: 'selling'
           };
           $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+          $('#json_calendar').val(JSON.stringify($('#calendar').fullCalendar( 'clientEvents')));
         }
         $('#calendar').fullCalendar('unselect');
       },
       eventClick: function(calEvent, jsEvent, view) {
-        // alert('Event: ' + calEvent.title);
-        console.debug(calEvent);
         var title = prompt('Event Title:');
         calEvent.title = title;        
         $('#calendar').fullCalendar('updateEvent', calEvent);
-
-        // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-        // alert('View: ' + view.name);
-
-        // change the border color just for fun
-        $(this).css('border-color', 'red');
-
+        $('#json_calendar').val(JSON.stringify($('#calendar').fullCalendar( 'clientEvents')));
       },
       editable: true,
       eventLimit: true, // allow "more" link when too many events
-      events: [
-        {
-          title: 'All Day Event',
-          start: '2017-12-01'
-        },
-        {
-          title: 'Long Event',
-          start: '2017-12-07',
-          end: '2017-12-10'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2017-12-09T16:00:00'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2017-12-16T16:00:00'
-        },
-        {
-          title: 'Conference',
-          start: '2017-12-11',
-          end: '2017-12-13'
-        },
-        {
-          title: 'Meeting',
-          start: '2017-12-12T10:30:00',
-          end: '2017-12-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2017-12-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2017-12-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2017-12-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2017-12-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2017-12-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'http://google.com/',
-          start: '2017-12-28'
-        }
-      ]
+      events: JSON.parse($('#json_calendar').val()) || []
     });
 </script>
