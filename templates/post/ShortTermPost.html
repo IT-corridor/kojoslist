@@ -275,43 +275,55 @@
     <div class="col-md-12" style="margin-bottom: 35px;">
         <div id='calendar'></div>
     </div>
-    <input type="hidden" name="calendar" id="json_calendar" value="{% if post.calendar %} {{ psot.calendar }} {% endif %}">
+    <input type="hidden" name="calendar" id="json_calendar" value="{% if post.calendar %} {{ post.calendar }} {% endif %}">
 </div>
 
 <script type="text/javascript">
+$(document).ready(function() {
     $('#calendar').fullCalendar({
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month'
-      },
-      // defaultDate: '2017-12-12',
-      navLinks: true, // can click day/week names to navigate views
-      selectable: true,
-      selectHelper: true,
-      select: function(start, end) {
-        var title = prompt('Event Title:');
-        var eventData;
-        if (title) {
-          eventData = {
-            title: title,
-            start: start,
-            end: end,
-            type: 'selling'
-          };
-          $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-          $('#json_calendar').val(JSON.stringify($('#calendar').fullCalendar( 'clientEvents')));
-        }
-        $('#calendar').fullCalendar('unselect');
-      },
-      eventClick: function(calEvent, jsEvent, view) {
-        var title = prompt('Event Title:');
-        calEvent.title = title;        
-        $('#calendar').fullCalendar('updateEvent', calEvent);
-        $('#json_calendar').val(JSON.stringify($('#calendar').fullCalendar( 'clientEvents')));
-      },
-      editable: true,
-      eventLimit: true, // allow "more" link when too many events
-      events: JSON.parse($('#json_calendar').val()) || []
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: ''
+        },
+        // defaultDate: '2017-12-12',
+        navLinks: true, // can click day/week names to navigate views
+        selectable: true,
+        selectHelper: true,
+        select: function(start, end) {
+            var title = prompt('Event Title:');
+            var eventData;
+            if (title) {
+                eventData = {
+                    title: title,
+                    start: start,
+                    end: end,
+                    type: 'selling'
+            };
+            $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+            }
+            $('#calendar').fullCalendar('unselect');
+        },
+        eventClick: function(calEvent, jsEvent, view) {
+            var title = prompt('Event Title:');
+            calEvent.title = title;        
+            $('#calendar').fullCalendar('updateEvent', calEvent);
+        },
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events
+        events: JSON.parse($('#json_calendar').val().trim() || "[]") 
     });
+});
+   
+function store_calendar() {
+    $('#json_calendar').val(JSON.stringify($('#calendar').fullCalendar( 'clientEvents').map(function(e) {  
+        return {
+            start: e.start.toString(), 
+            end: e.end.toString(), 
+            title: e.title,
+            type: e.type,
+            allDay: e.allDay
+        };
+    })));
+}
 </script>

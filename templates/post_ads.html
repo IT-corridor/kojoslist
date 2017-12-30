@@ -229,6 +229,10 @@
             alert('Please select a city');
             jQuery('#ads_city').focus();
         }
+
+        if ($('#calendar').length) {
+            store_calendar();
+        }
     }); 
 
     // Close Checkout on page navigation:
