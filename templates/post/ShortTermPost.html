@@ -1,9 +1,15 @@
 {% load extra %}
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-9">
         <div class="form-group edit-profile">
             <label>Address</label>
-            <input type="text" name="address" class="form-control edit-post-wrap" value="{{ post.address }}" required/>
+            <input type="text" name="address" class="form-control edit-post-wrap" value="{{ post.address }}" placeholder="Apt, Suite, Bldg, Street number" required/>
+        </div>
+    </div>    
+    <div class="col-md-3">
+        <div class="form-group edit-profile">
+            <label>ZIP code</label>
+            <input type="text" name="zip_code" class="form-control edit-post-wrap" value="{{ post.zip_code }}" required/>
         </div>
     </div>    
     <div class="col-md-3">
