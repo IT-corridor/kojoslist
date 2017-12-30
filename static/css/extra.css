@@ -659,6 +659,11 @@ input.verify_code {
     font-size: 20px;
 }
 
+.st-house-sub-header {
+    margin: 25px 0px;
+    color: #5bc0de;
+}
+
 @media screen and (max-width: 768px){
     .col-md-24 {
         margin-left: 10%;

@@ -212,9 +212,9 @@ class ShortTermPost(Post):
     num_infants = models.IntegerField(default=0)
     type = models.CharField(max_length=50, null=True, blank=True)
     instant_book = models.BooleanField(default=True)
-    num_beds = models.IntegerField(default=1)
-    num_bedrooms = models.IntegerField(default=1)
-    num_bathrooms = models.IntegerField(default=1)
+    beds = models.IntegerField(default=1)
+    bedrooms = models.IntegerField(default=1)
+    bathrooms = models.IntegerField(default=1)
     amd_kitchen = models.BooleanField(default=False)
     amd_shampoo = models.BooleanField(default=False)
     amd_heating = models.BooleanField(default=False)
@@ -244,4 +244,4 @@ class ShortTermPost(Post):
     hr_pets = models.BooleanField(default=False)
     hr_smoking = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
-    
+
