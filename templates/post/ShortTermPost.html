@@ -274,7 +274,7 @@
         center: 'title',
         right: 'month'
       },
-      defaultDate: '2017-12-12',
+      // defaultDate: '2017-12-12',
       navLinks: true, // can click day/week names to navigate views
       selectable: true,
       selectHelper: true,
@@ -290,6 +290,20 @@
           $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
         }
         $('#calendar').fullCalendar('unselect');
+      },
+      eventClick: function(calEvent, jsEvent, view) {
+        // alert('Event: ' + calEvent.title);
+        console.debug(calEvent);
+        var title = prompt('Event Title:');
+        calEvent.title = title;        
+        $('#calendar').fullCalendar('updateEvent', calEvent);
+
+        // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+        // alert('View: ' + view.name);
+
+        // change the border color just for fun
+        $(this).css('border-color', 'red');
+
       },
       editable: true,
       eventLimit: true, // allow "more" link when too many events
