@@ -1,45 +1,6 @@
 {% load extra %}
 <div class="row">
-    <div class="col-md-3">
-        <div class="form-group edit-profile">
-            <label>Beds</label>
-            <select name="beds" class="form-control edit-post-wrap" required>
-                <option value="">-</option>
-                {% for ii in 0|rangee:17 %}
-                    <option value="{{ ii }}" {% if post.beds == ii %} selected="" {% endif %}>{{ ii }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group edit-profile">
-            <label>Available On</label>
-            <input type="text" name="available_on" class="form-control edit-post-wrap cl_datepicker" required value="{{ post.available_on|date:'m/d/Y' }}" />
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group edit-profile">
-            <label>Bedrooms</label>
-            <select name="bedrooms" class="form-control edit-post-wrap" required>
-                <option value="">-</option>
-                {% for ii in 0|rangee:17 %}
-                    <option value="{{ ii }}" {% if post.bedrooms == ii %} selected="" {% endif %}>{{ ii }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group edit-profile">
-            <label>Bathrooms</label>
-            <select name="bathrooms" class="form-control edit-post-wrap" required>
-                <option value="">-</option>
-                {% for ii in 0|rangee:17 %}
-                    <option value="{{ ii }}" {% if post.bathrooms == ii %} selected="" {% endif %}>{{ ii }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>    
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group edit-profile">
             <label>Home Type</label>
             <select name="type" class="form-control edit-post-wrap" required>
@@ -51,6 +12,51 @@
     </div>
     <div class="col-md-3">
         <div class="form-group edit-profile">
+            <label>Available On</label>
+            <div class="clearfix"></div>
+            <div class="col-sm-6">
+                <input type="text" name="available_on__gte" class="form-control edit-post-wrap cl_datepicker" placeholder="Min date" min="0">
+                </div>
+                <div class="col-sm-6">
+                <input type="text" name="available_on__lte" class="form-control edit-post-wrap cl_datepicker" placeholder="Max date" min="0">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group edit-profile">
+            <label>Beds</label>
+            <select name="beds" class="form-control edit-post-wrap" required>
+                <option value="">-</option>
+                {% for ii in 0|rangee:17 %}
+                    <option value="{{ ii }}" {% if post.beds == ii %} selected="" {% endif %}>{{ ii }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group edit-profile">
+            <label>Bedrooms</label>
+            <select name="bedrooms" class="form-control edit-post-wrap" required>
+                <option value="">-</option>
+                {% for ii in 0|rangee:17 %}
+                    <option value="{{ ii }}" {% if post.bedrooms == ii %} selected="" {% endif %}>{{ ii }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group edit-profile">
+            <label>Bathrooms</label>
+            <select name="bathrooms" class="form-control edit-post-wrap" required>
+                <option value="">-</option>
+                {% for ii in 0|rangee:17 %}
+                    <option value="{{ ii }}" {% if post.bathrooms == ii %} selected="" {% endif %}>{{ ii }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>    
+    <div class="col-md-2">
+        <div class="form-group edit-profile">
             <label>Adults</label>
             <select name="num_adults" class="form-control edit-post-wrap" required>
                 <option value="">-</option>
@@ -60,7 +66,7 @@
             </select>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group edit-profile">
             <label>Children</label>
             <select name="num_children" class="form-control edit-post-wrap" required>
@@ -73,8 +79,9 @@
     </div>
 
     <div class="col-md-12">
-        <h4 class="st-house-sub-header">Amenities</h4>
+        <h4 class="st-house-sub-header" data-toggle="collapse" data-target="#amenities">Amenities</h4>
     </div>
+    <div class="collapse" id="amenities">
     <div class="col-md-4">
         <div class="checkbox">
             <label>
@@ -189,9 +196,11 @@
             <input type="checkbox" name="amd_self_checkin" {% if post.amd_self_checkin %} checked="" {% endif %}>Self Check-In</label>
         </div>
     </div>    
-    <div class="col-md-12">
-        <h4 class="st-house-sub-header">Facilities</h4>
     </div>
+    <div class="col-md-12">
+        <h4 class="st-house-sub-header" data-toggle="collapse" data-target="#facilities">Facilities</h4>
+    </div>
+    <div class="collapse" id="facilities">
     <div class="col-md-4">
         <div class="checkbox">
             <label>
@@ -228,9 +237,11 @@
             <input type="checkbox" name="fc_wheelchair" {% if post.fc_wheelchair %} checked="" {% endif %}>Wheelchair accessible</label>
         </div>
     </div>    
-    <div class="col-md-12">
-        <h4 class="st-house-sub-header">House rules</h4>
     </div>
+    <div class="col-md-12">
+        <h4 class="st-house-sub-header" data-toggle="collapse" data-target="#house_rules">House rules</h4>
+    </div>
+    <div class="collapse" id="house_rules">
     <div class="col-md-4">
         <div class="checkbox">
             <label>
@@ -249,4 +260,5 @@
             <input type="checkbox" name="hr_smoking" {% if post.hr_smoking %} checked="" {% endif %}>Smoking allowed</label>
         </div>
     </div>        
+    </div>
 </div>

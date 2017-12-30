@@ -662,6 +662,7 @@ input.verify_code {
 .st-house-sub-header {
     margin: 25px 0px;
     color: #5bc0de;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 768px){

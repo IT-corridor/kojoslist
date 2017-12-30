@@ -3,6 +3,8 @@
 
 {% block own_css %}
 <link rel='stylesheet' id='dropdown-menu-style-css' href='/static/css/jquery-ui.css' type='text/css' media='all' /> 
+<link rel='stylesheet' href='/static/fullcalendar/fullcalendar.min.css' type='text/css' /> 
+<link rel='stylesheet' href='/static/fullcalendar/fullcalendar.print.css' type='text/css' media='print' /> 
 {% endblock %}
 
 {% block right_content %}
@@ -193,6 +195,7 @@
 
 {% block own_js %}
 <script src="https://checkout.stripe.com/checkout.js"></script>
+<script type="text/javascript" src="/static/fullcalendar/fullcalendar.min.js"></script>
 <script>
     var price; 
 
