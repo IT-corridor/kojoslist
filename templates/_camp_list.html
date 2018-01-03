@@ -11,7 +11,7 @@
             <div class="tagline">{{ post.tagline }}</div>
             <div class="category">{{ post.category.name }}</div>
             <div class="budget">
-                <span class="raised">${{ post.raised|intcomma }}</span> USD raised
+                <span class="raised">${{ post.raised|floatformat:2|intcomma }}</span> USD raised
                 <span class="percent">{{ post|raised_percent }}%</span>
             </div>
             <div id="myProgress">

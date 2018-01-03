@@ -1,5 +1,6 @@
 {% extends "profile.html" %} 
 {% load staticfiles %} 
+{% load humanize %}
 {% load extra %}
 
 {% block own_css %}
@@ -97,7 +98,7 @@
                             {% if post.price %}
                             <div class="product-location-info-left m-t-15">
                                 <span>Price</span>
-                                <h6><b>${{ post.price }}</b></h6>
+                                <h6><b>${{ post.price|floatformat:2|intcomma }}</b></h6>
                             </div>
                             {% endif %}
                         </div>
