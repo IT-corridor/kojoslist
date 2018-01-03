@@ -837,8 +837,11 @@ define([
             $('.list').on('click', '.contact', function(event) {
                 if (event.target.tagName !== 'INPUT') {
                     event.preventDefault();
-                    $('.l-sidebar').removeClass('active');
                 }
+            });
+
+            $('.list').on('click', '.contact.dialog', function(event) {
+                $('.l-sidebar').removeClass('active');
             });
 
             $('#popupContacts').on('click', '.contact', function() {

@@ -656,6 +656,8 @@ define([
             if ($chat.length > 0) {
                 $chat.remove();
             }
+
+            $('.l-sidebar').addClass('active');
         },
 
         removeForbiddenDialog: function(dialogId) {

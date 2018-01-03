@@ -521,6 +521,9 @@ input[type="search"]::-moz-search-cancel-button:after {
   overflow: hidden;
   z-index: 2; }
 
+.open_sidebar:hover {
+  background-color: #778594; }
+
 @media screen and (min-width: 880px) {
   .l-sidebar {
     border-right: 1px solid #dadfe1;
@@ -1199,7 +1202,12 @@ button.btn.btn_search:hover {
 
 @media screen and (max-width: 425px) {
   .btn_chat {
-    margin-right: 3px; } }
+    margin-right: 3px; }
+
+  button.btn.btn_invite_contacts {
+    width: 250px;
+    font-size: 16px;
+    border-radius: 26px; } }
 .btn_chat_extra {
   position: fixed;
   background: white;
@@ -3987,6 +3995,10 @@ a.qm_player_download {
 .popups {
   z-index: 3; }
 
+@media screen and (max-width: 425px) {
+  .cap-text_contacts {
+    margin-bottom: 35px;
+    font-size: 30px; } }
 .is-hidden,
 .is-hover {
   display: none; }

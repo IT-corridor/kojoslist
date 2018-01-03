@@ -254,6 +254,10 @@
     z-index: 2;
 }
 
+.open_sidebar:hover {
+    background-color: #778594;    
+}
+
 @media screen and (min-width: 880px) {
     .l-sidebar {
         border-right: 1px solid #dadfe1;
@@ -356,7 +360,7 @@
     height: calc(100% - 165px);
 }
 .is-request .l-chat-content {
-    height: calc(100% - 75px);
+    height: calc(100% - 50px);
 }
 .l-chat_group .l-chat-content_min {
     margin-top: 94px;

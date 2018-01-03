@@ -187,3 +187,10 @@
 .popups {
     z-index: 3;
 }
+
+@media screen and (max-width: 425px) {
+    .cap-text_contacts {
+        margin-bottom: 35px;
+        font-size: 30px;
+    }
+}
