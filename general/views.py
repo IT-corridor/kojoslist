@@ -411,10 +411,12 @@ def view_ads(request, ads_id):
     post = get_object_or_404(Post, pk=ads_id)    
     favourite = False
     result = ''
+    reviews = None
 
     if request.user.is_authenticated():
         posts = [ii.post for ii in Favourite.objects.filter(owner=request.user)]
         favourite = post in posts
+        reviews = Review.objects.filter(post__owner=request.user)       # post = post
 
     if request.method == 'POST':
         optpay = request.POST.get('optpay')
@@ -463,6 +465,7 @@ def view_ads(request, ads_id):
     return render(request, 'ads_detail.html', {
         'post': post,
         'favourite': favourite,
+        'reviews': reviews,
         'skey': settings.STRIPE_KEYS['PUBLIC_KEY'],
         'result': result
     })
