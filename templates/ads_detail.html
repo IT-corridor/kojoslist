@@ -432,7 +432,7 @@
             zoom: 12,        
         });
         var geocoder = new google.maps.Geocoder();
-        var address = "{{ post.address }}16316 85th St, Jamaica";
+        var address = "{{ post.address }}";
         geocoder.geocode({'address': address}, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location);
