@@ -144,6 +144,9 @@
                         </div>
                         <hr>
                         {% endfor %}
+                        <div class="rv-title m-t-15">Location</div>
+                        <hr>
+                        <div id="map" style="height: 300px;"></div>
                     {% endif %}
                 </div>
             </div>            
@@ -420,4 +423,29 @@
     });
 
 </script>
+
+{% if post.category.form == 'ShortTermPost' %}
+<script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap&key=AIzaSyB2N_52W-T3TSU9Rk7X77Td4cMp1SE1Hmc"></script> 
+<script>
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,        
+        });
+        var geocoder = new google.maps.Geocoder();
+        var address = "{{ post.address }}16316 85th St, Jamaica";
+        geocoder.geocode({'address': address}, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+</script>
+{% endif %}
+
 {% endblock %}
