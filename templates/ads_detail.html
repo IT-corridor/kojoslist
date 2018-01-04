@@ -42,9 +42,13 @@
                 </div>
                 <div class="col-md-6">
                     <div class="product-img col-md-12" style="margin-bottom: 8px;">
-                        {% for img in images %}
-                            <img class="img-responsive" src="/static/media/{{ img.name }}" alt="">
-                        {% endfor %}
+                        {% if post.images.all %}
+                            {% for img in post.images.all %}
+                                <img class="img-responsive" src="/static/media/{{ img.name }}" alt="">
+                            {% endfor %}
+                        {% else %}
+                            <img class="img-responsive" src="/static/media/dummy.jpg" alt="">
+                        {% endif %}
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -292,11 +296,6 @@
         });
     {% endif %}
 
-    function set_image(obj) {
-        var img = $(obj).attr('src');
-        $('.first_image').attr('src', img);
-    }
-
     $('.email_to_friend').click(function() {
         $('.femail_body').toggleClass('hidden');
     })
@@ -390,9 +389,7 @@
     $('.product-img').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
-        // arrows: false,
         fade: true,
-        // asNavFor: '.product-img-nav'
     });
 
 </script>

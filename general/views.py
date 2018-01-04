@@ -409,18 +409,12 @@ def delete_ads(request):
 
 def view_ads(request, ads_id):
     post = get_object_or_404(Post, pk=ads_id)    
-    images = post.images.all()
     favourite = False
     result = ''
 
     if request.user.is_authenticated():
         posts = [ii.post for ii in Favourite.objects.filter(owner=request.user)]
         favourite = post in posts
-
-    if images:
-        first_image = images[0].name
-    else:
-        first_image = 'dummy.jpg'
 
     if request.method == 'POST':
         optpay = request.POST.get('optpay')
@@ -468,8 +462,6 @@ def view_ads(request, ads_id):
 
     return render(request, 'ads_detail.html', {
         'post': post,
-        'images': images,
-        'first_image': first_image,
         'favourite': favourite,
         'skey': settings.STRIPE_KEYS['PUBLIC_KEY'],
         'result': result
