@@ -621,7 +621,7 @@ input.verify_code {
 
 .rv-rater {
     font-weight: 500;
-    font-size: 18px;
+    font-size: 12px;
     text-align: center;
 }
 
@@ -638,7 +638,7 @@ input.verify_code {
 
 .ht-verify {
     line-height: 30px;
-    font-size: 17px;
+    font-size: 16px;
 }
 
 .ht-verify .fa {
