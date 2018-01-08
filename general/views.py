@@ -239,7 +239,7 @@ def get_regions(request):
 @login_required(login_url='/accounts/login/')
 def post_ads(request, ads_id):
     if request.method == 'GET':
-        mcategories = Category.objects.filter(parent__isnull=True)
+        mcategories = Category.objects.filter(parent__isnull=True).order_by('name')
         countries = Country.objects.all()
         skey = settings.STRIPE_KEYS['PUBLIC_KEY']
 
@@ -290,7 +290,6 @@ def post_ads(request, ads_id):
 
         # ignore last empty one due to template
         images = request.POST.getlist('uploded_id[]')[:-1]  
-        print images, '#########'
 
         if form.is_valid():
             post = form.save()
@@ -337,7 +336,7 @@ def get_sub_info(request):
     rndr_str = '<option value="">-Select-</option>'
 
     if sc_type == 'category':
-        for cc in Category.objects.filter(parent__id=obj_id):
+        for cc in Category.objects.filter(parent__id=obj_id).order_by('name'):
             if cc.category_set.all():
                 rndr_str += '<option value="" disabled>{}</option>'.format(cc.name)        
                 for sc in cc.category_set.all():
