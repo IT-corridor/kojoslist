@@ -41,7 +41,7 @@
                     </div>                
                 </div>
                 <div class="col-md-6">
-                    <div class="product-img col-md-12" style="margin-bottom: 8px;">
+                    <div class="product-img col-md-12" style="margin-bottom: 15px;">
                         {% if post.images.all %}
                             {% for img in post.images.all %}
                                 <img class="img-responsive" src="/static/media/{{ img.name }}" alt="">
@@ -51,6 +51,52 @@
                         {% endif %}
                     </div>
                     <div class="clearfix"></div>
+                    {% if post.category.form == 'ShortTermPost' %}
+                    <div class="col-md-7 col-md-offset-2 cart" style="border: solid 1px #aaa; padding: 15px;">
+                        <h4><b>${{ post.price|floatformat:2|intcomma }}</b> per night</h4>
+                        <h5>Dates</h5>
+                        <div class="col-sm-6">
+                        <input type="text" name="check_in" class="form-control edit-post-wrap cl_datepicker" required />
+                        </div>
+                        <div class="col-sm-6">
+                        <input type="text" name="check_out" class="form-control edit-post-wrap cl_datepicker" required />
+                        </div>
+                        <h5>Guests</h5>
+                        <div class="col-md-12">
+                            <div class="form-group edit-profile">
+                                <label>Adults</label>
+                                <select name="num_adults" class="form-control edit-post-wrap" required>
+                                    {% for ii in 1|rangee:17 %}
+                                        <option value="{{ ii }}" {% if post.num_adults == ii %} selected="" {% endif %}>{{ ii }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group edit-profile">
+                                <label>Children</label>
+                                <select name="num_children" class="form-control edit-post-wrap" required>
+                                    {% for ii in 0|rangee:6 %}
+                                        <option value="{{ ii }}" {% if post.num_children == ii %} selected="" {% endif %}>{{ ii }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group edit-profile">
+                                <label>Infants</label>
+                                <select name="num_infants" class="form-control edit-post-wrap" required>
+                                    {% for ii in 0|rangee:6 %}
+                                        <option value="{{ ii }}" {% if post.num_infants == ii %} selected="" {% endif %}>{{ ii }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <h5>Total</h5>
+                        <input class="btn btn-info btn-payment form-control" type="button" value="Request to book">
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="col-md-6">
                     <div class="col-md-12 no-padding" style="margin-top: 18px;">
@@ -94,7 +140,7 @@
                                 <span>Category</span>
                                 <h6>{{ post.category.parent.name }} / {{ post.category.name }}</h6>
                             </div>
-                            {% if post.price %}
+                            {% if post.price and post.category.form != 'ShortTermPost' %}
                             <div class="product-location-info-left m-t-15">
                                 <span>Price</span>
                                 <h6><b>${{ post.price|floatformat:2|intcomma }}</b></h6>
@@ -118,7 +164,7 @@
                             <div class="clearfix"></div>
                             <button class="col-md-offset-3 col-md-2 btn btn-default" id="send_femail">Send</button>
                         </div>
-                        {% if post.price and post.owner != user %}
+                        {% if post.price and post.owner != user and post.category.form != 'ShortTermPost' %}
                         <div class="main-product-btn">
                             <div class="col-xs-6 col-md-3 no-padding">
                                 <input class="btn btn-info btn-payment" type="button" value="Purchase">
@@ -420,6 +466,10 @@
         slidesToShow: 1,
         slidesToScroll: 1,
         fade: true,
+    });
+
+    $('.cl_datepicker').datetimepicker({
+        format: 'MM/DD/YYYY'
     });
 
 </script>

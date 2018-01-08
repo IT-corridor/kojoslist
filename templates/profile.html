@@ -442,10 +442,10 @@
         }
     }
 
-    $('.chat-close .fa').on('click', function() {
-        $(this).siblings().removeClass('hidden');
-        $(this).addClass('hidden');
-        $(this).parents().find('.chat-wrapper').toggleClass('show-chat');
+    $('.chat-header').on('click', function() {
+        $('.fa-window-maximize').toggleClass('hidden');
+        $('.fa-window-minimize').toggleClass('hidden');
+        $('.chat-wrapper').toggleClass('show-chat');
     });
 </script>
 {% endblock %}
