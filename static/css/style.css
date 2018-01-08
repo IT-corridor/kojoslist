@@ -1991,12 +1991,6 @@ div.userpro-right {
 
 }
 
-.modal-content {
-
-    border-radius: 15px;
-
-}
-
 .modal-dialog{
 
     margin-top: 75px;
@@ -4691,7 +4685,7 @@ body.ads-template-default.single-ads,
     border-width: 0 0 1px;
     box-shadow: none !important;
     color: #000000;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
     height: 45px;
     padding: 0;
