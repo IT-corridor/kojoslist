@@ -13,6 +13,7 @@ from general.post_models import *
 
 from general.utils import send_email
 
+
 @receiver(pre_delete, sender=Image, dispatch_uid='image_delete_signal')
 def delete_image_file(sender, instance, using, **kwargs):
     try:
@@ -33,11 +34,11 @@ def apply_subscribe(sender, instance, **kwargs):
                         subscription_info = ''
 
                         content = """
-                            1 new result for your subscription ( {} ) as of {}<br><br>
-                            <a href="http://18.216.225.192/ads/{}">{}</a><br><br>
-                            <a href="http://18.216.225.192/my-subscribe">Review all saved searches.</a><br><br>
-                            Thank you for using <a href="http://18.216.225.192/">Globalboard</a>.                         
-                        """.format(ss.category.name, str(instance.created_at), instance.id, instance.title)
+                            1 new result for your subscription ( {1} ) as of {2}<br><br>
+                            <a href="http://{0}/ads/{3}">{4}</a><br><br>
+                            <a href="http://{0}/my-subscribe">Review all saved searches.</a><br><br>
+                            Thank you for using <a href="http://{0}/">Globalboard</a>.                         
+                        """.format(settings.ALLOWED_HOSTS[0], ss.category.name, str(instance.created_at), instance.id, instance.title)
                         send_email(settings.FROM_EMAIL, 'Globalboard Subscription Alarm', ss.owner.email, content)
     except Exception, e:
         print e, '@@@@@ Error in apply_subscribe()'
@@ -45,7 +46,7 @@ def apply_subscribe(sender, instance, **kwargs):
 @receiver(post_save, sender=Review)
 def rating_notify(sender, instance, **kwargs):    
     try:
-        content = '<a href="/user/{}">{} {}</a> left review on your ads ({}) at {}'.format(-1, instance.rater.first_name,
+        content = '<a href="http://{0}/user/{}">{} {}</a> left review on your ads ({}) at {}'.format(settings.ALLOWED_HOSTS[0], instance.rater.id, instance.rater.first_name,
             instance.rater.last_name, instance.post.title, instance.created_at)
         send_email(settings.FROM_EMAIL, 'Globalboard Rating Notification', instance.post.owner.email, content)
     except Exception, e:
@@ -55,9 +56,9 @@ def rating_notify(sender, instance, **kwargs):
 def post_purchase_notify(sender, instance, **kwargs):    
     try:
         # send email to the owner
-        content = "Ads (<a href='/ads/{}'>{}</a>) is purchased by {} {} at {}<br><br>Contact Info:<br>" \
-                  .format(instance.post.id, instance.post.title, instance.purchaser.first_name, 
-                          instance.purchaser.last_name, instance.created_at)
+        content = "Ads (<a href='http://{0}/ads/{1}'>{2}</a>) is purchased by {3} {4} at {5}<br><br>Contact Info:<br>" \
+                  .format(settings.ALLOWED_HOSTS[0], instance.post.id, instance.post.title, 
+                          instance.purchaser.first_name, instance.purchaser.last_name, instance.created_at)
         if instance.type == 'direct':
             subject = 'Item purchased directly'
         else:
