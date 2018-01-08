@@ -46,8 +46,9 @@ def apply_subscribe(sender, instance, **kwargs):
 @receiver(post_save, sender=Review)
 def rating_notify(sender, instance, **kwargs):    
     try:
-        content = '<a href="http://{0}/user/{}">{} {}</a> left review on your ads ({}) at {}'.format(settings.ALLOWED_HOSTS[0], instance.rater.id, instance.rater.first_name,
-            instance.rater.last_name, instance.post.title, instance.created_at)
+        content = '<a href="http://{0}/user_show/{1}">{2} {3}</a> left review on your ads (<a href="http://{0}/ads/{6}">{4}</a>) at {5}'.format(settings.ALLOWED_HOSTS[0], 
+            instance.rater.id, instance.rater.first_name, instance.rater.last_name, 
+            instance.post.title, instance.created_at, instance.post.id)
         send_email(settings.FROM_EMAIL, 'Globalboard Rating Notification', instance.post.owner.email, content)
     except Exception, e:
         print e, '@@@@@ Error in rating_notify()'

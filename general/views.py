@@ -852,11 +852,16 @@ def rate_ads(request):
 
 def user_show(request, user_id):
     host = Customer.objects.get(id=user_id)
-    reviews = Review.objects.filter(post__owner=host)
+    categories = Review.objects.values('post__category__name', 'post__category__parent__name', 
+                                       'post__category__id').distinct()
+    for ii in categories:
+        ii['reviews'] = Review.objects.filter(post__owner=host, 
+                                              post__category__id=ii['post__category__id'])
 
     return render(request, 'user_show.html', { 
         'host': host,
-        'reviews': reviews
+        'reviews': categories,
+        'num_reviews': Review.objects.filter(post__owner=host).count()
     })
 
 @csrf_exempt
