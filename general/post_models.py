@@ -246,4 +246,5 @@ class ShortTermPost(Post):
     hr_pets = models.BooleanField(default=False)
     hr_smoking = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
+    service_fee = models.FloatField(default=0)
 
