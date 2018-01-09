@@ -190,6 +190,58 @@
 <div id="dialog-confirm" title="Confirmation" style="padding-top: 25px; display: none;">
   <p>Do you want to post as a dealer?</p>
 </div>
+
+
+<div class="modal fade" id="addNew-event">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add an Event</h4>
+            </div>
+            <form class="addEvent" role="form">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="eventName" style="margin-bottom: 5px;color: #5e5e5e;">Event Name</label>
+                    <div class="fg-line">
+                        <input type="text" class="input-sm form-control edit-post-wrap" name="eventName" id="eventName" placeholder="eg: maintenance day" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventName" style="margin-bottom: 7px;color: #5e5e5e;">Tag Color</label>
+                    <div class="event-tag">
+                        <span data-color="#009688" class="bgm-teal selected"></span>
+                        <span data-color="#f44336" class="bgm-red"></span>
+                        <span data-color="#e91e63" class="bgm-pink"></span>
+                        <span data-color="#2196f3" class="bgm-blue"></span>
+                        <span data-color="#cddc39" class="bgm-lime"></span>
+                        <span data-color="#4caf50" class="bgm-green"></span>
+                        <span data-color="#00bcd4" class="bgm-cyan"></span>
+                        <span data-color="#9c27b0" class="bgm-purple"></span>
+                        <span data-color="#9e9e9e" class="bgm-gray"></span>
+                        <span data-color="#000000" class="bgm-black"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">   
+                    <label for="eventName" style="margin-bottom: 5px;color: #5e5e5e;">Book Available</label>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" name="rent_avail" class="rent_avail" checked="">Available to rent</label>
+                    </div>
+                </div>
+                <input type="hidden" name="event_start" class="event_start">
+                <input type="hidden" name="event_end" class="event_end">
+            </div>
+            
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-link waves-effect" id="addEvent">Add Event</button>
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Close</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- End Content Right Content -->
 {% endblock %}
 

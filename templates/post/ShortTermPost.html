@@ -278,56 +278,6 @@
     <input type="hidden" name="calendar" id="json_calendar" value="{% if post.calendar %} {{ post.calendar }} {% endif %}">
 </div>
 
-<div class="modal fade" id="addNew-event">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Add an Event</h4>
-            </div>
-            <div class="modal-body">
-                <form class="addEvent" role="form">
-                    <div class="form-group">
-                        <label for="eventName" style="margin-bottom: 5px;color: #5e5e5e;">Event Name</label>
-                        <div class="fg-line">
-                            <input type="text" class="input-sm form-control edit-post-wrap" id="eventName" placeholder="eg: maintenance day">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="eventName" style="margin-bottom: 5px;color: #5e5e5e;">Tag Color</label>
-                        <div class="event-tag">
-                            <span data-tag="bgm-teal" class="bgm-teal selected"></span>
-                            <span data-tag="bgm-red" class="bgm-red"></span>
-                            <span data-tag="bgm-pink" class="bgm-pink"></span>
-                            <span data-tag="bgm-blue" class="bgm-blue"></span>
-                            <span data-tag="bgm-lime" class="bgm-lime"></span>
-                            <span data-tag="bgm-green" class="bgm-green"></span>
-                            <span data-tag="bgm-cyan" class="bgm-cyan"></span>
-                            <span data-tag="bgm-purple" class="bgm-purple"></span>
-                            <span data-tag="bgm-gray" class="bgm-gray"></span>
-                            <span data-tag="bgm-black" class="bgm-black"></span>
-                        </div>
-                    </div>      
-
-                    <div class="form-group">   
-                        <label for="eventName" style="margin-bottom: 5px;color: #5e5e5e;">Book Available</label>
-                        <div class="checkbox">
-                            <label>
-                            <input type="checkbox" name="hr_pets" checked="">Available to rent</label>
-                        </div>                    
-                    </div>
-                </form>
-            </div>
-            
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-link waves-effect" id="addEvent">Add Event</button>
-                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <script type="text/javascript">
 $(document).ready(function() {
     $('#calendar').fullCalendar({
@@ -340,19 +290,9 @@ $(document).ready(function() {
         selectable: true,
         selectHelper: true,
         select: function(start, end) {
+            $('.event_start').val(start);
+            $('.event_end').val(end);
             $('#addNew-event').modal();
-            // var title = prompt('Event Title:');
-            // var eventData;
-            // if (title) {
-            //     eventData = {
-            //         title: title,
-            //         start: start,
-            //         end: end,
-            //         type: 'selling'
-            // };
-            // $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-            // }
-            // $('#calendar').fullCalendar('unselect');
         },
         eventClick: function(calEvent, jsEvent, view) {
             var title = prompt('Event Title:');
@@ -364,6 +304,27 @@ $(document).ready(function() {
         eventLimit: true, // allow "more" link when too many events
         events: JSON.parse($('#json_calendar').val().trim() || "[]") 
     });
+
+    $('.event-tag span').on('click', function() {
+        $(this).siblings().removeClass('selected');
+        $(this).addClass('selected');
+    });
+
+    $('.addEvent').on('submit', function(e) {
+        var eventData = {
+            start: $('.event_start').val(), 
+            end: $('.event_end').val(), 
+            title: $('#eventName').val(),
+            avail: $('.rent_avail').is(':checked'),
+            color: $('.event-tag span.selected').data('color')
+        };
+        $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+        $('#calendar').fullCalendar('unselect');
+
+        e.preventDefault();
+        $('#addNew-event').modal('toggle');
+        $('#eventName').val('');
+    });
 });
    
 function store_calendar() {
@@ -372,7 +333,8 @@ function store_calendar() {
             start: e.start.toString(), 
             end: e.end.toString(), 
             title: e.title,
-            type: e.type
+            avail: e.avail,
+            color: e.color
         };
     })));
 }
