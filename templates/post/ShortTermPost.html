@@ -293,9 +293,15 @@ $(document).ready(function() {
         selectable: true,
         selectHelper: true,
         select: function(start, end) {
+            calendar_mode = 0;  // create
+            $('#eventName').val('');
             $('.event_start').val(start);
             $('.event_end').val(end);
-            calendar_mode = 0;  // create
+            $('.rent_avail').prop('checked', true);
+            $('.event-tag span').removeClass('selected');
+            $('.event-tag span.bgm-teal').addClass('selected');
+            $('#deleteEvent').addClass('hidden');
+
             $('#addNew-event').modal();
         },
         eventClick: function(calEvent, jsEvent, view) {
@@ -307,6 +313,7 @@ $(document).ready(function() {
             $('.event_end').val(calEvent.end);
             $('.event-tag span').removeClass('selected');
             $('.event-tag span[data-color="'+calEvent.color+'"]').addClass('selected');
+            $('#deleteEvent').removeClass('hidden');
 
             $('#addNew-event').modal();
         },
@@ -343,7 +350,13 @@ $(document).ready(function() {
 
         e.preventDefault();
         $('#addNew-event').modal('toggle');
-        $('#eventName').val('');
+    });
+
+    $('#deleteEvent').click(function() {
+        var r = confirm("Do you confirm to delete?");
+        if (r == true) {        
+            $('#calendar').fullCalendar('removeEvents', cal_event._id);
+        }
     });
 });
    
