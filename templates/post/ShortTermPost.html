@@ -279,6 +279,9 @@
 </div>
 
 <script type="text/javascript">
+var calendar_mode;
+var cal_event;
+
 $(document).ready(function() {
     $('#calendar').fullCalendar({
         header: {
@@ -292,12 +295,20 @@ $(document).ready(function() {
         select: function(start, end) {
             $('.event_start').val(start);
             $('.event_end').val(end);
+            calendar_mode = 0;  // create
             $('#addNew-event').modal();
         },
         eventClick: function(calEvent, jsEvent, view) {
-            var title = prompt('Event Title:');
-            calEvent.title = title;        
-            $('#calendar').fullCalendar('updateEvent', calEvent);
+            cal_event = calEvent;
+            calendar_mode = 1;  // edit
+            $('#eventName').val(calEvent.title);
+            $('.rent_avail').prop('checked', calEvent.avail);
+            $('.event_start').val(calEvent.start);
+            $('.event_end').val(calEvent.end);
+            $('.event-tag span').removeClass('selected');
+            $('.event-tag span[data-color="'+calEvent.color+'"]').addClass('selected');
+
+            $('#addNew-event').modal();
         },
         allDayDefault: true,
         editable: true,
@@ -311,15 +322,24 @@ $(document).ready(function() {
     });
 
     $('.addEvent').on('submit', function(e) {
-        var eventData = {
-            start: $('.event_start').val(), 
-            end: $('.event_end').val(), 
-            title: $('#eventName').val(),
-            avail: $('.rent_avail').is(':checked'),
-            color: $('.event-tag span.selected').data('color')
-        };
-        $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-        $('#calendar').fullCalendar('unselect');
+        if (calendar_mode == 0) {
+            var eventData = {
+                start: $('.event_start').val(), 
+                end: $('.event_end').val(), 
+                title: $('#eventName').val(),
+                avail: $('.rent_avail').is(':checked'),
+                color: $('.event-tag span.selected').data('color')
+            };
+            $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+            $('#calendar').fullCalendar('unselect');            
+        } else if (calendar_mode == 1) {
+            cal_event.start = $('.event_start').val();
+            cal_event.end = $('.event_end').val(); 
+            cal_event.title = $('#eventName').val();
+            cal_event.avail = $('.rent_avail').is(':checked');
+            cal_event.color = $('.event-tag span.selected').data('color');
+            $('#calendar').fullCalendar('updateEvent', cal_event);
+        }
 
         e.preventDefault();
         $('#addNew-event').modal('toggle');
