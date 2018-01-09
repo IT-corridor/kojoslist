@@ -29,5 +29,10 @@ def rating(customer):
     return rate if rate else 0
 
 @register.filter
+def rating_post(post):
+    rate = Review.objects.filter(post=post).aggregate(Avg('rating')).values()[0]
+    return rate if rate else 0
+
+@register.filter
 def rangee(start, end):
 	return range(start, end)
