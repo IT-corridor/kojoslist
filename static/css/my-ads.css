@@ -9,7 +9,7 @@
 }
 .content-right-content.my-ads{
 	padding: 40px 40px;
-    min-height: calc(100% - 25px);
+    min-height: calc(100vh - 70px);
     /*position: absolute;*/
 }
 .content-right-content.my-ads h2 {
