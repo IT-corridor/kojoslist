@@ -311,17 +311,19 @@ $(document).ready(function() {
             $('#addNew-event').modal();
         },
         eventClick: function(calEvent, jsEvent, view) {
-            cal_event = calEvent;
-            calendar_mode = 1;  // edit
-            $('#eventName').val(calEvent.title);
-            $('.rent_avail').prop('checked', calEvent.avail);
-            $('.event_start').val(calEvent.start);
-            $('.event_end').val(calEvent.end);
-            $('.event-tag span').removeClass('selected');
-            $('.event-tag span[data-color="'+calEvent.color+'"]').addClass('selected');
-            $('#deleteEvent').removeClass('hidden');
+            if (calEvent.color != '#ff9800') {
+                cal_event = calEvent;
+                calendar_mode = 1;  // edit
+                $('#eventName').val(calEvent.title);
+                $('.rent_avail').prop('checked', calEvent.avail);
+                $('.event_start').val(calEvent.start);
+                $('.event_end').val(calEvent.end);
+                $('.event-tag span').removeClass('selected');
+                $('.event-tag span[data-color="'+calEvent.color+'"]').addClass('selected');
+                $('#deleteEvent').removeClass('hidden');
 
-            $('#addNew-event').modal();
+                $('#addNew-event').modal();                
+            }
         },
         allDayDefault: true,
         editable: true,
@@ -373,7 +375,8 @@ function store_calendar() {
             end: (new Date(e.end)).toDateString(), 
             title: e.title,
             avail: e.avail,
-            color: e.color
+            color: e.color,
+            url: e.url
         };
     })));
 }

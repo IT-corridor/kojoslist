@@ -430,8 +430,26 @@ def view_ads(request, ads_id):
             adults = request.POST.get('adults')
             children = request.POST.get('children')
             infants = request.POST.get('infants')
+            checkin = datetime.datetime.strptime(checkin, '%m/%d/%Y')
+            checkin = datetime.datetime.strftime(checkin, '%a %b %d %Y')
+            checkout = datetime.datetime.strptime(checkout, '%m/%d/%Y')
+            checkout = datetime.datetime.strftime(checkout, '%a %b %d %Y')
 
-            
+            calendar = json.loads(post.calendar)
+            calendar.append({
+                'start': checkin,
+                'end': checkout,
+                'avail': False,
+                'color': '#ff9800',
+                'url': 'http://{}/user_show/{}'.format(settings.ALLOWED_HOSTS[0], request.user.id),
+                'title': '{} {} - {}/{}/{}'.format(request.user.first_name, 
+                                                 request.user.last_name,
+                                                 adults,
+                                                 children,
+                                                 infants)
+            })
+            post.calendar = json.dumps(calendar)
+            post.save()
 
         try:
             if optpay == "direct":
