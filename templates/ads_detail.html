@@ -58,10 +58,10 @@
 
                         <h5>Dates</h5>
                         <div class="col-sm-6">
-                            <input type="text" name="check_in" class="date-checkin edit-post-wrap cl_datepicker" required placeholder="Check In" />
+                            <input type="text" name="check_in" class="form-control date-checkin edit-post-wrap cl_datepicker" required placeholder="Check In" />
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="check_out" class="date-checkout edit-post-wrap cl_datepicker" required placeholder="Check Out" />
+                            <input type="text" name="check_out" class="form-control date-checkout edit-post-wrap cl_datepicker" required placeholder="Check Out" />
                         </div>
                         <div class="clearfix"></div>
 
@@ -113,18 +113,18 @@
 
                         <div class="form-group edit-profile">
                             <div class="edit-post-wrap" style="padding-top: 10px;">
-                                ${{ post.price|floatformat:2|intcomma }} x 12 nights
-                                <span class="pull-right">$1,356</span>
+                                ${{ post.price|floatformat:2|intcomma }} x <span class="num-days">12</span> nights
+                                <span class="pull-right net-price">$1,356</span>
                             </div>
                         </div>
                         <div class="form-group edit-profile">
                             <div class="edit-post-wrap" style="padding-top: 10px;">
                                 Service fee
-                                <span class="pull-right">$156</span>
+                                <span class="pull-right service-fee">$156</span>
                             </div>
                         </div>
 
-                        <h4>Total<span class="pull-right">$1,678</span></h4>
+                        <h4>Total<span class="pull-right total-price">$1,678</span></h4>
                         <input class="btn btn-info btn-payment form-control" type="button" value="Request to book" style="font-weight: 600;font-size: 18px;height: 46px; margin-top: 20px;">
                     </div>
                     {% endif %}
@@ -503,10 +503,21 @@
         fade: true,
     });
 
-    $('.cl_datepicker').datetimepicker({
+
+    $('.date-checkin').datetimepicker({
         format: 'MM/DD/YYYY'
     });
 
+    $('.date-checkout').datetimepicker({
+        format: 'MM/DD/YYYY'
+    });
+
+    $(".date-checkin").on("dp.change", function (e) {
+        $('.date-checkout').data("DateTimePicker").minDate(e.date);
+    });
+    $(".date-checkout").on("dp.change", function (e) {
+        $('.date-checkin').data("DateTimePicker").maxDate(e.date);
+    });
 </script>
 
 {% if post.category.form == 'ShortTermPost' %}
@@ -531,20 +542,26 @@
         });
     }
 
+    var service_fee = {{ post.service_fee }};
+    var room_fee = {{ post.price }};
+
     $('.num-guests').click(function() {
         $(this).toggleClass('open');
         $('.guests-detail').toggleClass('hidden');
     });
 
-    $('#num_adults').change(function() {
+    var update_cart = function() {
         var num_guests = +$('#num_adults').val() + +$('#num_children').val();
+        var days = 12;
         $('.cnt-guests').html(num_guests);
-    })
+        $('.num-days').html(days);        
+        $('.net-price').html((room_fee * days).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+        $('.service-fee').html((num_guests * service_fee).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+        $('.total-price').html((num_guests * service_fee+room_fee * days).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+    };
 
-    $('#num_children').change(function() {
-        var num_guests = +$('#num_adults').val() + +$('#num_children').val();
-        $('.cnt-guests').html(num_guests);
-    })
+    $('#num_adults').change(update_cart);
+    $('#num_children').change(update_cart);
 
 </script>
 {% endif %}
