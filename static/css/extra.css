@@ -962,3 +962,16 @@ input.verify_code {
     font-size: 17px;
     color: #FFF;
 }
+
+span.num-guests {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("/static/img/down-icon.png") !important;
+    background-position: 97% !important;
+    background-repeat: no-repeat !important;
+    background-size: 14px auto !important;    
+}
+
+span.num-guests.open {
+    background-image: url("/static/img/up-icon.png") !important;
+}

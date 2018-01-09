@@ -52,49 +52,80 @@
                     </div>
                     <div class="clearfix"></div>
                     {% if post.category.form == 'ShortTermPost' %}
-                    <div class="col-md-7 col-md-offset-2 cart" style="border: solid 1px #aaa; padding: 15px;">
-                        <h4><b>${{ post.price|floatformat:2|intcomma }}</b> per night</h4>
+                    <div class="col-md-7 col-md-offset-2 cart m-t-20" style="border: solid 1px #aaa; padding: 15px;">
+                        <h4 style="margin: 20px auto;"><span style="font-size: 28px;font-weight: 500;">${{ post.price|floatformat:2|intcomma }}</span> per night</h4>
+                        <hr>
+
                         <h5>Dates</h5>
                         <div class="col-sm-6">
-                        <input type="text" name="check_in" class="form-control edit-post-wrap cl_datepicker" required />
+                            <input type="text" name="check_in" class="date-checkin edit-post-wrap cl_datepicker" required placeholder="Check In" />
                         </div>
                         <div class="col-sm-6">
-                        <input type="text" name="check_out" class="form-control edit-post-wrap cl_datepicker" required />
+                            <input type="text" name="check_out" class="date-checkout edit-post-wrap cl_datepicker" required placeholder="Check Out" />
                         </div>
-                        <h5>Guests</h5>
+                        <div class="clearfix"></div>
+
+                        <h5 class="m-t-15">Guests</h5>
                         <div class="col-md-12">
                             <div class="form-group edit-profile">
-                                <label>Adults</label>
-                                <select name="num_adults" class="form-control edit-post-wrap" required>
-                                    {% for ii in 1|rangee:17 %}
-                                        <option value="{{ ii }}" {% if post.num_adults == ii %} selected="" {% endif %}>{{ ii }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group edit-profile">
-                                <label>Children</label>
-                                <select name="num_children" class="form-control edit-post-wrap" required>
-                                    {% for ii in 0|rangee:6 %}
-                                        <option value="{{ ii }}" {% if post.num_children == ii %} selected="" {% endif %}>{{ ii }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group edit-profile">
-                                <label>Infants</label>
-                                <select name="num_infants" class="form-control edit-post-wrap" required>
-                                    {% for ii in 0|rangee:6 %}
-                                        <option value="{{ ii }}" {% if post.num_infants == ii %} selected="" {% endif %}>{{ ii }}</option>
-                                    {% endfor %}
-                                </select>
+                                <span class="num-guests form-control edit-post-wrap" style="padding-top: 10px;" /><span class="cnt-guests">1</span> guest(s)</span>
                             </div>
                         </div>
 
-                        <h5>Total</h5>
-                        <input class="btn btn-info btn-payment form-control" type="button" value="Request to book">
+                        <div class="guests-detail hidden">
+                            {% if post.num_adults %}
+                            <div class="col-md-12">
+                                <div class="form-group edit-profile">
+                                    <label>Adults</label>
+                                    <select id="num_adults" class="form-control edit-post-wrap" required>
+                                        {% for ii in 1|rangee:post.num_adults %}
+                                            <option value="{{ ii }}">{{ ii }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if post.num_children %}
+                            <div class="col-md-12">
+                                <div class="form-group edit-profile">
+                                    <label>Children</label>
+                                    <select id="num_children" class="form-control edit-post-wrap" required>
+                                        {% for ii in 0|rangee:post.num_children %}
+                                            <option value="{{ ii }}">{{ ii }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if post.num_infants %}
+                            <div class="col-md-12">
+                                <div class="form-group edit-profile">
+                                    <label>Infants</label>
+                                    <select id="num_infants" class="form-control edit-post-wrap" required>
+                                        {% for ii in 0|rangee:post.num_infants %}
+                                            <option value="{{ ii }}">{{ ii }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group edit-profile">
+                            <div class="edit-post-wrap" style="padding-top: 10px;">
+                                ${{ post.price|floatformat:2|intcomma }} x 12 nights
+                                <span class="pull-right">$1,356</span>
+                            </div>
+                        </div>
+                        <div class="form-group edit-profile">
+                            <div class="edit-post-wrap" style="padding-top: 10px;">
+                                Service fee
+                                <span class="pull-right">$156</span>
+                            </div>
+                        </div>
+
+                        <h4>Total<span class="pull-right">$1,678</span></h4>
+                        <input class="btn btn-info btn-payment form-control" type="button" value="Request to book" style="font-weight: 600;font-size: 18px;height: 46px; margin-top: 20px;">
                     </div>
                     {% endif %}
                 </div>
@@ -499,6 +530,22 @@
             }
         });
     }
+
+    $('.num-guests').click(function() {
+        $(this).toggleClass('open');
+        $('.guests-detail').toggleClass('hidden');
+    });
+
+    $('#num_adults').change(function() {
+        var num_guests = +$('#num_adults').val() + +$('#num_children').val();
+        $('.cnt-guests').html(num_guests);
+    })
+
+    $('#num_children').change(function() {
+        var num_guests = +$('#num_adults').val() + +$('#num_children').val();
+        $('.cnt-guests').html(num_guests);
+    })
+
 </script>
 {% endif %}
 
