@@ -505,11 +505,14 @@
 
 
     $('.date-checkin').datetimepicker({
-        format: 'MM/DD/YYYY'
+        format: 'MM/DD/YYYY',
+        minDate: moment(),
+        disabledDates: {{ post|disable_dates|safe }}
     });
 
     $('.date-checkout').datetimepicker({
-        format: 'MM/DD/YYYY'
+        format: 'MM/DD/YYYY',
+        disabledDates: {{ post|disable_dates|safe }}
     });
 
     $(".date-checkin").on("dp.change", function (e) {

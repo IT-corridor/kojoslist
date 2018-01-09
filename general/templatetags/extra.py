@@ -1,3 +1,4 @@
+import json
 import datetime
 
 from django import template
@@ -32,6 +33,22 @@ def rating(customer):
 def rating_post(post):
     rate = Review.objects.filter(post=post).aggregate(Avg('rating')).values()[0]
     return rate if rate else 0
+
+def daterange(start_date, end_date):
+    for n in range(int ((end_date - start_date).days)+1):
+        yield start_date + datetime.timedelta(n)
+
+@register.filter
+def disable_dates(post):
+    d_days = []
+    if post.category.form == 'ShortTermPost':
+        for ii in json.loads(post.calendar):
+            if not ii.get('avail', True):
+                start_day = datetime.datetime.strptime(ii['start'], '%a %b %d %Y')
+                end_day = datetime.datetime.strptime(ii['end'], '%a %b %d %Y')
+                for single_date in daterange(start_day, end_day):
+                    d_days.append(single_date.strftime("%Y-%m-%d"))
+    return d_days
 
 @register.filter
 def rangee(start, end):

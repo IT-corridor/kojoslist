@@ -369,8 +369,8 @@ $(document).ready(function() {
 function store_calendar() {
     $('#json_calendar').val(JSON.stringify($('#calendar').fullCalendar( 'clientEvents').map(function(e) {  
         return {
-            start: e.start.toString(), 
-            end: e.end.toString(), 
+            start: (new Date(e.start)).toDateString(), 
+            end: (new Date(e.end)).toDateString(), 
             title: e.title,
             avail: e.avail,
             color: e.color
