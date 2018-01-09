@@ -165,27 +165,8 @@
                 </div>       
                 <div id="resume" class="tab-pane fade">
                     <div class="pages balance">
-                    <div class="col-md-10">
-                        <div class="rv-title m-t-15">
-                            Reviews ( {{ reviews.count }} ) 
-                        </div>
-                        <input id="rating-owner" value="{{ user|rating }}"/>
-                        <hr>
-                        {% for review in reviews %}
-                        <div class="review-card row">            
-                            <div class="col-sm-2">            
-                                <img src="/static/media/avatar/{{ review.rater.avatar }}" class="img-responsive rv-avatar">
-                                <div class="rv-rater">{{ review.rater.first_name }}</div>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="rv-category">{{ review.post.category }}</div>
-                                <div class="rv-ptitle">{{ review.post.title }}</div>
-                                <div class="rv-content">{{ review.content }}</div>
-                                <div class="rv-created">{{ review.created_at }}</div>
-                            </div>
-                        </div>
-                        <hr>
-                        {% endfor %}
+                        <div class="col-md-9 col-lg-8">
+                            {% include '_review.html' %}
                         </div>
                     </div>
                 </div>

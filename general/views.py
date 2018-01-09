@@ -704,12 +704,19 @@ def remove_subscribe(request):
 
 @login_required(login_url='/accounts/login/')
 def my_account(request):
-    reviews = Review.objects.filter(post__owner=request.user).order_by('post__category')
     dpurchases = PostPurchase.objects.filter(purchaser=request.user, status=0) \
                                      .order_by('created_at')
     ppurchases = PostPurchase.objects.filter(purchaser=request.user).exclude(status=0) \
                                      .order_by('created_at')
 
+    categories = Review.objects.filter(post__owner=request.user) \
+                               .values('post__category__name', 'post__category__parent__name', 
+                                       'post__category__id') \
+                               .distinct()
+
+    for ii in categories:
+        ii['reviews'] = Review.objects.filter(post__owner=request.user, 
+                                              post__category__id=ii['post__category__id'])
     if request.method == 'GET':
         form = CustomerForm(instance=request.user)
     else:
@@ -718,10 +725,12 @@ def my_account(request):
             form.save()
 
     return render(request, 'my-account.html', {
+        'host': request.user,
         'form': form,
-        'reviews': reviews,
+        'reviews': categories,
         'dpurchases': dpurchases,
         'ppurchases': ppurchases,
+        'num_reviews': Review.objects.filter(post__owner=request.user).count(),
         'stripe': request.user.socialaccount_set.filter(provider='stripe')
     })
 
@@ -851,8 +860,10 @@ def rate_ads(request):
 
 def user_show(request, user_id):
     host = Customer.objects.get(id=user_id)
-    categories = Review.objects.values('post__category__name', 'post__category__parent__name', 
-                                       'post__category__id').distinct()
+    categories = Review.objects.filter(post__owner=host) \
+                               .values('post__category__name', 'post__category__parent__name', 
+                                       'post__category__id') \
+                               .distinct()
     for ii in categories:
         ii['reviews'] = Review.objects.filter(post__owner=host, 
                                               post__category__id=ii['post__category__id'])
