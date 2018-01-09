@@ -424,6 +424,15 @@ def view_ads(request, ads_id):
         card = request.POST.get('stripeToken')
         amount = int(post.price * 100)
 
+        if post.category.form == 'ShortTermPost':
+            checkin = request.POST.get('checkin')
+            checkout = request.POST.get('checkout')
+            adults = request.POST.get('adults')
+            children = request.POST.get('children')
+            infants = request.POST.get('infants')
+
+            
+
         try:
             if optpay == "direct":
                 stripe_account_id = '' 
