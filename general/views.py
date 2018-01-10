@@ -692,18 +692,35 @@ def my_subscriptions(request):
 
 @login_required(login_url='/accounts/login/')
 def edit_subscription(request, ss_id):
+    categories = []
+    states = []
+    cities = []
+
     if ss_id:   # edit
         subscription = Search.objects.get(id=ss_id)
-        categories = []
         if subscription.category:
             categories = subscription.category.parent.category_set.all()
-        form = SearchForm(instance=subscription)
+        if subscription.state:
+            states = subscription.state.country.state_set.all()
+        if subscription.city:
+            cities = subscription.city.state.city_set.all()
+
+    if request.method == 'GET':
+        if ss_id:   # edit
+            form = SearchForm(instance=subscription)
+        else:
+            form = {}
     else:
-        form = SearchForm()
-        
+        form = SearchForm(request.POST, instance=subscription)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('my-subscriptions'))
+
     return render(request, 'subscription-edit.html', {
         'form': form,
-        'categories': categories
+        'categories': categories,
+        'states': states,
+        'cities': cities
     })
 
 @csrf_exempt
