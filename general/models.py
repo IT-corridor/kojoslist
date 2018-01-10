@@ -156,7 +156,6 @@ class Search(models.Model):
     alert = models.BooleanField(default=True)
     search_title = models.BooleanField(default=False)
     has_image = models.BooleanField(default=False)
-    posted_today = models.BooleanField(default=False)
     min_price = models.FloatField(blank=True, null=True)
     max_price = models.FloatField(blank=True, null=True)
 

@@ -753,7 +753,11 @@ def create_subscription(request):
                 'owner': request.user,
                 'keyword': keyword,
                 'category_id': category,
-                'state_id': region_id
+                'state_id': region_id,
+                'search_title': request.POST.get('search_title') == 'true',
+                'has_image': request.POST.get('has_image') == 'true',
+                'min_price': request.POST.get('min_price'),
+                'max_price': request.POST.get('max_price')
             })
     else:
         if not search.filter(city_id=region_id):
@@ -764,7 +768,6 @@ def create_subscription(request):
                 'city_id': region_id,
                 'search_title': request.POST.get('search_title') == 'true',
                 'has_image': request.POST.get('has_image') == 'true',
-                'posted_today': request.POST.get('posted_today') == 'true',
                 'min_price': request.POST.get('min_price'),
                 'max_price': request.POST.get('max_price')
             })

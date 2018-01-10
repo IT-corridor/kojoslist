@@ -83,11 +83,6 @@
                             <label><input type="checkbox" {% if form.has_image.value %} checked {% endif %} id="ck_has_image" value="true" name="has_image"> Has image</label>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="checkbox" style="margin-left: 10px;">
-                            <label><input type="checkbox" {% if form.posted_today.value %} checked {% endif %} id="ck_posted_today" name="posted_today" value="true"> Posted today</label>
-                        </div>
-                    </div>
                     <input type="hidden" name="owner" value="{{ request.user.id }}">
                     <input type="hidden" name="alert" value="{{ form.alert.value }}">
                     <input type="hidden" name="stripeToken" id="stripe_token">
