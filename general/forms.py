@@ -189,3 +189,9 @@ class ShortTermPostForm(ModelForm):
         model = ShortTermPost
         fields = '__all__'
 
+
+class SearchForm(ModelForm):
+    class Meta:
+        model = Search
+        fields = '__all__'
+

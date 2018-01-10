@@ -1,0 +1,63 @@
+{% extends "profile.html" %} 
+{% load staticfiles %} 
+
+{% block right_content %}
+    <!-- Content Right Content -->
+
+    <div class="col-sm-12 full-h">
+
+        <div class="content-right-content my-ads">
+        <div class="col-md-7">
+            <h2 style="color: #5bc0de;">Subscription Edit</h2>            
+
+        <form id="rate-form">
+        <div class="modal-body" style="font-size: 16px; line-height: 22px;">            
+            <div class="row" style="margin-bottom: 12px;">
+                <div class="col-md-12">
+                    <div class="form-group edit-profile">
+                        <label>Keyword</label>
+                        <input type="text" name="keyword" class="form-control edit-post-wrap" value="{{ search.keyword }}" placeholder="keyword" required/>
+                    </div>
+                </div>    
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="email">Category:</label>
+                        <input type="text" class="search-input ads_search_input form-control m-t-10" name="keyword" placeholder="keyword">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="checkbox" style="margin-left: 10px;">
+                        <label><input type="checkbox" id="ck_search_title" value="true" name="ck_search_title">Search titles only</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="checkbox" style="margin-left: 10px;">
+                        <label><input type="checkbox" id="ck_has_image" value="true" name="ck_has_image"> Has image</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="checkbox" style="margin-left: 10px;">
+                        <label><input type="checkbox" id="ck_posted_today" name="ck_posted_today" value="true"> Posted today</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group m-t-10">
+                        <label for="email">Price: </label>
+                        <input type="number" min="0" name="price__gte" class="form-control m-t-10" placeholder="Min price">
+                        <input type="number" min="0" name="price__lte" class="form-control m-t-5" placeholder="Max price">
+                    </div>
+                </div>
+            </div>
+                
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn" id="btn-rate">Save</button>
+            <a href="/my-subscriptions" class="btn btn-default" data-dismiss="modal">Cancel</a>
+          </div>
+        </form>
+        
+        </div>
+    </div>
+</div>
+{% endblock %}

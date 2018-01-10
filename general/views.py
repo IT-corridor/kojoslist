@@ -692,12 +692,20 @@ def my_subscriptions(request):
 
 @login_required(login_url='/accounts/login/')
 def edit_subscription(request, ss_id):
-    searches = Search.objects.filter(owner=request.user)
-
-    return render(request, 'my-subscription.html', {
-        'searches': searches
+    if ss_id:   # edit
+        subscription = Search.objects.get(id=ss_id)
+        categories = []
+        if subscription.category:
+            categories = subscription.category.parent.category_set.all()
+        form = SearchForm(instance=subscription)
+    else:
+        form = SearchForm()
+        
+    return render(request, 'subscription-edit.html', {
+        'form': form,
+        'categories': categories
     })
-    
+
 @csrf_exempt
 def create_subscribe(request):
     keyword = request.POST.get('keyword')

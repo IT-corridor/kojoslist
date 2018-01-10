@@ -55,7 +55,7 @@
                             {{ search.created_at }}
                         </td>
                         <td style="font-size: 17px;">
-                            <a href="#subscription-modal" data-toggle="modal" class="edit-subscription" data-id="{{ search.id }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                            <a href="/subscriptions/{{ search.id }}" class="edit-subscription" ><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
                             <a href="#" class="remove-subscription" data-id="{{ search.id }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         </td>
                     </tr>
@@ -69,67 +69,7 @@
         </div>
 
     </div>
-
-
-    <div id="subscription-modal" class="modal fade perk-modal" role="dialog">
-      <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Subscription Edit</h4>
-          </div>
-        <form id="rate-form">
-        <div class="modal-body" style="font-size: 16px; line-height: 22px;">            
-            <div class="row" style="margin-bottom: 12px;">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="email">Keyword:</label>
-                        <input type="text" class="search-input ads_search_input form-control m-t-10" name="keyword" placeholder="keyword">
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="email">Category:</label>
-                        <input type="text" class="search-input ads_search_input form-control m-t-10" name="keyword" placeholder="keyword">
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="checkbox" style="margin-left: 10px;">
-                        <label><input type="checkbox" id="ck_search_title" value="true" name="ck_search_title">Search titles only</label>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="checkbox" style="margin-left: 10px;">
-                        <label><input type="checkbox" id="ck_has_image" value="true" name="ck_has_image"> Has image</label>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="checkbox" style="margin-left: 10px;">
-                        <label><input type="checkbox" id="ck_posted_today" name="ck_posted_today" value="true"> Posted today</label>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group m-t-10">
-                        <label for="email">Price: </label>
-                        <input type="number" min="0" name="price__gte" class="form-control m-t-10" placeholder="Min price">
-                        <input type="number" min="0" name="price__lte" class="form-control m-t-5" placeholder="Max price">
-                    </div>
-                </div>
-            </div>
-                
-          </div>
-
-          <div class="modal-footer">
-            <button type="submit" class="btn" id="btn-rate">Save</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </form>
-        </div>
-
-      </div>
-    </div>    
+   
 {% endblock %}
 
 {% block load_highcharts_js %}
