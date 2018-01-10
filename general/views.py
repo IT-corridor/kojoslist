@@ -683,13 +683,21 @@ def my_favourites(request):
     return render(request, 'ads-list.html', {'posts': posts, 'others': True})
 
 @login_required(login_url='/accounts/login/')
-def my_subscribe(request):
+def my_subscriptions(request):
     searches = Search.objects.filter(owner=request.user)
 
     return render(request, 'my-subscription.html', {
         'searches': searches
     })
 
+@login_required(login_url='/accounts/login/')
+def edit_subscription(request, ss_id):
+    searches = Search.objects.filter(owner=request.user)
+
+    return render(request, 'my-subscription.html', {
+        'searches': searches
+    })
+    
 @csrf_exempt
 def create_subscribe(request):
     keyword = request.POST.get('keyword')

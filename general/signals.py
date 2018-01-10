@@ -36,7 +36,7 @@ def apply_subscribe(sender, instance, **kwargs):
                         content = """
                             1 new result for your subscription ( {1} ) as of {2}<br><br>
                             <a href="http://{0}/ads/{3}">{4}</a><br><br>
-                            <a href="http://{0}/my-subscribe">Review all saved searches.</a><br><br>
+                            <a href="http://{0}/my-subscriptions">Review all saved searches.</a><br><br>
                             Thank you for using <a href="http://{0}/">Globalboard</a>.                         
                         """.format(settings.ALLOWED_HOSTS[0], ss.category.name, str(instance.created_at), instance.id, instance.title)
                         send_email(settings.FROM_EMAIL, 'Globalboard Subscription Alarm', ss.owner.email, content)
