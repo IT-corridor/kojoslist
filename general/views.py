@@ -779,7 +779,7 @@ def create_subscription(request):
     return HttpResponse('')
 
 @csrf_exempt
-def remove_subscribe(request):
+def remove_subscription(request):
     sub_id = request.POST.get('sub_id')
 
     Search.objects.filter(id=sub_id).delete()

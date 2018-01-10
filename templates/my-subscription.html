@@ -85,7 +85,7 @@ $('.remove-subscription').click(function() {
         var id = $(this).data('id');
         jQuery.ajax({
             type: 'post',
-            url: '/remove-subscribe',
+            url: '/remove-subscription',
             data: {
                 sub_id: id,
             },

@@ -75,6 +75,6 @@ urlpatterns += [
     url(r"^send_friend_email", send_friend_email, name="send_friend_email"), 
     url(r"^send_reply_email", send_reply_email, name="send_reply_email"),        
     url(r"^create-subscription", create_subscription, name="create-subscription"),        
-    url(r"^remove-subscribe", remove_subscribe, name="remove-subscribe"), 
+    url(r"^remove-subscription", remove_subscription, name="remove-subscription"), 
     url(r"^release_purchase", release_purchase, name="release_purchase")
 ]
