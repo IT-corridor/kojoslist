@@ -8,8 +8,8 @@
 
         <div class="content-right-content my-ads">
         <div class="col-md-7">
-                <h2 style="color: #5bc0de;text-align: center;margin-bottom: 25px;">Subscription Edit</h2>            
-            <form method="post">
+            <h2 style="color: #5bc0de;text-align: center;margin-bottom: 25px;">Subscription Edit</h2>            
+            <form method="post" class="sub-update-form">
                 {{ form.errors }}
                 {% csrf_token %}
                 <div class="row" style="margin-bottom: 12px;">
@@ -90,8 +90,9 @@
                     </div>
                     <input type="hidden" name="owner" value="{{ request.user.id }}">
                     <input type="hidden" name="alert" value="{{ form.alert.value }}">
+                    <input type="hidden" name="stripeToken" id="stripe_token">
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-default" id="btn-rate">Save</button>
+                        <button class="btn btn-default" id="btn-update">Save</button>
                         <a href="/my-subscriptions" class="btn btn-default" data-dismiss="modal">Cancel</a>
                     </div>                    
                 </div>
@@ -103,4 +104,28 @@
 {% endblock %}
 
 {% block own_js %}
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+<script type="text/javascript">
+    var price = 50; 
+
+    var handler = StripeCheckout.configure({
+        key: '{{ skey }}',
+        locale: 'auto',
+        token: function(token) {
+            $('#stripe_token').val(token.id);
+            $(".sub-update-form").submit();
+        }
+    });
+
+    $('#btn-update').on('click', function(e) {
+        handler.open({
+            name: "Globalboard",
+            description: "Update Subscription",
+            currency: "usd",
+            amount: price
+        });
+        e.preventDefault();
+    });
+</script>
 {% endblock %}

@@ -696,31 +696,41 @@ def edit_subscription(request, ss_id):
     states = []
     cities = []
 
-    if ss_id:   # edit
-        subscription = Search.objects.get(id=ss_id)
-        if subscription.category:
-            categories = subscription.category.parent.category_set.all()
-        if subscription.state:
-            states = subscription.state.country.state_set.all()
-        if subscription.city:
-            cities = subscription.city.state.city_set.all()
+    subscription = Search.objects.get(id=ss_id)
+    if subscription.category:
+        categories = subscription.category.parent.category_set.all()
+    if subscription.state:
+        states = subscription.state.country.state_set.all()
+    if subscription.city:
+        cities = subscription.city.state.city_set.all()
 
     if request.method == 'GET':
-        if ss_id:   # edit
-            form = SearchForm(instance=subscription)
-        else:
-            form = {}
+        form = SearchForm(instance=subscription)
     else:
         form = SearchForm(request.POST, instance=subscription)
         if form.is_valid():
             form.save()
+
+            # charge for update
+            card = request.POST.get('stripeToken')
+            try:
+                stripe.Charge.create(
+                    amount=50,
+                    currency="usd",
+                    source=card, # obtained with Stripe.js
+                    description="Charge for subscription({}) update".format(subscription.keyword)
+                )
+            except Exception, e:
+                print e, 'stripe error ##'
+
             return HttpResponseRedirect(reverse('my-subscriptions'))
 
     return render(request, 'subscription-edit.html', {
         'form': form,
         'categories': categories,
         'states': states,
-        'cities': cities
+        'cities': cities,
+        'skey': settings.STRIPE_KEYS['PUBLIC_KEY'],
     })
 
 @csrf_exempt

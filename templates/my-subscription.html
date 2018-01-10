@@ -17,6 +17,7 @@
                         <th>Keyword</th>
                         <th>Search Title</th>
                         <th>Has Image</th>
+                        <th>Posted today</th>
                         <th>Category</th>
                         <th>Region</th>
                         <th>Created At</th>
@@ -37,6 +38,7 @@
                         </td>
                         <td><input type="checkbox" disabled="" {% if search.search_title %} checked="" {% endif %}></td>
                         <td><input type="checkbox" disabled="" {% if search.has_image %} checked="" {% endif %}></td>
+                        <td><input type="checkbox" disabled="" {% if search.posted_today %} checked="" {% endif %}></td>
                         <td>
                             {% if search.category %}
                             {{ search.category.name }}
@@ -61,7 +63,7 @@
                     </tr>
                     {% endfor %}
                     {% else %}
-                    <tr><td colspan="8">No subscription</td></tr>
+                    <tr><td colspan="9">No subscription</td></tr>
                     {% endif %}
                     </tbody>
                 </table>
