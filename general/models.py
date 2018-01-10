@@ -164,8 +164,8 @@ class Search(models.Model):
         return self.owner.username
 
     class Meta:
-        verbose_name = 'Subscribe'
-        verbose_name_plural = 'Subscribes'
+        verbose_name = 'Subscription'
+        verbose_name_plural = 'Subscriptions'
 
 
 class Image(models.Model):

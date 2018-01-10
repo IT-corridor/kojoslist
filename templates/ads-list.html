@@ -143,6 +143,8 @@
             var r = confirm("You need to login for subscription!");
             if (r == true) {
                 location.href = "/accounts/login?next="+url;
+            } else {
+                return;
             }
         }
 
