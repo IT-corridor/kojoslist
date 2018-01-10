@@ -28,15 +28,17 @@
             <form method="post" class="search-form">
             {% csrf_token %}
             <input type="hidden" name="others" value="true">
-            <div class="col-md-8 ads_search search">
+            <div class="{% if no_subscription %} col-md-10 {% else %} col-md-8 {% endif %} ads_search search">
                 <input type="text" class="search-input ads_search_input" name="keyword" placeholder="Search for ads name...">
             </div>
             <div class="col-md-2 ads_search">
                 <input type="button" id="search_ads" class="btn btn-info" value="Search">
             </div>
-            <div class="col-md-2 ads_search">
-                <input type="button" class="btn btn-info subscribe" value="Subscribe" style="line-height: 17px;">
-            </div>
+            {% if not no_subscription %}
+                <div class="col-md-2 ads_search">
+                    <input type="button" class="btn btn-info subscribe" value="Subscribe" style="line-height: 17px;">
+                </div>
+            {% endif %}
             <div class="col-md-12 m-t-15">
                 <a class="" href="javascript: void();" onclick="$('.filters').toggle();"><i class="fa fa-filter"></i> More filters</a>
                 <select class="view-mode" name="view_mode">
@@ -87,6 +89,56 @@
 {% endblock %}
 
 {% block own_js %}
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+<script type="text/javascript">
+    var price = 200; 
+
+    var handler = StripeCheckout.configure({
+        key: '{{ skey }}',
+        locale: 'auto',
+        token: function(token) {
+            jQuery.ajax({
+                type: 'post',
+                url: '/create-subscription',
+                data: {
+                    keyword: jQuery('.ads_search_input').val(),
+                    stripeToken: token.id
+                },
+                success: function (data) {
+                    alert('Subscribed successfully!');
+                }
+            }); 
+        }
+    });
+
+    $('.subscribe').on('click', function(e) {
+        var keyword = jQuery('.ads_search_input').val();
+
+        if (!logged_in) {
+            var r = confirm("You need to login for subscription!");
+            if (r == true) {
+                location.href = "/accounts/login?next="+url;
+            } else {
+                return;
+            }
+        }
+
+        if (keyword.trim() == '') {
+            alert('Please specify the keyword!');
+            $('.ads_search_input').focus();
+            return;
+        }
+
+        handler.open({
+            name: "Globalboard",
+            description: "Create a new subscription",
+            currency: "usd",
+            amount: price
+        });
+    });    
+</script>
+
 <script>
     var logged_in = {% if user.is_authenticated %} true {% else %} false {% endif %};
     var url = "{{ request.path }}";
@@ -135,29 +187,6 @@
 
     $("body").on('click', 'a.breadcrumb-item', function() {
         location.href = '/profile#' + $(this).data('mapname');
-    });
-
-    $('.subscribe').click(function() {
-        var keyword = jQuery('.ads_search_input').val();
-        if (!logged_in) {
-            var r = confirm("You need to login for subscription!");
-            if (r == true) {
-                location.href = "/accounts/login?next="+url;
-            } else {
-                return;
-            }
-        }
-
-        jQuery.ajax({
-            type: 'post',
-            url: '/create-subscribe',
-            data: {
-                keyword: keyword,
-            },
-            success: function (data) {
-                alert('Subscribed successfully!');
-            }
-        });                             
     });
 
     $('.cl_datepicker').datetimepicker({

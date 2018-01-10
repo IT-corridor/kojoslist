@@ -600,7 +600,8 @@ def category_ads_dealer(request, category_id, kind):
         'region': region,
         'category': category,
         'others': True,
-        'breadcrumb': breadcrumb
+        'breadcrumb': breadcrumb,
+        'skey': settings.STRIPE_KEYS['PUBLIC_KEY']
     })
 
 @csrf_exempt
@@ -680,7 +681,9 @@ def toggle_favourite(request):
 def my_favourites(request):
     posts = [ii.post for ii in Favourite.objects.filter(owner=request.user)]
     posts = get_posts_with_image(posts)
-    return render(request, 'ads-list.html', {'posts': posts, 'others': True})
+    return render(request, 'ads-list.html', { 'posts': posts, 
+                                              'others': True,
+                                              'no_subscription': True})
 
 @login_required(login_url='/accounts/login/')
 def my_subscriptions(request):
@@ -734,7 +737,7 @@ def edit_subscription(request, ss_id):
     })
 
 @csrf_exempt
-def create_subscribe(request):
+def create_subscription(request):
     keyword = request.POST.get('keyword')
     category = request.session['category']
     region_kind = request.session['region_kind']
@@ -760,6 +763,18 @@ def create_subscribe(request):
                 'category_id': category,
                 'city_id': region_id
             })
+
+    # charge for update
+    card = request.POST.get('stripeToken')
+    try:
+        stripe.Charge.create(
+            amount=200,
+            currency="usd",
+            source=card, # obtained with Stripe.js
+            description="Charge for creation of new subscription({})".format(keyword)
+        )
+    except Exception, e:
+        print e, 'stripe error ##'
 
     return HttpResponse('')
 
