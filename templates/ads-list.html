@@ -66,8 +66,8 @@
                 <div class="col-md-6 form-inline">
                     <div class="form-group">
                         <label for="email" style="margin-right:12px;">Price: </label>
-                        <input type="number" min="0" name="price__gte" class="form-control" placeholder="Min price">
-                        <input type="number" min="0" name="price__lte" class="form-control" placeholder="Max price">
+                        <input type="number" min="0" name="price__gte" id="price__gte" class="form-control" placeholder="Min price">
+                        <input type="number" min="0" name="price__lte" id="price__lte" class="form-control" placeholder="Max price">
                     </div>
                 </div>
                 </div>
@@ -103,6 +103,11 @@
                 url: '/create-subscription',
                 data: {
                     keyword: jQuery('.ads_search_input').val(),
+                    search_title: $('#ck_search_title').prop('checked'),
+                    has_image: $('#ck_has_image').prop('checked'),
+                    posted_today: $('#ck_posted_today').prop('checked'),
+                    min_price: $('#price__gte').val(),
+                    max_price: $('#price__lte').val(),
                     stripeToken: token.id
                 },
                 success: function (data) {
@@ -172,7 +177,15 @@
         });
 
         function search_ads() {
-            var search_val = jQuery('.ads_search_input').val();
+            var min_val = +$('#price__gte').val(),
+                max_val = +$('#price__lte').val();
+
+            if (min_val > max_val) {
+                alert('Filter for price is wrong.');
+                $('#price__gte').val('');
+                $('#price__lte').val('');
+                $('#price__gte').focus();
+            }
 
             jQuery.ajax({
                 type: 'post',
