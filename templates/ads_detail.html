@@ -572,28 +572,30 @@
     });
 
     var update_cart = function() {
+        var num_guests = +$('#num_adults').val() + +$('#num_children').val();
+
+        $('.cnt-guests').html(num_guests);
+        $('.service-fee').html((num_guests * service_fee).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+
         if ($('.date-checkin').val() && $('.date-checkout').val()) {
-            var num_guests = +$('#num_adults').val() + +$('#num_children').val(),
-                first = new Date($('.date-checkin').val()),
+            var first = new Date($('.date-checkin').val()),
                 second = new Date($('.date-checkout').val()),
                 days = Math.round((second-first)/(1000*60*60*24)),
                 total_price = num_guests * service_fee + room_fee * days;
 
             is_total_ready = true;
-            $('.cnt-guests').html(num_guests);
             $('.num-days').html(days);        
             $('.net-price').html((room_fee * days).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
-            $('.service-fee').html((num_guests * service_fee).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
             $('.total-price').html(total_price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));    
-            $('.pay-price').html(total_price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
-
             $('#pay-checkin').val($('.date-checkin').val());
             $('#pay-checkout').val($('.date-checkout').val());
             $('#pay-adults').val($('#num_adults').val());
             $('#pay-children').val($('#num_children').val());
             $('#pay-infants').val($('#num_infants').val());
-
+            $('.pay-price').html(total_price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
             price = total_price * 100;
+        } else {
+            is_total_ready = false;
         }
     };
 
