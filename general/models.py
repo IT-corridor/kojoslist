@@ -43,6 +43,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Ads Category'
         verbose_name_plural = 'Ads Categories'
+        ordering = ['name']
 
 
 class Country(models.Model):
