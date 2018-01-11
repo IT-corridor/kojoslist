@@ -743,34 +743,28 @@ def create_subscription(request):
     region_kind = request.session['region_kind']
     region_id = request.session['region']
 
-    search = Search.objects.filter(owner=request.user, keyword=keyword)
-    if category:
-        search = search.filter(category_id=category)
-    
     if region_kind == 'state':
-        if not search.filter(state_id=region_id):
-            Search.objects.create(**{
-                'owner': request.user,
-                'keyword': keyword,
-                'category_id': category,
-                'state_id': region_id,
-                'search_title': request.POST.get('search_title') == 'true',
-                'has_image': request.POST.get('has_image') == 'true',
-                'min_price': request.POST.get('min_price') or None,
-                'max_price': request.POST.get('max_price') or None
-            })
+        Search.objects.create(**{
+            'owner': request.user,
+            'keyword': keyword,
+            'category_id': category,
+            'state_id': region_id,
+            'search_title': request.POST.get('search_title') == 'true',
+            'has_image': request.POST.get('has_image') == 'true',
+            'min_price': request.POST.get('min_price') or None,
+            'max_price': request.POST.get('max_price') or None
+        })
     else:
-        if not search.filter(city_id=region_id):
-            Search.objects.create(**{
-                'owner': request.user,
-                'keyword': keyword,
-                'category_id': category,
-                'city_id': region_id,
-                'search_title': request.POST.get('search_title') == 'true',
-                'has_image': request.POST.get('has_image') == 'true',
-                'min_price': request.POST.get('min_price') or None,
-                'max_price': request.POST.get('max_price') or None
-            })
+        Search.objects.create(**{
+            'owner': request.user,
+            'keyword': keyword,
+            'category_id': category,
+            'city_id': region_id,
+            'search_title': request.POST.get('search_title') == 'true',
+            'has_image': request.POST.get('has_image') == 'true',
+            'min_price': request.POST.get('min_price') or None,
+            'max_price': request.POST.get('max_price') or None
+        })
 
     # charge for update
     card = request.POST.get('stripeToken')
