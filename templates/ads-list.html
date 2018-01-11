@@ -179,7 +179,7 @@
             var min_val = +$('#price__gte').val(),
                 max_val = +$('#price__lte').val();
 
-            if (min_val > max_val) {
+            if ($('#price__lte').val() && min_val > max_val) {
                 alert('Filter for price is wrong.');
                 $('#price__gte').val('');
                 $('#price__lte').val('');
