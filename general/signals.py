@@ -36,9 +36,9 @@ def apply_subscribe(sender, instance, **kwargs):
             if ss.has_image:
                 isApply = isApply and instance.images.count() > 0
 
-            if instance.price and ss.min_price:
+            if instance.price != None and ss.min_price != None:
                 isApply = isApply and ss.min_price <= instance.price                
-            if instance.price and ss.max_price:
+            if instance.price != None and ss.max_price != None:
                 isApply = isApply and ss.max_price >= instance.price                
 
             if isApply:
