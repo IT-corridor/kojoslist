@@ -71,7 +71,22 @@ class SearchAdmin(admin.ModelAdmin):
             return '{} / {} / {}'.format(obj.city.state.country.name, obj.city.state.name, obj.city.name)
 
 
-admin.site.register(Customer)
+class CustomerAdmin(admin.ModelAdmin):
+    list_display = ['username', 'full_name', 'provider', 'email', 'phone']
+    search_fields = ['username', 'email', 'first_name', 'last_name']
+
+    def full_name(self, obj):
+        return '{} {}'.format(obj.first_name, obj.last_name)
+
+    def provider(self, obj):
+        sas = obj.socialaccount_set.all().exclude(provider='stripe')
+        if sas:
+            return sas[0].provider
+        else:
+            return '-'
+
+
+admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(PostPurchase, PostPurchaseAdmin)
 admin.site.register(Post, PostAdmin)
