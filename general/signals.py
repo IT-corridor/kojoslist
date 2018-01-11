@@ -25,13 +25,31 @@ def delete_image_file(sender, instance, using, **kwargs):
 @receiver(post_save, sender=JobPost)
 @receiver(post_save, sender=GaragePost)
 @receiver(post_save, sender=SaleGarage)
-def apply_subscribe(sender, instance, **kwargs):    
+@receiver(post_save, sender=CarPost)
+@receiver(post_save, sender=MotorCyclePost)
+@receiver(post_save, sender=BoatPost)
+@receiver(post_save, sender=TrailerPost)
+@receiver(post_save, sender=AptPost)
+@receiver(post_save, sender=SubletPost)
+@receiver(post_save, sender=AntiquePost)
+@receiver(post_save, sender=CellPhonePost)
+@receiver(post_save, sender=BookPost)
+@receiver(post_save, sender=CDPost)
+@receiver(post_save, sender=TicketPost)
+@receiver(post_save, sender=AutoWheelPost)
+@receiver(post_save, sender=RealEstatePost)
+@receiver(post_save, sender=RoomPost)
+@receiver(post_save, sender=OfficePost)
+@receiver(post_save, sender=BuyGigPost)
+@receiver(post_save, sender=LicensePost)
+@receiver(post_save, sender=ShortTermPost)
+def apply_subscribe(sender, instance, **kwargs):   
     try:
         for ss in Search.objects.filter(alert=True).exclude(owner=instance.owner):
             isApply = ss.keyword.lower() in instance.title.lower()
             if not ss.search_title:
                 isApply = isApply or ss.keyword.lower() in instance.content.lower()
-            isApply = isApply and (ss.city == instance.region or ss.state == instance.region.state)
+            isApply = isApply and (ss.city == instance.region or ss.state == instance.region.state or ss.city == instance.region.district)
             isApply = isApply and (ss.category == instance.category or ss.category == instance.category.parent)
             if ss.has_image:
                 isApply = isApply and instance.images.count() > 0
@@ -47,7 +65,7 @@ def apply_subscribe(sender, instance, **kwargs):
                 content = """
                     1 new result for your subscription ( {1} ) as of {2}<br><br>
                     <a href="http://{0}/ads/{3}">{4}</a><br><br>
-                    <a href="http://{0}/my-subscriptions">Review all saved searches.</a><br><br>
+                    <a href="http://{0}/my-subscriptions">See all of your subscriptions.</a><br><br>
                     Thank you for using <a href="http://{0}/">Globalboard</a>.                         
                 """.format(settings.ALLOWED_HOSTS[0], ss.category.name, str(instance.created_at), instance.id, instance.title)
                 send_email(settings.FROM_EMAIL, 'Globalboard Subscription Alarm', ss.owner.email, content)

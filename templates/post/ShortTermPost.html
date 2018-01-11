@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="form-group edit-profile">
             <label>Service Fee (in USD)</label>
-            <input type="number" name="service_fee" class="form-control edit-post-wrap" value="{{ post.service_fee }}" required/>
+            <input type="number" step="0.01" min="0" name="service_fee" class="form-control edit-post-wrap" value="{{ post.service_fee }}" required/>
         </div>
     </div>    
     <div class="col-md-9">
