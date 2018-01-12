@@ -979,3 +979,11 @@ span.num-guests {
 span.num-guests.open {
     background-image: url("/static/img/up-icon.png") !important;
 }
+
+.collapse {
+    display: none !important;
+}
+
+.collapse.in {
+    display: block !important;
+}

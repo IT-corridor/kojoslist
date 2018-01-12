@@ -1,10 +1,10 @@
 {% for mmc in categories %}
     <div class="col-md-24 col-xs-11">
         {% for mc in mmc %}
-            <div class="category row{{forloop.counter}}">
+            <div class="category row{{forloop.counter}} {% if mc.0.form == '10' %} hidden-xs {% elif mc.0.form == '20' %} visible-xs {% endif %}">
                 <a href="javascript:void();" data-toggle="collapse" data-target="#c{{mc.0.id}}">{{ mc.0.name }}</a>
             </div>
-            <div class="sub-category row{{forloop.counter}} collapse" id="c{{mc.0.id}}">
+            <div class="sub-category row{{forloop.counter}} {% if mc.0.form == '10' %} hidden-xs {% elif mc.0.form == '20' %} visible-xs {% endif %} collapse" id="c{{mc.0.id}}">
             {% for cc in mc.1 %}
                 {% if cc.category_set.all %}
                     <a href="javascript:void();" data-toggle="collapse" data-target="#c{{cc.id}}">{{ cc.name }}</a>
