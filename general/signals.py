@@ -46,8 +46,8 @@ def delete_image_file(sender, instance, using, **kwargs):
 def apply_subscribe(sender, instance, **kwargs):   
     try:
         for ss in Search.objects.filter(alert=True).exclude(owner=instance.owner):
-            isApply = ss.keyword.lower() in instance.title.lower()
-            if not ss.search_title:
+            isApply = not ss.keyword or ss.keyword.lower() in instance.title.lower()
+            if not ss.search_title and ss.keyword:
                 isApply = isApply or ss.keyword.lower() in instance.content.lower()
             isApply = isApply and (ss.city == instance.region or ss.state == instance.region.state or ss.city == instance.region.district)
             isApply = isApply and (ss.category == instance.category or ss.category == instance.category.parent)

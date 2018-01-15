@@ -148,7 +148,7 @@ class Review(models.Model):
 
 
 class Search(models.Model):
-    keyword = models.CharField(max_length=100)
+    keyword = models.CharField(max_length=100, blank=True, null=True)
     category = models.ForeignKey(Category, blank=True, null=True)
     city = models.ForeignKey(City, blank=True, null=True)
     state = models.ForeignKey(State, blank=True, null=True)

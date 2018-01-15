@@ -715,16 +715,16 @@ def edit_subscription(request, ss_id):
             form.save()
 
             # charge for update
-            card = request.POST.get('stripeToken')
-            try:
-                stripe.Charge.create(
-                    amount=50,
-                    currency="usd",
-                    source=card, # obtained with Stripe.js
-                    description="Charge for subscription({}) update".format(subscription.keyword)
-                )
-            except Exception, e:
-                print e, 'stripe error ##'
+            # card = request.POST.get('stripeToken')
+            # try:
+            #     stripe.Charge.create(
+            #         amount=50,
+            #         currency="usd",
+            #         source=card, # obtained with Stripe.js
+            #         description="Charge for subscription({}) update".format(subscription.keyword)
+            #     )
+            # except Exception, e:
+            #     print e, 'stripe error ##'
 
             return HttpResponseRedirect(reverse('my-subscriptions'))
 
@@ -767,16 +767,16 @@ def create_subscription(request):
         })
 
     # charge for update
-    card = request.POST.get('stripeToken')
-    try:
-        stripe.Charge.create(
-            amount=200,
-            currency="usd",
-            source=card, # obtained with Stripe.js
-            description="Charge for creation of new subscription({})".format(keyword)
-        )
-    except Exception, e:
-        print e, 'stripe error ##'
+    # card = request.POST.get('stripeToken')
+    # try:
+    #     stripe.Charge.create(
+    #         amount=200,
+    #         currency="usd",
+    #         source=card, # obtained with Stripe.js
+    #         description="Charge for creation of new subscription({})".format(keyword)
+    #     )
+    # except Exception, e:
+    #     print e, 'stripe error ##'
 
     return HttpResponse('')
 

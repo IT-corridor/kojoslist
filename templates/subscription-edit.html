@@ -16,7 +16,7 @@
                     <div class="col-md-12">
                         <div class="form-group edit-profile">
                             <label>Keyword</label>
-                            <input type="text" name="keyword" class="form-control edit-post-wrap" value="{{ form.keyword.value }}" placeholder="keyword" required/>
+                            <input type="text" name="keyword" class="form-control edit-post-wrap" value="{{ form.keyword.value }}" placeholder="keyword"/>
                         </div>
                     </div>    
                     <div class="col-md-12">
@@ -114,13 +114,15 @@
     });
 
     $('#btn-update').on('click', function(e) {
-        handler.open({
-            name: "Globalboard",
-            description: "Update Subscription",
-            currency: "usd",
-            amount: price
-        });
-        e.preventDefault();
+        // handler.open({
+        //     name: "Globalboard",
+        //     description: "Update Subscription",
+        //     currency: "usd",
+        //     amount: price
+        // });
+        // e.preventDefault();
+        $('#stripe_token').val(token.id);
+        $(".sub-update-form").submit();
     });
 </script>
 {% endblock %}

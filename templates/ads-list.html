@@ -98,23 +98,27 @@
         key: '{{ skey }}',
         locale: 'auto',
         token: function(token) {
-            jQuery.ajax({
-                type: 'post',
-                url: '/create-subscription',
-                data: {
-                    keyword: jQuery('.ads_search_input').val(),
-                    search_title: $('#ck_search_title').prop('checked'),
-                    has_image: $('#ck_has_image').prop('checked'),
-                    min_price: $('#price__gte').val(),
-                    max_price: $('#price__lte').val(),
-                    stripeToken: token.id
-                },
-                success: function (data) {
-                    alert('Subscribed successfully!');
-                }
-            }); 
+            save_subscription(token.id);
         }
     });
+
+    function save_subscription(token) {
+        jQuery.ajax({
+            type: 'post',
+            url: '/create-subscription',
+            data: {
+                keyword: jQuery('.ads_search_input').val(),
+                search_title: $('#ck_search_title').prop('checked'),
+                has_image: $('#ck_has_image').prop('checked'),
+                min_price: $('#price__gte').val(),
+                max_price: $('#price__lte').val(),
+                stripeToken: token
+            },
+            success: function (data) {
+                alert('Subscribed successfully!');
+            }
+        }); 
+    }
 
     $('.subscribe').on('click', function(e) {
         var keyword = jQuery('.ads_search_input').val();
@@ -122,24 +126,24 @@
         if (!logged_in) {
             var r = confirm("You need to login for subscription!");
             if (r == true) {
-                location.href = "/accounts/login?next="+url;
-            } else {
-                return;
+                location.href = "/accounts/login/?next="+url;
             }
-        }
-
-        if (keyword.trim() == '') {
-            alert('Please specify the keyword!');
-            $('.ads_search_input').focus();
             return;
         }
 
-        handler.open({
-            name: "Globalboard",
-            description: "Create a new subscription",
-            currency: "usd",
-            amount: price
-        });
+        // if (keyword.trim() == '') {
+        //     alert('Please specify the keyword!');
+        //     $('.ads_search_input').focus();
+        //     return;
+        // }
+        save_subscription('');
+
+        // handler.open({
+        //     name: "Globalboard",
+        //     description: "Create a new subscription",
+        //     currency: "usd",
+        //     amount: price
+        // });
     });    
 </script>
 
