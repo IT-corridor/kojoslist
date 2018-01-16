@@ -262,9 +262,7 @@
         });        
     }
 
-    var _this = {
-        touch_count: 0
-    };
+    var _this = {};
 
     function mapReady() {
         var mapGeoJSON = Highcharts.maps[mapName],
@@ -323,14 +321,9 @@
                         click: function() {
                             handleClick(this);
                         },
-                        mouseOver: function(){
-                            if('ontouchstart' in document.documentElement){
-                                // _this.touch_count += 1;
-                                if(_this.touch_count % 2 == 0){ // the mouseover decides to send a double event, so you use the first
-                                    _this.touch_count = 0;
-                                    handleClick(this);
-                                }
-                            }
+                        mouseOver: function() {
+                            if('ontouchstart' in document.documentElement)
+                                handleClick(this);
                         }                        
                     }
                 }
