@@ -262,7 +262,9 @@
         });        
     }
 
-    var _this = {};
+    var _this = {
+        touch_count: 0
+    };
 
     function mapReady() {
         var mapGeoJSON = Highcharts.maps[mapName],
