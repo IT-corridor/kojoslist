@@ -262,6 +262,8 @@
         });        
     }
 
+    var _this = {};
+
     function mapReady() {
         var mapGeoJSON = Highcharts.maps[mapName],
             data = [];
@@ -313,34 +315,22 @@
                             this.point.name;
                     }
                 },
+                kdNow: true,
                 point: {
                     events: {
                         // On click, look for a detailed map
                         click: function() {
-                            var key = this.key;
-                            var mapname;
-                            console.log(key+'####');
-
-                            state = '';
-                            mapname = mapName;
-                            mapName = 'countries/' + key.substr(0, 2) + '/' + key + '-all';
-                            isState = false;
-                            city = '';
-                            
-                            findState();
-
-                            if (state) {    // available data for country or state
-                                if (key.length == 2) {   // country
-                                    location.hash = mapName;
-                                } else {                 // state
-                                    location.hash = mapName + '@' + state;
+                            handleClick(this);
+                        },
+                        mouseOver: function(){
+                            if('ontouchstart' in document.documentElement){
+                                _this.touch_count += 1;
+                                if(_this.touch_count % 2 == 0){ // the mouseover decides to send a double event, so you use the first
+                                    _this.touch_count = 0;
+                                    handleClick(this);
                                 }
-
-                                loadMap();
-                            } else {        // no data
-                                mapName = mapname;
                             }
-                        }
+                        }                        
                     }
                 }
             }, {
@@ -352,6 +342,37 @@
                 enableMouseTracking: false
             }]
         });        
+    }
+
+    function handleClick(obj) {
+        var key = obj.key;
+        var mapname;
+        console.log(key+'####');
+
+        if (_this.running)
+            return;
+        _this.running = true;
+
+        state = '';
+        mapname = mapName;
+        mapName = 'countries/' + key.substr(0, 2) + '/' + key + '-all';
+        isState = false;
+        city = '';
+        
+        findState();
+
+        if (state) {    // available data for country or state
+            if (key.length == 2) {   // country
+                location.hash = mapName;
+            } else {                 // state
+                location.hash = mapName + '@' + state;
+            }
+
+            loadMap();
+        } else {        // no data
+            mapName = mapname;
+        }
+        _this.running = false;
     }
 
     function findState() {
