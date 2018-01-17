@@ -719,25 +719,21 @@ input.verify_code {
 
 .chat-wrapper {
     position: absolute;
-    top: calc(100% - 44px);
+    bottom: 0;
     right: 5px;
     width: calc(100% - 10px);
 }
 
-.chat-wrapper.chat-body {
+.chat-wrapper .chat-body {
     display: none;
 }
 
-.chat-wrapper.show-chat.chat-body {
+.chat-wrapper.show-chat .chat-body {
     display: block;
 }
 
-.chat-wrapper.show-chat {
-    top: calc(100% - 552px);    
-}
-
 .chat-body {
-    height: 525px;
+    height: 500px;
 }
 
 .chat-header {
