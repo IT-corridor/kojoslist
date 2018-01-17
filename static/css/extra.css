@@ -719,9 +719,9 @@ input.verify_code {
 
 .chat-wrapper {
     position: fixed;
-    top: calc(100vh - 44px);
-    right: 20px;
-    width: 340px;    
+    top: calc(100vh - 100px);
+    right: 18px;
+    width: 325px;    
 }
 
 .chat-wrapper.chat-body {
