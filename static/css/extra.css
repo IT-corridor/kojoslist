@@ -718,7 +718,7 @@ input.verify_code {
 }
 
 .chat-wrapper {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 5px;
     width: calc(100% - 10px);
@@ -733,7 +733,7 @@ input.verify_code {
 }
 
 .chat-body {
-    height: 500px;
+    height: 450px;
 }
 
 .chat-header {
