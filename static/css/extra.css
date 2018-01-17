@@ -718,10 +718,10 @@ input.verify_code {
 }
 
 .chat-wrapper {
-    position: fixed;
+    position: absolute;
     top: calc(100vh - 44px);
-    right: 10px;
-    width: 340px;    
+    right: 5px;
+    width: calc(100% - 10px);
 }
 
 .chat-wrapper.chat-body {
