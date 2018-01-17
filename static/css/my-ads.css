@@ -203,26 +203,30 @@
     margin: 50px 0 20px;
     padding-bottom: 10px;
 }
-.update-btn {
-    border-color: #4dbee2;
-    box-shadow: 0 0 11px rgba(91, 192, 222, 0.6);
-    color: #ffffff;
-    width: 130px;
-}
-.upload-btn, .my-ads .pages .page .change_pass, .update-btn {
-    border-radius: 5px;
-    font-size: 16px;
-    /*font-weight: 600;*/
-    height: 50px;
-    line-height: 48px;
-    padding: 0;
-    transition: all 0.2s ease 0s;
-}
-.update-btn:hover {
-    background: #ffffff none repeat scroll 0 0;
-    border-color: #4dbee2;
-    box-shadow: none;
-    color: #4dbee2;
+
+@media screen and (min-width: 640px){
+
+    .update-btn {
+        border-color: #4dbee2;
+        box-shadow: 0 0 11px rgba(91, 192, 222, 0.6);
+        color: #ffffff;
+        width: 130px;
+    }
+    .upload-btn, .my-ads .pages .page .change_pass, .update-btn {
+        border-radius: 5px;
+        font-size: 16px;
+        /*font-weight: 600;*/
+        height: 50px;
+        line-height: 48px;
+        padding: 0;
+        transition: all 0.2s ease 0s;
+    }
+    .update-btn:hover {
+        background: #ffffff none repeat scroll 0 0;
+        border-color: #4dbee2;
+        box-shadow: none;
+        color: #4dbee2;
+    }
 }
 .view-mode {
     margin-top: -7px;
