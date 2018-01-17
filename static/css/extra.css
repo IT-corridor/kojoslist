@@ -719,7 +719,7 @@ input.verify_code {
 
 .chat-wrapper {
     position: absolute;
-    top: calc(100vh - 44px);
+    top: calc(100% - 44px);
     right: 5px;
     width: calc(100% - 10px);
 }
@@ -733,7 +733,7 @@ input.verify_code {
 }
 
 .chat-wrapper.show-chat {
-    top: calc(100vh - 552px);    
+    top: calc(100% - 552px);    
 }
 
 .chat-body {
