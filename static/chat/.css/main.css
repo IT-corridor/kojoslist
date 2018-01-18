@@ -618,7 +618,7 @@ input[type="search"]::-moz-search-cancel-button:after {
   position: relative;
   /* height: calc(100% - 165px);*/
   overflow-y: auto;
-  height: 326px; }
+  height: 266px; }
 
 .l-chat_group .l-chat-content {
   height: calc(100% - 165px); }
@@ -1065,7 +1065,7 @@ button.btn.btn_search:hover {
 .btn_input_send {
   text-align: center;
   position: absolute;
-  top: 10px;
+  top: 9px;
   right: 15px;
   display: block;
   width: 26px;
@@ -1603,7 +1603,7 @@ span.send-request {
 
 @media screen and (max-width: 340px) {
   .name_chat {
-    max-width: 112px; } }
+    max-width: 85px; } }
 /* form elements */
 .form-header {
   margin: 7vh 0 5vh;
