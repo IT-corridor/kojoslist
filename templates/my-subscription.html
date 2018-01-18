@@ -35,8 +35,8 @@
                             -
                             {% endif %}
                         </td>
-                        <td><input type="checkbox" disabled="" {% if search.search_title %} checked="" {% endif %}></td>
-                        <td><input type="checkbox" disabled="" {% if search.has_image %} checked="" {% endif %}></td>
+                        <td style="text-align: center;"><input type="checkbox" disabled="" {% if search.search_title %} checked="" {% endif %}></td>
+                        <td style="text-align: center;"><input type="checkbox" disabled="" {% if search.has_image %} checked="" {% endif %}></td>
                         <td>
                             {% if search.category %}
                             {{ search.category.name }}
