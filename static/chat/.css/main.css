@@ -618,7 +618,7 @@ input[type="search"]::-moz-search-cancel-button:after {
   position: relative;
   /* height: calc(100% - 165px);*/
   overflow-y: auto;
-  height: 266px; }
+  height: 246px; }
 
 .l-chat_group .l-chat-content {
   height: calc(100% - 165px); }
