@@ -153,8 +153,7 @@
                             <input type="email" id="from_remail">                                
                         </div>
 
-                        <textarea id="reply-body">                            
-                        </textarea>
+                        <textarea id="reply-body"></textarea>
                         <button class="btn btn-default" id="send_remail">Send</button>
                     </div>
                     <div class="main-product-info">
@@ -258,8 +257,7 @@
             <div class="form-group">
                 <label>Contact Information</label>
                 <small>Please provide email, phone number, address ...</small>
-                <textarea class="form-control" name="contact" rows=4>{{ user.email }}&#13;&#10;{% if user.phone %}{{ user.phone }}{% endif %}&#13;&#10;{% if user.address %}{{ user.address }}{% endif %}
-                </textarea>
+                <textarea class="form-control" name="contact" rows=4>{{ user.email }}&#13;&#10;{% if user.phone %}{{ user.phone }}{% endif %}&#13;&#10;{% if user.address %}{{ user.address }}{% endif %}</textarea>
             </div>            
             <input type="hidden" name="stripeToken" id="stripe_token">
             <input type="hidden" name="checkin" id="pay-checkin">

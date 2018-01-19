@@ -30,7 +30,9 @@
                                         {% else %}
                                             <option value=""> Select Ad Category </option>
                                             {% for mc in mcategories %}
-                                            <option value="{{ mc.id }}" {% if mc.id == post.category.parent_id %}selected{% endif %}>{{ mc.name }}</option>
+                                                {% if mc.name != 'Campaign' %}
+                                                <option value="{{ mc.id }}" {% if mc.id == post.category.parent_id %}selected{% endif %}>{{ mc.name }}</option>
+                                                {% endif %}
                                             {% endfor %}                                        
                                         {% endif %}
                                     </select>
