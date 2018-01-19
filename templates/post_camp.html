@@ -54,7 +54,7 @@
                                             <option value="{{ post.category.parent.id }}"> {{ post.category.parent.name }} </option>
                                         {% else %}
                                             {% for mc in categories %}
-                                            <option {% if not mc.parent %}disabled class="main"{% else %} value="{{ mc.id }}" {% endif %} {% if mc.id == form.category.value %}selected{% endif %}>{{ mc.name }}</option>
+                                            <option {% if not mc.parent %}disabled class="main"{% else %} value="{{ mc.id }}" {% endif %} {% if mc.id == 2 %}selected{% endif %}>{{ mc.name }}</option>
                                             {% endfor %}                                        
                                         {% endif %}
                                     </select>
