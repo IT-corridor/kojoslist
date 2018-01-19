@@ -901,6 +901,7 @@ def post_camp(request, camp_id):
                                     num_avail=request.POST.getlist('perk_avail_num')[ii] or 1000000,
                                     image=filename)
 
+            print(form.errors, '$$$$$$$$')
             return HttpResponseRedirect(reverse('my-campaigns'))
     return render(request, 'post_camp.html', {
         'form': form,
