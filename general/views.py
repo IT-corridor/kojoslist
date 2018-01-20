@@ -876,7 +876,8 @@ def my_campaigns(request):
     campaigns = Campaign.objects.filter(owner=request.user)
 
     return render(request, 'my-campaigns.html', {
-        'campaigns': campaigns
+        'campaigns': campaigns,
+        'mine': True
     })
 
 @login_required(login_url='/accounts/login/')
