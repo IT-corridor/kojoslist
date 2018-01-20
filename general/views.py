@@ -64,7 +64,7 @@ def why_use(request):
 
 @login_required(login_url='/accounts/login/')
 def my_ads(request):
-    posts = Post.objects.filter(owner=request.user)
+    posts = Post.objects.filter(owner=request.user).order_by('-created_at')
     posts = get_posts_with_image(posts)
     return render(request, 'my-ads.html', {'posts': posts})
 

@@ -47,8 +47,10 @@ class MyAccountAdapter(DefaultAccountAdapter):
             params = urllib.urlencode({ "user": 
                 {  'email': email_address.email, 
                    'password': 'kojoslist@123',
-                   'full_name': email_address.user.first_name + ' ' + email_address.user.last_name}})
-            
+                   'login': email_address.user.username,
+                   'full_name': email_address.user.first_name + ' ' + email_address.user.last_name
+                }})
+
             headers = {
                 'QB-Token': token
             }
