@@ -83,7 +83,7 @@
                         <div class="col-md-12">
                             <div class="form-group edit-profile">
                                 <label>Specify City</label>
-                                <select id="ads_city" name="region{% if districts %} _1 {% endif %}" class="form-control edit-post-wrap">
+                                <select id="ads_city" name="region{% if districts %} _1 {% endif %}" class="form-control edit-post-wrap" {% if not districts %} required="" {% endif %}>
                                     <option value="">Select City</option>
                                     {% for cc in cities %}
                                     <option value="{{ cc.id }}" {% if cc.id == post.region_id or cc.id == post.region.district_id or cc.id == post.district_id %}selected{% endif %}>{{ cc.name }}</option>
@@ -93,11 +93,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ads-district row {% if not districts %} hidden {% endif %}">
+                    <div class="ads-district row">
                         <div class="col-md-12">
                             <div class="form-group edit-profile">
                                 <label>Specify District</label>
-                                <select id="ads_district" name="region{% if not districts %} _2 {% endif %}" class="form-control edit-post-wrap">
+                                <select id="ads_district" name="region{% if not districts %} _2 {% endif %}" class="form-control edit-post-wrap" {% if districts %} required="" {% endif %}>
                                     <option value="">Select District</option>
                                     {% for cc in districts %}
                                     <option value="{{ cc.id }}" {% if cc.id == post.region_id %}selected{% endif %}>{{ cc.name }}</option>
@@ -369,20 +369,21 @@
                         type: 'district'
                     },
                     success: function(data) {
+                        $('#ads_district').html(data);
                         if ((data.match(/option/g) || []).length > 2) {
-                            $('#ads_district').html(data);
-                            $('.ads-district').removeClass('hidden');
                             $('#ads_city').attr('name', 'region_1');
+                            $('#ads_city').removeAttr('required');
                             $('#ads_district').attr('name', 'region');
+                            $('#ads_district').addAttr('required', true);
                         } else {
-                            $('.ads-district').addClass('hidden');
                             $('#ads_city').attr('name', 'region');
+                            $('#ads_city').addAttr('required');
                             $('#ads_district').attr('name', 'region_2');
+                            $('#ads_district').removeAttr('required', true);
                         }
                     }
                 });                
             } else {
-                $('.ads-district').addClass('hidden');
                 $('#ads_city').attr('name', 'region');
                 $('#ads_district').attr('name', 'region_2');                
             }

@@ -250,8 +250,9 @@ def post_ads(request, ads_id):
             states = State.objects.filter(country=post.region.state.country)
             cities = City.objects.filter(state=post.region.state, district__isnull=True)    
 
-            if post.region.district:
-                districts = City.objects.filter(district=post.region.district)
+            districts = post.region.districts.all()
+            if post.region.district:    # for districts
+                districts = post.region.district.districts.all()
             
             images = post.images.all()
             detail_template = 'post/{}.html'.format(post.category.form)
@@ -269,11 +270,9 @@ def post_ads(request, ads_id):
                     post['state'] = state
                     cities = City.objects.filter(state__name=state, district__isnull=True)
 
-                if len(loc) > 2:    # city or district id
+                if len(loc) > 2:    # city id
                     city = City.objects.get(id=loc[-1])   
-                    if city.district:
-                        districts = City.objects.filter(district=city.district)
-                        post['district_id'] = city.district.id
+                    districts = city.districts.all()
                     post['region_id'] = city.id
 
         return render(request, 'post_ads.html', locals())
