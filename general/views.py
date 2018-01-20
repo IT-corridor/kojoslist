@@ -577,8 +577,13 @@ def category_ads(request, category_id):
 
     category = Category.objects.get(id=category_id)
 
-    if category.column == 10:   # has dealer class
-        return render(request, 'choose_dealer_class.html', {'category': category})
+    tpl_map = {
+        10: 'choose_dealer_class.html',
+        30: 'disclaimer.html'
+    }
+
+    if category.column in tpl_map:    
+        return render(request, tpl_map[category.column], {'category': category})
     return category_ads_dealer(request, category_id, 'all')
 
 def category_ads_dealer(request, category_id, kind):
