@@ -32,40 +32,39 @@
 {% block own_js %}
 <script>
     jQuery(document).ready(function(){
-        jQuery("body").on("change", ".active_deactive",function(){
-            var status = jQuery(this).val();
-            var ads_id = jQuery(this).data('value');
+        // jQuery("body").on("change", ".active_deactive",function(){
+        //     var status = jQuery(this).val();
+        //     var ads_id = jQuery(this).data('value');
             
-            jQuery.ajax({
-                type: 'post',
-                url: '/active_deactive_ads',
-                dataType:'json',
-                data: {
-                    ads_id:ads_id,
-                    status: status,
-                },
-                success: function (data) {
-                }
-            });
-        });
+        //     jQuery.ajax({
+        //         type: 'post',
+        //         url: '/active_deactive_ads',
+        //         dataType:'json',
+        //         data: {
+        //             ads_id:ads_id,
+        //             status: status,
+        //         },
+        //         success: function (data) {
+        //         }
+        //     });
+        // });
 
-        jQuery("body").on("click", ".ads_post_delete",function(){
+        jQuery("body").on("click", ".camp_post_delete",function(){
             var r = confirm("Do you confirm to delete?");
             if (r == true) {
-                var ads_id = jQuery(this).data('value');
+                var camp_id = jQuery(this).data('value');
                 jQuery.ajax({
                     type: 'post',
-                    url: '/delete_ads',
+                    url: '/delete_camp',
                     dataType:'json',
                     data: {
-                        ads_id: ads_id,
+                        camp_id: camp_id,
                     },
                     success: function (data) {
                         location.reload();
                     }
                 });
-            }
-            
+            }            
         });
     });     
 </script>

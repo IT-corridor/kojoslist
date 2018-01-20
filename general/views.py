@@ -406,6 +406,12 @@ def delete_ads(request):
     Post.objects.filter(id=ads).delete()
     return HttpResponse('')
 
+@csrf_exempt
+def delete_camp(request):
+    camp = request.POST.get('camp_id')
+    Campaign.objects.filter(id=camp).delete()
+    return HttpResponse('')
+
 def view_ads(request, ads_id):
     post = get_object_or_404(Post, pk=ads_id)    
     model = eval(post.category.form)

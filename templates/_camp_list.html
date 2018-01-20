@@ -20,7 +20,10 @@
             <div class="duration"><i class="fa fa-clock-o" aria-hidden="true"></i>
                 {{ post|ramained_days }} days left
             </div>
-            <div class="camp-link">{{ request.get_host }}/campaigns/{{ post.id }}</div>
+            <div class="camp-link">
+                {{ request.get_host }}/campaigns/{{ post.id }}
+                <a class="camp_post_delete pull-right" data-value="{{ post.id }}" href="#"><i class="fa fa-trash"></i></a>
+            </div>
         </div>
     </div>
     </a>

@@ -985,3 +985,9 @@ span.num-guests.open {
 .collapse.in {
     display: block !important;
 }
+
+.camp_post_delete {
+    font-size: 18px;
+    margin-right: 5px;
+    color: darkblue;    
+}
