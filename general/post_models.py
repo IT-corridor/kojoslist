@@ -196,7 +196,7 @@ class OfficePost(Post):
 
 class BuyGigPost(Post):
     direct_contact_by_recruiters_is_okay = models.BooleanField()
-    compensation = models.CharField(max_length=200)
+    compensation = models.CharField(max_length=200, null=True, blank=True)
     pay = models.BooleanField()
 
 
