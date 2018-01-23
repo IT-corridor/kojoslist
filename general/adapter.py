@@ -43,15 +43,19 @@ class MyAccountAdapter(DefaultAccountAdapter):
             token = res['session']['token']
             print token
 
-            # 2. login
-            params = urllib.urlencode({ "user": 
+            # 2. signup
+            users = { "user": 
                 {  'email': email_address.email, 
                    'password': 'kojoslist@123',
-                   'login': email_address.user.username,
                    'full_name': email_address.user.first_name + ' ' + email_address.user.last_name
-                }})
+                }
+            }
+
+            print users, '#####3'
+            params = json.dumps(users)
 
             headers = {
+                'Content-type': 'application/json',
                 'QB-Token': token
             }
 
