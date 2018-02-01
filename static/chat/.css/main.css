@@ -616,12 +616,12 @@ input[type="search"]::-moz-search-cancel-button:after {
 
 .l-chat-content {
   position: relative;
-  height: calc(100% - 165px);
+  height: calc(100% - 148px);
   overflow-y: auto;
   /*height: 246px;*/ }
 
 .l-chat_group .l-chat-content {
-  height: calc(100% - 147px); }
+  height: calc(100% - 165px); }
 
 .is-request .l-chat-content {
   height: calc(100% - 50px); }
