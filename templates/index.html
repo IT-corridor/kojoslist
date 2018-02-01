@@ -181,7 +181,7 @@
                     </div>
                 </div>
                 <div class="site-info">
-                    &copy Copyright 2017 GlobalBoard </div>
+                    &copy Copyright 2018 GlobalBoard </div>
                 <!-- .site-info -->
         </footer>
         <!-- .site-footer -->
@@ -190,4 +190,13 @@
     </div>
     <!-- .site -->
     
+{% endblock %}
+
+{% block extra_js %} 
+<script type="text/javascript">
+    var mode = '{{ request.GET.q }}';
+    console.log(mode);
+    if (mode != '')
+        parent.location.href = '/?q='+mode;
+</script>
 {% endblock %}

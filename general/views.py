@@ -35,7 +35,8 @@ get_class = lambda x: globals()[x]
 stripe.api_key = settings.STRIPE_KEYS['API_KEY']
 
 def index(request):
-    return render(request, 'wraper.html')
+    next = request.GET.get('q', '/home')
+    return render(request, 'wraper.html', { 'next': next })
 
 def home(request):
     rndr_str = globoard_display_world_countries()
@@ -327,7 +328,7 @@ def post_ads(request, ads_id):
 
 def ulogout(request):
     logout(request)
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect('/home?q=/home')
 
 def get_sub_info(request):
     """

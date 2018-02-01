@@ -24,7 +24,7 @@
                             <div class="logo-section clearfix">
 
                                 <div class="navbar-brand-profile">
-                                    <a href="/" class="custom-logo-link" rel="home" itemprop="url"><img width="240" height="67" src="/static/img/cropped-logo.png" class="custom-logo" alt="" itemprop="logo" /></a>
+                                    <a href="/home" class="custom-logo-link" rel="home" itemprop="url"><img width="240" height="67" src="/static/img/cropped-logo.png" class="custom-logo" alt="" itemprop="logo" /></a>
                                 </div>
                             </div>
                             <!-- End Logo Section -->
@@ -134,18 +134,6 @@
         </div>
     </div>
 </div>
-
-{% if user.is_authenticated %}
-<!-- <div class="chat-wrapper">
-    <div class="chat-header">
-        <div class="chat-title"><i class="fa fa-comments"></i> Chat</div>
-        <div class="chat-close"><i class="fa fa-window-maximize"></i><i class="fa fa-window-minimize hidden"></i></div>
-    </div>
-    <div class="chat-body">
-        <iframe class="chat-frame" src="/static/chat/index.html?uid={{ user.email }}"></iframe>
-    </div>
-</div> -->
-{% endif %}
 
 {% endblock %} 
 
