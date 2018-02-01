@@ -27,7 +27,8 @@ urlpatterns = [
 
 
 urlpatterns += [
-    url(r"^$", home, name="home"),
+    url(r"^$", index, name="index"),
+    url(r"^home$", home, name="home"),
     url(r"^delete_ads$", delete_ads, name="delete_ads"),
     url(r"^delete_camp$", delete_camp, name="delete_camp"),
     url(r"^breadcrumb$", breadcrumb, name="breadcrumb"),

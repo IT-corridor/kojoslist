@@ -34,6 +34,9 @@ from general.utils import send_email, send_SMS
 get_class = lambda x: globals()[x]
 stripe.api_key = settings.STRIPE_KEYS['API_KEY']
 
+def index(request):
+    return render(request, 'wraper.html')
+
 def home(request):
     rndr_str = globoard_display_world_countries()
     return render(request, 'index.html', {'rndr_str': rndr_str})
