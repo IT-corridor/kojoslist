@@ -715,6 +715,7 @@ input.verify_code {
     height: 100%;
     border: 1px solid #cbcbcb;
     z-index: 5;
+    margin-top: -5px;
 }
 
 .chat-wrapper {
@@ -739,7 +740,7 @@ input.verify_code {
 }
 
 .chat-header {
-    height: 47px;
+    height: 42px;
     width: 100%;
     background: #4080ff;
     border-radius: 7px 7px 0 0;
