@@ -599,7 +599,8 @@ def category_ads_dealer(request, category_id, kind):
     category = Category.objects.get(id=category_id)
     form = get_class(category.form+'Form')
     posts = Post.objects.filter(Q(region=region) | Q(region__district=region)) \
-                        .filter(category_id=category_id).exclude(status='deactive')
+                        .filter(category_id=category_id).exclude(status='deactive') \
+                        .order_by('-created_at')
     if kind == 'owner':
         posts = posts.filter(by_dealer=False)
     elif kind == 'dealer':
@@ -658,7 +659,7 @@ def region_ads(request, region_id, region):
     elif region == 'world':
         posts = Post.objects.all()
 
-    posts = get_posts_with_image(posts.exclude(status='deactive'))
+    posts = get_posts_with_image(posts.exclude(status='deactive').order_by('-created_at'))
     breadcrumb = '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>'
     breadcrumb = request.session.get('breadcrumb', breadcrumb)
 
