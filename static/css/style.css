@@ -6003,12 +6003,21 @@ div.userpro-head{
 
 @media screen and (max-width: 375px){
     .btn-reply {
-        margin-left: 0;
+        margin-left: 0 !important;
     }
 
     .star-profile-name {
-        padding-left: 15px;        
+        padding-left: 15px important;        
     }
+
+    .username_on_detail {
+        width: 120px;
+        height: 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
 }
 
 @media screen and (max-width: 320px){
@@ -6018,10 +6027,6 @@ div.userpro-head{
 
     .username_on_detail {
         width: 100px;
-        height: 15px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
     }
 }
 
