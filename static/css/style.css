@@ -6001,11 +6001,28 @@ div.userpro-head{
 
 }
 
-@media screen and (max-width: 320px){
-	.hedle_zoom .btn-view-all-center{
-		left: 14%;
-	}
+@media screen and (max-width: 375px){
+    .btn-reply {
+        margin-left: 0;
+    }
 
+    .star-profile-name {
+        padding-left: 15px;        
+    }
+}
+
+@media screen and (max-width: 320px){
+    .hedle_zoom .btn-view-all-center{
+        left: 14%;
+    }
+
+    .username_on_detail {
+        width: 100px;
+        height: 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 }
 
 
