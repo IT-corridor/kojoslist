@@ -34,11 +34,11 @@ from general.utils import send_email, send_SMS
 get_class = lambda x: globals()[x]
 stripe.api_key = settings.STRIPE_KEYS['API_KEY']
 
-def index(request):
-    next = request.GET.get('q', '/home')
-    return render(request, 'wraper.html', { 'next': next })
+# def index(request):
+#     next = request.GET.get('q', '/home')
+#     return render(request, 'wraper.html', { 'next': next })
 
-def home(request):
+def index(request):
     rndr_str = globoard_display_world_countries()
     return render(request, 'index.html', {'rndr_str': rndr_str})
 
@@ -328,7 +328,7 @@ def post_ads(request, ads_id):
 
 def ulogout(request):
     logout(request)
-    return HttpResponseRedirect('/home?q=/home')
+    return HttpResponseRedirect('/')
 
 def get_sub_info(request):
     """
@@ -882,7 +882,7 @@ def confirm_phone(request):
 
 @login_required(login_url='/accounts/login/')
 def my_campaigns(request):
-    campaigns = Campaign.objects.filter(owner=request.user)
+    campaigns = Campaign.objects.filter(owner=request.user).order_by('-created_at')
 
     return render(request, 'my-campaigns.html', {
         'campaigns': campaigns,
@@ -927,7 +927,7 @@ def post_camp(request, camp_id):
 
 def explorer_campaigns(request):
     categories = CampCategory.objects.all()
-    campaigns = Campaign.objects.all()[:10]
+    campaigns = Campaign.objects.all().order_by('-created_at')
 
     return render(request, 'campaign-list.html', {
         'categories': categories,

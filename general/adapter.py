@@ -10,9 +10,9 @@ class MyAccountAdapter(DefaultAccountAdapter):
 
     def get_login_redirect_url(self, request):
         default_site = request.user.default_site
-        path = '/home?q=/home'
+        path = '/'
         if default_site:
-            path = "/home?q=/profile"
+            path = "/profile"
         return path
 
     def confirm_email(self, request, email_address):
