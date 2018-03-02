@@ -290,7 +290,7 @@
         }
 
         // change to [required] if not using true option as part of the attribute as it is not really needed.
-        var required = $('[required]'); 
+        var required = $('#post-form [required]'); 
         var error = false;
 
         for(var i = 0; i < required.length; i++) {
@@ -300,7 +300,7 @@
             }
         }
 
-        if(error) {
+        if (error) {
             return false; // stop the form from being submitted.
         }        
     }); 
