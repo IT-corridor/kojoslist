@@ -39,6 +39,7 @@ stripe.api_key = settings.STRIPE_KEYS['API_KEY']
 #     return render(request, 'wraper.html', { 'next': next })
 
 def index(request):
+    print '#####################################################3'
     rndr_str = globoard_display_world_countries()
     return render(request, 'index.html', {'rndr_str': rndr_str})
 
