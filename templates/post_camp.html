@@ -14,7 +14,7 @@
     <div class="content-right-content my-ads row">
         <h2>Post a Campaign</h2>
         <div class="pages">
-            <form method="post" enctype="multipart/form-data" action="">
+            <form method="post" enctype="multipart/form-data" action="" id="post-camp">
                 {% csrf_token %}               
 
                 <div class="col-md-7">
@@ -226,6 +226,23 @@
         $('#video-gallery').append(bbody);
         update_videos();
     });
+
+    $('#post-camp').submit(function(e) {
+        var required = $('#post-camp [required]'); 
+        var error = false;
+
+        for(var i = 0; i < required.length; i++) {
+            if(required[i].value.trim() == '') {
+                required[i].style.backgroundColor = 'rgb(255,155,155)';
+                error = true; // if any inputs fail validation then the error variable will be set to true;     
+            }
+        }
+
+        if (error) {
+            alert('Please provide all information highlighted.');
+            return false; // stop the form from being submitted.
+        }        
+    }); 
 
     function getYoutubeId(url) {
         var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
