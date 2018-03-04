@@ -883,12 +883,15 @@ def confirm_phone(request):
 
 @login_required(login_url='/accounts/login/')
 def my_campaigns(request):
-    campaigns = Campaign.objects.filter(owner=request.user,
-                                        created_at__gte=datetime.datetime.now()) \
-                                .order_by('-created_at')
+    campaigns_ = []
+    campaigns = Campaign.objects.filter(owner=request.user).order_by('-created_at')
+
+    for ii in campaigns:
+        if ii.created_at >= datetime.datetime.now().date() + datetime.timedelta(days=-ii.duration):
+            campaigns_.append(ii)
 
     return render(request, 'my-campaigns.html', {
-        'campaigns': campaigns,
+        'campaigns': campaigns_,
         'mine': True
     })
 
@@ -930,11 +933,16 @@ def post_camp(request, camp_id):
 
 def explorer_campaigns(request):
     categories = CampCategory.objects.all()
-    campaigns = Campaign.objects.filter(created_at__gte=datetime.datetime.now()).order_by('-created_at')
+    campaigns = Campaign.objects.all().order_by('-created_at')
+
+    campaigns_ = []
+    for ii in campaigns:
+        if ii.created_at >= datetime.datetime.now().date() + datetime.timedelta(days=-ii.duration):
+            campaigns_.append(ii)
 
     return render(request, 'campaign-list.html', {
         'categories': categories,
-        'campaigns': campaigns
+        'campaigns': campaigns_
     })
 
 @csrf_exempt
@@ -945,14 +953,18 @@ def search_camps(request):
 
     # if others:
         # .filter(owner=request.user)
-    campaigns = Campaign.objects.filter((Q(title__icontains=keyword) 
+    campaigns = Campaign.objects.filter(Q(title__icontains=keyword) 
                                       | Q(overview__icontains=keyword) 
                                       | Q(tagline__icontains=keyword))
-                                      & Q(created_at__gte=datetime.datetime.now()))
     if category:
         campaigns = campaigns.filter(Q(category=category) | Q(category__parent=category))
 
-    rndr_str = render_to_string('_camp_list.html', {'campaigns': campaigns[:20]})
+    campaigns_ = []
+    for ii in campaigns:
+        if ii.created_at >= datetime.datetime.now().date() + datetime.timedelta(days=-ii.duration):
+            campaigns_.append(ii)
+
+    rndr_str = render_to_string('_camp_list.html', {'campaigns': campaigns_})
     return HttpResponse(rndr_str)
 
 @csrf_exempt
