@@ -883,7 +883,9 @@ def confirm_phone(request):
 
 @login_required(login_url='/accounts/login/')
 def my_campaigns(request):
-    campaigns = Campaign.objects.filter(owner=request.user).order_by('-created_at')
+    campaigns = Campaign.objects.filter(owner=request.user,
+                                        created_at__gte=datetime.datetime.now()) \
+                                .order_by('-created_at')
 
     return render(request, 'my-campaigns.html', {
         'campaigns': campaigns,
@@ -928,7 +930,7 @@ def post_camp(request, camp_id):
 
 def explorer_campaigns(request):
     categories = CampCategory.objects.all()
-    campaigns = Campaign.objects.all().order_by('-created_at')
+    campaigns = Campaign.objects.filter(created_at__gte=datetime.datetime.now()).order_by('-created_at')
 
     return render(request, 'campaign-list.html', {
         'categories': categories,
@@ -943,9 +945,10 @@ def search_camps(request):
 
     # if others:
         # .filter(owner=request.user)
-    campaigns = Campaign.objects.filter(Q(title__icontains=keyword) 
+    campaigns = Campaign.objects.filter((Q(title__icontains=keyword) 
                                       | Q(overview__icontains=keyword) 
                                       | Q(tagline__icontains=keyword))
+                                      & Q(created_at__gte=datetime.datetime.now()))
     if category:
         campaigns = campaigns.filter(Q(category=category) | Q(category__parent=category))
 
