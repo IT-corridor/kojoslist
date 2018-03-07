@@ -85,7 +85,11 @@
                         <div class="num_claimed">
                             {{ perk.num_claimed }} {% if perk.num_avail != 1000000 %}out of {{ perk.num_avail }}{% endif %} claimed
                         </div>
-                        <div class="btn-perk">GET THIS PERK</div>
+                        {% with flag=post|is_expired %} 
+                          {% if not flag %}                
+                            <div><button class="btn-donate">BACK IT</button></div>
+                          {% endif %}
+                        {% endwith %}                        
                     </div>
                 {% endfor %}
                 </div>

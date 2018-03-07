@@ -20,7 +20,7 @@
             <div class="duration"><i class="fa fa-clock-o" aria-hidden="true"></i>
               {% with flag=post|is_expired %} 
                 {% if flag %}                
-                    expired
+                    ended
                 {% else %}
                     {{ post|ramained_days }} days left
                 {% endif %}
