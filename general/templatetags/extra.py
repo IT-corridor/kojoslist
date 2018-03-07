@@ -18,7 +18,11 @@ def raised_percent(campaign, css=False):
 @register.filter
 def ramained_days(campaign):
     return (campaign.created_at + datetime.timedelta(days=campaign.duration) - datetime.datetime.now().date()).days
-    
+
+@register.filter
+def is_expired(campaign):
+    return campaign.created_at + datetime.timedelta(days=campaign.duration) < datetime.datetime.now().date()
+
 @register.filter
 def get_vids(campaign):
     vids = [ii.strip() for ii in campaign.videos.split(',') if ii.strip()]

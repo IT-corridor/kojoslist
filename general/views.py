@@ -39,7 +39,6 @@ stripe.api_key = settings.STRIPE_KEYS['API_KEY']
 #     return render(request, 'wraper.html', { 'next': next })
 
 def index(request):
-    print '#####################################################3'
     rndr_str = globoard_display_world_countries()
     return render(request, 'index.html', {'rndr_str': rndr_str})
 
@@ -891,7 +890,7 @@ def my_campaigns(request):
             campaigns_.append(ii)
 
     return render(request, 'my-campaigns.html', {
-        'campaigns': campaigns_,
+        'campaigns': campaigns,
         'mine': True
     })
 
@@ -935,14 +934,9 @@ def explorer_campaigns(request):
     categories = CampCategory.objects.all()
     campaigns = Campaign.objects.all().order_by('-created_at')
 
-    campaigns_ = []
-    for ii in campaigns:
-        if ii.created_at >= datetime.datetime.now().date() + datetime.timedelta(days=-ii.duration):
-            campaigns_.append(ii)
-
     return render(request, 'campaign-list.html', {
         'categories': categories,
-        'campaigns': campaigns_
+        'campaigns': campaigns
     })
 
 @csrf_exempt

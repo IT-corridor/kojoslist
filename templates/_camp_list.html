@@ -18,7 +18,13 @@
                 <div id="myBar" style="width: {{ post|raised_percent:1 }}%;"></div>
             </div>            
             <div class="duration"><i class="fa fa-clock-o" aria-hidden="true"></i>
-                {{ post|ramained_days }} days left
+              {% with flag=post|is_expired %} 
+                {% if flag %}                
+                    expired
+                {% else %}
+                    {{ post|ramained_days }} days left
+                {% endif %}
+              {% endwith %}
             </div>
             <div class="camp-link">
                 {{ request.get_host }}/campaigns/{{ post.id }}
