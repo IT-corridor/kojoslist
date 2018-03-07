@@ -781,17 +781,17 @@ def create_subscription(request):
             'max_price': request.POST.get('max_price') or None
         })
 
-    # charge for update
-    # card = request.POST.get('stripeToken')
-    # try:
-    #     stripe.Charge.create(
-    #         amount=200,
-    #         currency="usd",
-    #         source=card, # obtained with Stripe.js
-    #         description="Charge for creation of new subscription({})".format(keyword)
-    #     )
-    # except Exception, e:
-    #     print e, 'stripe error ##'
+    # charge for create
+    card = request.POST.get('stripeToken')
+    try:
+        stripe.Charge.create(
+            amount=200,
+            currency="usd",
+            source=card, # obtained with Stripe.js
+            description="Charge for creation of new subscription({})".format(keyword)
+        )
+    except Exception, e:
+        print e, 'stripe error ##'
 
     return HttpResponse('')
 
