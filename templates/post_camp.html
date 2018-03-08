@@ -3,7 +3,7 @@
 
 
 {% block own_css %}
-<!-- <link rel='stylesheet' href='/static/tinymce/tinymce.css' type='text/css' media='all' />  -->
+<link rel='stylesheet' href='/static/croppie/croppie.css' type='text/css' media='all' /> 
 {% endblock %} 
 
 {% block right_content %}
@@ -38,8 +38,12 @@
                                 <label>Overview Image</label>
                             </div>
                             <div class="col-md-8 no-padding">                                
-                                <input type="file" name="over_image" class="form-control edit-post-wrap hidden overview_img"/>
-                                <img class="overview_img_preview img-thumbnail img-responsive" src="/static/img/fill.png">
+                                <a class="btn btn-default upload-avatar overview_img_preview" href="javascript:void();"><i class="fa fa-upload"></i> Choose Image</a>
+                                <input type="file" class="hidden choose_overview"/>
+                                <input type="hidden" name="over_image" id="id_over_image">
+                                <div id="over_image" style="height: 360px; margin-top: 15px; margin-bottom: 24px;" class="col-md-10 no-padding"></div>
+                                <a class="btn btn-success crop-result" href="javascript:void();"><i class="fa fa-save"></i> Save</a>
+                                <div class="clearfix"></div>
                                 <div class="error">
                                     {{ form.over_image.errors }}
                                 </div>
@@ -151,6 +155,7 @@
 
 {% block own_js %}
 <script src="/static/tinymce/tinymce.min.js"></script>
+<script src="/static/croppie/croppie.min.js"></script>
 <script>
     function readURL(input) {
 
@@ -166,6 +171,22 @@
       }
     }
 
+    // chose overview image
+    jQuery("body").on("change", ".choose_overview", function() {
+      var input = this;
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            basic.croppie('bind', {
+                url: e.target.result
+            });
+        }
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    });    
+
     jQuery("body").on("change", ".overview_img", function() {
         readURL(this);
     });    
@@ -174,6 +195,17 @@
         console.log($(this).parent());
         $(this).parent().find('.overview_img').click();
         $(this).parent().find('.error').html('');
+        $(this).parent().find('.choose_overview').click();
+    });
+
+    var basic = $('#over_image').croppie({
+        viewport: {
+            width: 400,
+            height: 300
+        }
+    });
+    basic.croppie('bind', {
+        url: '/static/img/fill.png'
     });
 
     jQuery("body").on("click", ".video_close_img", function() {
@@ -227,6 +259,35 @@
         update_videos();
     });
 
+    $('.crop-result').click(function() {
+        basic.croppie('result', 'blob').then(function(blob) {
+            var input = $('.choose_overview')[0],
+                filename = 'default.png';
+
+            if (input.files && input.files[0]) {
+                filename = input.files[0].name;
+                filename = filename.toLowerCase().replace('jpg', 'png').replace('jpeg', 'png');
+            }
+
+            var fd = new FormData();
+            fd.append("images", new File([blob], filename));
+            fd.append("type", 'campaigns');
+
+            jQuery.ajax({
+                type: 'POST',
+                url: '/upload-image',
+                data: fd,
+                contentType: false,
+                dataType: "json",
+                processData: false,
+                success: function(response) {
+                    $('#id_over_image').val(response.image_name);
+                    alert('Overview image saved successfully.')
+                }
+            });
+        });
+    });
+
     $('#post-camp').submit(function(e) {
         var required = $('#post-camp [required]'); 
         var error = false;
@@ -242,6 +303,19 @@
             alert('Please provide all information highlighted.');
             return false; // stop the form from being submitted.
         }        
+
+        basic.croppie('result', 'blob').then(function(blob) {
+            var input = $('.choose_overview'),
+                filename = 'default.png';
+
+            if (input.files && input.files[0]) {
+                filename = input.files[0].name;
+            }
+            blob.lastModifiedDate = new Date();
+            blob.name = filename;
+            $('#id_over_image').val(blob);
+            console.log(blob);  
+        });
     }); 
 
     function getYoutubeId(url) {

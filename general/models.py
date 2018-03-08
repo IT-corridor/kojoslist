@@ -246,7 +246,7 @@ class Campaign(models.Model):
     category = models.ForeignKey(CampCategory)
     budget = models.IntegerField()
     raised = models.IntegerField(default=0)
-    over_image = models.ImageField(upload_to="campaigns")
+    over_image = models.CharField(max_length=200)
     overview = models.TextField()
     content = models.TextField()
     stage = models.CharField(max_length=200, choices=STAGES)
