@@ -42,7 +42,7 @@
                                 <a class="btn btn-success crop-result" href="javascript:void();"><i class="fa fa-save"></i> Save</a>
                                 <input type="file" class="hidden choose_overview"/>
                                 <input type="hidden" name="over_image" id="id_over_image">
-                                <div id="over_image" style="height: 360px; margin-top: 15px; margin-bottom: 24px;" class="col-md-10 no-padding"></div>
+                                <div id="over_image" class="col-md-10 no-padding"></div>
                                 <div class="clearfix"></div>
                                 <div class="error">
                                     {{ form.over_image.errors }}
@@ -198,12 +198,16 @@
         $(this).parent().find('.choose_overview').click();
     });
 
+    var viewport = { width: 400, height: 300 };
+    if ($(window).width() < 500) {
+        width = $(window).width() - 70;
+        viewport = { width: width, height: width * 0.75 };
+    }
+
     var basic = $('#over_image').croppie({
-        viewport: {
-            width: 400,
-            height: 300
-        }
+        viewport: viewport
     });
+
     basic.croppie('bind', {
         url: '/static/img/fill.png'
     });

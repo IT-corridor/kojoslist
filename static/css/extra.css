@@ -673,6 +673,18 @@ input.verify_code {
     cursor: pointer;
 }
 
+#over_image {
+    height: 360px; 
+    margin-top: 15px; 
+    margin-bottom: 24px;
+}
+
+@media screen and (max-width: 500px){
+    #over_image {
+        height: 240px; 
+    }
+}
+
 @media screen and (max-width: 768px){
     .col-md-24 {
         margin-left: 10%;
