@@ -39,10 +39,10 @@
                             </div>
                             <div class="col-md-8 no-padding">                                
                                 <a class="btn btn-default upload-avatar overview_img_preview" href="javascript:void();"><i class="fa fa-upload"></i> Choose Image</a>
+                                <a class="btn btn-success crop-result" href="javascript:void();"><i class="fa fa-save"></i> Save</a>
                                 <input type="file" class="hidden choose_overview"/>
                                 <input type="hidden" name="over_image" id="id_over_image">
                                 <div id="over_image" style="height: 360px; margin-top: 15px; margin-bottom: 24px;" class="col-md-10 no-padding"></div>
-                                <a class="btn btn-success crop-result" href="javascript:void();"><i class="fa fa-save"></i> Save</a>
                                 <div class="clearfix"></div>
                                 <div class="error">
                                     {{ form.over_image.errors }}
@@ -303,19 +303,6 @@
             alert('Please provide all information highlighted.');
             return false; // stop the form from being submitted.
         }        
-
-        basic.croppie('result', 'blob').then(function(blob) {
-            var input = $('.choose_overview'),
-                filename = 'default.png';
-
-            if (input.files && input.files[0]) {
-                filename = input.files[0].name;
-            }
-            blob.lastModifiedDate = new Date();
-            blob.name = filename;
-            $('#id_over_image').val(blob);
-            console.log(blob);  
-        });
     }); 
 
     function getYoutubeId(url) {
