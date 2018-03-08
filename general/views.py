@@ -366,6 +366,7 @@ def upload_image(request):
         _type = _type + '/' 
 
     fs = FileSystemStorage()
+    print myfile.size, '@@@@@@@@@@@@@@@'
     filename = fs.save(_type+myfile.name, myfile)
     uploaded_file_url = fs.url(filename)
     res = {"image_url": uploaded_file_url,"image_name": uploaded_file_url.split('/')[-1]}
