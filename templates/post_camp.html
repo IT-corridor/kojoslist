@@ -274,7 +274,8 @@
             }
 
             var fd = new FormData();
-            fd.append("images", new File([blob], filename));
+            // fd.append("images", new File([blob], filename));
+            fd.append("images", blob);
             fd.append("type", 'campaigns');
 
             jQuery.ajax({
