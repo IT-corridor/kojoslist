@@ -53,7 +53,7 @@
                     <div class="clearfix"></div>
                     {% if post.category.form == 'ShortTermPost' %}
                     <div class="col-md-7 col-md-offset-2 cart m-t-20" style="border: solid 1px #aaa; padding: 15px;">
-                        <h4 style="margin: 20px auto;"><span style="font-size: 28px;font-weight: 500;">${{ post.price|floatformat:2|intcomma }}</span> per night</h4>
+                        <h4 style="margin: 20px auto;"><span style="font-size: 28px;font-weight: 500;">${{ post.price|mul:30|floatformat:2|intcomma }}</span> per month</h4>
                         <hr>
 
                         <h5>Dates</h5>

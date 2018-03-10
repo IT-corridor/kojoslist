@@ -16,6 +16,10 @@ def raised_percent(campaign, css=False):
     return percent
 
 @register.filter
+def mul(value, arg):
+    return value * arg
+
+@register.filter
 def ramained_days(campaign):
     return (campaign.created_at + datetime.timedelta(days=campaign.duration) - datetime.datetime.now().date()).days
 
