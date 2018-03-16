@@ -352,6 +352,12 @@
         displayOnly: true
     });
 
+    {% if post.category.form == 'ShortTermPost' %}    
+    var is_total_ready = false;
+    {% else %}
+    var is_total_ready = true;
+    {% endif %}
+    
     {% if post.price %}
         var transaction = '{{ result }}';
         if (transaction)
@@ -558,12 +564,6 @@
     var service_fee = {{ post.service_fee }};
     var room_fee = {{ post.price }};
 
-    {% if post.category.form == 'ShortTermPost' %}    
-    var is_total_ready = false;
-    {% else %}
-    var is_total_ready = true;
-    {% endif %}
-    
     $('.num-guests').click(function() {
         $(this).toggleClass('open');
         $('.guests-detail').toggleClass('hidden');

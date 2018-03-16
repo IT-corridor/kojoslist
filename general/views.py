@@ -626,9 +626,9 @@ def send_friend_email(request):
     ads_id = request.POST.get('ads_id')
     post = Post.objects.get(id=ads_id)
     content = """
-        {} forwarded you this from craigslist:<br><br>
+        {} forwarded you this from Global Board:<br><br>
         <h3>{}</h3><br><br>
-        http://18.216.225.192/ads/{}
+        http://www.globalboard.world/ads/{}
         """.format(from_email, post.title, post.id)
 
     send_email(settings.FROM_EMAIL, post.title, to_email, content)
