@@ -266,7 +266,10 @@ def post_ads(request, ads_id):
             detail_template = 'post/Post.html'
 
             if request.user.default_site:
-                country = request.user.default_site.split('/')[1].upper()
+                if '/' in request.user.default_site:
+                    country = request.user.default_site.split('/')[1].upper()
+                else:
+                    country = ''
                 post['country'] = country       # country sortname
                 states = State.objects.filter(country__sortname=country)
                 loc = request.user.default_site.split('@')
