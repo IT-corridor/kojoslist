@@ -83,14 +83,15 @@ def search_ads(request):
     q = Q(title__icontains=keyword)
     if 'ck_search_title' not in request.POST:
         q = (Q(title__icontains=keyword) | Q(content__icontains=keyword))
-    q &= (Q(region_id=request.session['region']) | Q(region__district__id=request.session['region']))
+    if request.session['region']:
+        q &= (Q(region_id=request.session['region']) | Q(region__district__id=request.session['region']))
 
     if not others:
         q &= Q(owner=request.user)
 
     for key, value in request.POST.iteritems():
         if value and key not in ['model', 'keyword', 'others', 'csrfmiddlewaretoken', 'view_mode'] \
-        and key[:3] != 'ck_':
+        and key[:3] != 'ck_' and value != None:
             q &= Q(**{key: value})
     
     if model:   # search on specific category page
