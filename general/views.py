@@ -451,7 +451,7 @@ def view_ads(request, ads_id):
                 'end': checkout,
                 'avail': False,
                 'color': '#ff9800',
-                'url': 'http://{}/user_show/{}'.format(settings.ALLOWED_HOSTS[0], request.user.id),
+                'url': '{}/user_show/{}'.format(settings.MAIN_URL, request.user.id),
                 'title': '{} {} - {}/{}/{}'.format(request.user.first_name, 
                                                  request.user.last_name,
                                                  adults,
@@ -491,7 +491,6 @@ def view_ads(request, ads_id):
                                         contact=contact,
                                         transaction=charge.id)
         except Exception as e:
-            raise e
             print e, '@@@@@ Error in view_ads()'
 
     return render(request, 'ads_detail.html', {
@@ -620,10 +619,10 @@ def send_friend_email(request):
     ads_id = request.POST.get('ads_id')
     post = Post.objects.get(id=ads_id)
     content = """
-        {} forwarded you this from Global Board:<br><br>
-        <h3>{}</h3><br><br>
-        http://www.globalboard.world/ads/{}
-        """.format(from_email, post.title, post.id)
+        {1} forwarded you this from Global Board:<br><br>
+        <h3>{2}</h3><br><br>
+        {0}/ads/{3}
+        """.format(settings.MAIN_URL, from_email, post.title, post.id)
 
     send_email(settings.FROM_EMAIL, post.title, to_email, content)
     return HttpResponse('')
@@ -637,9 +636,8 @@ def send_reply_email(request):
 
     subject = 'Reply to ' + post.title
     content = """
-        {} <br><br>Original post: 
-        http://18.216.225.192/ads/{}
-        """.format(content, post.id)
+        {1} <br><br>Original post: {0}/ads/{2}
+        """.format(settings.MAIN_URL, content, post.id)
 
     # print (from_email, subject, post.owner.email, content)
     send_email(from_email, subject, post.owner.email, content)
@@ -862,9 +860,9 @@ def upload_id(request):
     id_photo = request.POST.get('id_photo')
     request.user.v_statue = 'awaiting_approve'
     # send an email to administrator
-    content = """user {} uploaded his ID.<br> Please check and approve it 
-                 <a href="http://18.216.225.192/admin/general/customer/{}/change/">here</a>.                 
-    """.format(request.user.username, request.user.id)
+    content = """user {1} uploaded his ID.<br> Please check and approve it 
+                 <a href="{0}/admin/general/customer/{2}/change/">here</a>.                 
+    """.format(settings.MAIN_URL, request.user.username, request.user.id)
 
     send_email(settings.FROM_EMAIL, 'Verification Submitted', settings.ADMIN_EMAIL, content)
     request.user.id_photo = 'ID/' + id_photo
