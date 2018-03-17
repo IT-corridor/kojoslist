@@ -25,6 +25,7 @@ from django.template.loader import render_to_string
 from django.db.models import Q
 from django.db.models import Count
 from django.apps import apps
+from allauth.socialaccount.models import *
 
 from general.models import *
 from general.post_models import *
@@ -462,29 +463,23 @@ def view_ads(request, ads_id):
 
         try:
             if optpay == "direct":
-                stripe_account_id = '' 
-                # SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
-                app_fee = 0.3
-
+                stripe_account_id = SocialAccount.objects.get(user=post.owner, provider='stripe').uid
                 charge = stripe.Charge.create(
                     amount=amount,
                     currency="usd",
                     source=card, # obtained with Stripe.js
-                    # destination=stripe_account_id,
-                    # application_fee = int(amount * app_fee),                
+                    destination=stripe_account_id,
+                    application_fee = int(amount * settings.APP_FEE),                
                     description="Direct pay to the ads (#{} - {})".format(post.id, post.title)
                 )
             else:
-                stripe_account_id = '' 
-                # SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
-                app_fee = 0.3
-
+                stripe_account_id = SocialAccount.objects.get(user=post.owner, provider='stripe').uid
                 charge = stripe.Charge.create(
                     amount=amount,
                     currency="usd",
                     source=card, # obtained with Stripe.js
-                    # destination=stripe_account_id,
-                    # application_fee = int(amount * app_fee),                
+                    destination=stripe_account_id,
+                    application_fee = int(amount * settings.APP_FEE),                
                     description="Escrow for the ads (#{} - {})".format(post.id, post.title)
                 )
 
@@ -496,6 +491,7 @@ def view_ads(request, ads_id):
                                         contact=contact,
                                         transaction=charge.id)
         except Exception as e:
+            raise e
             print e, '@@@@@ Error in view_ads()'
 
     return render(request, 'ads_detail.html', {
@@ -521,16 +517,14 @@ def view_campaign(request, camp_id):
         perk = Perk.objects.filter(id=perk).first()
 
         try:
-            stripe_account_id = '' 
-            # SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
-            app_fee = 0.3
-
+            stripe_account_id = SocialAccount.objects.get(user__id=campaign.owner.id, provider='stripe').uid
+            
             charge = stripe.Charge.create(
                 amount=amount,
                 currency="usd",
                 source=card, # obtained with Stripe.js
-                # destination=stripe_account_id,
-                # application_fee = int(amount * app_fee),                
+                destination=stripe_account_id,
+                application_fee = int(amount * settings.APP_FEE),                
                 description="Contribute to the Campaign (#{} - {})".format(campaign.id, campaign.title)
             )
     
@@ -993,7 +987,6 @@ def release_purchase(request):
 
     # send money to the post's owner
     amount = int(purchase.post.price * 100)
-    app_fee = 0.3
 
     transfer = stripe.Transfer.create(
         amount=amount,
