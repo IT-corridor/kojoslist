@@ -64,5 +64,7 @@ def rangee(start, end):
 
 @register.filter
 def is_like(post, user):
-    flag = Favourite.objects.filter(owner=user, post=post)
-    return 'like' if flag else ''
+    if user.is_authenticated():
+        flag = Favourite.objects.filter(owner=user, post=post)
+        return 'like' if flag else ''
+    return ''
