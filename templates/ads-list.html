@@ -213,6 +213,25 @@
         format: 'H:m'
     });        
 
+    $('.favourite').click(function(e) {
+        e.stopPropagation();
+        var tthis = this;
+        jQuery.ajax({
+            type: 'post',
+            url: '/toggle_favourite',
+            data: {
+                ads_id: $(tthis).data('id'),
+            },
+            success: function(res) {
+                if (res == 'success') {
+                    $(tthis).toggleClass('like');                    
+                } else {
+                    alert('You need to login for saving this in your favourites.');
+                }
+            }
+        });
+        return false;
+    });
 </script>
 
 {% endblock %}

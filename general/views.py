@@ -83,7 +83,7 @@ def search_ads(request):
     q = Q(title__icontains=keyword)
     if 'ck_search_title' not in request.POST:
         q = (Q(title__icontains=keyword) | Q(content__icontains=keyword))
-    if request.session['region']:
+    if request.session.get('region'):
         q &= (Q(region_id=request.session['region']) | Q(region__district__id=request.session['region']))
 
     if not others:

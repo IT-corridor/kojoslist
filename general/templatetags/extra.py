@@ -60,4 +60,9 @@ def disable_dates(post):
 
 @register.filter
 def rangee(start, end):
-	return range(start, end)
+    return range(start, end)
+
+@register.filter
+def is_like(post, user):
+    flag = Favourite.objects.filter(owner=user, post=post)
+    return 'like' if flag else ''
