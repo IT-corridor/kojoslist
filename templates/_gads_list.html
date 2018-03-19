@@ -8,7 +8,16 @@
         <img src="/static/media/{{ post.1 }}" class="overview" />
         <div class="card-body">
             <div class="ctitle">{{ post.0.title }}</div>
-            <div class="tagline">Posted on {{ post.0.created_at|date:'m/d/Y' }}</div>
+            <div class="tagline" style="margin-bottom: 7px;height: 20px;">Posted on {{ post.0.created_at|date:'m/d/Y' }}</div>
+            <div class="category" style="
+                font-size: 13px;
+                font-weight: 500;
+                height: 11px;
+            ">
+            {% if post.0.region %}
+                ( {{ post.0.region.name }}, {{ post.0.region.state.name }} {{ post.0.region.state.country.name }} )
+            {% endif %}            
+            </div>
             <div class="category">{{ post.0.category.name }}</div>
             <div class="budget">
             {% if post.0.price %}
