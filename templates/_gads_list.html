@@ -12,7 +12,7 @@
             <div class="category">{{ post.0.category.name }}</div>
             <div class="budget">
             {% if post.0.price %}
-                ${{ post.0.price }}
+                ${{ post.0.price|floatformat:2|intcomma }}
             {% endif %}
             </div>
         </div>
