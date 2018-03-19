@@ -32,10 +32,12 @@
                 font-weight: 500;
             ">{{ post.0.category.name }}</span>
             <span>Posted on {{ post.0.created_at|date:'m/d/Y' }}</span>
+            {% if post.0.region %}
             <span class="category" style="
                 font-size: 13px;
                 font-weight: 500;
-            ">{{ post.0|address }}</span>
+            ">( {{ post.0.region.name }}, {{ post.0.region.state.name }} {{ post.0.region.state.country.name }} )</span>
+            {% endif %}
         </a>
     </div>
     {% if not others %}
