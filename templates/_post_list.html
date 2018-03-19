@@ -32,6 +32,10 @@
                 font-weight: 500;
             ">{{ post.0.category.name }}</span>
             <span>Posted on {{ post.0.created_at|date:'m/d/Y' }}</span>
+            <span class="category" style="
+                font-size: 13px;
+                font-weight: 500;
+            ">{{ post.0|address }}</span>
         </a>
     </div>
     {% if not others %}

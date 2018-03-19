@@ -5,6 +5,7 @@ from django import template
 from django.db.models import Avg
 
 from general.models import *
+from general.post_models import *
 
 register = template.Library()
 
@@ -67,4 +68,12 @@ def is_like(post, user):
     if user.is_authenticated():
         flag = Favourite.objects.filter(owner=user, post=post)
         return 'like' if flag else ''
+    return ''
+
+@register.filter
+def address(post):
+    if post.category.form == 'ShortTermPost':
+        model = eval(post.category.form)
+        post = model.objects.get(id=post.id)
+        return '{} {}'.format(post.address, post.zip_code)
     return ''
