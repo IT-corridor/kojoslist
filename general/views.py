@@ -79,18 +79,19 @@ def search_ads(request):
     model = request.POST.get('model')
     others = request.POST.get('others') == 'true'
     view_mode = request.POST.get('view_mode')
+    is_world = request.POST.get('is_world')
 
     q = Q(title__icontains=keyword)
     if 'ck_search_title' not in request.POST:
         q = (Q(title__icontains=keyword) | Q(content__icontains=keyword))
-    if request.session.get('region'):
+    if request.session.get('region') and not is_world:
         q &= (Q(region_id=request.session['region']) | Q(region__district__id=request.session['region']))
 
     if not others:
         q &= Q(owner=request.user)
 
     for key, value in request.POST.iteritems():
-        if value and key not in ['model', 'keyword', 'others', 'csrfmiddlewaretoken', 'view_mode'] \
+        if value and key not in ['model', 'keyword', 'others', 'csrfmiddlewaretoken', 'view_mode', 'is_world'] \
         and key[:3] != 'ck_' and value != None:
             q &= Q(**{key: value})
     
@@ -98,15 +99,15 @@ def search_ads(request):
         q &= Q(category_id=request.session['category'])
 
     model = apps.get_model('general', model or 'Post')
-    posts = model.objects.filter(q).exclude(status='deactive')
+    posts = model.objects.filter(q).exclude(status='deactive').order_by('-created_at')
 
     if 'ck_has_image' in request.POST:
-        posts = posts.annotate(img_num=Count('images')).filter(img_num__gt=0)
+        posts = posts.annotate(img_num=Count('images')).filter(img_num__gt=0).order_by('-created_at')
     if 'ck_posted_today' in request.POST:
-        posts = posts.filter(created_at__gte=datetime.datetime.now().date())
+        posts = posts.filter(created_at__gte=datetime.datetime.now().date()).order_by('-created_at')
     
     posts = get_posts_with_image(posts)
-    rndr_str = render_to_string(view_mode, {'posts': posts, 'others': others})
+    rndr_str = render_to_string(view_mode, {'posts': posts, 'others': others}, request=request)
     return HttpResponse(rndr_str)
 
 def get_posts_with_image(posts):
@@ -649,11 +650,13 @@ def send_reply_email(request):
     return HttpResponse('')
 
 def region_ads(request, region_id, region):
+    is_world = False
     if region == 'city':
         posts = Post.objects.filter(Q(region_id=region_id) | Q(region__district__id=region_id))
     elif region == 'state':    
         posts = Post.objects.filter(region__state__id=region_id)
     elif region == 'world':
+        is_world = True
         posts = Post.objects.all()
 
     posts = get_posts_with_image(posts.exclude(status='deactive').order_by('-created_at'))
@@ -664,6 +667,7 @@ def region_ads(request, region_id, region):
         'posts': posts,
         'region': region_id,
         'others': True,
+        'is_world': is_world,
         'breadcrumb': breadcrumb
     })
 

@@ -365,7 +365,7 @@ input.verify_code {
     margin-bottom: 18px;
     height: 36px;
     overflow: hidden;
-    line-height: 18px;    
+    line-height: 18px;
 }
 
 .campaign-card .category {
@@ -379,6 +379,7 @@ input.verify_code {
 
 .campaign-card .budget {
     font-size: 13px;
+    height: 15px;
 }
 
 .campaign-card .budget span.raised {
@@ -397,6 +398,7 @@ input.verify_code {
 .campaign-card .camp-link {
     color: #337ab7;
     margin: 11px 0;
+    font-size: 12px;
 }
 
 #myProgress {

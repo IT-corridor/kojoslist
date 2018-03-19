@@ -28,6 +28,7 @@
             <form method="post" class="search-form">
             {% csrf_token %}
             <input type="hidden" name="others" value="true">
+            <input type="hidden" name="is_world" value="{{ is_world }}">
             <div class="{% if no_subscription %} col-md-10 {% else %} col-md-8 {% endif %} ads_search search">
                 <input type="text" class="search-input ads_search_input" name="keyword" placeholder="Search for ads name...">
             </div>

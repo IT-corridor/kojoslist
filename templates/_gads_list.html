@@ -10,9 +10,11 @@
             <div class="ctitle">{{ post.0.title }}</div>
             <div class="tagline">Posted on {{ post.0.created_at|date:'m/d/Y' }}</div>
             <div class="category">{{ post.0.category.name }}</div>
+            <div class="budget">
             {% if post.0.price %}
-                <div class="budget">${{ post.0.price }}</div>
+                ${{ post.0.price }}
             {% endif %}
+            </div>
         </div>
     </div>
     </a>
