@@ -252,6 +252,11 @@
 <script src="https://checkout.stripe.com/checkout.js"></script>
 <script type="text/javascript" src="/static/fullcalendar/fullcalendar.min.js"></script>
 <script>
+    {% if not stripe_connected %}
+        alert('You need to connect stripe to post ads and get paid for it.');
+        window.location.href = '/my-account';
+    {% endif %}
+
     var price; 
 
     var handler = StripeCheckout.configure({

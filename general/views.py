@@ -245,6 +245,7 @@ def get_regions(request):
 @login_required(login_url='/accounts/login/')
 def post_ads(request, ads_id):
     if request.method == 'GET':
+        stripe_connected = SocialAccount.objects.filter(user=request.user, provider='stripe').exists()
         mcategories = Category.objects.filter(parent__isnull=True).order_by('name')
         countries = Country.objects.all()
         skey = settings.STRIPE_KEYS['PUBLIC_KEY']
