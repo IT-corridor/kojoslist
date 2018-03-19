@@ -380,6 +380,9 @@ input.verify_code {
 .campaign-card .budget {
     font-size: 13px;
     height: 15px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;    
 }
 
 .campaign-card .budget span.raised {
