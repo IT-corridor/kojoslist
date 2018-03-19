@@ -153,6 +153,11 @@
 {% block own_js %}
 <script src="/static/tinymce/tinymce.min.js"></script>
 <script>
+    {% if not stripe_connected %}
+        alert('You need to connect stripe to post ads and get paid for it.');
+        window.location.href = '/my-account';
+    {% endif %}
+        
     function readURL(input) {
 
       if (input.files && input.files[0]) {

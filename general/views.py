@@ -894,6 +894,7 @@ def my_campaigns(request):
 @login_required(login_url='/accounts/login/')
 def post_camp(request, camp_id):
     categories = CampCategory.objects.all()
+    stripe_connected = SocialAccount.objects.filter(user=request.user, provider='stripe').exists()
     if request.method == 'GET':
         form = CampaignForm()
     else:
@@ -924,6 +925,7 @@ def post_camp(request, camp_id):
     return render(request, 'post_camp.html', {
         'form': form,
         'categories': categories,   
+        'stripe_connected': stripe_connected,
         'rng_perks': range(1, 11)
     })
 
