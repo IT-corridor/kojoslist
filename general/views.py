@@ -608,7 +608,8 @@ def category_ads_dealer(request, category_id, kind):
     posts = get_posts_with_image(posts)
     breadcrumb = '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>'
     breadcrumb = request.session.get('breadcrumb', breadcrumb)
-
+    print breadcrumb, '#######'
+    
     return render(request, 'ads-list.html', {
         'posts': posts,
         'region': region,

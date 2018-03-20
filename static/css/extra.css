@@ -402,6 +402,9 @@ input.verify_code {
     color: #337ab7;
     margin: 11px 0;
     font-size: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;    
 }
 
 #myProgress {

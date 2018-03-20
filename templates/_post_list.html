@@ -5,7 +5,7 @@
 <div class="my_add col-md-12 col-xs-12">
     <div class="col-xs-12 col-md-9 title no-padding">
         <a href="/ads/{{ post.0.id }}">
-            <img class="photo" src="/static/media/{{ post.1 }}">
+            <img class="photo" style="margin-right: 10px;" src="/static/media/{{ post.1 }}">
             {% if user != post.0.owner %}
             <div class="favourite {{ post.0|is_like:user }}" style="
                 float: left;
@@ -24,20 +24,21 @@
                     border: 1px solid #aaa;
                     padding: 5px 7px;
                     border-radius: 4px;
-                    margin-left: 10px;
+                    display: inline-block;
                 ">${{ post.0.price|floatformat:2|intcomma }}</span>
             {% endif %}
             <span class="category" style="
                 font-size: 13px;
                 font-weight: 500;
             ">{{ post.0.category.name }}</span>
-            <span>Posted on {{ post.0.created_at|date:'m/d/Y' }}</span>
             {% if post.0.region %}
             <span class="category" style="
                 font-size: 13px;
                 font-weight: 500;
+                padding-left: 3px;
             ">( {{ post.0.region.name }}, {{ post.0.region.state.name }} {{ post.0.region.state.country.name }} )</span>
             {% endif %}
+            <span style="padding-left: 3px;">Posted on {{ post.0.created_at|date:'m/d/Y' }}</span>
         </a>
     </div>
     {% if not others %}

@@ -126,7 +126,7 @@
                             <div class="form-group edit-profile">
                                 <label>Price (in USD)</label>
                                 <input type="number" step="0.01" name="price" class="form-control edit-post-wrap" min="0" value="{{ post.price }}" />
-                                <div style="margin-top: 2px;line-height: 14px;"><small>( price per day for short term rentals and vacation rentals )</small></div>
+                                <div style="margin-top: 2px;line-height: 14px;"><small id="help_shortterm">{% if post.category.form == 'ShortTermPost' %}( price per day ){% endif %}</small></div>
                             </div>
 
                             <div class="form-group edit-profile">
@@ -470,8 +470,16 @@
 
         jQuery('#ads_sub_category').change(function() {
             var obj_id = jQuery(this).val();
+            var obj_val = jQuery("#ads_sub_category option:selected").text();
+
             jQuery('.price-note').hide();
             jQuery('input.update-btn').removeAttr('disabled');
+            
+            if (obj_val == 'short term rentals' || obj_val == 'vacation rentals') {
+                $('#help_shortterm').html('( price per day )');
+            } else {
+                $('#help_shortterm').html('');
+            }
 
             if (obj_id) {
                 jQuery.ajax({
