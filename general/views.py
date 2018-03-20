@@ -121,12 +121,13 @@ def get_posts_with_image(posts):
 def profile(request):
     return render(request, 'profile.html')
 
+@csrf_exempt
 def breadcrumb(request):
-    mapName = request.GET.get('mapName')
-    state = request.GET.get('state').replace('%27', "'") \
+    mapName = request.POST.get('mapName')
+    state = request.POST.get('state').replace('%27', "'") \
                                     .replace('%20', " ")
-    is_state = request.GET.get('is_state')
-    city = request.GET.get('city')
+    is_state = request.POST.get('is_state')
+    city = request.POST.get('city')
     kind = mapName.count('-')
 
     if city:
@@ -608,7 +609,6 @@ def category_ads_dealer(request, category_id, kind):
     posts = get_posts_with_image(posts)
     breadcrumb = '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>'
     breadcrumb = request.session.get('breadcrumb', breadcrumb)
-    print breadcrumb, '#######'
     
     return render(request, 'ads-list.html', {
         'posts': posts,
