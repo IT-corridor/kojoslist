@@ -374,7 +374,11 @@ input.verify_code {
     font-weight: 500;
     text-transform: uppercase;
     margin-bottom: 15px;
-    line-height: 18px;    
+    line-height: 18px;
+    height: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;    
 }
 
 .campaign-card .budget {
