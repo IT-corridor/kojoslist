@@ -1004,3 +1004,14 @@ span.num-guests.open {
     margin-right: 5px;
     color: darkblue;    
 }
+
+.slick-thumb {
+    width: 70px; 
+    height: 70px !important;
+    margin: 2px 1px;
+    cursor: pointer;
+}
+
+.slick-thumb:hover {
+    border: 1px solid gold;
+}

@@ -50,6 +50,13 @@
                             <img class="img-responsive" src="/static/media/dummy.jpg" alt="">
                         {% endif %}
                     </div>
+                    {% if post.images.all %}
+                        <div class="product-img-nav col-md-12" style="margin-bottom: 42px;">
+                            {% for img in post.images.all %}
+                                <img class="slick-thumb" src="/static/media/{{ img.name }}" alt="">
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                     <div class="clearfix"></div>
                     {% if post.category.form == 'ShortTermPost' %}
                     <div class="col-md-7 col-md-offset-2 cart m-t-20" style="border: solid 1px #aaa; padding: 15px;">
@@ -511,12 +518,30 @@
         });        
     });
 
+    // $('.product-img').slick({
+    //     slidesToShow: 1,
+    //     slidesToScroll: 1,
+    //     fade: true,
+    // });
+
+
     $('.product-img').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
+        arrows: false,
         fade: true,
+        asNavFor: '.product-img-nav'
     });
-
+    $('.product-img-nav').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        asNavFor: '.product-img',
+        dots: true,
+        centerMode: true,
+        focusOnSelect: true,
+        variableWidth: true
+    });
+    
 
     $('.date-checkin').datetimepicker({
         format: 'MM/DD/YYYY',
