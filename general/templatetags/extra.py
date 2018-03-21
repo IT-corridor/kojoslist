@@ -61,7 +61,7 @@ def disable_dates(post):
 
 @register.filter
 def rangee(start, end):
-    return range(start, end)
+    return range(start, end+1)
 
 @register.filter
 def is_like(post, user):

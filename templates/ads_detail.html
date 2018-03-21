@@ -570,7 +570,9 @@
     });
 
     var update_cart = function() {
-        var num_guests = +$('#num_adults').val() + +$('#num_children').val();
+        var num_guests = +$('#num_adults').val();
+        if (+$('#num_children').val())
+            num_guests += +$('#num_children').val();
 
         $('.cnt-guests').html(num_guests);
         $('.service-fee').html((num_guests * service_fee).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));

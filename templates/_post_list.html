@@ -12,7 +12,7 @@
                 {% if user != post.0.owner %}
                 <div class="favourite {{ post.0|is_like:user }}" style="
                     float: left;
-                    margin: 0 -2px 0 10px;
+                    margin: 2px -2px 0 10px;
                 " data-id="{{ post.0.id }}">
                     <i class="fa fa-heart-o" aria-hidden="true"></i>
                     <i class="fa fa-heart" aria-hidden="true"></i>
