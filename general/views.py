@@ -161,7 +161,7 @@ def breadcrumb(request):
         args = [mapName, country.name]
 
     html = render_to_string('_breadcrumb.html', locals())
-
+    print html, '@@@@@@@@@@@@'
     request.session['breadcrumb'] = html
     request.session.modified = True
 
@@ -609,7 +609,7 @@ def category_ads_dealer(request, category_id, kind):
     posts = get_posts_with_image(posts)
     breadcrumb = '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>'
     breadcrumb = request.session.get('breadcrumb', breadcrumb)
-    
+    print breadcrumb, '############'
     return render(request, 'ads-list.html', {
         'posts': posts,
         'region': region,

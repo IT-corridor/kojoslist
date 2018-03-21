@@ -39,7 +39,7 @@
             <label>Private Bed</label>
             <select name="private_bed" class="form-control edit-post-wrap" required>
                 <option value="">-</option>
-                <option value="room not private" {% if post.private_bed == "room not private" %}selected{% endif %}>room not private</option>
+                <option value="shared room" {% if post.private_bed == "shared room" %}selected{% endif %}>shared room</option>
                 <option value="private room" {% if post.private_bed == "private room" %}selected{% endif %}>private room</option>
             </select>
         </div>
@@ -49,7 +49,7 @@
             <label>Private Bath</label>
             <select name="private_bath" class="form-control edit-post-wrap" required>
                 <option value="">-</option>
-                <option value="no private bath" {% if post.private_bath == "no private bath" %}selected{% endif %}>no private bath</option>
+                <option value="shared bathroom" {% if post.private_bath == "shared bathroom" %}selected{% endif %}>shared bathroom</option>
                 <option value="private bath" {% if post.private_bath == "private bath" %}selected{% endif %}>private bath</option>
             </select>
         </div>
