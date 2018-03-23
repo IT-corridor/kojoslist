@@ -45,7 +45,15 @@
                     </div>            
                     <div class="duration">
                         <span class="percent"><b>{{ post|raised_percent }}%</b> of ${{ post.budget|intcomma }}</span>
-                        <span class="left-days"> <i class="fa fa-clock-o" aria-hidden="true"></i> {{ post|ramained_days }} days left </span>
+                        <span class="left-days"> <i class="fa fa-clock-o" aria-hidden="true"></i> 
+                          {% with flag=post|is_expired %} 
+                            {% if flag %}                
+                                ended
+                            {% else %}
+                                {{ post|ramained_days }} days left
+                            {% endif %}
+                          {% endwith %}
+                        </span>
                     </div>
                     {% with flag=post|is_expired %} 
                       {% if not flag %}                
