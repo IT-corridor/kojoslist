@@ -123,6 +123,7 @@ def profile(request):
 
 @csrf_exempt
 def breadcrumb(request):
+    session = get_session(request)
     mapName = request.POST.get('mapName')
     state = request.POST.get('state').replace('%27', "'") \
                                     .replace('%20', " ")
@@ -161,11 +162,27 @@ def breadcrumb(request):
         args = [mapName, country.name]
 
     html = render_to_string('_breadcrumb.html', locals())
-    print html, '@@@@@@@@@@@@'
-    request.session['breadcrumb'] = html
-    request.session.modified = True
+    put_session(request, 'breadcrumb', html)
 
     return HttpResponse(html)
+
+def get_session(request):
+    if not request.session.session_key:
+        request.session.create()
+    session, _ = CSession.objects.get_or_create(key=request.session.session_key)
+    return session
+    
+def put_session(request, key, val):
+    session = get_session(request)
+    content = json.loads(session.val)
+    content[key] = val
+    session.val = json.dumps(content)
+    session.save()
+
+def retrieve_session(request, key, default):
+    session = get_session(request)
+    content = json.loads(session.val)
+    return content.get(key, default)
 
 def get_regions(request):
     """
@@ -607,15 +624,15 @@ def category_ads_dealer(request, category_id, kind):
         posts = posts.filter(by_dealer=True)
 
     posts = get_posts_with_image(posts)
-    breadcrumb = '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>'
-    breadcrumb = request.session.get('breadcrumb', breadcrumb)
-    print breadcrumb, '############'
+    breadcrumb_ = '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>'
+    breadcrumb_ = retrieve_session(request, 'breadcrumb', breadcrumb_)
+    
     return render(request, 'ads-list.html', {
         'posts': posts,
         'region': region,
         'category': category,
         'others': True,
-        'breadcrumb': breadcrumb,
+        'breadcrumb': breadcrumb_,
         'skey': settings.STRIPE_KEYS['PUBLIC_KEY']
     })
 
@@ -661,15 +678,15 @@ def region_ads(request, region_id, region):
         posts = Post.objects.all()
 
     posts = get_posts_with_image(posts.exclude(status='deactive').order_by('-created_at'))
-    breadcrumb = '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>'
-    breadcrumb = request.session.get('breadcrumb', breadcrumb)
+    breadcrumb_ = '<a class="breadcrumb-item" href="javascript:void();" data-mapname="custom/world">worldwide</a>'
+    breadcrumb_ = retrieve_session(request, 'breadcrumb', breadcrumb_)
 
     return render(request, 'ads-list.html', {
         'posts': posts,
         'region': region_id,
         'others': True,
         'is_world': is_world,
-        'breadcrumb': breadcrumb
+        'breadcrumb': breadcrumb_
     })
 
 def globoard_display_world_countries(css_class=''):

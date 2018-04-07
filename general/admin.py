@@ -11,6 +11,11 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
+class CSessionAdmin(admin.ModelAdmin):
+    list_display = ['key', 'val']
+    search_fields = ['key', 'val']
+
+
 class CampCategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'parent', 'column']
     search_fields = ['name']
@@ -121,3 +126,4 @@ admin.site.register(CampCategory, CampCategoryAdmin)
 admin.site.register(Campaign)
 admin.site.register(Perk, PerkAdmin)
 admin.site.register(PerkClaim, PerkClaimAdmin)
+admin.site.register(CSession, CSessionAdmin)

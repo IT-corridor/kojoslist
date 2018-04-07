@@ -4,3 +4,4 @@ sendgrid
 django-allauth
 twilio
 stripe
+psycopg2

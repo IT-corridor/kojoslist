@@ -4,6 +4,13 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+class CSession(models.Model):
+    key = models.CharField(max_length=100, primary_key=True)
+    val = models.TextField(default="{}")
+
+    def __str__(self):
+        return self.key
+
 VSTATUS = (
     ('unverified', 'Unverified'),
     ('awaiting_approve', 'Awaiting Approve'),
@@ -48,7 +55,7 @@ class Category(models.Model):
 
 class Country(models.Model):
     sortname = models.CharField(max_length=3)
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
