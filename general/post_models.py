@@ -34,6 +34,14 @@ class SaleGarage(Post):
     include_ads = models.BooleanField()
 
 
+class EventPost(Post):
+    location = models.CharField(max_length=250, blank=True, null=True)
+    start_day = models.CharField(max_length=50)
+    start_time = models.CharField(max_length=50)
+    end_day = models.CharField(max_length=50)
+    end_time = models.CharField(max_length=50)
+
+
 class CarPost(Post):
     model_year = models.IntegerField()
     make_model = models.CharField(max_length=100)

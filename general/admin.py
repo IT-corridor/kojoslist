@@ -8,7 +8,7 @@ from .post_models import *
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'parent', 'column', 'form', 'price']
-    search_fields = ['name']
+    search_fields = ['name', 'form']
 
 
 class CSessionAdmin(admin.ModelAdmin):
@@ -110,6 +110,7 @@ admin.site.register(BuyGigPost)
 admin.site.register(AntiquePost)
 admin.site.register(ShortTermPost)
 admin.site.register(SubletPost)
+admin.site.register(EventPost)
 admin.site.register(AutoWheelPost)
 admin.site.register(RealEstatePost)
 admin.site.register(LicensePost)

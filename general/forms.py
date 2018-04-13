@@ -94,6 +94,12 @@ class AptPostForm(ModelForm):
         fields = '__all__'
 
 
+class EventPostForm(ModelForm):
+    class Meta:
+        model = EventPost
+        fields = '__all__'
+
+
 class RoomPostForm(ModelForm):
     class Meta:
         model = RoomPost
