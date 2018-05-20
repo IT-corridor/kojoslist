@@ -125,7 +125,7 @@
                             </div>
                             <div class="form-group edit-profile">
                                 <label>Price (in USD)</label>
-                                <input type="number" step="0.01" name="price" class="form-control edit-post-wrap" min="0" value="{{ post.price }}" />
+                                <input type="number" step="0.01" id="post-price" name="price" class="form-control edit-post-wrap" min="0" value="{{ post.price }}" />
                                 <div style="margin-top: 2px;line-height: 14px;"><small id="help_shortterm">{% if post.category.form == 'ShortTermPost' %}( price per day ){% endif %}</small></div>
                             </div>
 
@@ -253,11 +253,6 @@
 <script src="https://checkout.stripe.com/checkout.js"></script>
 <script type="text/javascript" src="/static/fullcalendar/fullcalendar.min.js"></script>
 <script>
-    {% if not stripe_connected %}
-        alert('You need to connect stripe to post ads and get paid for it.');
-        window.location.href = '/my-account';
-    {% endif %}
-
     var price; 
 
     var handler = StripeCheckout.configure({
@@ -309,7 +304,15 @@
         if (error) {
             alert('Please provide all information highlighted.');
             return false; // stop the form from being submitted.
-        }        
+        }
+
+        {% if not stripe_connected %}
+            if ($('#post-price').val().trim() != '') {
+                alert('You need to connect stripe to post ads and get paid for it.');
+                window.location.href = '/my-account';
+                return false;
+            }
+        {% endif %}
     }); 
 
     // Close Checkout on page navigation:
