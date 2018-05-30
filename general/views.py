@@ -18,6 +18,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login
 from django.contrib.auth import logout
+from django.utils import timezone
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -70,7 +71,7 @@ def why_use(request):
 @login_required(login_url='/accounts/login/')
 def my_ads(request):
     posts = Post.objects.filter(owner=request.user).order_by('-created_at')
-    posts = get_posts_with_image(posts)
+    posts = get_posts_with_image(posts, True)
     return render(request, 'my-ads.html', {'posts': posts})
 
 @csrf_exempt
@@ -110,12 +111,14 @@ def search_ads(request):
     rndr_str = render_to_string(view_mode, {'posts': posts, 'others': others}, request=request)
     return HttpResponse(rndr_str)
 
-def get_posts_with_image(posts):
+def get_posts_with_image(posts, mine=False):
+    # add expiration filter here
     posts_with_image = []
     for post in posts:
-        image = Image.objects.filter(post=post).first()
-        img_name = image.name if image else 'dummy.jpg'
-        posts_with_image.append((post, img_name))
+        if post.created_at >= timezone.now() + datetime.timedelta(days=-post.category.duration) or mine:
+            image = Image.objects.filter(post=post).first()
+            img_name = image.name if image else 'dummy.jpg'
+            posts_with_image.append((post, img_name))
     return posts_with_image
 
 def profile(request):
