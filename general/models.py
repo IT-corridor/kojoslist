@@ -43,7 +43,7 @@ class Category(models.Model):
     form = models.CharField(max_length=50, default='Post')
     price = models.FloatField(default=0)
     order = models.IntegerField(default=1) # for display
-    duration = models.IntegerField(default=1000) # for display
+    duration = models.IntegerField(default=30) # for display
 
     def __str__(self):
         return self.name
