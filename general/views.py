@@ -115,7 +115,7 @@ def get_posts_with_image(posts, mine=False):
     # add expiration filter here
     posts_with_image = []
     for post in posts:
-        if post.created_at >= timezone.now() + datetime.timedelta(days=-post.category.duration) or mine:
+        if post.updated_at >= timezone.now() + datetime.timedelta(days=-post.category.duration) or mine:
             image = Image.objects.filter(post=post).first()
             img_name = image.name if image else 'dummy.jpg'
             posts_with_image.append((post, img_name))
