@@ -97,7 +97,7 @@ class Post(models.Model):
     price = models.FloatField(default=0, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(blank=True, null=True)
     owner = models.ForeignKey(Customer)
     region = models.ForeignKey(City, blank=True, null=True)
     language = models.CharField(max_length=50, blank=True, null=True)

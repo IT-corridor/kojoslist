@@ -115,7 +115,7 @@ def get_posts_with_image(posts, mine=False):
     # add expiration filter here
     posts_with_image = []
     for post in posts:
-        if post.updated_at >= timezone.now() + datetime.timedelta(days=-post.category.duration) or mine:
+        if post.status != 'expired' or mine:
             image = Image.objects.filter(post=post).first()
             img_name = image.name if image else 'dummy.jpg'
             posts_with_image.append((post, img_name))
@@ -324,6 +324,9 @@ def post_ads(request, ads_id):
 
         if form.is_valid():
             post = form.save()
+            post.updated_at = datetime.datetime.now()
+            post.save()
+            
             pimages = [ii.name for ii in post.images.all()]
 
             # create objects for new images
