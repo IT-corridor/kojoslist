@@ -19,8 +19,8 @@ def main():
         if post.status == 'expired':
             continue
         if post.updated_at <= timezone.now() + datetime.timedelta(days=-post.category.duration):
-            subject = 'Ads Expiration'
-            content = 'Your ads ( {} ) is expired. Please renew it by submitting again here. https://www.globalboard.world/post-ads/{}'.format(post.title, post.id)
+            subject = 'Expired Ad'
+            content = ' You Ad ( {} ) has expired. Click link to renew ad. https://www.globalboard.world/post-ads/{}'.format(post.title, post.id)
             send_email(settings.FROM_EMAIL, subject, post.owner.email, content)
             post.status = 'expired'
             post.save()
