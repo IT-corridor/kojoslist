@@ -309,9 +309,12 @@
 
         {% if not stripe_connected %}
             if ($('#post-price').val().trim() != '') {
-                alert('You need to connect stripe to post ads and get paid for it.');
-                window.location.href = '/my-account';
-                return false;
+                if (confirm("You need to connect stripe to post ads and get paid for it.")) {
+                    window.location.href = '/my-account';
+                    return false;
+                } else {
+                    return false;
+                }
             }
         {% endif %}
     }); 
