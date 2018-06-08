@@ -1,6 +1,7 @@
 {% extends "profile.html" %} 
 {% load socialaccount %}
 {% load staticfiles %} 
+{% load humanize %}
 {% load extra %}
 
 {% block own_css %}
@@ -173,30 +174,58 @@
                 <div id="purchase" class="tab-pane fade">
                     <div class="pages balance">
                         <div class="rv-title">Pending Purchases</div>
+                        <div class="row" style="font-size: 18px; color: #4DBEE2; margin-top: 10px;">
+                            <div class="col-md-4">Title</div>
+                            <div class="col-md-1">Price</div>
+                            <div class="col-md-2">Released Percent</div>
+                            <div class="col-md-3">Transaction Date</div>
+                            <div class="col-md-2">Purchase Type</div>
+                        </div>
                         <hr>
-                        {% for purchase in dpurchases %}
+                        {% if ppurchases %}
+                        {% for purchase in ppurchases %}
                             <div class="row" style="font-size: 18px;">
                                 <div class="col-md-4">{{ purchase.post.title }}</div>
-                                <div class="col-md-1">${{ purchase.post.price }}</div>
-                                <div class="col-md-3">{{ purchase.created_at }}</div>
-                                <div class="col-md-3 pull-right">
-                                    <button class="btn btn-primary btn-release" data-id="{{ purchase.id }}">Release</button>
-                                    <button class="btn btn-warning">Dispute</button>
+                                <div class="col-md-1">${{ purchase.post.price|floatformat:2|intcomma }}</div>
+                                <div class="col-md-2">{{ purchase.paid_percent }}%</div>
+                                <div class="col-md-3">{{ purchase.created_at|date }}</div>
+                                <div class="col-md-2 pull-right">
+                                    <button class="btn btn-primary btn-release" data-amount="{{ purchase.post.price }}" data-percent="{{ purchase.paid_percent }}" data-id="{{ purchase.id }}" data-transaction="{{ purchase.transaction }}" data-post-id="{{ purchase.post.id }}">Release</button>
+                                    <!-- <button class="btn btn-warning">Dispute</button> -->
                                 </div>
                             </div>
                             <hr>
                         {% endfor %}
-                        <div class="rv-title">Finished Purchases</div>
+                        {% else %}
+                            <div class="row" style="font-size: 18px;">
+                                <div class="col-md-4">No record</div>
+                            </div>
+                        {% endif %}
+                        <div class="rv-title" style="margin-top: 36px;">Finished Purchases</div>
+                        <div class="row" style="font-size: 18px; color: #4DBEE2; margin-top: 10px;">
+                            <div class="col-md-4">Title</div>
+                            <div class="col-md-1">Price</div>
+                            <div class="col-md-3">Transaction ID</div>
+                            <div class="col-md-2">Transaction Date</div>
+                            <div class="col-md-2">Purchase Type</div>
+                        </div>
                         <hr>
+                        {% if dpurchases %}
                         {% for purchase in dpurchases %}
                             <div class="row" style="font-size: 18px;">
                                 <div class="col-md-4">{{ purchase.post.title }}</div>
-                                <div class="col-md-1">${{ purchase.post.price }}</div>
-                                <div class="col-md-3">{{ purchase.created_at }}</div>
-                                <div class="col-md-3">{{ purchase.type }}</div>
+                                <div class="col-md-1">${{ purchase.post.price|floatformat:2|intcomma }}</div>
+                                <div class="col-md-3">{{ purchase.transaction }}</div>
+                                <div class="col-md-2">{{ purchase.created_at|date }}</div>
+                                <div class="col-md-2">{{ purchase.type }}</div>
                             </div>
                             <hr>
                         {% endfor %}                    
+                        {% else %}
+                            <div class="row" style="font-size: 18px;">
+                                <div class="col-md-4">No record</div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>                         
             </div>
@@ -227,7 +256,7 @@
                     <label>Message</label>
                     <textarea class="form-control" name="content" rows=4 required=""></textarea>
                 </div>            
-                <input type="hidden" name="post_id" value="{{ post.id }}">
+                <input type="hidden" name="post_id" class="post-id">
           </div>
 
           <div class="modal-footer">
@@ -239,6 +268,42 @@
 
       </div>
     </div>        
+    <div id="release-modal" class="modal fade perk-modal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Release Escrow</h4>
+          </div>
+        <form id="release-form">
+          <div class="modal-body" style="font-size: 16px; line-height: 22px;">
+            <div class="well" style="line-height: 24px;">
+                <p>Total Price: $<span class="ptotal-price">89.99</span></p>
+                <p>Paid Amount: <span class="ppaid-amount">$30</span> ( <span class="ppaid-percent">25%</span> )</p>
+                <p>Transaction: <span class="plast-transaction"></span></p>
+            </div>
+                <h4>Release Amount</h4>
+                <div style="padding: 10px 0;">
+                    <select name="release-amount" class="input-xlarge form-control release-amount">
+                        <option>10 %</option>
+                        <option>20 %</option>
+                        <option>30 %</option>
+                    </select>
+                </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn" style="background-color: #4DBEE2;" id="btn-rate">Continue</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+        </div>
+
+      </div>
+    </div>        
+
 {% endblock %}
 
 {% block load_highcharts_js %}
@@ -248,6 +313,17 @@
 <script src="/static/star-rating/star-rating.min.js"></script>
 
 <script>
+    var purchase_id, post_id;
+
+    $('#rating-input').rating({
+        min: 0,
+        max: 5,
+        step: 0.5,
+        size: 'xs',
+        showClear: false,
+        showCaption: false
+    });
+
     $('#rating-owner').rating({
         min: 0,
         max: 5,
@@ -258,25 +334,67 @@
     });
 
     jQuery(document).ready(function() {
-        // purchase / release management
-        jQuery("body").on("click", ".btn-release", function() {
+        $('#result-modal').on('hidden.bs.modal', function () {
+            location.reload();
+        });
+
+        $('#rate-form').submit(function(e) {
+            e.preventDefault();
+
+            jQuery.ajax({
+                type: 'post',
+                url: '/rate_ads',
+                data: $(this).serialize(),
+                success: function(res) {
+                    alert('Thank you for your rating.');
+                    $('#result-modal').modal('hide');
+                }
+            }); 
+        });
+
+        $('#release-form').submit(function(e) { 
+            e.preventDefault();
             var r = confirm("Do you confirm to release?");
-            var p_id = $(this).data('id');
+            var percent = $('.release-amount').val();
 
             if (r == true) {
                 jQuery.ajax({
                     type: 'post',
                     url: '/release_purchase',
                     data: {
-                        p_id: p_id
+                        p_id: purchase_id,
+                        percent: percent
                     },
                     success: function(res) {
                         $('#transaction_id').html(res);
+                        $('#release-modal').modal('toggle');
+                        $('.post-id').val(post_id);
                         $('#result-modal').modal();
                     }
-                });            
+                });
+            }            
+        });
+        // purchase / release management
+        jQuery("body").on("click", ".btn-release", function() {
+            var amount = $(this).data('amount'),
+                transaction = $(this).data('transaction'),
+                percent = $(this).data('percent'),
+                htmlPercents = '';
 
+            purchase_id = $(this).data('id');
+            post_id = $(this).data('post-id');
+
+            $('.ptotal-price').html(amount);
+            $('.plast-transaction').html(transaction);
+            $('.ppaid-amount').html('$'+(amount * percent / 100).toFixed(2));
+            $('.ppaid-percent').html(percent+'%');
+
+            for (i = 10; i <= 100-parseInt(percent); i+=10) {
+                htmlPercents += "<option value='"+i+"'>"+i+" %</option>";
             }
+
+            $('.release-amount').html(htmlPercents);
+            $('#release-modal').modal();
         });
 
         // profile management        

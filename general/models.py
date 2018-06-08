@@ -136,6 +136,7 @@ class PostPurchase(models.Model):
     transaction = models.CharField(max_length=100)
     status = models.IntegerField(choices=PURCHASE_STATUS, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    paid_percent = models.IntegerField(default=0)   # used in escrow mode (0-100)
 
     def __str__(self):
         return '{} - {}'.format(self.post.title, self.purchaser.username)

@@ -502,23 +502,22 @@ def view_ads(request, ads_id):
                     application_fee = int(amount * settings.APP_FEE),                
                     description="Direct pay to the ads (#{} - {})".format(post.id, post.title)
                 )
+                status = 0  # finished
             else:
-                stripe_account_id = SocialAccount.objects.get(user=post.owner, provider='stripe').uid
                 charge = stripe.Charge.create(
                     amount=amount,
                     currency="usd",
                     source=card, # obtained with Stripe.js
-                    destination=stripe_account_id,
-                    application_fee = int(amount * settings.APP_FEE),                
                     description="Escrow for the ads (#{} - {})".format(post.id, post.title)
                 )
-
+                status = 1  # under escrow
             result = charge.id
 
             PostPurchase.objects.create(post=post,
                                         purchaser=request.user,
                                         type=optpay,
                                         contact=contact,
+                                        status=status,
                                         transaction=charge.id)
         except Exception as e:
             print e, '@@@@@ Error in view_ads()'
@@ -829,10 +828,12 @@ def remove_subscription(request):
 
 @login_required(login_url='/accounts/login/')
 def my_account(request):
+    # finished purchases
     dpurchases = PostPurchase.objects.filter(purchaser=request.user, status=0) \
-                                     .order_by('created_at')
+                                     .order_by('-created_at')
+    # escrow purchases
     ppurchases = PostPurchase.objects.filter(purchaser=request.user).exclude(status=0) \
-                                     .order_by('created_at')
+                                     .order_by('-created_at')
 
     categories = Review.objects.filter(post__owner=request.user) \
                                .values('post__category__name', 'post__category__parent__name', 
@@ -1016,10 +1017,11 @@ def user_show(request, user_id):
 @csrf_exempt
 def release_purchase(request):
     p_id = request.POST.get('p_id')
+    percent = int(request.POST.get('percent'))
     purchase = PostPurchase.objects.get(id=p_id)
 
     # send money to the post's owner
-    amount = int(purchase.post.price * 100)
+    amount = int(purchase.post.price * percent)
 
     transfer = stripe.Transfer.create(
         amount=amount,
@@ -1028,8 +1030,11 @@ def release_purchase(request):
         destination=purchase.post.owner.socialaccount_set.get(provider='stripe').uid,
     )
 
-    purchase.status = 0
-    purchase.transaction = transfer.id
+    # purchase.transaction = transfer.id
+    purchase.paid_percent = purchase.paid_percent + percent
+    if purchase.paid_percent == 100:    # finished purchase
+        purchase.status = 0
+
     purchase.save()
 
     return HttpResponse(transfer.id)
