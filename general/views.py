@@ -453,6 +453,7 @@ def view_ads(request, ads_id):
 
     favourite = False
     result = ''
+    optpay = ''
 
     if request.user.is_authenticated():
         posts = [ii.post.id for ii in Favourite.objects.filter(owner=request.user)]
@@ -527,7 +528,8 @@ def view_ads(request, ads_id):
         'favourite': favourite,
         'reviews': Review.objects.filter(post__id=ads_id),
         'skey': settings.STRIPE_KEYS['PUBLIC_KEY'],
-        'result': result
+        'result': result,
+        'optpay': optpay
     })
 
 def view_campaign(request, camp_id):
@@ -1037,7 +1039,11 @@ def release_purchase(request):
 
     purchase.save()
 
-    return HttpResponse(transfer.id)
+    result = {
+        "transaction": transfer.id,
+        "finished": purchase.paid_percent == 100
+    }
+    return JsonResponse(result, safe=False)
     
 @csrf_exempt    
 def update_alert(request):

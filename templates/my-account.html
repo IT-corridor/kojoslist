@@ -253,7 +253,7 @@
                     <input id="rating-input" name="rating" type="text" title="" value="5"/>
                 </div>
                 <div class="form-group">
-                    <label>Message</label>
+                    <label style="margin-top: 16px;margin-bottom: 7px;">Leave Review</label>
                     <textarea class="form-control" name="content" rows=4 required=""></textarea>
                 </div>            
                 <input type="hidden" name="post_id" class="post-id">
@@ -366,10 +366,15 @@
                         percent: percent
                     },
                     success: function(res) {
-                        $('#transaction_id').html(res);
                         $('#release-modal').modal('toggle');
-                        $('.post-id').val(post_id);
-                        $('#result-modal').modal();
+                        if (res.finished) {
+                            $('#transaction_id').html(res.transaction);
+                            $('.post-id').val(post_id);
+                            $('#result-modal').modal();                            
+                        } else {
+                            alert('Thank you for your payment.');
+                            location.reload();
+                        }
                     }
                 });
             }            
