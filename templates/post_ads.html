@@ -309,10 +309,8 @@
 
         {% if not stripe_connected %}
             if ($('#post-price').val().trim() != '') {
-                if (confirm("You need to connect stripe to post ads and get paid for it.")) {
+                if (confirm("You need to connect stripe or bank to get paid after post ads.\nClick ok to connect or click cancel to continue to submit.")) {
                     window.location.href = '/my-account';
-                    return false;
-                } else {
                     return false;
                 }
             }
