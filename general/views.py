@@ -514,23 +514,18 @@ def view_ads(request, ads_id):
                 status = 1  # under escrow
             result = charge.id
 
-            PostPurchase.objects.create(post=post,
-                                        purchaser=request.user,
-                                        type=optpay,
-                                        contact=contact,
-                                        status=status,
-                                        transaction=charge.id)
+            purchase = PostPurchase.objects.create(post=post,
+                                                   purchaser=request.user,
+                                                   type=optpay,
+                                                   contact=contact,
+                                                   status=status,
+                                                   transaction=charge.id)
         except Exception as e:
             print e, '@@@@@ Error in view_ads()'
 
-    return render(request, 'ads_detail.html', {
-        'post': post,
-        'favourite': favourite,
-        'reviews': Review.objects.filter(post__id=ads_id),
-        'skey': settings.STRIPE_KEYS['PUBLIC_KEY'],
-        'result': result,
-        'optpay': optpay
-    })
+    reviews = Review.objects.filter(post__id=ads_id)
+    skey = settings.STRIPE_KEYS['PUBLIC_KEY']
+    return render(request, 'ads_detail.html', locals())
 
 def view_campaign(request, camp_id):
     campaign = Campaign.objects.get(id=camp_id)
@@ -995,6 +990,7 @@ def search_camps(request):
 def rate_ads(request):
     Review.objects.create(post_id=request.POST.get('post_id'),
                           rater=request.user,
+                          purchase_id=request.POST.get('purchase_id'),
                           rating=request.POST.get('rating'),
                           content=request.POST.get('content'))
 

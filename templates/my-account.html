@@ -218,7 +218,9 @@
                                 <div class="col-md-2">{{ purchase.created_at|date:"M d, Y" }}</div>
                                 <div class="col-md-1">{{ purchase.type|title }}</div>
                                 <div class="col-md-1">
-                                    <button class="btn btn-warning">Rate</button>
+                                    {% if purchase|can_rate %}
+                                        <button class="btn btn-warning btn-rate-later" data-id="{{ purchase.id }}" data-transaction="{{ purchase.transaction }}" data-post-id="{{ purchase.post.id }}">Rate</button>
+                                    {% endif %}
                                 </div>
                             </div>
                             <hr>
@@ -249,6 +251,7 @@
             <div class="well">
                 <p>Thank you for your purchase</p>
                 <p>Transaction ID: <span id="transaction_id">{{ result }}</span></p>
+                <p style="margin-top: 15px;">You have 30 days to review the user.</p>
             </div>
                 <h4>Please rate the item</h4>
                 <div style="padding: 10px 0;">
@@ -259,6 +262,7 @@
                     <textarea class="form-control" name="content" rows=4 required=""></textarea>
                 </div>            
                 <input type="hidden" name="post_id" class="post-id">
+                <input type="hidden" name="purchase_id" class="purchase-id">
           </div>
 
           <div class="modal-footer">
@@ -297,7 +301,7 @@
           </div>
 
           <div class="modal-footer">
-            <button type="submit" class="btn" style="background-color: #4DBEE2;" id="btn-rate">Continue</button>
+            <button type="submit" class="btn" style="background-color: #4DBEE2;" id="btn-release-confirm">Continue</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </form>
@@ -354,6 +358,13 @@
             }); 
         });
 
+        jQuery("body").on("click", ".btn-rate-later", function() {
+            $('#transaction_id').html($(this).data('transaction'));
+            $('.post-id').val($(this).data('post-id'));
+            $('.purchase-id').val($(this).data('id'));
+            $('#result-modal').modal();
+        });
+
         $('#release-form').submit(function(e) { 
             e.preventDefault();
             var r = confirm("Do you confirm to release?");
@@ -372,7 +383,8 @@
                         if (res.finished) {
                             $('#transaction_id').html(res.transaction);
                             $('.post-id').val(post_id);
-                            $('#result-modal').modal();                            
+                            $('.purchase-id').val(purchase_id);
+                            $('#result-modal').modal();
                         } else {
                             alert('Thank you for your payment.');
                             location.reload();

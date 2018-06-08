@@ -136,6 +136,7 @@ class PostPurchase(models.Model):
     transaction = models.CharField(max_length=100)
     status = models.IntegerField(choices=PURCHASE_STATUS, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    udpated_at = models.DateTimeField(auto_now=True)
     paid_percent = models.IntegerField(default=0)   # used in escrow mode (0-100)
 
     def __str__(self):
@@ -148,6 +149,7 @@ class Review(models.Model):
     """
     post = models.ForeignKey(Post)
     rater = models.ForeignKey(Customer)
+    purchase = models.ForeignKey(PostPurchase, null=True)
     rating = models.FloatField()
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

@@ -3,6 +3,7 @@ import datetime
 
 from django import template
 from django.db.models import Avg
+from django.utils import timezone
 
 from general.models import *
 from general.post_models import *
@@ -77,3 +78,9 @@ def address(post):
         post = model.objects.get(id=post.id)
         return '{} {}'.format(post.address, post.zip_code)
     return ''
+
+@register.filter
+def can_rate(purchase):
+    flag = not purchase.udpated_at or purchase.udpated_at >= timezone.now() + datetime.timedelta(days=-30)
+    flag = flag and not purchase.review_set.all()
+    return flag
