@@ -178,20 +178,19 @@
                             <div class="col-md-4">Title</div>
                             <div class="col-md-1">Price</div>
                             <div class="col-md-2">Released Percent</div>
-                            <div class="col-md-3">Transaction Date</div>
-                            <div class="col-md-2">Purchase Type</div>
+                            <div class="col-md-3">Purchase Date</div>
+                            <div class="col-md-2"></div>
                         </div>
                         <hr>
                         {% if ppurchases %}
                         {% for purchase in ppurchases %}
-                            <div class="row" style="font-size: 18px;">
+                            <div class="row" style="font-size: 17px;">
                                 <div class="col-md-4">{{ purchase.post.title }}</div>
                                 <div class="col-md-1">${{ purchase.post.price|floatformat:2|intcomma }}</div>
                                 <div class="col-md-2">{{ purchase.paid_percent }}%</div>
-                                <div class="col-md-3">{{ purchase.created_at|date }}</div>
+                                <div class="col-md-3">{{ purchase.created_at|date:"M d, Y" }}</div>
                                 <div class="col-md-2 pull-right">
                                     <button class="btn btn-primary btn-release" data-amount="{{ purchase.post.price }}" data-percent="{{ purchase.paid_percent }}" data-id="{{ purchase.id }}" data-transaction="{{ purchase.transaction }}" data-post-id="{{ purchase.post.id }}">Release</button>
-                                    <!-- <button class="btn btn-warning">Dispute</button> -->
                                 </div>
                             </div>
                             <hr>
@@ -206,18 +205,21 @@
                             <div class="col-md-4">Title</div>
                             <div class="col-md-1">Price</div>
                             <div class="col-md-3">Transaction ID</div>
-                            <div class="col-md-2">Transaction Date</div>
-                            <div class="col-md-2">Purchase Type</div>
+                            <div class="col-md-2">Purchase Date</div>
+                            <div class="col-md-2">Pay Type</div>
                         </div>
                         <hr>
                         {% if dpurchases %}
                         {% for purchase in dpurchases %}
-                            <div class="row" style="font-size: 18px;">
+                            <div class="row" style="font-size: 17px;">
                                 <div class="col-md-4">{{ purchase.post.title }}</div>
                                 <div class="col-md-1">${{ purchase.post.price|floatformat:2|intcomma }}</div>
                                 <div class="col-md-3">{{ purchase.transaction }}</div>
-                                <div class="col-md-2">{{ purchase.created_at|date }}</div>
-                                <div class="col-md-2">{{ purchase.type }}</div>
+                                <div class="col-md-2">{{ purchase.created_at|date:"M d, Y" }}</div>
+                                <div class="col-md-1">{{ purchase.type|title }}</div>
+                                <div class="col-md-1">
+                                    <button class="btn btn-warning">Rate</button>
+                                </div>
                             </div>
                             <hr>
                         {% endfor %}                    

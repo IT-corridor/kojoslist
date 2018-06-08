@@ -195,6 +195,10 @@
   <p>Do you want to post as a dealer?</p>
 </div>
 
+<div id="stripe-confirm" title="Confirmation" style="padding-top: 25px; display: none;">
+  <p style="margin-bottom: 12px;">You need to connect stripe or bank account to get paid after post ads.</p><p></p>
+  <p>Click continue to connect stripe or click submit to post ad.</p>
+</div>
 
 <div class="modal fade" id="addNew-event">
     <div class="modal-dialog">
@@ -254,7 +258,7 @@
 <script src="https://checkout.stripe.com/checkout.js"></script>
 <script type="text/javascript" src="/static/fullcalendar/fullcalendar.min.js"></script>
 <script>
-    var price; 
+    var price, stripe_confirmed=false; 
 
     var handler = StripeCheckout.configure({
         key: '{{ skey }}',
@@ -308,11 +312,26 @@
         }
 
         {% if not stripe_connected %}
-            if ($('#post-price').val().trim() != '') {
-                if (confirm("You need to connect stripe or bank to get paid after post ads.\nClick ok to connect or click cancel to continue to submit.")) {
-                    window.location.href = '/my-account';
-                    return false;
-                }
+            if ($('#post-price').val().trim() != '' && !stripe_confirmed) {
+                $( "#stripe-confirm" ).dialog({
+                    resizable: false,
+                    height: "auto",
+                    width: "auto",
+                    modal: true,
+                    buttons: {
+                        Continue: function() {
+                            $( this ).dialog( "close" );
+                            window.location.href = '/my-account';
+                            return false;
+                        },
+                        Submit: function() {
+                            $( this ).dialog( "close" );
+                            stripe_confirmed = true;
+                            $('#post-form').submit();
+                        }
+                    }
+                });
+                return false;
             }
         {% endif %}
     }); 
