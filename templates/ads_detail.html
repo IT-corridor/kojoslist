@@ -375,6 +375,7 @@
                 $('#result-modal').modal();
             } else {
                 alert('Thank you for your purchase.');
+                location.href = '/my-account?tab=purchase&pid={{ purchase.id }}';
             }
         }
     

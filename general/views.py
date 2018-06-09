@@ -825,18 +825,18 @@ def remove_subscription(request):
 
 @login_required(login_url='/accounts/login/')
 def my_account(request):
+    tab = request.GET.get('tab', 'profile')
+    purchase = request.GET.get('purchase')
     # finished purchases
     dpurchases = PostPurchase.objects.filter(purchaser=request.user, status=0) \
                                      .order_by('-created_at')
     # escrow purchases
     ppurchases = PostPurchase.objects.filter(purchaser=request.user).exclude(status=0) \
                                      .order_by('-created_at')
-
     categories = Review.objects.filter(post__owner=request.user) \
                                .values('post__category__name', 'post__category__parent__name', 
                                        'post__category__id') \
                                .distinct()
-
     for ii in categories:
         ii['reviews'] = Review.objects.filter(post__owner=request.user, 
                                               post__category__id=ii['post__category__id'])
@@ -850,6 +850,7 @@ def my_account(request):
     return render(request, 'my-account.html', {
         'host': request.user,
         'form': form,
+        'tab': tab,
         'reviews': categories,
         'dpurchases': dpurchases,
         'ppurchases': ppurchases,

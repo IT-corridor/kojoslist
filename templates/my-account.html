@@ -16,13 +16,13 @@
 
         <div class="content-right-content my-account">
             <ul class="nav nav-pills tabs">
-                <li class="active"><a class="tab" data-toggle="pill" href="#profile">Profile</a></li>
-                <li class=""><a class="tab" data-toggle="pill" href="#balance">ID Verification</a></li>
-                <li class=""><a class="tab" data-toggle="pill" href="#resume">Reviews</a></li>
-                <li class=""><a class="tab" data-toggle="pill" href="#purchase">Purchases</a></li>
+                <li {% if tab == 'profile' %}class="active"{% endif %}><a class="tab" data-toggle="pill" href="#profile">Profile</a></li>
+                <li {% if tab == 'balance' %}class="active"{% endif %}><a class="tab" data-toggle="pill" href="#balance">ID Verification</a></li>
+                <li {% if tab == 'resume' %}class="active"{% endif %}><a class="tab" data-toggle="pill" href="#resume">Reviews</a></li>
+                <li {% if tab == 'purchase' %}class="active"{% endif %}><a class="tab" data-toggle="pill" href="#purchase">Purchases</a></li>
             </ul>
             <div class="tab-content">
-                <div id="profile" class="tab-pane fade active in">
+                <div id="profile" class="tab-pane fade {% if tab == 'profile' %}active in{% endif %}">
                     <div class="pages balance">
                         <form class="login form-horizontal" method="POST">
                             {% csrf_token %}
@@ -149,7 +149,7 @@
                         </form>
                     </div>
                 </div>
-                <div id="balance" class="tab-pane fade">
+                <div id="balance" class="tab-pane fade {% if tab == 'balance' %}active in{% endif %}">
                     <div class="pages balance verify_section">
                         {% if not user.v_statue or user.v_statue == 'unverified' %}
                         <input id="ID_file" type="file" name="files[]" data-maxfilesize="4000000" class="hidden" data-maxuploadfile="20" data-imagequality="0.7">
@@ -164,14 +164,14 @@
                         {% endif %}
                     </div>
                 </div>       
-                <div id="resume" class="tab-pane fade">
+                <div id="resume" class="tab-pane fade {% if tab == 'resume' %}active in{% endif %}">
                     <div class="pages balance">
                         <div class="col-md-9 col-lg-8">
                             {% include '_review.html' %}
                         </div>
                     </div>
                 </div>
-                <div id="purchase" class="tab-pane fade">
+                <div id="purchase" class="tab-pane fade {% if tab == 'purchase' %}active in{% endif %}">
                     <div class="pages balance">
                         <div class="rv-title">Pending Purchases</div>
                         <div class="row" style="font-size: 18px; color: #4DBEE2; margin-top: 10px;">
@@ -190,7 +190,7 @@
                                 <div class="col-md-2">{{ purchase.paid_percent }}%</div>
                                 <div class="col-md-3">{{ purchase.created_at|date:"M d, Y" }}</div>
                                 <div class="col-md-2 pull-right">
-                                    <button class="btn btn-primary btn-release" data-amount="{{ purchase.post.price }}" data-percent="{{ purchase.paid_percent }}" data-id="{{ purchase.id }}" data-transaction="{{ purchase.transaction }}" data-post-id="{{ purchase.post.id }}">Release</button>
+                                    <button class="btn btn-primary btn-release brp-{{ purchase.id }}" data-amount="{{ purchase.post.price }}" data-percent="{{ purchase.paid_percent }}" data-id="{{ purchase.id }}" data-transaction="{{ purchase.transaction }}" data-post-id="{{ purchase.post.id }}">Release</button>
                                 </div>
                             </div>
                             <hr>
@@ -281,7 +281,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Release Escrow</h4>
+            <h4 class="modal-title">Verify amount to be released from escrow</h4>
           </div>
         <form id="release-form">
           <div class="modal-body" style="font-size: 16px; line-height: 22px;">
@@ -319,7 +319,7 @@
 <script src="/static/star-rating/star-rating.min.js"></script>
 
 <script>
-    var purchase_id, post_id;
+    var purchase_id = '{{ request.GET.pid }}', post_id;
 
     $('#rating-input').rating({
         min: 0,
@@ -340,8 +340,9 @@
     });
 
     jQuery(document).ready(function() {
+
         $('#result-modal').on('hidden.bs.modal', function () {
-            location.reload();
+            location.href = '/my-account?tab=purchase';
         });
 
         $('#rate-form').submit(function(e) {
@@ -387,14 +388,14 @@
                             $('#result-modal').modal();
                         } else {
                             alert('Thank you for your payment.');
-                            location.reload();
+                            location.href = '/my-account?tab=purchase';
                         }
                     }
                 });
             }            
         });
         // purchase / release management
-        jQuery("body").on("click", ".btn-release", function() {
+        $(".btn-release").click(function() {
             var amount = $(this).data('amount'),
                 transaction = $(this).data('transaction'),
                 percent = $(this).data('percent'),
@@ -530,6 +531,11 @@
         $('#id_dob').datetimepicker({
             format: 'MM/DD/YYYY'
         });
+
+        if (purchase_id) {
+            $('.brp-'+purchase_id).click();
+        }
+
     });
 </script>
 
