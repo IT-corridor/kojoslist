@@ -25,7 +25,9 @@
                 {% endif %}
                 <span class="pl-category">{{ post.0.category.name }}</span>
                 {% if post.0.region %}
-                <span class="pl-location">( {{ post.0.region.name }}, {{ post.0.region.state.name }}, {{ post.0.region.state.country.name }} )</span>
+                    <span class="pl-location">( {{ post.0.region.name }}, {{ post.0.region.state.name }}, {{ post.0.region.state.country.name }} )</span>
+                {% else %}
+                    <span class="pl-location">( Global )</span>
                 {% endif %}
                 <span class="pl-date">
                     Posted on {{ post.0.created_at|date:'m/d/Y' }}

@@ -83,7 +83,7 @@
                         <div class="col-md-12">
                             <div class="form-group edit-profile">
                                 <label>Specify City</label>
-                                <select id="ads_city" name="region{% if districts %} _1 {% endif %}" class="form-control edit-post-wrap" {% if not districts %} required="" {% endif %}>
+                                <select id="ads_city" name="region{% if districts %} _1 {% endif %}" class="form-control edit-post-wrap" {% if not districts and country %} required="" {% endif %}>
                                     <option value="">Select City</option>
                                     {% for cc in cities %}
                                     <option value="{{ cc.id }}" {% if cc.id == post.region_id or cc.id == post.region.district_id or cc.id == post.district_id %}selected{% endif %}>{{ cc.name }}</option>
