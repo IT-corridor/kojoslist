@@ -80,13 +80,15 @@ def search_ads(request):
     model = request.POST.get('model')
     others = request.POST.get('others') == 'true'
     view_mode = request.POST.get('view_mode')
-    is_world = request.POST.get('is_world')
+    is_world = request.POST.get('is_world') == 'True'
+    region = request.session.get('region')
 
     q = Q(title__icontains=keyword)
     if 'ck_search_title' not in request.POST:
         q = (Q(title__icontains=keyword) | Q(content__icontains=keyword))
-    if request.session.get('region') and not is_world:
-        q &= (Q(region_id=request.session['region']) | Q(region__district__id=request.session['region']))
+
+    if region and not is_world:
+        q &= (Q(region_id=region) | Q(region__district__id=region) | Q(region__isnull=True))
 
     if not others:
         q &= Q(owner=request.user)
@@ -617,7 +619,7 @@ def category_ads_dealer(request, category_id, kind):
 
     category = Category.objects.get(id=category_id)
     form = get_class(category.form+'Form')
-    posts = Post.objects.filter(Q(region=region) | Q(region__district=region)) \
+    posts = Post.objects.filter(Q(region=region) | Q(region__district=region) | Q(region__isnull=True)) \
                         .filter(category_id=category_id).exclude(status='deactive') \
                         .order_by('-created_at')
     if kind == 'owner':
@@ -672,9 +674,9 @@ def send_reply_email(request):
 def region_ads(request, region_id, region):
     is_world = False
     if region == 'city':
-        posts = Post.objects.filter(Q(region_id=region_id) | Q(region__district__id=region_id))
+        posts = Post.objects.filter(Q(region_id=region_id) | Q(region__district__id=region_id) | Q(region__isnull=True))
     elif region == 'state':    
-        posts = Post.objects.filter(region__state__id=region_id)
+        posts = Post.objects.filter(Q(region__state__id=region_id) | Q(region__isnull=True))
     elif region == 'world':
         is_world = True
         posts = Post.objects.all()
