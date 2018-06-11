@@ -376,9 +376,12 @@
                     success: function(data) {
                         jQuery('#ads_state').html(data);
                     }
-                });                
+                });
+                $('#ads_city').attr('required');
             } else {
                 jQuery('#ads_state').html("<option>All Regions</option>");
+                $('#ads_city').removeAttr('required', true);
+                $('#ads_district').removeAttr('required', true);
             }
             jQuery('#ads_city').html("<option value=''>All Locations</option>");
         });
