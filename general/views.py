@@ -278,12 +278,13 @@ def post_ads(request, ads_id):
             post = Post.objects.get(id=ads_id)
             model = eval(post.category.form)
             post = model.objects.get(id=ads_id)
-            states = State.objects.filter(country=post.region.state.country)
-            cities = City.objects.filter(state=post.region.state, district__isnull=True)    
+            if post.region:
+                states = State.objects.filter(country=post.region.state.country)
+                cities = City.objects.filter(state=post.region.state, district__isnull=True)    
 
-            districts = post.region.districts.all()
-            if post.region.district:    # for districts
-                districts = post.region.district.districts.all()
+                districts = post.region.districts.all()
+                if post.region.district:    # for districts
+                    districts = post.region.district.districts.all()
             
             images = post.images.all()
             detail_template = 'post/{}.html'.format(post.category.form)

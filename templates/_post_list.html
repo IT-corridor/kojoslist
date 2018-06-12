@@ -23,7 +23,7 @@
                 {% if post.0.price %}
                     <span class="pl-budget">${{ post.0.price|floatformat:2|intcomma }}</span>
                 {% endif %}
-                <span class="pl-category">{{ post.0.category.name }}</span>
+                <span class="pl-category">{{ post.0.category.parent.name }} / {{ post.0.category.name }}</span>
                 {% if post.0.region %}
                     <span class="pl-location">( {{ post.0.region.name }}, {{ post.0.region.state.name }}, {{ post.0.region.state.country.name }} )</span>
                 {% else %}
