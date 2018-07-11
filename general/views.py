@@ -120,7 +120,8 @@ def get_posts_with_image(posts, mine=False):
     for post in posts:
         if post.status != 'expired' or mine:
             image = Image.objects.filter(post=post).first()
-            img_name = image.name if image else 'dummy.jpg'
+            # need to be revised
+            img_name = 'thumbnail-'+image.name if image else 'dummy.jpg'
             posts_with_image.append((post, img_name))
     return posts_with_image
 
@@ -407,7 +408,7 @@ def upload_image(request):
     try:
         im = PilImage.open(settings.BASE_DIR+'/static/media/'+filename)
         im.thumbnail(size)
-        im.save(settings.BASE_DIR+'/static/media/thumbnail-'+filename, "JPEG")
+        im.save(settings.BASE_DIR+'/static/media/thumbnail-'+filename)
     except IOError:
         print "cannot create thumbnail for", filename
 
