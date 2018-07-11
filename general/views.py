@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import os
+import os, sys
 import json
 import stripe
 import datetime
 
+from PIL import Image as PilImage
 from random import randint
 
 from django.shortcuts import render
@@ -401,6 +402,15 @@ def upload_image(request):
 
     fs = FileSystemStorage()
     filename = fs.save(_type+myfile.name, myfile)
+
+    size = 128, 128
+    try:
+        im = PilImage.open(settings.BASE_DIR+'/static/media/'+filename)
+        im.thumbnail(size)
+        im.save(settings.BASE_DIR+'/static/media/thumbnail-'+filename, "JPEG")
+    except IOError:
+        print "cannot create thumbnail for", filename
+
     uploaded_file_url = fs.url(filename)
     res = {"image_url": uploaded_file_url,"image_name": uploaded_file_url.split('/')[-1]}
     return JsonResponse(res, safe=False)
