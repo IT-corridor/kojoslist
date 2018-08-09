@@ -56,6 +56,12 @@ class PostPurchaseAdmin(admin.ModelAdmin):
     search_fields = ['post']
 
 
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ['name', 'post', 'created_at']
+    list_filter = ['post']
+    search_fields = ['name']
+
+
 class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'detail_category', 'category', 'region', 'owner', 'created_at', 'by_dealer']
     search_fields = ['title', 'category']
@@ -122,7 +128,7 @@ admin.site.register(Search, SearchAdmin)
 admin.site.register(Country, CountryAdmin)
 admin.site.register(State, StateAdmin)
 admin.site.register(City, CityAdmin)
-admin.site.register(Image)
+admin.site.register(Image, ImageAdmin)
 admin.site.register(CampCategory, CampCategoryAdmin)
 admin.site.register(Campaign)
 admin.site.register(Perk, PerkAdmin)

@@ -119,7 +119,6 @@ def get_posts_with_image(posts, mine=False):
     posts_with_image = []
     for post in posts:
         if post.status != 'expired' or mine:
-            # image = Image.objects.filter(post=post).first()
             image = post.images.all().order_by('created_at').first()
             # need to be revised
             img_name = 'thumbnail-'+image.name if image else 'dummy.jpg'
@@ -327,7 +326,7 @@ def post_ads(request, ads_id):
 
         # ignore last empty one due to template
         images = request.POST.getlist('uploded_id[]')[:-1]  
-
+        print images, '##########'
         if form.is_valid():
             post = form.save()
             post.updated_at = datetime.datetime.now()
@@ -336,8 +335,9 @@ def post_ads(request, ads_id):
             pimages = [ii.name for ii in post.images.all()]
 
             # create objects for new images
-            for img in list(set(images)-set(pimages)):
-                Image.objects.create(post=post, name=img)
+            for img in images:      # to keep order
+                if img in list(set(images)-set(pimages)):
+                    Image.objects.create(post=post, name=img)
 
             # remove deleted ones
             for img in list(set(pimages)-set(images)):
