@@ -64,7 +64,7 @@ class ImageAdmin(admin.ModelAdmin):
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'detail_category', 'category', 'region', 'owner', 'created_at', 'by_dealer']
-    search_fields = ['title', 'category']
+    search_fields = ['title']
 
     def detail_category(self, obj):
         return '{}/{}'.format(obj.category.parent, obj.category)

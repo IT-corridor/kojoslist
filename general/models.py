@@ -113,7 +113,7 @@ class Post(models.Model):
     allow_other_contact = models.BooleanField(default=False)
     by_dealer = models.BooleanField(default=False)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.title
 
 
