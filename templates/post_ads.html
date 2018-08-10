@@ -142,10 +142,6 @@
                             <input type="hidden" name="by_dealer" id="by_dealer" value="0">
                             <div class="form-group edit-profile">
                                 <label style="color: #5bc0de;">Add Pictures</label>
-                                {% if not images %}
-                                    <input type="hidden" name="head_image" class="head_image">
-                                {% endif %}
-
                                 <ul id="loaded-files" class="upload-image-thumbs upload-image-ul">
                                     {% for image in images %}
                                         {% if image.is_head %}
@@ -348,6 +344,10 @@
     });
 
     jQuery(document).ready(function() {
+        if ($('.head_image').length == 0 ) {
+            jQuery(".upload-image-ul").append('<input type="hidden" name="head_image" class="head_image">');
+        }
+
         jQuery('#ads_category').change(function() {
             var obj_id = jQuery(this).val();
             
@@ -482,7 +482,7 @@
                             jQuery(".upload-image").addClass('active');
                             $('.head_image').val(response.image_name);
                         }
-                        
+
                         jQuery(".upload-image").removeClass("upload-image");
                         jQuery(".upload-image-ul").append('<li class="upload-placeholder upload-image"><div class="uploadedImg"></div><input type="hidden" name="uploded_id[]" class="uploded_id" /></li>');
                     }
