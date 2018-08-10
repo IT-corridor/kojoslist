@@ -119,7 +119,7 @@ def get_posts_with_image(posts, mine=False):
     posts_with_image = []
     for post in posts:
         if post.status != 'expired' or mine:
-            image = post.images.filter(is_head=True).first()
+            image = post.images.filter(is_head=True).first() or post.images.all().first()
             # need to be revised
             img_name = 'thumbnail-'+image.name if image else 'dummy.jpg'
             posts_with_image.append((post, img_name))
