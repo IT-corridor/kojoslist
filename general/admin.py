@@ -57,7 +57,7 @@ class PostPurchaseAdmin(admin.ModelAdmin):
 
 
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ['name', 'post', 'created_at']
+    list_display = ['name', 'post', 'created_at', 'is_head']
     list_filter = ['post']
     search_fields = ['name']
 

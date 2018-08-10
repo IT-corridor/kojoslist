@@ -1015,3 +1015,11 @@ span.num-guests.open {
 .slick-thumb:hover {
     border: 1px solid gold;
 }
+
+.upload-placeholder.active {
+    border: solid 6px #01FF70;
+    border-radius: 5px;
+    width: 106px;
+    height: 105px;
+    margin: 5px 8px 0px 0;
+}

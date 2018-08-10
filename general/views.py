@@ -119,7 +119,7 @@ def get_posts_with_image(posts, mine=False):
     posts_with_image = []
     for post in posts:
         if post.status != 'expired' or mine:
-            image = post.images.all().order_by('created_at').first()
+            image = post.images.filter(is_head=True).first()
             # need to be revised
             img_name = 'thumbnail-'+image.name if image else 'dummy.jpg'
             posts_with_image.append((post, img_name))
@@ -325,8 +325,7 @@ def post_ads(request, ads_id):
             form = form(request.POST)
 
         # ignore last empty one due to template
-        images = request.POST.getlist('uploded_id[]')[:-1]  
-        print images, '##########'
+        images = request.POST.getlist('uploded_id[]')[:-1]
         if form.is_valid():
             post = form.save()
             post.updated_at = datetime.datetime.now()
@@ -335,9 +334,8 @@ def post_ads(request, ads_id):
             pimages = [ii.name for ii in post.images.all()]
 
             # create objects for new images
-            for img in images:      # to keep order
-                if img in list(set(images)-set(pimages)):
-                    Image.objects.create(post=post, name=img)
+            for img in list(set(images)-set(pimages)):
+                Image.objects.create(post=post, name=img)
 
             # remove deleted ones
             for img in list(set(pimages)-set(images)):
@@ -347,6 +345,10 @@ def post_ads(request, ads_id):
                     pass
                 Image.objects.filter(name=img).delete()
 
+            # update head image
+            head_url = request.POST.get('head_image').split('/')[-1]
+            post.images.all().update(is_head=False)
+            post.images.filter(name=head_url).update(is_head=True)
 
             price = int(post.category.price * 100)
             card = request.POST.get('stripeToken')
