@@ -84,3 +84,7 @@ def can_rate(purchase):
     flag = not purchase.udpated_at or purchase.udpated_at >= timezone.now() + datetime.timedelta(days=-30)
     flag = flag and not purchase.review_set.all()
     return flag
+
+@register.filter
+def head_sort_images(post):
+    return post.images.all().order_by('-is_head')

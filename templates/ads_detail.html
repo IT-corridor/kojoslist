@@ -43,7 +43,7 @@
                 <div class="col-md-6">
                     <div class="product-img col-md-12" style="margin-bottom: 15px;">
                         {% if post.images.all %}
-                            {% for img in post.images.all %}
+                            {% for img in post|head_sort_images %}
                                 <img class="img-responsive" src="/static/media/{{ img.name }}" alt="">
                             {% endfor %}
                         {% else %}
