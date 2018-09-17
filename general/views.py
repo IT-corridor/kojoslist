@@ -1037,12 +1037,11 @@ def release_purchase(request):
     purchase = PostPurchase.objects.get(id=p_id)
 
     # send money to the post's owner
-    amount = int(purchase.post.price * percent)
+    amount = int(purchase.post.price * percent * (1.0 - settings.APP_FEE))
 
     transfer = stripe.Transfer.create(
         amount=amount,
         currency="usd",
-        application_fee = int(amount * settings.APP_FEE),
         source_transaction=purchase.transaction,
         destination=purchase.post.owner.socialaccount_set.get(provider='stripe').uid,
     )
