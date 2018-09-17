@@ -1042,6 +1042,7 @@ def release_purchase(request):
     transfer = stripe.Transfer.create(
         amount=amount,
         currency="usd",
+        application_fee = int(amount * settings.APP_FEE),
         source_transaction=purchase.transaction,
         destination=purchase.post.owner.socialaccount_set.get(provider='stripe').uid,
     )
